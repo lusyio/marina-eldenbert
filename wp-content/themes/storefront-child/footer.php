@@ -17,7 +17,7 @@
 <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="container pt-3 pb-3">
         <div class="row">
-            <div class="col-12 text-center col-lg-4 text-lg-left footer-logo m-auto">
+            <div class="col-12 text-center col-lg-3 text-lg-left footer-logo m-auto">
                 <div class="site-info">
                     <?php if (get_custom_logo()): ?>
 
@@ -30,17 +30,17 @@
                     <?php endif; ?>
                 </div><!-- close .site-info -->
             </div>
-            <div class="col-12 text-center col-lg-5 text-lg-left mb-lg-0 mb-4">
+            <div class="col-12 text-center col-lg-7 text-lg-left mb-lg-0 mb-4">
                 <div class="row">
 
                     <?php
                     if ($menu_items = wp_get_nav_menu_items('second')) {
                         $menu_list = '';
-                        echo '<div class="col-12 text-center col-md-6 text-lg-left">';
+                        echo '<div class="col-12 text-center col-md-4 text-lg-left">';
                         echo '<div class="footer-menu">';
                         echo '<ul class="menu" id="menu-second">';
                         $menu_number = 0;
-                        $half_count = ceil(count($menu_items) / 2);
+                        $half_count = ceil(count($menu_items) / 3);
                         foreach ((array)$menu_items as $key => $menu_item) {
                             $title = $menu_item->title; // заголовок элемента меню (анкор ссылки)
                             $url = $menu_item->url; // URL ссылки
@@ -50,10 +50,13 @@
                                 echo '</ul>';
                                 echo '</div>';
                                 echo '</div>';
-                                echo '<div class="col-12 text-center col-md-6 text-lg-left">';
+                                echo '<div class="col-12 text-center col-md-4 text-lg-left">';
                                 echo '<div class="footer-menu">';
                                 echo '<ul class="menu" id="menu-second_1">';
                                 echo '<li class="mb-lg-3 mb-3"><a href="' . $url . '">' . $title . '</a></li>';
+                                if ($menu_number == $half_count){
+                                    $menu_number = 0;
+                                }
                             }
                             $menu_number++;
                         }
@@ -64,7 +67,7 @@
                     ?>
                 </div>
             </div>
-            <div class="col-12 footer-socials text-center col-lg-3 text-lg-right m-auto">
+            <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto">
                 <div>
                     <a class="text-decoration-none socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
