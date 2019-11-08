@@ -54,7 +54,7 @@
                                 echo '<div class="footer-menu">';
                                 echo '<ul class="menu" id="menu-second_1">';
                                 echo '<li class="mb-lg-3 mb-3"><a href="' . $url . '">' . $title . '</a></li>';
-                                if ($menu_number == $half_count){
+                                if ($menu_number == $half_count) {
                                     $menu_number = 0;
                                 }
                             }
@@ -125,6 +125,18 @@
 </footer><!-- #colophon -->
 
 <?php do_action('storefront_after_footer'); ?>
+<script src="/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js"></script>
+<script>
+    var swiperPopular = new Swiper('.swiper-container-popular', {
+        pagination: {
+            el: '.popular-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                return '<span class="popular ' + className +'">' + (index + 1) + '</span>';
+            },
+        },
+    });
+</script>
 
 </div><!-- #page -->
 
