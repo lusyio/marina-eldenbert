@@ -28,7 +28,7 @@
     <header id="masthead" class="site-header" role="banner" style="<?php storefront_header_styles(); ?>">
 
         <div class="container">
-            <nav class="navbar navbar-dark navbar-expand-xl p-0 justify-content-between">
+            <nav class="navbar navbar-light navbar-expand-xl p-0 justify-content-between">
                 <div class="navbar-brand">
                     <?php if (get_custom_logo()): ?>
                         <?php echo get_custom_logo(); ?>

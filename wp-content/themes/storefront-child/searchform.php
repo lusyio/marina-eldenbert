@@ -1,4 +1,4 @@
-<div class="search-div position-relative mr-1 mr-sm-4 mt-auto mb-auto">
+<div class="search-div position-relative mr-1 mr-sm-3 mt-auto mb-auto">
     <div id="searchBtn" class="search-icon">
         <div class="search-btn">
             <img src="/wp-content/themes/storefront-child/svg/search-black.svg" alt="">
