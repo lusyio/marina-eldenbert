@@ -1,7 +1,7 @@
 <div class="search-div position-relative mr-1 mr-sm-4 mt-auto mb-auto">
     <div id="searchBtn" class="search-icon">
         <div class="search-btn">
-            <img src="/wp-content/themes/storefront-child/svg/search.svg" alt="">
+            <img src="/wp-content/themes/storefront-child/svg/search-black.svg" alt="">
         </div>
     </div>
     <form id="searchForm" role="search" method="get" class="search-form"

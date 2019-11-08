@@ -17,17 +17,17 @@
 <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="container pt-3 pb-3">
         <div class="row">
-            <div class="col-12 text-center col-lg-4 text-lg-left footer-logo mb-lg-0 mb-4">
+            <div class="col-12 text-center col-lg-4 text-lg-left footer-logo m-auto">
                 <div class="site-info">
-                    <a class="site-title"
-                       href="<?php echo esc_url(home_url('/')); ?>"><?php esc_url(bloginfo('name')); ?>
-                        <p class="mb-0 site-description"><?php bloginfo('description'); ?></p>
-                    </a>
-                    <p class="mb-0 footer-credits d-lg-block d-none">
-                        <a class="credits" href="https://richbee.ru/" target="_blank"><img
-                                    src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
-                    </p>
+                    <?php if (get_custom_logo()): ?>
 
+                        <?php echo get_custom_logo(); ?>
+                    <?php else: ?>
+                        <a class="site-title"
+                           href="<?php echo esc_url(home_url('/')); ?>"><?php esc_url(bloginfo('name')); ?>
+                            <p class="mb-0 site-description"><?php bloginfo('description'); ?></p>
+                        </a>
+                    <?php endif; ?>
                 </div><!-- close .site-info -->
             </div>
             <div class="col-12 text-center col-lg-5 text-lg-left mb-lg-0 mb-4">
@@ -64,26 +64,44 @@
                     ?>
                 </div>
             </div>
-            <div class="col-12 footer-socials text-center col-lg-3 text-lg-right">
-                <div class="mb-2">
+            <div class="col-12 footer-socials text-center col-lg-3 text-lg-right m-auto">
+                <div>
                     <a class="text-decoration-none socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
                     <a class="text-decoration-none ml-3 socials" href="#"><img
+                                src="/wp-content/themes/storefront-child/svg/facebook.svg" alt=""></a>
+                    <a class="text-decoration-none ml-3 socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/instagram.svg" alt=""></a>
                 </div>
-                <p class="mb-0">
-                    <a class="footer-terms" href="/terms/">Политика конфиденциальности</a>
-                </p>
-                <p class="footer-name-p">
-                    &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
-                    , 2015 - <?php echo date('Y'); ?>
-                </p>
                 <p class="mb-0 footer-credits d-lg-none d-block">
                     <a class="credits" href="https://richbee.ru/"
                        target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
                 </p>
             </div>
         </div>
+    </div>
+    <hr class="footer-hr">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <p class="mb-0 footer-disclaimer">
+                    <img src="/wp-content/themes/storefront-child/svg/18.svg" alt="">
+                    Сайт может содержать материалы,
+                    не предназначенные для просмотра
+                    лицами, не достигшими 18 лет!
+                </p>
+            </div>
+            <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-md-right">
+                <p class="footer-name-p">
+                    &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
+                    , <?php echo date('Y'); ?></p>
+                <p class="mb-0 footer-credits d-lg-block d-none">
+                    <a class="credits" href="https://richbee.ru/" target="_blank"><img
+                                src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
+                </p>
+            </div>
+        </div>
+
 
     </div>
 
