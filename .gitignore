@@ -1,0 +1,8 @@
+/*
+.DS_Store
+!.gitignore
+!/wp-content
+/wp-content/*
+!wp-content/themes
+wp-content/themes/*
+!wp-content/themes/storefront-child
