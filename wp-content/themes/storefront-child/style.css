@@ -1381,15 +1381,19 @@ table:not( .has-background ) tbody td {
     color: #757575;
 }
 
-.news-n-events-row .col-lg-4, .announcement-row > .col-lg-6:nth-last-child(-n+2) {
+.news-n-events-row > .col-lg-4, .announcement-row > .col-lg-6:nth-last-child(-n+2) {
     margin-bottom: 2.5rem;
+}
+
+.blog-row > .col-lg-6{
+    margin-bottom: 3.125rem;
 }
 
 .announcement-row > .col-lg-6{
     margin-bottom: 3.75rem;
 }
 
-.news-n-events-row, .announcement-row {
+.news-n-events-row, .announcement-row, .blog-row {
     margin-top: 3.125rem;
 }
 
@@ -1419,6 +1423,11 @@ table:not( .has-background ) tbody td {
     -o-transform: translateY(-5px);
     transform: translateY(-5px);
     cursor: pointer;
+}
+
+.custom-logo-link img{
+    height: 90px !important;
+    width: auto !important;
 }
 
 

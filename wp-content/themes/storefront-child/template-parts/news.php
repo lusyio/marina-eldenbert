@@ -66,8 +66,7 @@ Template Post Type: post, page, product
             <div class="row">
                 <div class="col text-center"><a class="announcement__link" href="#">Смотреть все анонсы</a></div>
             </div>
-        </div>
-        <div class="container blog">
+        </div><div class="container blog">
             <div class="row blog-hr-block">
                 <div class="col-12">
                     <p class="blog-hr-block__text">Авторский блог</p>
@@ -119,6 +118,7 @@ Template Post Type: post, page, product
                 <div class="col text-center"><a class="blog__link" href="#">Смотреть все посты</a></div>
             </div>
         </div>
+
         <div class="container news-n-events">
             <div class="row news-n-events-hr-block">
                 <div class="col-12">
