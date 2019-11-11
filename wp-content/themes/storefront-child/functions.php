@@ -218,7 +218,7 @@ function new_woocommerce_checkout_fields($fields)
         unset($fields['billing']['billing_state']); //удаляем Населённый пункт
         unset($fields['billing']['billing_company']); //удаляем Населённый пункт
         unset($fields['billing']['phone']); //удаляем Населённый пункт
-
+        unset($fields['order']['order_comments']); //удаляем Населённый пункт
     }
     return $fields;
 }
@@ -339,3 +339,4 @@ function jk_woocommerce_breadcrumbs() {
 }
 
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+
