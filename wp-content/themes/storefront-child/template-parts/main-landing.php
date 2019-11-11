@@ -87,15 +87,68 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                 </div>
+                <div class="swiper-pagination popular-pagination">
+                </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="swiper-pagination popular-pagination">
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
+<div class="container-related">
+    <div class="container position-relative">
+        <div class="container-related__prev"><img src="/wp-content/themes/storefront-child/svg/related-next.svg" alt=""></div>
+        <div class="container-related__next"><img src="/wp-content/themes/storefront-child/svg/related-next.svg" alt=""></div>
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-12 offset-0 text-center">
+                <div class="swiper-container-related">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="related-img-container">
+                                <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
+                                <span class="related-img-container__price">149 Р</span>
+                                <p class="related-img-container__header">Поющая для дракона</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

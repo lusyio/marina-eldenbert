@@ -132,8 +132,16 @@
             el: '.popular-pagination',
             clickable: true,
             renderBullet: function (index, className) {
-                return '<span class="popular ' + className +'">' + (index + 1) + '</span>';
+                return '<span class="popular-pagination__btn ' + className +'"></span>';
             },
+        },
+    });
+    var swiperRelated = new Swiper('.swiper-container-related', {
+        spaceBetween: 57,
+        slidesPerView: 4,
+        navigation: {
+            nextEl: '.container-related__next',
+            prevEl: '.container-related__prev',
         },
     });
 </script>
