@@ -1053,6 +1053,19 @@ table:not( .has-background ) tbody td {
     box-shadow: 0px 0px 20px #797982;
 }
 
+.container-related .product .price{
+    display: none;
+}
+
+.container-related .product .woocommerce-loop-product__title{
+    display: none;
+}
+
+.container-related .product img{
+    border: 1px solid #1C1919;
+    box-shadow: 0px 0px 20px #797982;
+}
+
 .related-img-container__price {
     background: #F8AC53;
     border-radius: 20px;

@@ -40,9 +40,11 @@ do_action('woocommerce_before_cart'); ?>
                     <?php do_action('woocommerce_before_cart_contents'); ?>
 
                     <?php
+                    $product_ids_in_cart = array();
                     foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
                         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+                        $product_ids_in_cart[] = $product_id;
 
                         if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) {
                             $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
@@ -189,6 +191,7 @@ do_action('woocommerce_before_cart'); ?>
             </div>
         </div>
     </div>
+    <?php wc_get_template( 'cart/recommended.php', array('product_ids_in_cart' => $product_ids_in_cart) ); ?>
 </div>
 
 <?php do_action('woocommerce_after_cart'); ?>
