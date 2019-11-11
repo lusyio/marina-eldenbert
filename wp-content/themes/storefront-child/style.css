@@ -1381,11 +1381,15 @@ table:not( .has-background ) tbody td {
     color: #757575;
 }
 
-.news-n-events-row .col-lg-4 {
+.news-n-events-row .col-lg-4, .announcement-row > .col-lg-6:nth-last-child(-n+2) {
     margin-bottom: 2.5rem;
 }
 
-.news-n-events-row {
+.announcement-row > .col-lg-6{
+    margin-bottom: 3.75rem;
+}
+
+.news-n-events-row, .announcement-row {
     margin-top: 3.125rem;
 }
 
