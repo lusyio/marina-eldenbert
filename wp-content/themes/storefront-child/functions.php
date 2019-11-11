@@ -323,3 +323,17 @@ function jk_related_products_args($args)
     return $args;
 }
 
+/**
+ * Замена стандартных крошек от вукомерса
+ */
+add_filter( 'woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs', 20);
+function jk_woocommerce_breadcrumbs() {
+    return array(
+        'delimiter'   => ' / ',
+        'wrap_before' => '<nav class="woocommerce-breadcrumb container breadcrumb-container" itemprop="breadcrumb">',
+        'wrap_after'  => '</nav>',
+        'before'      => '',
+        'after'       => '',
+        'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+    );
+}
