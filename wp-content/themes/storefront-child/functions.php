@@ -434,3 +434,24 @@ function add_links_to_book_stores()
     }
 }
 
+/**
+ * Удаляем uncategorized из хлебных крошек
+ *
+ * @param  Array $crumbs    Breadcrumb crumbs for WooCommerce breadcrumb.
+ * @return Array   WooCommerce Breadcrumb crumbs with default category removed.
+ */
+function your_prefix_wc_remove_uncategorized_from_breadcrumb( $crumbs ) {
+    $category 	= get_option( 'default_product_cat' );
+    $category_link 	= get_category_link( $category );
+
+    foreach ( $crumbs as $key => $crumb ) {
+        if ( in_array( $category_link, $crumb ) ) {
+            unset( $crumbs[ $key ] );
+        }
+    }
+
+    return array_values( $crumbs );
+}
+
+add_filter( 'woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb' );
+

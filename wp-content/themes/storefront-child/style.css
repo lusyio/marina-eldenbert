@@ -1203,6 +1203,10 @@ table.cart {
     padding-bottom: 30px;
 }
 
+.related .swiper-container-related{
+    padding-bottom: 40px;
+}
+
 .swiper-container-related {
     padding: 30px;
     margin-left: -30px;
@@ -1400,7 +1404,7 @@ table.cart {
     right: 0;
     width: 80%;
     border-bottom: 1px solid #D8D8D8;
-    top: 45%;
+    top: 50%;
     margin-right: 15px;
 }
 
@@ -1410,7 +1414,7 @@ table.cart {
     right: 0;
     width: 70%;
     border-bottom: 1px solid #D8D8D8;
-    top: 45%;
+    top: 50%;
     margin-right: 15px;
 }
 
@@ -1538,6 +1542,10 @@ table.cart {
 
 .blog-card {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card__img{
+    width: 100%;
 }
 
 .blog-card__date {
@@ -2003,10 +2011,22 @@ and (max-width: 768px) {
         content: none;
     }
 
+    .blog-hr-block__text:after, .news-n-events-hr-block__text:after{
+        width: 45%;
+    }
+
 }
 
 @media screen
 and (max-width: 576px) {
+
+    .announcement-hr-block__text:after{
+        width: 55%;
+    }
+
+    .blog-hr-block__text:after, .news-n-events-hr-block__text:after{
+        width: 20%;
+    }
 
     .header-profile img, .basket-btn__label img, .search-btn img {
         width: 20px;
