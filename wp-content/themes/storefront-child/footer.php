@@ -128,14 +128,17 @@
 <script src="/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js"></script>
 <script>
     var swiperPopular = new Swiper('.swiper-container-popular', {
+        fadeEffect: { crossFade: true },
+        effect: 'fade',
         pagination: {
             el: '.popular-pagination',
             clickable: true,
             renderBullet: function (index, className) {
-                return '<span class="popular-pagination__btn ' + className +'"></span>';
+                return '<span class="popular-pagination__btn ' + className + '"></span>';
             },
         },
     });
+
     var swiperRelated = new Swiper('.swiper-container-related', {
         spaceBetween: 57,
         slidesPerView: 4,
