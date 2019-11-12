@@ -51,6 +51,7 @@ if ($related_products) : ?>
                                         <a href="<?php echo $related_product->get_permalink(); ?>">
                                             <div class="related-img-container">
                                                 <?php echo $related_product->get_image(200); ?>
+                                                <span class="related-img-container__price"><?php echo $related_product->get_price_html(); ?></span>
                                             </div>
                                         </a>
                                     </div>
