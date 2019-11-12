@@ -18,6 +18,10 @@ body {
     overflow-x: hidden;
 }
 
+a:focus, button:focus, .button.alt:focus, input:focus, textarea:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus {
+    outline: none;
+}
+
 article,
 aside,
 details,
@@ -94,10 +98,6 @@ ul.menu li.current-menu-item > a:before {
     position: absolute;
     border-bottom: 1px solid #000;
     bottom: 4px;
-}
-
-.form-control:focus {
-    box-shadow: none !important;
 }
 
 /*--------------------------------------------------------------
@@ -1068,13 +1068,13 @@ table.cart {
 --------------------------------------------------------------*/
 
 .popular {
-    padding-top: 60px;
-    padding-bottom: 130px;
+    padding-top: 3.75rem;
+    padding-bottom: 8.125rem;
 }
 
 .popular-header {
     font-weight: 900;
-    font-size: 48px;
+    font-size: 3rem;
     line-height: 56px;
     color: #F8AC53;
     padding: 0;
@@ -1084,7 +1084,7 @@ table.cart {
 
 .popular-title {
     font-weight: normal;
-    font-size: 36px;
+    font-size: 2.25rem;
     line-height: 42px;
     color: #000000;
     padding: 0;
@@ -1094,7 +1094,7 @@ table.cart {
 
 .popular-content {
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 24px;
     color: #000000;
     margin-bottom: 65px;
@@ -1115,6 +1115,29 @@ table.cart {
     -ms-transition: ease-in 200ms;
     -o-transition: ease-in 200ms;
     transition: ease-in 200ms;
+}
+
+.single_add_to_cart_button {
+    font-size: 1.125rem;
+    line-height: 24px;
+    color: #FFFFFF;
+    border-radius: 40px;
+    background-color: #F8AC53 !important;
+    text-align: center;
+    border: none;
+    padding: 16px 28px;
+}
+
+.single_add_to_cart_button:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px);
+    -webkit-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    cursor: pointer;
 }
 
 .popular-btn:hover {
@@ -1150,7 +1173,7 @@ table.cart {
     cursor: pointer;
 }
 
-.woocommerce-product-gallery__image > a > img{
+.woocommerce-product-gallery__image > a > img {
     position: relative;
     z-index: 3;
 }
@@ -1654,7 +1677,64 @@ table.cart {
     line-height: 42px;
     color: #000000;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: 24px;
+}
+
+.product_title.entry-title {
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 36px;
+    color: #000000;
+}
+
+.woocommerce-product-details__short-description p {
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.woocommerce-product-details__short-description{
+    margin-bottom: 36px;
+}
+
+.product-price{
+    background: #EEEBE6;
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 28px;
+    text-align: center;
+    color: #000000;
+    padding: 16px 25px;
+    position: absolute;
+    z-index: 3;
+    left: 32%;
+    bottom: -30px;
+}
+
+.attr-label:last-of-type {
+    margin-bottom: 36px;
+}
+
+.attr-label {
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 19px;
+    color: #757575;
+    margin-bottom: 12px;
+}
+
+.attr-label > a {
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 19px;
+    color: #F8AC53;
+}
+
+.attr-label > a:hover {
+    color: #F8AC53;
 }
 
 .breadcrumb-container {
@@ -1833,7 +1913,7 @@ table.cart {
 
 .grid-item img {
     display: block;
-    width: 100%;
+    width: 100%;;
 }
 
 .grid {
@@ -1890,7 +1970,20 @@ and (max-width: 1199px) {
 
 @media screen
 and (max-width: 991px) {
+    .popular-title {
+        margin-top: 5.625rem;
+    }
 
+    .popular-btn {
+        max-width: 227px;
+        margin: auto;
+    }
+
+    .popular-pagination {
+        text-align: center;
+        top: 632px !important;
+        bottom: unset !important;
+    }
 
 }
 
@@ -1909,6 +2002,7 @@ and (max-width: 768px) {
         display: none;
         content: none;
     }
+
 }
 
 @media screen
@@ -1956,4 +2050,13 @@ and (max-width: 576px) {
         width: 100%;
     }
 
+}
+
+@media screen
+and (max-width: 320px) {
+    .popular-pagination {
+        text-align: center;
+        top: 592px !important;
+        bottom: unset !important;
+    }
 }

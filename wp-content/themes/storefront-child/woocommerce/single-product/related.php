@@ -23,13 +23,6 @@ if ($related_products) : ?>
 
     <section class="related products">
 
-        <h2 class="related-product"><?php esc_html_e('Вместе с книгой ', 'woocommerce');
-            echo '"';
-            echo the_title();
-            echo '"';
-            echo '<br/>';
-            echo ' также покупают:' ?></h2>
-
         <?php woocommerce_product_loop_start(); ?>
 
         <div class="container-related pt-0 bg-white">
@@ -42,6 +35,12 @@ if ($related_products) : ?>
                 </div>
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1 col-12 offset-0 text-center">
+                        <h2 class="related-product text-left"><?php esc_html_e('Вместе с книгой ', 'woocommerce');
+                            echo '"';
+                            echo the_title();
+                            echo '"';
+                            echo '<br/>';
+                            echo ' также покупают:' ?></h2>
                         <div class="swiper-container-related">
                             <div class="swiper-wrapper">
 

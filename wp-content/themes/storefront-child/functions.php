@@ -345,7 +345,92 @@ remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_ad
  */
 remove_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
 
+//Убираем зум на фото продукта
 function remove_image_zoom_support() {
     remove_theme_support( 'wc-product-gallery-zoom' );
 }
 add_action( 'wp', 'remove_image_zoom_support', 100 );
+
+//удаляем количество на странице продукта
+function custom_remove_all_quantity_fields( $return, $product ) {return true;}
+add_filter( 'woocommerce_is_sold_individually','custom_remove_all_quantity_fields', 10, 2 );
+
+/**
+ * Вывод атрибутов на странице товара
+ */
+
+// Функция вывода атрибута
+function productAuthor() {
+    global $product;
+// Получаем элементы таксономии атрибута
+    $attribute_names = get_the_terms($product->get_id(), 'pa_author-book');
+
+    if ($attribute_names) {
+        if (count($attribute_names) > 1) {
+            $attribute_name = "Авторы: ";
+        } else {
+            $attribute_name = "Автор: ";
+        }
+// Вывод имени атрибута
+        echo '<p class="attr-label">';
+        echo  wc_attribute_label($attribute_name);
+
+// Выборка значения заданного атрибута
+        foreach ($attribute_names as $attribute_name):
+// Вывод значений атрибута
+            echo '<a href="/author-book/' . $attribute_name->slug . '/">' ;
+            echo $attribute_name->name;
+            echo '</a> ' ;
+        endforeach;
+        echo '</p>' ;
+    }
+}
+// Определяем место вывода атрибута
+add_action('woocommerce_single_product_summary', 'productAuthor', 15);
+
+// Функция вывода атрибута
+function productSeries() {
+    global $product;
+// Получаем элементы таксономии атрибута
+    $attribute_names = get_the_terms($product->get_id(), 'pa_series-book');
+    $attribute_name = "Цикл: ";
+    if ($attribute_names) {
+// Вывод имени атрибута
+        echo '<p class="attr-label">';
+        echo  wc_attribute_label($attribute_name);
+
+// Выборка значения заданного атрибута
+        foreach ($attribute_names as $attribute_name):
+// Вывод значений атрибута
+            echo '<a href="/product-category/' . $attribute_name->slug . '/">' ;
+            echo $attribute_name->name;
+            echo '</a>' ;
+            echo '</p>' ;
+            break;
+        endforeach;
+    }
+}
+// Определяем место вывода атрибута
+add_action('woocommerce_single_product_summary', 'productSeries', 15);
+
+//Удаляем цену
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+
+/**
+ * Добавляем ссылки на магазины с бумажными книгами
+ */
+add_action('woocommerce_after_add_to_cart_form', 'add_links_to_book_stores');
+
+function add_links_to_book_stores()
+{
+    global $product;
+    $links = get_post_custom_values('buy_paper_book', $product->get_id());
+    if (!is_array($links)) {
+        return;
+    }
+    foreach ($links as $link) {
+        $link_parts = preg_split('~\(:\)~', $link, 2);
+        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить в бумаге на ' . $link_parts[0] . '</a></p>';
+    }
+}
+
