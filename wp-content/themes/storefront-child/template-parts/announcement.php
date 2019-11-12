@@ -17,7 +17,7 @@ Template Post Type: post, page, product
             <div class="row announcement-row">
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <a href="#">
                                 <div class="announcement-img">
                                     <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
@@ -25,7 +25,7 @@ Template Post Type: post, page, product
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
                             <h3 class="announcement-header">
                                 Аудиокнига “Девушка в цепях”
                             </h3>
@@ -38,7 +38,7 @@ Template Post Type: post, page, product
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <a href="#">
                                 <div class="announcement-img">
                                     <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
@@ -46,7 +46,7 @@ Template Post Type: post, page, product
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
                             <h3 class="announcement-header">
                                 Аудиокнига “Девушка в цепях”
                             </h3>
@@ -59,7 +59,7 @@ Template Post Type: post, page, product
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <a href="#">
                                 <div class="announcement-img">
                                     <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
@@ -67,7 +67,7 @@ Template Post Type: post, page, product
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
                             <h3 class="announcement-header">
                                 Аудиокнига “Девушка в цепях”
                             </h3>
@@ -80,7 +80,7 @@ Template Post Type: post, page, product
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <a href="#">
                                 <div class="announcement-img">
                                     <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
@@ -88,7 +88,7 @@ Template Post Type: post, page, product
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
                             <h3 class="announcement-header">
                                 Аудиокнига “Девушка в цепях”
                             </h3>
@@ -101,7 +101,7 @@ Template Post Type: post, page, product
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12">
                             <a href="#">
                                 <div class="announcement-img">
                                     <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
@@ -109,7 +109,7 @@ Template Post Type: post, page, product
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
                             <h3 class="announcement-header">
                                 Аудиокнига “Девушка в цепях”
                             </h3>

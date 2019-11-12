@@ -149,7 +149,7 @@
         breakpoints: {
             576: {
                 slidesPerView: 1,
-                spaceBetween: 0,
+                spaceBetween: 57,
             },
             768: {
                 slidesPerView: 2,
