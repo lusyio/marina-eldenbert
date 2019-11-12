@@ -1165,7 +1165,7 @@ table.cart {
 
 .popular-pagination {
     text-align: right;
-    bottom: 0 !important;
+    bottom: -20px !important;
 }
 
 .popular-pagination__btn {
