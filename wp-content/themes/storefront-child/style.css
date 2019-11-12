@@ -1837,10 +1837,23 @@ and (max-width: 768px) {
     .grid-item {
         width: 45%;
     }
+
+    .popular-img-container:before{
+        display: none;
+        content: none;
+    }
 }
 
 @media screen
 and (max-width: 576px) {
+
+    header#masthead{
+        padding: 0 !important;
+    }
+
+    .custom-logo-link img{
+        height: 60px !important;
+    }
 
     .woocommerce-shipping-methods .pure-material-radio > span::after {
         top: 3px;

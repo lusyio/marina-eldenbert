@@ -122,51 +122,32 @@ Template Post Type: post, page, product
             <div class="col-lg-10 offset-lg-1 col-12 offset-0 text-center">
                 <div class="swiper-container-related">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="related-img-container">
-                                    <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
-                                    <span class="related-img-container__price">149 Р</span>
-                                    <p class="related-img-container__header">Поющая для дракона</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="related-img-container">
-                                    <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
-                                    <span class="related-img-container__price">149 Р</span>
-                                    <p class="related-img-container__header">Поющая для дракона</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="related-img-container">
-                                    <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
-                                    <span class="related-img-container__price">149 Р</span>
-                                    <p class="related-img-container__header">Поющая для дракона</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="related-img-container">
-                                    <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
-                                    <span class="related-img-container__price">149 Р</span>
-                                    <p class="related-img-container__header">Поющая для дракона</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div class="related-img-container">
-                                    <img src="/wp-content/themes/storefront-child/images/related-example.jpg" alt="">
-                                    <span class="related-img-container__price">149 Р</span>
-                                    <p class="related-img-container__header">Поющая для дракона</p>
-                                </div>
-                            </a>
-                        </div>
+                        <?php
+                        $query = new WC_Product_Query(array(
+                            'status' => 'publish',
+                            'orderby' => 'order_clause',
+                            'order' => 'DESC',
+                            'meta_query' => array(
+                                'order_clause' => array(
+                                    'key' => 'total_sales',
+                                    'value' => 'some_value',
+                                    'type' => 'NUMERIC' // unless the field is not a number
+                                )),
+                            'limit' => 12,
+                        ));
+                        $products = $query->get_products();
+                        foreach ($products as $product):
+                            ?>
+                            <div class="swiper-slide">
+                                <a href="<?php echo $product->get_permalink(); ?>">
+                                    <div class="related-img-container">
+                                        <?php echo $product->get_image(200); ?>
+                                        <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                        <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
