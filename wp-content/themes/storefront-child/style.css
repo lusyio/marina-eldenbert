@@ -1548,6 +1548,14 @@ table.cart {
     width: 100%;
 }
 
+h2.related-product{
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+    color: #000000;
+    margin-top: 5rem;
+}
+
 .blog-card__date {
     font-weight: 300;
     font-size: 0.875rem;
