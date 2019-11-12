@@ -143,8 +143,8 @@ Template Post Type: post, page, product
                                     <div class="related-img-container">
                                         <?php echo $product->get_image(200); ?>
                                         <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
-                                        <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
                                     </div>
+                                    <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
                                 </a>
                             </div>
                         <?php endforeach; ?>
