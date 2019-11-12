@@ -1390,8 +1390,8 @@ table.cart {
     height: 100%;
     border: 20px solid #EEEBE6;
     position: absolute;
-    top: -2.5rem;
-    left: -2.5rem;
+    top: -1.875rem;
+    left: -1.875rem;
     z-index: 1;
 }
 
@@ -1413,11 +1413,11 @@ table.cart {
 
 .announcement-img:hover {
     cursor: pointer;
-    -webkit-transform: translate(1.875rem, 1.875rem);
-    -moz-transform: translate(1.875rem, 1.875rem);
-    -ms-transform: translate(1.875rem, 1.875rem);
-    -o-transform: translate(1.875rem, 1.875rem);
-    transform: translate(1.875rem, 1.875rem);
+    -webkit-transform: translate(0.9375rem, 0.9375rem);
+    -moz-transform: translate(0.9375rem, 0.9375rem);
+    -ms-transform: translate(0.9375rem, 0.9375rem);
+    -o-transform: translate(0.9375rem, 0.9375rem);
+    transform: translate(0.9375rem, 0.9375rem);
 }
 
 .announcement-btn:hover {
