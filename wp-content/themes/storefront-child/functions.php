@@ -455,3 +455,9 @@ function your_prefix_wc_remove_uncategorized_from_breadcrumb( $crumbs ) {
 
 add_filter( 'woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb' );
 
+add_action( 'init', 'jk_remove_storefront_handheld_footer_bar' );
+
+function jk_remove_storefront_handheld_footer_bar() {
+    remove_action( 'storefront_footer', 'storefront_handheld_footer_bar', 999 );
+}
+
