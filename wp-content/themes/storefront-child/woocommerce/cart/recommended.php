@@ -53,12 +53,11 @@ if ($related_products) : ?>
                             <?php foreach ($related_products
                                            as $related_product) : ?>
                                 <div class="swiper-slide">
-                                    <?php
-                                    $post_object = get_post($related_product->get_id());
-
-                                    setup_postdata($GLOBALS['post'] =& $post_object);
-
-                                    wc_get_template_part('content', 'product'); ?>
+                                    <a href="<?php echo $related_product->get_permalink(); ?>">
+                                        <div class="related-img-container">
+                                            <?php echo $related_product->get_image(200); ?>
+                                        </div>
+                                    </a>
                                 </div>
 
                             <?php endforeach; ?>

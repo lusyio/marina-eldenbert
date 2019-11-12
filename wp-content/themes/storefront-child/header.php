@@ -58,12 +58,12 @@
                     ?>
                     <?php get_search_form() ?>
                     <?php if (class_exists('WooCommerce')): ?>
-                        <div class="header-profile position-relative mr-1 mr-sm-4 mt-auto mb-auto">
+                        <div class="header-profile position-relative mr-2 mr-sm-4 mt-auto mb-auto">
                             <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">
                                 <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">
                             </a>
                         </div>
-                        <div class="s-header__basket-wr woocommerce mr-1 mr-sm-3 mr-xl-0 mt-auto mb-auto z-5 position-relative">
+                        <div class="s-header__basket-wr woocommerce mr-2 mr-sm-3 mr-xl-0 mt-auto mb-auto z-5 position-relative">
                             <?php
                             global $woocommerce; ?>
                             <a href="<?php echo $woocommerce->cart->get_cart_url() ?>"

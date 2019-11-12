@@ -418,7 +418,11 @@ header#masthead {
     z-index: 5;
     top: 40px;
     display: none;
-    box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
+}
+
+#searchForm input {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.30);
+    background: #fff;
 }
 
 /*меню*/
@@ -1896,6 +1900,23 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .header-profile img, .basket-btn__label img, .search-btn img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .navbar-toggler {
+        padding: 0 !important;
+    }
+
+    .search-div {
+        width: 35px;
+    }
+
+    #searchForm{
+        left: -7rem;
+    }
 
     header#masthead {
         padding: 0 !important;
