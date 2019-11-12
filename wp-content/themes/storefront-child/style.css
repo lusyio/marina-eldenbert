@@ -9,11 +9,8 @@ Author URI:   https://richbee.ru/
 
 */
 
-html {
-    font-family: 'Roboto', sans-serif;
-}
-
 body {
+    font-family: Roboto, sans-serif !important;
     margin: 0;
     -moz-osx-font-smoothing: auto;
     -webkit-font-smoothing: auto;
@@ -359,16 +356,37 @@ header#masthead {
     margin-bottom: auto;
 }
 
-.navbar-expand-xl .navbar-collapse .navbar-nav:hover .nav-item:not(.active) a {
-    color: #9e9e9e !important;
-}
-
 .navbar-dark .navbar-collapse .navbar-nav .nav-item:not(.active) a:hover {
     color: #fff !important;
 }
 
 .navbar-light .navbar-collapse .navbar-nav .nav-item:not(.active) a:hover {
     color: #000000 !important;
+}
+
+.navbar-light .navbar-collapse .navbar-nav .nav-item:not(.active) a:hover::after, .navbar-light .navbar-collapse .navbar-nav .nav-item:not(.active) a:focus::after {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+.navbar-light .navbar-collapse .navbar-nav .nav-item:not(.active) a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    width: 100%;
+    height: 2px;
+    background: #000;
+    opacity: 0;
+    -webkit-transform: translateY(5px);
+    -moz-transform: translateY(5px);
+    transform: translateY(5px);
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
 }
 
 #searchBtn {
@@ -675,7 +693,7 @@ ul.products li.product:hover {
     color: #fff;
     background-color: #e4e4e4;
     text-transform: uppercase;
-    font-family: Raleway, sans-serif;
+    font-family: Roboto, sans-serif;
     font-size: 13px;
     border: 0;
     font-weight: 800;
@@ -763,7 +781,7 @@ input[type='text'], input[type='number'], input[type='email'], input[type='tel']
     height: 60px;
 }
 
-.page-template-template-fullwidth-php .form-row-first, .page-template-template-fullwidth-php .form-row-last{
+.page-template-template-fullwidth-php .form-row-first, .page-template-template-fullwidth-php .form-row-last {
     width: 100%;
 }
 
@@ -777,7 +795,7 @@ button, input[type='button'], input[type='reset'], input[type='submit'], .button
     transition: 200ms;
 }
 
-.woocommerce-billing-fields__header{
+.woocommerce-billing-fields__header {
     font-weight: normal;
     font-size: 1.5rem;
     line-height: 36px;
@@ -1110,6 +1128,32 @@ table.cart {
 .popular-img-container {
     position: relative;
     display: inline-block;
+    margin-top: 2.5rem;
+    /*-webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+    /*-moz-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+    /*-ms-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+    /*-o-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+    /*transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+}
+
+.popular-img-container:before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    border: 20px solid #EEEBE6;
+    position: absolute;
+    top: -2.5rem;
+    left: -2.5rem;
+    z-index: 1;
+}
+
+.popular-img-container:hover {
+    cursor: pointer;
+    /*-webkit-transform: translate(2.5rem, 2.5rem);*/
+    /*-moz-transform: translate(2.5rem, 2.5rem);*/
+    /*-ms-transform: translate(2.5rem, 2.5rem);*/
+    /*-o-transform: translate(2.5rem, 2.5rem);*/
+    /*transform: translate(2.5rem, 2.5rem);*/
 }
 
 .swiper-container-popular, .swiper-container-related {
@@ -1157,14 +1201,12 @@ table.cart {
     padding: 16px 29px;
     background: #F8AC53;
     border-radius: 40px;
+    z-index: 3;
 }
 
 .popular-img-container img {
-    -webkit-transition: ease-in 200ms;
-    -moz-transition: ease-in 200ms;
-    -ms-transition: ease-in 200ms;
-    -o-transition: ease-in 200ms;
-    transition: ease-in 200ms;
+    position: relative;
+    z-index: 2;
     border: 1px solid #1C1919;
 }
 
@@ -1670,6 +1712,29 @@ table.cart {
     border: none;
 }
 
+.grid-item, .grid-sizer {
+    width: 30.333333%;
+}
+
+.grid-item img {
+    display: block;
+    width: 100%;
+}
+
+.grid {
+    margin-top: 52px;
+}
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-item {
+    float: left;
+    margin-bottom: 30px;
+}
 
 /*--------------------------------------------------------------
 # MAIN-LANDING
@@ -1719,6 +1784,11 @@ and (max-width: 768px) {
     footer.site-footer {
         padding-bottom: 75px;
     }
+
+    .grid-sizer,
+    .grid-item {
+        width: 45%;
+    }
 }
 
 @media screen
@@ -1734,6 +1804,11 @@ and (max-width: 576px) {
 
     .outer-menu .menu li {
         margin-left: 0;
+    }
+
+    .grid-sizer,
+    .grid-item {
+        width: 100%;
     }
 
 }
