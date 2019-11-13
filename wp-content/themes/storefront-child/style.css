@@ -1175,6 +1175,14 @@ ul.pagination > .page-item .page-link:hover {
     background: #F5F5F5;
 }
 
+ul.pagination > .page-item .page-link:active{
+    -webkit-transform: translateY(2px);
+    -moz-transform: translateY(2px);
+    -ms-transform: translateY(2px);
+    -o-transform: translateY(2px);
+    transform: translateY(2px);
+}
+
 ul.pagination > .page-item .page-link {
     padding: 10px 16px;
     -webkit-transition: ease-in 200ms;
@@ -2376,6 +2384,10 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .reader-sidebar__image{
+        padding: 0 40px;
+    }
 
     .news-n-events-card {
         margin-bottom: 40px;
