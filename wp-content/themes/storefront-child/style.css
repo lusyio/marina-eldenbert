@@ -1493,8 +1493,8 @@ ul.pagination > .page-item:last-of-type .page-link {
     height: 100%;
     border: 20px solid #EEEBE6;
     position: absolute;
-    top: -1.875rem;
-    left: -1.875rem;
+    top: -30px;
+    left: -30px;
     z-index: 1;
 }
 
