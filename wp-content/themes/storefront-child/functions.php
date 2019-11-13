@@ -337,7 +337,7 @@ function article_content($articleId)
             $query->the_post();
 //            $GLOBALS['page'] = $pageNumber;
             ?>
-            <p class="h3"><?php the_title(); ?></p>
+            <p class="h3 reader-h3"><?php the_title(); ?></p>
             <?php
             ?>
             <div id="articleText">
@@ -680,7 +680,7 @@ function readButton()
         echo '<hr>';
         while ($query->have_posts()) {
             $query->the_post();
-            echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
+            echo '<a class="load-more" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
         }
     }
     wp_reset_query();
