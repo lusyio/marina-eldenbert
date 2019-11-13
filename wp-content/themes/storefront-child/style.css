@@ -1399,6 +1399,22 @@ table.cart {
     transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/*--------------------------------------------------------------
+# ARTICLES
+--------------------------------------------------------------*/
+
+#articleText {
+    transition: opacity linear 0.5s;
+}
+
+#articleSpinner {
+    opacity: 0;
+    transition: opacity linear 0.5s;
+}
+
+/*--------------------------------------------------------------
+# MAIN-LANDING
+--------------------------------------------------------------*/
 .announcement-hr-block__text, .blog-hr-block__text, .news-n-events-hr-block__text {
     font-weight: 300;
     font-size: 1.5rem;
