@@ -9,6 +9,10 @@ Author URI:   https://richbee.ru/
 
 */
 
+html {
+    font-size: 16px;
+}
+
 body {
     font-family: Roboto, sans-serif !important;
     margin: 0;
@@ -2030,6 +2034,7 @@ and (max-width: 991px) {
 
     .popular-pagination {
         text-align: center;
+        width: 100% !important;
         top: 632px !important;
         bottom: unset !important;
     }
@@ -2048,18 +2053,43 @@ and (max-width: 768px) {
     }
 
     .popular-img-container:before {
-        display: none;
-        content: none;
+
     }
 
     .blog-hr-block__text:after, .news-n-events-hr-block__text:after {
         width: 45%;
     }
 
+    .popular-img-container {
+        width: 70%;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .popular-pagination {
+        text-align: center;
+        width: 100% !important;
+        top: 491px !important;
+        bottom: unset !important;
+    }
+
 }
 
 @media screen
 and (max-width: 576px) {
+
+    .popular-img-container__price {
+        max-width: 80px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 21px;
+        bottom: -20px;
+    }
+
+    .announcement-header {
+        text-align: center;
+    }
 
     .announcement-hr-block__text:after {
         width: 55%;
@@ -2113,10 +2143,12 @@ and (max-width: 576px) {
 
     .announcement-content {
         margin-bottom: 2.875rem;
+        text-align: center;
     }
 
     .announcement-btn {
-        display: block;
+        display: table;
+        margin: auto;
     }
 
     .popular {
@@ -2147,8 +2179,54 @@ and (max-width: 576px) {
 @media screen
 and (max-width: 320px) {
     .popular-pagination {
+        width: 100% !important;
         text-align: center;
-        top: 592px !important;
+        top: 422px !important;
         bottom: unset !important;
+    }
+}
+
+/*--------------------------------------------------------------
+## Notebook
+--------------------------------------------------------------*/
+@media only screen and (max-width: 1280px) {
+    html {
+        font-size: 95%;
+    }
+}
+
+/*--------------------------------------------------------------
+## Netbook
+--------------------------------------------------------------*/
+@media only screen and (max-width: 1024px) {
+    html {
+        font-size: 90%;
+    }
+}
+
+/*--------------------------------------------------------------
+## iPad
+--------------------------------------------------------------*/
+@media only screen and (max-width: 960px) {
+    html {
+        font-size: 85%;
+    }
+}
+
+/*--------------------------------------------------------------
+## iPad
+--------------------------------------------------------------*/
+@media only screen and (max-width: 768px) {
+    html {
+        font-size: 80%;
+    }
+}
+
+/*--------------------------------------------------------------
+## iPad
+--------------------------------------------------------------*/
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 75%;
     }
 }
