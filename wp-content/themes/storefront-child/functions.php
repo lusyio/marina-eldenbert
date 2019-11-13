@@ -329,13 +329,48 @@ function jk_related_products_args($args)
  */
 function article_content($articleId)
 {
+    global $post;
     $query = new WP_Query('p=' . $articleId);
+    $bookId = get_post_meta($post->ID, 'book_id',true);
     $content = '';
     if ($query->have_posts()) {
 
         while ($query->have_posts()) {
             $query->the_post();
-//            $GLOBALS['page'] = $pageNumber;
+            $tags = get_the_tags();
+            $isFree = false;
+            if (is_array($tags)) {
+                foreach ($tags as $tag) {
+                    if ($tag->slug == 'free-article') {
+                        $isFree = true;
+                    }
+                }
+            }
+
+            if (!$isFree && !isBookBought($bookId) && !isAdmin()) {
+                $GLOBALS['isArticle'] = false;
+                wp_reset_query();
+                return;
+            }
+            global $numpages;
+            $pageToLoad = 1;
+            $lastPage = getBookmarkPageMeta($articleId);
+            $lastArticle = getBookmarkMeta($bookId);
+            if ($lastArticle && $lastPage) {
+                if ($lastArticle != $articleId) {
+                    $pageToLoad = 1;
+                } else {
+                    $pageToLoad = intval($lastPage);
+                }
+            }
+            if (!$lastPage && isset($_COOKIE['a_' . $articleId])) {
+                $pageToLoad = intval($_COOKIE['a_' . $articleId]);
+            }
+
+            if ($pageToLoad > $numpages || $pageToLoad < 1) {
+                $pageToLoad = 1;
+            }
+            $GLOBALS['page'] = $pageToLoad;
             ?>
             <p class="h3"><?php the_title(); ?></p>
             <div class="row position-relative">
@@ -418,7 +453,7 @@ function wp_custom_link_pages( $args = '' ) {
                 </li>';
             }
             for ( $i = 1; $i <= $numpages; $i++ ) {
-                $activeClass = ($i == 1) ? ' active' : '';
+                $activeClass = ($i == $page) ? ' active' : '';
                 $link = '<li class="page-item' . $activeClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
                 $output .= $link;
             }
@@ -497,6 +532,8 @@ function custom_pagination() {
             $content = ob_get_clean();
         }
     }
+    setcookie('a_' . $articleId, $pageNumber, strtotime('+1 year'), '/');
+    setBookmarkPageMeta($articleId, $pageNumber);
     echo $content;
     wp_die();
 }
@@ -557,6 +594,19 @@ function adultModal() {
 }
 
 /**
+ * Проверяет, куплен ли пользователем товар(книга)
+ * @param $bookId id товара (книги)
+ * @return bool true если куплена, false если нет или если пользователь не залогинен
+ */
+function isBookBought($bookId)
+{
+    if (is_user_logged_in() && $bookId != '') {
+        $current_user = wp_get_current_user();
+        return wc_customer_bought_product($current_user->user_email, $current_user->ID, intval($bookId));
+    }
+    return false;
+}
+/**
  * Выводит содержание книги
  * @param $isArticle
  */
@@ -564,6 +614,7 @@ function contentList($isArticle)
 {
     global $post;
     $baseUrl = get_permalink();
+    $bookId = get_post_meta($post->ID, 'book_id',true);
 
     $currentArticle = 0;
     if (isset($_GET['a']) && intval($_GET['a'] > 0)) {
@@ -586,12 +637,24 @@ function contentList($isArticle)
         }
         while($query->have_posts()){
             $query->the_post();
-            if ($currentArticle > 0 && $currentArticle == $post->ID) {
-                echo '<p class="mb-0">' . $post->post_title . '</p>';
-
-            } else {
-                echo '<p class="mb-0"><a href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
+            $tags = get_the_tags();
+            $isFree = false;
+            if (is_array($tags)) {
+                foreach ($tags as $tag) {
+                    if ($tag->slug == 'free-article') {
+                        $isFree = true;
+                    }
+                }
             }
+            if ($isFree || isBookBought($bookId) || isAdmin()) {
+                if ($currentArticle > 0 && $currentArticle == $post->ID) {
+                    echo '<p class="mb-0">' . $post->post_title . '</p>';
+
+                } else {
+                    echo '<p class="mb-0"><a href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
+                }
+            }
+
         }
         echo '<hr>';
     }
@@ -667,8 +730,17 @@ add_filter('comment_post_redirect', function ($url) {
 function readButton()
 {
     global $post;
+    $bookId = get_post_meta($post->ID, 'book_id',true);
 
     $baseUrl = get_permalink();
+    $lastBookmark = getBookmarkMeta($bookId);
+    if ($lastBookmark) {
+        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
+        return;
+    } elseif (isset($_COOKIE['b_' . $bookId])) {
+        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
+        return;
+    }
 
     $query = new WP_Query(array(
         'cat' => get_post_meta($post->ID, 'cat_id',true),
@@ -844,4 +916,107 @@ add_action( 'init', 'jk_remove_storefront_handheld_footer_bar' );
 
 function jk_remove_storefront_handheld_footer_bar() {
     remove_action( 'storefront_footer', 'storefront_handheld_footer_bar', 999 );
+}
+
+/**
+ * Проверяет, является ли пользователь админом
+ * @return bool
+ */
+function isAdmin()
+{
+    if ( current_user_can( 'manage_options' ) ) {
+        return true;
+    }
+    return false;
+}
+
+add_action('template_redirect', 'setBookmarkCookies', 10);
+/**
+ * Добавляет в куки запись с id открытой книги и id открытой главы в книге
+ */
+function setBookmarkCookies()
+{
+    $post_id = get_the_ID();
+    if (get_page_template_slug() == 'template-parts/book-reader.php') {
+        $bookId = get_post_meta($post_id, 'book_id', true);
+        $bookCategoryId = get_post_meta($post_id, 'cat_id', true);
+        $articleId = intval($_GET['a']);
+        $query = new WP_Query('p=' . $articleId);
+
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $articleCategories = wp_get_post_categories($articleId);
+                if (in_array($bookCategoryId, $articleCategories)) {
+                    setcookie('b_' . $bookId, $articleId, strtotime('+1 year'), '/');
+                    setBookmarkMeta($bookId, $articleId);
+                }
+            }
+        }
+        wp_reset_query();
+    }
+}
+
+/**
+ * Устанавливает для пользователя последнюю просмотренную главу книги
+ * @param $bookId
+ * @param $articleId
+ */
+function setBookmarkMeta($bookId, $articleId)
+{
+    if(!is_user_logged_in()) {
+        return;
+    }
+    $userId = get_current_user_id();
+    update_user_meta($userId, 'b_' . $bookId, $articleId);
+}
+
+/**
+ * Устанавливает для пользователя последнюю просмотренную страницу главы
+ * @param $articleId
+ * @param $page
+ */
+function setBookmarkPageMeta($articleId, $page)
+{
+    if(!is_user_logged_in()) {
+        return;
+    }
+    $userId = get_current_user_id();
+    update_user_meta($userId, 'a_' . $articleId, $page);
+}
+
+/**
+ * Получает последнюю просмотренную пользователем главу книги
+ * @param $bookId
+ * @return bool|mixed
+ */
+function getBookmarkMeta($bookId)
+{
+    if(!is_user_logged_in()) {
+        return false;
+    }
+    $userId = get_current_user_id();
+    $articleId = get_user_meta( $userId, 'b_' . $bookId, true );
+    if ($articleId == '') {
+        return false;
+    }
+    return $articleId;
+}
+
+/**
+ * Получает последнюю просмотренную пользователем страницу главы
+ * @param $articleId
+ * @return bool|mixed
+ */
+function getBookmarkPageMeta($articleId)
+{
+    if(!is_user_logged_in()) {
+        return false;
+    }
+    $userId = get_current_user_id();
+    $page = get_user_meta( $userId, 'a_' . $articleId, true );
+    if ($page == '') {
+        return false;
+    }
+    return $page;
 }
