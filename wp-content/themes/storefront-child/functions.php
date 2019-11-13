@@ -506,31 +506,48 @@ function custom_pagination() {
  * если пользователь не авторизован и возраст еще не был подтвержден
  */
 function adultModal() {
-    if (is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
+    global $post;
+    $isForAdult = get_post_meta($post->ID, '18+', true);
+
+    if ($isForAdult != 1 || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
     ?>
-    <div class="modal fade show" id="adultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-body text-center">
-                    <p>Проверка возраста</p>
-                    <p>Содержимое раздела предназначено для просмотра лицами старше 18 лет</p>
-                    <p>Вам уже есть 18 лет</p>
-                    <div class="">
-                        <button type="button" id="adultYes" class="btn btn-primary" data-dismiss="modal">Да</button>
-                        <button type="button" id="adultNo" class="btn btn-outline-primary">Нет</button>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p class="disclaimerModal__header">Проверка возраста</p>
+                                <div class="row">
+                                    <div class="col-lg-8 col-12 offset-lg-2 offset-0">
+                                        <p class="disclaimerModal__text">Содержимое раздела предназначено для
+                                            просмотра лицами старше 18 лет.</p>
+                                    </div>
+                                </div>
+                                <p class="disclaimerModal__que">Вам уже есть 18 лет?</p>
+                                <div class="disclaimerModal__agree" id="adultYes">Да</div>
+                                <div class="disclaimerModal__disagree" id="adultNo">Нет</div>
+                                <p class="disclaimerModal__disclaimer">Сайт содержит информацию для лиц
+                                    совершеннолетнего возраста.<br>
+                                    Нажимая кнопку "Да", вы даёте cогласие на обработку персональных данных</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>jQuery(function($){
-        $('#adultModal').modal('show');
+        $('#disclaimerModal').modal('show');
         $('#adultYes').on('click', function () {
             var date = new Date();
             date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
             document.cookie = "adult=1; expires=" + date.toUTCString() + "; path=/";
+            $('#disclaimerModal').modal('hide');
         });
         $('#adultNo').on('click', function () {
             window.location.href = '/';

@@ -48,5 +48,4 @@ Template Post Type: post, page, product
     </div>
 </div>
 
-<?php adultModal(); ?>
 <?php get_footer(); ?>
