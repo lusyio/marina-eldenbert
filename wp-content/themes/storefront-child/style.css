@@ -589,7 +589,7 @@ header#masthead {
 }
 
 .footer-hr {
-    border: 1px solid #E8E8E8;
+    border-color: #E8E8E8 !important;
     margin-top: 50px;
     margin-bottom: 30px;
 }
@@ -639,7 +639,7 @@ header#masthead {
 
 .footer-menu a {
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 19px;
     color: #000000;
 }
@@ -1093,7 +1093,7 @@ table.cart {
     color: #000000;
     padding: 0;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem
 }
 
 .popular-content {
@@ -1101,7 +1101,7 @@ table.cart {
     font-size: 1.125rem;
     line-height: 24px;
     color: #000000;
-    margin-bottom: 65px;
+    margin-bottom: 4.0625rem;
 }
 
 .popular-btn {
@@ -1168,8 +1168,8 @@ table.cart {
     height: 100%;
     border: 20px solid #EEEBE6;
     position: absolute;
-    top: -2.5rem;
-    left: -2.5rem;
+    top: -40px;
+    left: -40px;
     z-index: 1;
 }
 
@@ -1345,7 +1345,7 @@ table.cart {
     color: #FFFFFF;
     padding: 10px 15px;
     position: absolute;
-    bottom: -1.25rem;
+    bottom: -20px;
     left: 0;
     right: 0;
     max-width: 80px;
@@ -1612,7 +1612,7 @@ h2.related-product {
     font-size: 0.875rem;
     line-height: 16px;
     color: #757575;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .blog-card__text {
@@ -1620,7 +1620,7 @@ h2.related-product {
     font-size: 1rem;
     line-height: 24px;
     color: #000000;
-    margin-bottom: 28px;
+    margin-bottom: 1.75rem;
 }
 
 .blog-card__link {
@@ -1637,7 +1637,7 @@ h2.related-product {
 }
 
 .blog-card__body {
-    padding: 20px 30px 25px 30px;
+    padding: 1.25rem 1.875rem 1.5625rem 1.875rem;
 }
 
 .blog__link {
@@ -2095,6 +2095,30 @@ and (max-width: 768px) {
 @media screen
 and (max-width: 576px) {
 
+    .news-n-events-card{
+        margin-bottom: 40px;
+    }
+
+    .news-n-events-card-body{
+        padding: 20px 20px 20px 30px;
+    }
+
+    .popular-img-container:before {
+        top: -30px;
+        left: -30px;
+    }
+
+    .footer-hr{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 32px;
+    }
+
+    /*.related-img-container{*/
+    /*    max-width: 75%;*/
+    /*}*/
+
     .popular-img-container__price {
         max-width: 80px;
         padding: 10px 16px;
@@ -2126,6 +2150,7 @@ and (max-width: 576px) {
 
     .search-div {
         width: 35px;
+        height: 42px;
     }
 
     #searchForm {
@@ -2138,6 +2163,11 @@ and (max-width: 576px) {
 
     .custom-logo-link img {
         height: 60px !important;
+    }
+
+    footer .custom-logo-link img {
+        height: 90px !important;
+        margin-bottom: 30px;
     }
 
     .woocommerce-shipping-methods .pure-material-radio > span::after {
@@ -2171,11 +2201,6 @@ and (max-width: 576px) {
         padding-bottom: 2.125rem;
     }
 
-    .container-related {
-        padding-top: 2.125rem;
-        padding-bottom: 2.125rem;
-    }
-
     .announcement-hr-block {
         margin-top: 4.25rem;
     }
@@ -2186,8 +2211,8 @@ and (max-width: 576px) {
     }
 
     .announcement-img:before {
-        top: -1.875rem;
-        left: -1.875rem;
+        top: -30px;
+        left: -30px;
     }
 
 }
@@ -2197,7 +2222,7 @@ and (max-width: 320px) {
     .popular-pagination {
         width: 100% !important;
         text-align: center;
-        top: 422px !important;
+        top: 435px !important;
         bottom: unset !important;
     }
 }
