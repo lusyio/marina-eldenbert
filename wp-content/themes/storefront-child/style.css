@@ -2039,6 +2039,11 @@ and (max-width: 1199px) {
 
 @media screen
 and (max-width: 991px) {
+    footer .custom-logo-link img {
+        height: 90px !important;
+        margin-bottom: 30px;
+    }
+
     .popular-title {
         margin-top: 5.625rem;
     }
@@ -2059,6 +2064,7 @@ and (max-width: 991px) {
 
 @media screen
 and (max-width: 768px) {
+
     footer.site-footer {
         padding-bottom: 75px;
     }
@@ -2114,10 +2120,6 @@ and (max-width: 576px) {
         margin-right: auto;
         margin-top: 32px;
     }
-
-    /*.related-img-container{*/
-    /*    max-width: 75%;*/
-    /*}*/
 
     .popular-img-container__price {
         max-width: 80px;

@@ -35,6 +35,8 @@
 
                     <?php
                     if ($menu_items = wp_get_nav_menu_items('second')) {
+                        $col = '';
+                        $col_counter = 0;
                         $menu_list = '';
                         echo '<div class="col-12 text-center col-md-4 text-lg-left">';
                         echo '<div class="footer-menu">';
@@ -42,6 +44,12 @@
                         $menu_number = 0;
                         $half_count = ceil(count($menu_items) / 3);
                         foreach ((array)$menu_items as $key => $menu_item) {
+                            if ($col_counter == $half_count){
+                                $col = 'col-md-3 p-0';
+                            }
+                            if ($col_counter == $half_count * 2) {
+                                $col = 'col-md-5';
+                            }
                             $title = $menu_item->title; // заголовок элемента меню (анкор ссылки)
                             $url = $menu_item->url; // URL ссылки
                             if ($menu_number != $half_count) {
@@ -50,7 +58,7 @@
                                 echo '</ul>';
                                 echo '</div>';
                                 echo '</div>';
-                                echo '<div class="col-12 text-center col-md-4 text-lg-left">';
+                                echo '<div class="col-12 text-center ' . $col . ' text-lg-left">';
                                 echo '<div class="footer-menu">';
                                 echo '<ul class="menu" id="menu-second_1">';
                                 echo '<li class="mb-lg-3 mb-3"><a href="' . $url . '">' . $title . '</a></li>';
@@ -58,6 +66,7 @@
                                     $menu_number = 0;
                                 }
                             }
+                            $col_counter++;
                             $menu_number++;
                         }
                         echo '</ul>';
@@ -67,7 +76,7 @@
                     ?>
                 </div>
             </div>
-            <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto">
+            <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto pl-0">
                 <div class="mb-0 mt-lg-0 mt-2">
                     <a class="text-decoration-none socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
@@ -90,7 +99,7 @@
                     лицами, не достигшими 18 лет!
                 </p>
             </div>
-            <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-md-right">
+            <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
                 <p class="footer-name-p">
                     &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
                     , <?php echo date('Y'); ?></p>
