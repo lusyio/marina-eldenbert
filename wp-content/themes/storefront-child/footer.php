@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto">
-                <div>
+                <div class="mb-lg-0 mb-3">
                     <a class="text-decoration-none socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
                     <a class="text-decoration-none ml-3 socials" href="#"><img
@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-4">
-                <p class="mb-0 footer-disclaimer">
+                <p class="mb-3 mb-lg-0 footer-disclaimer text-lg-left text-center">
                     <img src="/wp-content/themes/storefront-child/svg/18.svg" alt="">
                     Сайт может содержать материалы,
                     не предназначенные для просмотра
@@ -128,20 +128,41 @@
 <script src="/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js"></script>
 <script>
     var swiperPopular = new Swiper('.swiper-container-popular', {
+        fadeEffect: { crossFade: true },
+        effect: 'fade',
         pagination: {
             el: '.popular-pagination',
             clickable: true,
             renderBullet: function (index, className) {
-                return '<span class="popular-pagination__btn ' + className +'"></span>';
+                return '<span class="popular-pagination__btn ' + className + '"></span>';
             },
         },
     });
+
     var swiperRelated = new Swiper('.swiper-container-related', {
         spaceBetween: 57,
         slidesPerView: 4,
         navigation: {
             nextEl: '.container-related__next',
             prevEl: '.container-related__prev',
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 1,
+                spaceBetween: 57,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 57,
+            },
+            991: {
+                slidesPerView: 3,
+                spaceBetween: 57,
+            },
+            1199: {
+                slidesPerView: 4,
+                spaceBetween: 57,
+            }
         },
     });
 </script>

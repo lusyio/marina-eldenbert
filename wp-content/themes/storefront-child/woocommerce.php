@@ -14,6 +14,19 @@
 
 get_header(); ?>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="page-title"><?php if (is_product()) {
+                        echo get_the_title();
+                    } else {
+                        woocommerce_page_title();
+                    } ?>
+                </h2>
+            </div>
+        </div>
+    </div>
+
 <?php if (is_product() || is_cart() || is_checkout()): ?>
     <section id="primary" class="content-area col-sm-12 mt-5">
         <main id="main" class="site-main" role="main">
