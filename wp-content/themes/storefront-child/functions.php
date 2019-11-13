@@ -338,34 +338,25 @@ function article_content($articleId)
 //            $GLOBALS['page'] = $pageNumber;
             ?>
             <p class="h3"><?php the_title(); ?></p>
-            <div class="row position-relative">
-                <?php
-
-                wp_custom_link_pages(array(
-                    'before' => '<nav><ul class="pagination">',
-                    'after' => '</ul></nav>',
-                    'link_before' => '<span>',
-                    'link_after' => '</span>',
-                ));
-                ?>
-                <div id="articleText">
-                    <?php the_content(); ?>
-                </div>
-                <div id="articleSpinner" class="position-absolute w-100 text-center mt-5">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-                <?php
-
-                wp_custom_link_pages(array(
-                    'before' => '<nav><ul class="pagination">',
-                    'after' => '</ul></nav>',
-                    'link_before' => '<span>',
-                    'link_after' => '</span>',
-                ));
-                ?>
+            <?php
+            ?>
+            <div id="articleText">
+                <?php the_content(); ?>
             </div>
+            <div id="articleSpinner">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <?php
+
+            wp_custom_link_pages(array(
+                'before' => '<nav><ul class="pagination">',
+                'after' => '</ul></nav>',
+                'link_before' => '<span>',
+                'link_after' => '</span>',
+            ));
+            ?>
             <?php
         }
     }
@@ -377,37 +368,38 @@ function article_content($articleId)
  * @param string $args
  * @return mixed|void
  */
-function wp_custom_link_pages( $args = '' ) {
+function wp_custom_link_pages($args = '')
+{
     global $page, $numpages, $multipage, $more;
 
     $defaults = array(
-        'before'           => '<p class="post-nav-links">' . __( 'Pages:' ),
-        'after'            => '</p>',
-        'link_before'      => '',
-        'link_after'       => '',
-        'aria_current'     => 'page',
-        'next_or_number'   => 'number',
-        'separator'        => ' ',
-        'nextpagelink'     => __( 'Next page' ),
-        'previouspagelink' => __( 'Previous page' ),
-        'pagelink'         => '%',
-        'echo'             => 1,
+        'before' => '<p class="post-nav-links">' . __('Pages:'),
+        'after' => '</p>',
+        'link_before' => '',
+        'link_after' => '',
+        'aria_current' => 'page',
+        'next_or_number' => 'number',
+        'separator' => ' ',
+        'nextpagelink' => __('Next page'),
+        'previouspagelink' => __('Previous page'),
+        'pagelink' => '%',
+        'echo' => 1,
     );
 
-    $params = wp_parse_args( $args, $defaults );
+    $params = wp_parse_args($args, $defaults);
 
     /**
      * Filters the arguments used in retrieving page links for paginated posts.
      *
+     * @param array $params An array of arguments for page links for paginated posts.
      * @since 3.0.0
      *
-     * @param array $params An array of arguments for page links for paginated posts.
      */
-    $r = apply_filters( 'wp_link_pages_args', $params );
+    $r = apply_filters('wp_link_pages_args', $params);
 
     $output = '';
-    if ( $multipage ) {
-        if ( 'number' == $r['next_or_number'] ) {
+    if ($multipage) {
+        if ('number' == $r['next_or_number']) {
             $output .= $r['before'];
             if ($numpages > 1) {
                 $output .= '<li class="page-item">
@@ -417,7 +409,7 @@ function wp_custom_link_pages( $args = '' ) {
                     </a>
                 </li>';
             }
-            for ( $i = 1; $i <= $numpages; $i++ ) {
+            for ($i = 1; $i <= $numpages; $i++) {
                 $activeClass = ($i == 1) ? ' active' : '';
                 $link = '<li class="page-item' . $activeClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
                 $output .= $link;
@@ -437,14 +429,14 @@ function wp_custom_link_pages( $args = '' ) {
     /**
      * Filters the HTML output of page links for paginated posts.
      *
+     * @param string $output HTML output of paginated posts' page links.
+     * @param array $args An array of arguments.
      * @since 3.6.0
      *
-     * @param string $output HTML output of paginated posts' page links.
-     * @param array  $args   An array of arguments.
      */
-    $html = apply_filters( 'wp_link_pages', $output, $args );
+    $html = apply_filters('wp_link_pages', $output, $args);
 
-    if ( $r['echo'] ) {
+    if ($r['echo']) {
         echo $html;
     }
     return $html;
@@ -456,8 +448,9 @@ function wp_custom_link_pages( $args = '' ) {
  */
 wp_enqueue_script('pagination-script', get_stylesheet_directory_uri() . '/inc/assets/js/pagination.js', array('jquery'));
 
-add_action( 'wp_enqueue_scripts', 'myajax_data', 99 );
-function myajax_data(){
+add_action('wp_enqueue_scripts', 'myajax_data', 99);
+function myajax_data()
+{
     $articleId = 0;
     if (isset($_GET['a'])) {
         $articleId = intval($_GET['a']);
@@ -465,7 +458,7 @@ function myajax_data(){
     // Первый параметр 'twentyfifteen-script' означает, что код будет прикреплен к скрипту с ID 'twentyfifteen-script'
     // 'twentyfifteen-script' должен быть добавлен в очередь на вывод, иначе WP не поймет куда вставлять код локализации
     // Заметка: обычно этот код нужно добавлять в functions.php в том месте где подключаются скрипты, после указанного скрипта
-    wp_localize_script( 'pagination-script', 'myajax',
+    wp_localize_script('pagination-script', 'myajax',
         array(
             'articleId' => intval($articleId),
             'url' => admin_url('admin-ajax.php')
@@ -482,14 +475,15 @@ add_action('wp_ajax_nopriv_custom_pagination', 'custom_pagination');
 /**
  * ajax-обработчик вывода страниц главы
  */
-function custom_pagination() {
-    $pageNumber = intval( $_POST['page'] );
-    $articleId = intval( $_POST['article'] );
-    $query = new WP_Query( 'p=' . $articleId );
+function custom_pagination()
+{
+    $pageNumber = intval($_POST['page']);
+    $articleId = intval($_POST['article']);
+    $query = new WP_Query('p=' . $articleId);
     $content = '';
-    if($query->have_posts()) {
+    if ($query->have_posts()) {
 
-        while($query->have_posts()){
+        while ($query->have_posts()) {
             $query->the_post();
             $GLOBALS['page'] = $pageNumber;
             ob_start();
@@ -505,7 +499,8 @@ function custom_pagination() {
  * Выводит модальное окно подтверждения возраста,
  * если пользователь не авторизован и возраст еще не был подтвержден
  */
-function adultModal() {
+function adultModal()
+{
     global $post;
     $isForAdult = get_post_meta($post->ID, '18+', true);
 
@@ -513,7 +508,8 @@ function adultModal() {
         return;
     }
     ?>
-    <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel"
+         data-keyboard="false" data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -541,19 +537,19 @@ function adultModal() {
         </div>
     </div>
 
-    <script>jQuery(function($){
-        $('#disclaimerModal').modal('show');
-        $('#adultYes').on('click', function () {
-            var date = new Date();
-            date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-            document.cookie = "adult=1; expires=" + date.toUTCString() + "; path=/";
-            $('#disclaimerModal').modal('hide');
-        });
-        $('#adultNo').on('click', function () {
-            window.location.href = '/';
-        });
-    })</script>
-<?php
+    <script>jQuery(function ($) {
+            $('#disclaimerModal').modal('show');
+            $('#adultYes').on('click', function () {
+                var date = new Date();
+                date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+                document.cookie = "adult=1; expires=" + date.toUTCString() + "; path=/";
+                $('#disclaimerModal').modal('hide');
+            });
+            $('#adultNo').on('click', function () {
+                window.location.href = '/';
+            });
+        })</script>
+    <?php
 }
 
 /**
@@ -570,7 +566,7 @@ function contentList($isArticle)
         $currentArticle = intval($_GET['a']);
     }
     $query = new WP_Query(array(
-        'cat' => get_post_meta($post->ID, 'cat_id',true),
+        'cat' => get_post_meta($post->ID, 'cat_id', true),
         'order' => 'asc',
         'orderby' => 'date',
         'post_type' => 'post',
@@ -580,17 +576,17 @@ function contentList($isArticle)
     if ($query->have_posts()) {
         echo '<hr>';
         if ($isArticle) {
-            echo '<p class="mb-1"><a href="' . $baseUrl . '">О книге</a></p>';
+            echo '<p><a href="' . $baseUrl . '">О книге</a></p>';
         } else {
-            echo '<p class="mb-1">О книге</p>';
+            echo '<p>О книге</p>';
         }
-        while($query->have_posts()){
+        while ($query->have_posts()) {
             $query->the_post();
             if ($currentArticle > 0 && $currentArticle == $post->ID) {
-                echo '<p class="mb-0">' . $post->post_title . '</p>';
+                echo '<p class="active-title">' . $post->post_title . '</p>';
 
             } else {
-                echo '<p class="mb-0"><a href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
+                echo '<p><a href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
             }
         }
         echo '<hr>';
@@ -604,35 +600,36 @@ function contentList($isArticle)
 function bookCardInReader()
 {
     global $post;
-    $bookId = get_post_meta($post->ID, 'book_id',true);
+    $bookId = get_post_meta($post->ID, 'book_id', true);
 
     $product = wc_get_product($bookId);
     ?>
-    <div class="text-center"><img src="<?php echo wp_get_attachment_url( $product->get_image_id() ); ?>" /></div>
+    <div class="text-center"><img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>"/></div>
     <div class="text-center"><p class="h3"><?php echo $product->get_name() ?></p>
-<?php
-    $user_id = get_current_user_id();
-    $downloads = wc_get_customer_available_downloads($user_id);
-    $hasDownloads = false;
-    if (!empty($downloads)) {
-        foreach ($downloads as $download) {
-            if ($download['product_id'] == $bookId) {?>
-                <div class="mb-3 ml-5">
-                    <a class="download-link" href="<?php $download['download_url'] ?>" class="mb-3">Скачать в формате <?php echo $download['file']['name'] ?></a>
-                </div>
-                <?php
-                $hasDownloads = true;
+        <?php
+        $user_id = get_current_user_id();
+        $downloads = wc_get_customer_available_downloads($user_id);
+        $hasDownloads = false;
+        if (!empty($downloads)) {
+            foreach ($downloads as $download) {
+                if ($download['product_id'] == $bookId) { ?>
+                    <div class="mb-3 ml-5">
+                        <a class="download-link" href="<?php $download['download_url'] ?>" class="mb-3">Скачать в
+                            формате <?php echo $download['file']['name'] ?></a>
+                    </div>
+                    <?php
+                    $hasDownloads = true;
+                }
             }
         }
-    }
 
-    if (!$hasDownloads && $product->get_status() == 'publish') {?>
-        <a href="<?php echo $product->get_permalink(); ?>">Купить</a>
-        <?php
-    } elseif (!$hasDownloads && $product->get_status() == 'pending') {?>
-        <p>Книга еще не вышла</p>
-        <?php
-    } ?>
+        if (!$hasDownloads && $product->get_status() == 'publish') { ?>
+            <a href="<?php echo $product->get_permalink(); ?>">Купить</a>
+            <?php
+        } elseif (!$hasDownloads && $product->get_status() == 'pending') { ?>
+            <p>Книга еще не вышла</p>
+            <?php
+        } ?>
     </div>
     <?php
 }
@@ -671,7 +668,7 @@ function readButton()
     $baseUrl = get_permalink();
 
     $query = new WP_Query(array(
-        'cat' => get_post_meta($post->ID, 'cat_id',true),
+        'cat' => get_post_meta($post->ID, 'cat_id', true),
         'order' => 'asc',
         'orderby' => 'date',
         'post_type' => 'post',
@@ -681,7 +678,7 @@ function readButton()
 
     if ($query->have_posts()) {
         echo '<hr>';
-        while($query->have_posts()){
+        while ($query->have_posts()) {
             $query->the_post();
             echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
         }
@@ -690,20 +687,21 @@ function readButton()
 }
 
 /* Add Next Page Button in First Row */
-add_filter( 'mce_buttons', 'my_add_next_page_button', 1, 2 ); // 1st row
+add_filter('mce_buttons', 'my_add_next_page_button', 1, 2); // 1st row
 
 /**
  * Добавляем в визуальный редактор кнопку вставки тега nextpage - разрыв страницы
  *
  */
-function my_add_next_page_button( $buttons, $id ){
+function my_add_next_page_button($buttons, $id)
+{
 
     /* only add this for content editor */
-    if ( 'content' != $id )
+    if ('content' != $id)
         return $buttons;
 
     /* add next page after more tag button */
-    array_splice( $buttons, 13, 0, 'wp_page' );
+    array_splice($buttons, 13, 0, 'wp_page');
 
     return $buttons;
 }
@@ -711,41 +709,49 @@ function my_add_next_page_button( $buttons, $id ){
 /**
  * Замена стандартных крошек от вукомерса
  */
-add_filter( 'woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs', 20);
-function jk_woocommerce_breadcrumbs() {
+add_filter('woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs', 20);
+function jk_woocommerce_breadcrumbs()
+{
     return array(
-        'delimiter'   => ' / ',
+        'delimiter' => ' / ',
         'wrap_before' => '<nav class="woocommerce-breadcrumb container breadcrumb-container" itemprop="breadcrumb">',
-        'wrap_after'  => '</nav>',
-        'before'      => '',
-        'after'       => '',
-        'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+        'wrap_after' => '</nav>',
+        'before' => '',
+        'after' => '',
+        'home' => _x('Home', 'breadcrumb', 'woocommerce'),
     );
 }
 
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
 
 /**
  * Удаляем галерею товара
  */
-remove_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
+remove_action('woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20);
 
 //Убираем зум на фото продукта
-function remove_image_zoom_support() {
-    remove_theme_support( 'wc-product-gallery-zoom' );
+function remove_image_zoom_support()
+{
+    remove_theme_support('wc-product-gallery-zoom');
 }
-add_action( 'wp', 'remove_image_zoom_support', 100 );
+
+add_action('wp', 'remove_image_zoom_support', 100);
 
 //удаляем количество на странице продукта
-function custom_remove_all_quantity_fields( $return, $product ) {return true;}
-add_filter( 'woocommerce_is_sold_individually','custom_remove_all_quantity_fields', 10, 2 );
+function custom_remove_all_quantity_fields($return, $product)
+{
+    return true;
+}
+
+add_filter('woocommerce_is_sold_individually', 'custom_remove_all_quantity_fields', 10, 2);
 
 /**
  * Вывод атрибутов на странице товара
  */
 
 // Функция вывода атрибута
-function productAuthor() {
+function productAuthor()
+{
     global $product;
 // Получаем элементы таксономии атрибута
     $attribute_names = get_the_terms($product->get_id(), 'pa_author-book');
@@ -758,23 +764,25 @@ function productAuthor() {
         }
 // Вывод имени атрибута
         echo '<p class="attr-label">';
-        echo  wc_attribute_label($attribute_name);
+        echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
         foreach ($attribute_names as $attribute_name):
 // Вывод значений атрибута
-            echo '<a href="/author-book/' . $attribute_name->slug . '/">' ;
+            echo '<a href="/author-book/' . $attribute_name->slug . '/">';
             echo $attribute_name->name;
-            echo '</a> ' ;
+            echo '</a> ';
         endforeach;
-        echo '</p>' ;
+        echo '</p>';
     }
 }
+
 // Определяем место вывода атрибута
 add_action('woocommerce_single_product_summary', 'productAuthor', 15);
 
 // Функция вывода атрибута
-function productSeries() {
+function productSeries()
+{
     global $product;
 // Получаем элементы таксономии атрибута
     $attribute_names = get_the_terms($product->get_id(), 'pa_series-book');
@@ -782,19 +790,20 @@ function productSeries() {
     if ($attribute_names) {
 // Вывод имени атрибута
         echo '<p class="attr-label">';
-        echo  wc_attribute_label($attribute_name);
+        echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
         foreach ($attribute_names as $attribute_name):
 // Вывод значений атрибута
-            echo '<a href="/product-category/' . $attribute_name->slug . '/">' ;
+            echo '<a href="/product-category/' . $attribute_name->slug . '/">';
             echo $attribute_name->name;
-            echo '</a>' ;
-            echo '</p>' ;
+            echo '</a>';
+            echo '</p>';
             break;
         endforeach;
     }
 }
+
 // Определяем место вывода атрибута
 add_action('woocommerce_single_product_summary', 'productSeries', 15);
 
@@ -822,26 +831,37 @@ function add_links_to_book_stores()
 /**
  * Удаляем uncategorized из хлебных крошек
  *
- * @param  Array $crumbs    Breadcrumb crumbs for WooCommerce breadcrumb.
+ * @param Array $crumbs Breadcrumb crumbs for WooCommerce breadcrumb.
  * @return Array   WooCommerce Breadcrumb crumbs with default category removed.
  */
-function your_prefix_wc_remove_uncategorized_from_breadcrumb( $crumbs ) {
-    $category 	= get_option( 'default_product_cat' );
-    $category_link 	= get_category_link( $category );
+function your_prefix_wc_remove_uncategorized_from_breadcrumb($crumbs)
+{
+    $category = get_option('default_product_cat');
+    $category_link = get_category_link($category);
 
-    foreach ( $crumbs as $key => $crumb ) {
-        if ( in_array( $category_link, $crumb ) ) {
-            unset( $crumbs[ $key ] );
+    foreach ($crumbs as $key => $crumb) {
+        if (in_array($category_link, $crumb)) {
+            unset($crumbs[$key]);
         }
     }
 
-    return array_values( $crumbs );
+    return array_values($crumbs);
 }
 
-add_filter( 'woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb' );
+add_filter('woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb');
 
-add_action( 'init', 'jk_remove_storefront_handheld_footer_bar' );
+add_action('init', 'jk_remove_storefront_handheld_footer_bar');
 
-function jk_remove_storefront_handheld_footer_bar() {
-    remove_action( 'storefront_footer', 'storefront_handheld_footer_bar', 999 );
+function jk_remove_storefront_handheld_footer_bar()
+{
+    remove_action('storefront_footer', 'storefront_handheld_footer_bar', 999);
 }
+
+
+//Удаление рейтинга
+remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+
+//удаление чекбокса в комментах на запоминаение
+remove_action('set_comment_cookies', 'wp_set_comment_cookies');
+
