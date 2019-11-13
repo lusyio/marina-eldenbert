@@ -122,34 +122,7 @@
     ?>
 
     <div id="content" class="site-content">
-        <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <p class="disclaimerModal__header">Проверка возраста</p>
-                                    <div class="row">
-                                        <div class="col-lg-8 col-12 offset-lg-2 offset-0">
-                                            <p class="disclaimerModal__text">Содержимое раздела предназначено для
-                                                просмотра лицами старше 18 лет.</p>
-                                        </div>
-                                    </div>
-                                    <p class="disclaimerModal__que">Вам уже есть 18 лет?</p>
-                                    <div class="disclaimerModal__agree">Да</div>
-                                    <div class="disclaimerModal__disagree">Нет</div>
-                                    <p class="disclaimerModal__disclaimer">Сайт содержит информацию для лиц
-                                        совершеннолетнего возраста.<br>
-                                        Нажимая кнопку "Да", вы даёте cогласие на обработку персональных данных</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php adultModal(); ?>
         <div class="container">
             <div class="row">
 
