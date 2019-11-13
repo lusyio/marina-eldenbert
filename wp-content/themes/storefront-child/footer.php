@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto">
-                <div class="mb-lg-0 mb-3">
+                <div class="mb-0 mt-lg-0 mt-2">
                     <a class="text-decoration-none socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
                     <a class="text-decoration-none ml-3 socials" href="#"><img
@@ -76,10 +76,6 @@
                     <a class="text-decoration-none ml-3 socials" href="#"><img
                                 src="/wp-content/themes/storefront-child/svg/instagram.svg" alt=""></a>
                 </div>
-                <p class="mb-0 footer-credits d-lg-none d-block">
-                    <a class="credits" href="https://richbee.ru/"
-                       target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
-                </p>
             </div>
         </div>
     </div>
@@ -87,7 +83,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-4">
-                <p class="mb-3 mb-lg-0 footer-disclaimer text-lg-left text-center">
+                <p class="mb-4 mb-lg-0 footer-disclaimer text-lg-left text-center">
                     <img src="/wp-content/themes/storefront-child/svg/18.svg" alt="">
                     Сайт может содержать материалы,
                     не предназначенные для просмотра
@@ -98,9 +94,9 @@
                 <p class="footer-name-p">
                     &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
                     , <?php echo date('Y'); ?></p>
-                <p class="mb-0 footer-credits d-lg-block d-none">
-                    <a class="credits" href="https://richbee.ru/" target="_blank"><img
-                                src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
+                <p class="mb-0 footer-credits d-block">
+                    <a class="credits" href="https://richbee.ru/"
+                       target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
                 </p>
             </div>
         </div>
@@ -148,8 +144,9 @@
         },
         breakpoints: {
             576: {
-                slidesPerView: 1,
-                spaceBetween: 57,
+                slidesPerView: 1.7,
+                centeredSlides: true,
+                spaceBetween: 30,
             },
             768: {
                 slidesPerView: 2,

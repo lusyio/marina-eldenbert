@@ -172,7 +172,7 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-lg-0 mb-4">
+                <div class="col-lg-6 col-12 mb-lg-0">
                     <div class="row">
                         <div class="col-sm-6 col-12">
                             <a href="#">
@@ -193,7 +193,7 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-6 col-12 d-md-flex d-none">
                     <div class="row">
                         <div class="col-sm-6 col-12">
                             <a href="">
@@ -226,7 +226,7 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-lg-0 mb-3">
+                <div class="col-lg-6 col-12 mb-lg-0">
                     <div class="blog-card">
                         <div class="blog-card__header">
                             <a href="#">
@@ -246,7 +246,7 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-12 mb-lg-0 mb-3">
+                <div class="col-lg-6 col-12 mb-lg-0 mb-3 d-md-flex d-none">
                     <div class="blog-card">
                         <div class="blog-card__header">
                             <a href="#">
