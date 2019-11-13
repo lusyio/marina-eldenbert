@@ -862,6 +862,6 @@ function jk_remove_storefront_handheld_footer_bar()
 remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5);
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
 
+
 //удаление чекбокса в комментах на запоминаение
 remove_action('set_comment_cookies', 'wp_set_comment_cookies');
-
