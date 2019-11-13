@@ -17,7 +17,7 @@
 <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="container pt-3 pb-3">
         <div class="row">
-            <div class="col-12 text-center col-lg-3 text-lg-left footer-logo m-auto">
+            <div class="col-12 text-center col-xl-3 col-lg-2 p-lg-0 p-xl-unset p-unset text-lg-left footer-logo m-auto">
                 <div class="site-info">
                     <?php if (get_custom_logo()): ?>
 
@@ -30,7 +30,7 @@
                     <?php endif; ?>
                 </div><!-- close .site-info -->
             </div>
-            <div class="col-12 text-center col-lg-7 text-lg-left mb-lg-0 mb-4">
+            <div class="col-12 text-center col-xl-7 col-lg-8 text-lg-left mb-lg-0 mb-4">
                 <div class="row">
 
                     <?php
