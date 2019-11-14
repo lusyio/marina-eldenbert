@@ -6,8 +6,7 @@ Template Post Type: post, page, product
 ?>
 
 <?php get_header(); ?>
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -18,16 +17,41 @@ Template Post Type: post, page, product
     </div>
     <div class="grid">
         <div class="grid-sizer"></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image1.jpg" alt=""></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image2.jpg" alt=""></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image3.jpg" alt=""></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image4.jpg" alt=""></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image5.jpg" alt=""></div>
-        <div class="grid-item"><img src="/wp-content/themes/storefront-child/images/image6.jpg" alt=""></div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image1.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image1.jpg" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image3.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image3.jpg" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image4.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image4.jpg" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image5.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image5.jpg" alt="">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image6.jpg" data-fancybox>
+                <img src="/wp-content/themes/storefront-child/images/image6.jpg" alt="">
+            </a>
+        </div>
     </div>
 </div>
 
 <script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script>
     jQuery(document).ready(function ($) {
         var $grid = $('.grid').masonry({
