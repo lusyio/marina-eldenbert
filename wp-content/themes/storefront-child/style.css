@@ -818,7 +818,9 @@ button, input[type='button'], input[type='reset'], input[type='submit'], .button
     -ms-transition: ease-in 200ms;
     -o-transition: ease-in 200ms;
     transition: ease-in 200ms;
-    display: inline-block;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
     background: transparent;
 }
 
@@ -963,6 +965,7 @@ td.product-name a {
     -ms-transition: ease-in 200ms;
     -o-transition: ease-in 200ms;
     transition: ease-in 200ms;
+    border: none;
 }
 
 .wc-proceed-to-checkout .button:hover {
@@ -976,6 +979,7 @@ td.product-name a {
     -webkit-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    border: none;
 }
 
 td.product-subtotal span {
@@ -1025,6 +1029,16 @@ table.cart {
 
 #payment .payment_methods > li .payment_box, #payment .place-order {
     background: transparent;
+}
+
+table.cart .product-thumbnail img{
+    max-width: 100px;
+    border: 1px solid #1C1919;
+    box-shadow: 0px 0px 20px #797982;
+}
+
+.form-row label{
+    padding-left: 40px;
 }
 
 /*--------------------------------------------------------------
@@ -1343,6 +1357,7 @@ ul.pagination > .page-item:last-of-type .page-link {
     -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     cursor: pointer;
+    border: none;
 }
 
 .popular-btn:hover {
