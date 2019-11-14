@@ -26,6 +26,14 @@ a:focus, button:focus, .button.alt:focus, input:focus, textarea:focus, input[typ
     outline: none;
 }
 
+a{
+    color: #F8AC53;
+}
+
+a:hover{
+    color: #F8AC53;
+}
+
 article,
 aside,
 details,

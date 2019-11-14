@@ -211,13 +211,14 @@ function new_woocommerce_checkout_fields($fields)
 {
     if (!WC()->cart->needs_shipping()) {
         unset($fields['billing']['billing_address_2']); //удаляем Населённый пункт
+        unset($fields['billing']['billing_address_1']); //удаляем Населённый пункт
         unset($fields['billing']['billing_city']); //удаляем Населённый пункт
         unset($fields['billing']['billing_postcode']); //удаляем Населённый пункт
         unset($fields['billing']['billing_country']); //удаляем Населённый пункт
         unset($fields['billing']['billing_state']); //удаляем Населённый пункт
         unset($fields['billing']['billing_company']); //удаляем Населённый пункт
         unset($fields['billing']['billing_last_name']); //удаляем Населённый пункт
-        unset($fields['billing']['phone']); //удаляем Населённый пункт
+        unset($fields['billing']['billing_phone']); //удаляем Населённый пункт
         unset($fields['order']['order_comments']); //удаляем Населённый пункт
     }
     return $fields;
@@ -236,7 +237,6 @@ function override_default_address_checkout_fields( $address_fields ) {
 
 add_filter( 'woocommerce_checkout_fields' , 'override_billing_checkout_fields', 20, 1 );
 function override_billing_checkout_fields( $fields ) {
-    $fields['billing']['billing_phone']['placeholder'] = 'По какому телефону с вами связаться?';
     $fields['billing']['billing_email']['placeholder'] = 'Укажите Email';
     return $fields;
 }
@@ -1138,3 +1138,13 @@ function addFilterBar()
     </aside>
     <?php
 }
+
+/**
+ * Добавляем к инпуту почты подпись для незалогиненных пользователей
+ */
+add_filter('woocommerce_form_field', function ($form) {
+    if (!is_user_logged_in() && preg_match('~name="billing_email"~', $form)) {
+        return $form . '<p class="text-center small">На этот адрес будет отправлен пароль для входа в личный кабинет</p>';
+    }
+    return $form;
+});
