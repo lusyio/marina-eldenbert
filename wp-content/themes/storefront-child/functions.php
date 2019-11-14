@@ -292,7 +292,7 @@ add_filter('loop_shop_columns', 'loop_columns');
 if (!function_exists('loop_columns')) {
     function loop_columns()
     {
-        return 3; // 3 products per row
+        return 4; // 3 products per row
     }
 }
 
@@ -1102,27 +1102,25 @@ function addFilterBar()
     }
 
 ?>
-    <aside id="secondary" class="widget-area col-sm-12 col-lg-3 pr-0" role="complementary">
-    <button class="button clear-filters" data-filter="*">Сбросить фильтры</button>
+    <aside id="secondary" class="widget-area col-sm-12 col-lg-3" role="complementary">
+    <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
         <div class="filter-button-group">
-        <div class="button-group" data-filter-group="type">
+        <div class="button-group mb-5" data-filter-group="type">
         <?php foreach ($bookTypeFilters as $filter): ?>
         <?php if (!key_exists($filter, $nonEmptyTags)) {
             continue;
             } ?>
-    <button class="button" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+    <button class="button filter-btn" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
         <?php endforeach; ?>
         </div>
-        <hr>
-        <div class="button-group" data-filter-group="other">
+        <div class="button-group mb-5" data-filter-group="other">
         <?php foreach ($otherFilters as $filter): ?>
         <?php if (!key_exists($filter, $nonEmptyTags)) {
             continue;
             } ?>
-    <button class="button" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+    <button class="button filter-btn" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
         <?php endforeach; ?>
         </div>
-        <hr>
         <div class="button-group" data-filter-group="category">
             <?php
             $categories = get_terms('product_cat');
@@ -1131,7 +1129,7 @@ function addFilterBar()
                 <?php if ($category->slug == 'uncategorized') {
                     continue;
                 } ?>
-                <button class="button" data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+                <button class="button filter-btn" data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
             <?php endforeach; ?>
         </div>
     </div>
@@ -1148,3 +1146,16 @@ add_filter('woocommerce_form_field', function ($form) {
     }
     return $form;
 });
+
+add_filter( 'woocommerce_show_page_title', '__return_null' );
+
+add_action('woocommerce_before_shop_loop_item_title', 'my_theme_wrapper_start', 9);
+add_action('woocommerce_before_shop_loop_item_title', 'my_theme_wrapper_end', 10);
+
+function my_theme_wrapper_start() {
+    echo '<div class="before-block">';
+}
+
+function my_theme_wrapper_end() {
+    echo '</div>';
+}
