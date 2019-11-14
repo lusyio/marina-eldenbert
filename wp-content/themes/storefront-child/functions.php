@@ -1065,3 +1065,76 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
 
 //удаление чекбокса в комментах на запоминаение
 remove_action('set_comment_cookies', 'wp_set_comment_cookies');
+
+add_action('wp_enqueue_scripts', 'addIsotopeScript', 10);
+/**
+ * Добавляет скрипты изотопа и работы с изотопом
+ */
+function addIsotopeScript()
+{
+    if (is_shop()) {
+        wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array('jquery'));
+        wp_enqueue_script('filter-script', get_stylesheet_directory_uri() . '/inc/assets/js/filter.js', array('jquery', 'isotope'));
+
+    }
+}
+
+/**
+ * Выводит фильтр товаров
+ */
+function addFilterBar()
+{
+    $bookTypeFilters = [
+      'free-books',
+      'paper-books',
+      'audio-books',
+    ];
+    $otherFilters = [
+      'new',
+      'bestseller',
+      'pre-order'
+    ];
+
+    $tags = get_terms('product_tag');
+    $nonEmptyTags = [];
+    foreach ($tags as $tag) {
+        $nonEmptyTags[$tag->slug] = $tag->name;
+    }
+
+?>
+    <aside id="secondary" class="widget-area col-sm-12 col-lg-3 pr-0" role="complementary">
+    <button class="button clear-filters" data-filter="*">Сбросить фильтры</button>
+        <div class="filter-button-group">
+        <div class="button-group" data-filter-group="type">
+        <?php foreach ($bookTypeFilters as $filter): ?>
+        <?php if (!key_exists($filter, $nonEmptyTags)) {
+            continue;
+            } ?>
+    <button class="button" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+        <?php endforeach; ?>
+        </div>
+        <hr>
+        <div class="button-group" data-filter-group="other">
+        <?php foreach ($otherFilters as $filter): ?>
+        <?php if (!key_exists($filter, $nonEmptyTags)) {
+            continue;
+            } ?>
+    <button class="button" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+        <?php endforeach; ?>
+        </div>
+        <hr>
+        <div class="button-group" data-filter-group="category">
+            <?php
+            $categories = get_terms('product_cat');
+
+            foreach ($categories as $category): ?>
+                <?php if ($category->slug == 'uncategorized') {
+                    continue;
+                } ?>
+                <button class="button" data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    </aside>
+    <?php
+}
