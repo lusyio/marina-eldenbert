@@ -50,7 +50,6 @@ Template Post Type: post, page, product
     </div>
 </div>
 
-<script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script>
     jQuery(document).ready(function ($) {
@@ -62,4 +61,6 @@ Template Post Type: post, page, product
         });
     })
 </script>
+<script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
+
 <?php get_footer(); ?>
