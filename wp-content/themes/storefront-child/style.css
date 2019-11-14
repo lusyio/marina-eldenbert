@@ -255,8 +255,21 @@ ul.menu li.current-menu-item > a:before {
     color: #757575;
 }
 
+.about_paypal {
+    display: none;
+}
+
 #payment .payment_methods > li:not(.woocommerce-notice):hover {
     background: #fff;
+}
+
+.login-label {
+    padding-left: 40px;
+    margin-bottom: 12px;
+}
+
+.login-input {
+    margin-bottom: 20px;
 }
 
 /*--------------------------------------------------------------
@@ -1880,14 +1893,14 @@ ul.pagination > .page-item:last-of-type .page-link {
     position: relative;
 }
 
-.announcement__link:hover::after, .announcement__link:focus::after, .blog-card__link:hover::after, .blog-card__link:focus::after, .blog__link:hover::after, .blog__link:focus::after, .news-n-events-card__link:hover::after, .news-n-events-card__link:focus::after, .news-n-events__link:hover::after, .news-n-events__link:focus::after, .sidebar-news__link:hover::after, .sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after {
+.announcement__link:hover::after, .announcement__link:focus::after, .blog-card__link:hover::after, .blog-card__link:focus::after, .blog__link:hover::after, .blog__link:focus::after, .news-n-events-card__link:hover::after, .news-n-events-card__link:focus::after, .news-n-events__link:hover::after, .news-n-events__link:focus::after, .sidebar-news__link:hover::after, .sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after, .lost_password > a:hover::after, .lost_password > a:focus::after {
     opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     transform: translateY(0px);
 }
 
-.announcement__link::after, .blog-card__link::after, .blog__link::after, .news-n-events-card__link::after, .news-n-events__link::after, .attr-label > a::after, .sidebar-news__link::after, .sidebar-blog-card__link::after {
+.announcement__link::after, .blog-card__link::after, .blog__link::after, .news-n-events-card__link::after, .news-n-events__link::after, .attr-label > a::after, .sidebar-news__link::after, .sidebar-blog-card__link::after , .lost_password a::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1903,6 +1916,16 @@ ul.pagination > .page-item:last-of-type .page-link {
     -moz-transition: -moz-transform 0.3s, opacity 0.3s;
     transition: transform 0.3s, opacity 0.3s;
     pointer-events: none;
+}
+
+.lost_password a:hover{
+    color: #F8AC53;
+}
+
+.lost_password a{
+    color: #F8AC53;
+    position: relative;
+    display: table;
 }
 
 .announcement__link:hover {
