@@ -36,11 +36,6 @@ Template Post Type: post, page, product
             columnWidth: '.grid-sizer',
             gutter: 30,
         });
-
-        // layout Masonry after each image loads
-        $grid.imagesLoaded().progress(function () {
-            $grid.masonry();
-        });
     })
 </script>
 <?php get_footer(); ?>
