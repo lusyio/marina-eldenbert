@@ -19,32 +19,58 @@ Template Post Type: post, page, product
         <div class="grid-sizer"></div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image1.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image1.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image1.jpg" alt="">
+                </div>
             </a>
         </div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
+                </div>
             </a>
         </div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image3.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image3.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image3.jpg" alt="">
+                </div>
             </a>
         </div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image4.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image4.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image4.jpg" alt="">
+                </div>
             </a>
         </div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image5.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image5.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image5.jpg" alt="">
+                </div>
             </a>
         </div>
         <div class="grid-item">
             <a href="/wp-content/themes/storefront-child/images/image6.jpg" data-fancybox>
-                <img src="/wp-content/themes/storefront-child/images/image6.jpg" alt="">
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image6.jpg" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
+                <div class="img-bg">
+                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
+                </div>
             </a>
         </div>
     </div>
@@ -57,7 +83,6 @@ Template Post Type: post, page, product
             itemSelector: '.grid-item',
             percentPosition: true,
             columnWidth: '.grid-sizer',
-            gutter: 30,
         });
     })
 </script>
