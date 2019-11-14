@@ -2824,6 +2824,10 @@ h2.related-product {
     z-index: 1;
 }
 
+.storefront-sorting{
+    margin: 0;
+}
+
 
 /*--------------------------------------------------------------
 # MEDIA
