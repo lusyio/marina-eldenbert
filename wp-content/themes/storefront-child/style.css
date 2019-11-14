@@ -186,18 +186,18 @@ ul.menu li.current-menu-item > a:before {
     border-radius: 50%;
     width: 16px;
     height: 16px;
-    background-color: #F25E2F;
+    background-color: #F8AC53;
     transform: translate(5px, 5px) scale(0);
     transition: transform 0.2s;
 }
 
 /* Checked */
 .pure-material-radio > input:checked {
-    background-color: #F25E2F;
+    background-color: #F8AC53;
 }
 
 .pure-material-radio > input:checked + span::before {
-    border-color: #F25E2F;
+    border-color: #F8AC53;
 }
 
 .pure-material-radio > input:checked + span::after {
@@ -225,7 +225,7 @@ ul.menu li.current-menu-item > a:before {
 }
 
 .pure-material-radio > input:active + span::before {
-    border-color: #F25E2F;
+    border-color: #F8AC53;
 }
 
 /* Disabled */
@@ -236,6 +236,27 @@ ul.menu li.current-menu-item > a:before {
 .pure-material-radio > input:disabled + span {
     color: rgba(0, 0, 0, 0.38);
     cursor: initial;
+}
+
+#payment .payment_methods li .payment_box {
+    padding-left: 3.5625rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.wc_payment_method .pure-material-radio > span::before {
+    margin-right: 28px;
+}
+
+#payment .payment_methods li p {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #757575;
+}
+
+#payment .payment_methods > li:not(.woocommerce-notice):hover {
+    background: #fff;
 }
 
 /*--------------------------------------------------------------
@@ -778,6 +799,7 @@ ul.products li.product:hover {
 .woocommerce-billing-fields .form-row {
     margin-right: 0;
     margin-left: 0;
+    margin-bottom: 20px;
 }
 
 input[type='text'], input[type='number'], input[type='email'], input[type='tel'], input[type='url'], input[type='password'], input[type='search'], textarea, .input-text {
@@ -875,10 +897,7 @@ button:hover, input[type='button']:hover, input[type='reset']:hover, input[type=
 }
 
 #payment .payment_methods {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    border: 1px solid #f2f2f2;
+    border: none;
 }
 
 #payment .payment_methods > li:not(.woocommerce-notice) {
@@ -886,9 +905,10 @@ button:hover, input[type='button']:hover, input[type='reset']:hover, input[type=
 }
 
 #payment .payment_methods > .woocommerce-PaymentMethod > label, #payment .payment_methods > .wc_payment_method > label {
-    border-bottom: 1px solid #f2f2f2;
+    border: none;
     margin-bottom: 0;
-    background: #f2f2f2;
+    background: #fff;
+    padding: 0;
 }
 
 table:not( .has-background ) th {
@@ -1029,14 +1049,94 @@ table.cart {
     background: transparent;
 }
 
-table.cart .product-thumbnail img{
+table.cart .product-thumbnail img {
     max-width: 100px;
     border: 1px solid #1C1919;
     box-shadow: 0px 0px 20px #797982;
 }
 
-.form-row label{
+.form-row label {
     padding-left: 40px;
+    margin-bottom: 12px;
+}
+
+#payment .place-order .button:hover {
+    background: #F8AC53;
+    -webkit-transform: translateY(-4px);
+    -moz-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    -o-transform: translateY(-4px);
+    transform: translateY(-4px);
+    cursor: pointer;
+    -webkit-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    border: none;
+}
+
+#payment .place-order .button {
+    background: #F8AC53;
+    border-radius: 40px;
+    font-weight: normal;
+    font-size: 1.125rem;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 16px 30px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+    border: none;
+    width: unset;
+}
+
+.apply-coupon {
+    padding: 1.4rem 2.375rem;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+}
+
+input[type='text']:focus, input[type='number']:focus, input[type='email']:focus, input[type='tel']:focus, input[type='url']:focus, input[type='password']:focus, input[type='search']:focus, textarea:focus, .input-text:focus {
+    background: #fff;
+    border-color: #80bdff;;
+}
+
+.order-total {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+    margin-bottom: 2.5rem;
+    margin-top: 5rem;
+}
+
+.order-total__text {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.order-total__price {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    color: #F8AC53;
+}
+
+.payment-header {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 40px;
 }
 
 /*--------------------------------------------------------------

@@ -19,6 +19,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
+
+<p class="payment-header">Выберите способ оплаты</p>
 <li class="wc_payment_method payment_method_<?php echo esc_attr($gateway->id); ?>">
     <label for="">
         <label class="pure-material-radio w-100">
@@ -27,7 +29,7 @@ if (!defined('ABSPATH')) {
                    value="<?php echo esc_attr($gateway->id); ?>" <?php checked($gateway->chosen, true); ?>
                    data-order_button_text="<?php echo esc_attr($gateway->order_button_text); ?>"/>
 
-            <span>
+            <span>С помощью
         <?php echo $gateway->get_title(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?><?php echo $gateway->get_icon(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
     </span>
         </label>

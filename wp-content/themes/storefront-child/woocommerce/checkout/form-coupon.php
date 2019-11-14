@@ -39,7 +39,7 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
             </div>
 
             <div class="col-lg-6 col-12">
-                <button type="submit" class="button" name="apply_coupon"
+                <button class="apply-coupon" type="submit" class="button" name="apply_coupon"
                         value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_html_e('Apply coupon', 'woocommerce'); ?></button>
             </div>
         </div>
