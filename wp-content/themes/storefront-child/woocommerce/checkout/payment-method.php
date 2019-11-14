@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<p class="payment-header">Выберите способ оплаты</p>
 <li class="wc_payment_method payment_method_<?php echo esc_attr($gateway->id); ?>">
     <label for="">
         <label class="pure-material-radio w-100">
