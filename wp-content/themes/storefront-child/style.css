@@ -2387,6 +2387,11 @@ h2.related-product {
     margin-bottom: 30px;
 }
 
+.wc-forward::after, .woocommerce-Button--next::after{
+    content: none;
+    display: none;
+}
+
 .post-thumbnail {
     margin-top: 26px;
     margin-bottom: 30px;
