@@ -1083,6 +1083,10 @@ table.cart .product-thumbnail img {
 .form-row label {
     padding-left: 40px;
     margin-bottom: 12px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #1C1C1C;
 }
 
 #payment .place-order .button:hover {
@@ -2876,6 +2880,10 @@ and (max-width: 576px) {
 
     .cart_item .product-thumbnail, .cart_item .product-name, .cart_item .product-subtotal{
         padding: 0.875em 0.875em 0 !important;
+    }
+
+    #payment .payment_methods li .payment_box{
+        padding-left: 1.41575em;;
     }
 
 }
