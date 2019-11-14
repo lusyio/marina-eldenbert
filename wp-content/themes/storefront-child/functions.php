@@ -239,6 +239,12 @@ function override_billing_checkout_fields( $fields ) {
     return $fields;
 }
 
+add_filter( 'woocommerce_billing_fields', 'ts_unrequire_wc_phone_field');
+function ts_unrequire_wc_phone_field( $fields ) {
+    $fields['billing_phone']['required'] = true;
+    return $fields;
+}
+
 
 remove_action('storefront_footer', 'storefront_credit', 20);
 

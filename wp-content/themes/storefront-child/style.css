@@ -848,16 +848,14 @@ button:hover, input[type='button']:hover, input[type='reset']:hover, input[type=
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    border-bottom: 2px solid;
-    border-bottom-color: #0f834d;
+    border: 1px solid #0f834d;
 }
 
 .form-row.woocommerce-invalid input.input-text {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    border-bottom: 2px solid;
-    border-bottom-color: #e2401c;
+    border: 1px solid #e2401c;
 }
 
 #customer_details {
