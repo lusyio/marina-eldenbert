@@ -33,12 +33,12 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
         <p><?php esc_html_e('If you have a coupon code, please apply it below.', 'woocommerce'); ?></p>
 
         <div class="row">
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-12 mb-lg-0 mb-3">
                 <input type="text" name="coupon_code" class="input-text"
                        placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" id="coupon_code" value=""/>
             </div>
 
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-12 text-center">
                 <button class="apply-coupon" type="submit" class="button" name="apply_coupon"
                         value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_html_e('Apply coupon', 'woocommerce'); ?></button>
             </div>
