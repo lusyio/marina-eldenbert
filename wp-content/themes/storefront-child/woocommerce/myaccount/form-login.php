@@ -101,7 +101,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
         <div class="row">
             <div class="col-12 offset-0 col-lg-6 offset-lg-3">
 
-                <h2 class="text-center mb-5 mt-5"><?php esc_html_e('Register', 'woocommerce'); ?></h2>
+                <h2 class="text-center mb-5"><?php esc_html_e('Register', 'woocommerce'); ?></h2>
 
                 <form method="post"
                       class="woocommerce-form woocommerce-form-register register" <?php do_action('woocommerce_register_form_tag'); ?> >
