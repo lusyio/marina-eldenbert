@@ -218,7 +218,7 @@ Template Post Type: post, page, product
                 <?php $portfolio_counter = 1; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                    <div class="col-lg-6 col-12 mb-lg-0">
+                    <div class="col-lg-6 col-12 mb-5">
                         <div class="blog-card">
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
@@ -255,7 +255,7 @@ Template Post Type: post, page, product
                 <?php $portfolio_counter = 1; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                    <div class="col-lg-4 col-12">
+                    <div class="col-lg-4 col-12 mb-5">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
