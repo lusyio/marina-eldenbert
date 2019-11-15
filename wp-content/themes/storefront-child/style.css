@@ -2060,7 +2060,7 @@ h2.related-product {
     margin-bottom: 25px;
 }
 
-.news-n-events-card__text p{
+.news-n-events-card__text p {
     font-weight: 300;
     font-size: 1rem;
     line-height: 24px;
@@ -2076,6 +2076,14 @@ h2.related-product {
     display: table;
     margin-bottom: 37px;
     position: relative;
+}
+
+.storefront-product-pagination__title {
+    color: #F8AC53;
+}
+
+.storefront-product-pagination a[rel='prev']::after, .storefront-product-pagination a[rel='next']::after {
+    color: #F8AC53;
 }
 
 .news-n-events-card__link:hover {
@@ -2737,7 +2745,7 @@ h2.related-product {
     transition: 0.4s;
 }
 
-.before-block{
+.before-block {
     position: relative;
     display: inline-block;
     -webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2755,7 +2763,8 @@ h2.related-product {
     -o-transform: translate(20px, 20px);
     transform: translate(20px, 20px);
 }
-.woocommerce ul.products li.product, .woocommerce-page ul.products li.product{
+
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
     margin: 0 2.8% 2.992em 0 !important;
 }
 
@@ -2770,7 +2779,7 @@ h2.related-product {
     z-index: 1;
 }
 
-.products .product img{
+.products .product img {
     width: auto;
     max-height: 239px;
     position: relative;
@@ -2834,7 +2843,7 @@ h2.related-product {
     z-index: 1;
 }
 
-.storefront-sorting{
+.storefront-sorting {
     margin: 0;
 }
 
