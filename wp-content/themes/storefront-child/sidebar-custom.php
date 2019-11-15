@@ -24,6 +24,7 @@
     <?php endwhile; ?>
     <?php wp_reset_postdata(); ?>
     <hr class="sidebar-announcement__hr">
+
     <div class="sidebar-news">
         <div class="row">
             <div class="col-3">
@@ -57,20 +58,26 @@
         </div>
     </div>
     <hr class="sidebar-announcement__hr">
-    <div class="sidebar-blog">
-        <div class="sidebar-blog-card">
-            <div class="sidebar-blog-card__header">
-                <a href="#">
-                    <img class="sidebar-blog-card__img"
-                         src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                         alt="">
-                </a>
-            </div>
-            <div class="sidebar-blog-card__body">
-                <p class="sidebar-blog-card__text">Название найдено! Из предложенных вариантов издательство остановилось
-                    на варианте, предложенном...</p>
-                <a href="#" class="sidebar-blog-card__link">Подробнее</a>
+    <?php $catquery = new WP_Query('cat=34&posts_per_page=1'); // portfolio  ?>
+    <?php while ($catquery->have_posts()) :
+        $catquery->the_post(); ?>
+        <div class="sidebar-blog">
+            <div class="sidebar-blog-card">
+                <div class="sidebar-blog-card__header">
+                    <a href="<?php the_permalink() ?>">
+                        <div class="blog-card__img">
+                            <?= get_the_post_thumbnail() ?>
+                        </div>
+                    </a>
+                </div>
+                <div class="sidebar-blog-card__body">
+                    <div class="sidebar-blog-card__text">
+                        <?php the_content(); ?>
+                    </div>
+                    <a href="<?php the_permalink() ?>" class="sidebar-blog-card__link">Подробнее</a>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endwhile; ?>
+    <?php wp_reset_postdata(); ?>
 </div>

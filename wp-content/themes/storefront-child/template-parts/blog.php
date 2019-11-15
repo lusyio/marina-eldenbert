@@ -15,111 +15,35 @@ Template Post Type: post, page, product
                 <div class="col-12"><h2 class="page-title"><?php the_title() ?></h2></div>
             </div>
             <div class="row blog-row">
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
+                <?php $catquery = new WP_Query('cat=34&posts_per_page=2'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12">
+                        <div class="blog-card">
+                            <div class="blog-card__header">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="blog-card__img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="blog-card__body">
+                                <p class="blog-card__date"><?= get_the_date() ?></p>
+                                <div class="blog-card__text"><?php the_content(); ?></div>
+                                <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
+                    <?php if ($portfolio_counter == 6): ?>
+                    <div class="col-12 text-center">
+                        <div class="load-more">Загрузить еще</div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center">
-                    <div class="load-more">Загрузить еще</div>
-                </div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
     </div>

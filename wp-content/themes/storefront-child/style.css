@@ -1976,8 +1976,11 @@ ul.pagination > .page-item:last-of-type .page-link {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.blog-card__img {
+.blog-card__img img {
     width: 100%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 h2.related-product {
@@ -1996,7 +1999,7 @@ h2.related-product {
     margin-bottom: 1.25rem;
 }
 
-.blog-card__text {
+.blog-card__text p {
     font-weight: 300;
     font-size: 1rem;
     line-height: 24px;
@@ -2554,13 +2557,16 @@ h2.related-product {
 
 .sidebar-blog-card__img {
     width: 100%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
 }
 
 .sidebar-blog-card__body {
     padding: 20px 18px 25px 18px;
 }
 
-.sidebar-blog-card__text {
+.sidebar-blog-card__text p {
     font-weight: 300;
     font-size: 14px;
     line-height: 24px;
