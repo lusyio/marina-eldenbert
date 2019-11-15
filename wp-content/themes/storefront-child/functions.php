@@ -209,7 +209,6 @@ add_filter('woocommerce_checkout_fields', 'new_woocommerce_checkout_fields', 10,
 
 function new_woocommerce_checkout_fields($fields)
 {
-    if (!WC()->cart->needs_shipping()) {
         unset($fields['billing']['billing_address_2']); //удаляем Населённый пункт
         unset($fields['billing']['billing_address_1']); //удаляем Населённый пункт
         unset($fields['billing']['billing_city']); //удаляем Населённый пункт
@@ -220,9 +219,10 @@ function new_woocommerce_checkout_fields($fields)
         unset($fields['billing']['billing_last_name']); //удаляем Населённый пункт
         unset($fields['billing']['billing_phone']); //удаляем Населённый пункт
         unset($fields['order']['order_comments']); //удаляем Населённый пункт
-    }
     return $fields;
 }
+
+add_filter( 'woocommerce_cart_needs_shipping_address', '__return_false');
 
 add_filter('woocommerce_enable_order_notes_field', '__return_false');
 
