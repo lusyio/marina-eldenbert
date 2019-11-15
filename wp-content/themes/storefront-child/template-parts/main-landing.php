@@ -185,7 +185,7 @@ Template Post Type: post, page, product
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-12 mb-sm-0 mb-4">
+                            <div class="col-sm-6 col-12 mb-sm-0 mb-4 position-relative">
                                 <h3 class="announcement-header">
                                     <?php the_title(); ?>
                                 </h3>
