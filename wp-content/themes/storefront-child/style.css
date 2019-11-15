@@ -2766,6 +2766,8 @@ h2.related-product {
 }
 
 .products .product img{
+    width: auto;
+    max-height: 239px;
     position: relative;
     z-index: 3;
     border: 1px solid #1C1919;
@@ -2801,7 +2803,7 @@ h2.related-product {
     color: #000;
     padding: 10px 15px;
     position: absolute;
-    top: 242px;
+    top: 216px;
     left: 0;
     right: 0;
     max-width: 80px;
