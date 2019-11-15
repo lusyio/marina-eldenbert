@@ -11,9 +11,9 @@ Template Post Type: post, page, product
 </div>
 
 <div class="club-container">
-    <div class="container">
+    <div class="container club-bg">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-6 offset-lg-3 col-12 offset-0">
                 <div class="club-header">
                     <h2 class="club-header__title">Закрытый клуб
                         Марины Эльденберт</h2>
@@ -24,6 +24,35 @@ Template Post Type: post, page, product
                     <a class="club-header__btn" href="#">Вступить</a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="container club-content">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-12 offset-0">
+            <p class="club-content__title">Что дает членство в клубе
+                и как стать участником?</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-1 col-12 offset-0">
+            <p class="club-content__text">Всем членам закрытого клуба открывается доступ к закрытому разделу сайта,
+                в котором публкиуются эксклюзивные материалы, рассказы и авторские истории. Доступ в клуб
+                открывается всем участникам, достигшем статуса серебрянной драконессы и выше.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3 col-12 offset-0">
+            <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
+        </div>
+    </div>
+    <div class="row club-footer">
+        <div class="col-lg-8 offset-lg-2 col-12 offset-0">
+            <p class="club-footer__text">Зарегистрируйся на сайте
+                <strong>до 31 декабря 2019</strong>
+                и получи моментальный доступ</p>
+            <a class="club-footer__btn" href="#">Вступить в закрытый клуб</a>
         </div>
     </div>
 </div>

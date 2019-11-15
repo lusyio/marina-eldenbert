@@ -28,7 +28,7 @@ Template Post Type: post, page, product
                             )
                         )
                     ));
-                    $terms = get_the_terms( get_the_ID(), 'product_cat' );
+                    $terms = get_the_terms(get_the_ID(), 'product_cat');
                     $products = $query->get_products();
                     foreach ($products as $product): ?>
                         <div class="swiper-slide">
@@ -153,7 +153,9 @@ Template Post Type: post, page, product
                     </div>
                     <?php if ($portfolio_counter == 2): ?>
 
-                    <div class="col-12 text-center"><a class="announcement__link" href="#">Смотреть все анонсы</a></div>
+                    <div class="col-12 text-center"><a class="announcement__link"
+                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все анонсы</a>
+                    </div>
 
                     <?php break; ?>
                 <?php endif; ?>
@@ -191,7 +193,7 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                     <?php if ($portfolio_counter == 2): ?>
-                    <div class="col-12 text-center"><a class="blog__link" href="#">Смотреть все посты</a></div>
+                    <div class="col-12 text-center"><a class="blog__link" href="<?php echo get_permalink($post = 33) ?>">Смотреть все посты</a></div>
                     <?php break; ?>
                 <?php endif; ?>
                     <?php $portfolio_counter++; ?>
@@ -226,7 +228,7 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                     <?php if ($portfolio_counter == 3): ?>
-                    <div class="col-12 text-center"><a class="news-n-events__link" href="#">Смотреть все новости</a>
+                    <div class="col-12 text-center"><a class="news-n-events__link" href="<?php echo get_permalink($post = 44) ?>">Смотреть все новости</a>
                     </div>
                     <?php break; ?>
                 <?php endif; ?>
