@@ -1620,6 +1620,8 @@ ul.pagination > .page-item:last-of-type .page-link {
     box-shadow: 0px 0px 20px #797982;
     position: relative;
     z-index: 2;
+    max-height: 239px;
+    max-width: 165px;
 }
 
 .related-img-container {
@@ -2149,13 +2151,13 @@ h2.related-product {
 }
 
 .product-price {
-    background: #EEEBE6;
+    background: #F8AC53;
     border-radius: 40px;
     font-weight: bold;
     font-size: 1.5rem;
     line-height: 28px;
     text-align: center;
-    color: #000000;
+    color: #fff;
     padding: 16px 25px;
     position: absolute;
     z-index: 3;
@@ -2797,13 +2799,13 @@ h2.related-product {
 }
 
 .products .product .price {
-    background: #EEEBE6;
+    background: #F8AC53;;
     border-radius: 20px;
     font-weight: bold;
     font-size: 1.125rem;
     line-height: 21px;
     text-align: center;
-    color: #000;
+    color: #fff !important;
     padding: 10px 15px;
     position: absolute;
     top: 216px;

@@ -145,7 +145,6 @@
     });
 
     var swiperRelated = new Swiper('.swiper-container-related', {
-        spaceBetween: 57,
         slidesPerView: 4,
         navigation: {
             nextEl: '.container-related__next',
@@ -159,15 +158,14 @@
             },
             768: {
                 slidesPerView: 2,
-                spaceBetween: 57,
+                spaceBetween: 30,
             },
             991: {
                 slidesPerView: 3,
-                spaceBetween: 57,
+                spaceBetween: 30,
             },
             1199: {
                 slidesPerView: 4,
-                spaceBetween: 57,
             }
         },
     });
