@@ -1450,6 +1450,7 @@ ul.pagination > .page-item:last-of-type .page-link {
 }
 
 .popular-btn {
+    display: block;
     width: 100%;
     background: #F8AC53;
     border-radius: 40px;
@@ -1500,6 +1501,7 @@ ul.pagination > .page-item:last-of-type .page-link {
     -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     cursor: pointer;
+    color: #fff;
 }
 
 .popular-img-container {
@@ -2459,6 +2461,64 @@ h2.related-product {
 
 /*--------------------------------------------------------------
 # MAIN-LANDING
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# CLUB
+--------------------------------------------------------------*/
+
+.club-container {
+    background: url(/wp-content/themes/storefront-child/images/club-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.club-header {
+    padding-top: 270px;
+    padding-bottom: 250px;
+}
+
+.club-header__title {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 56px;
+    text-align: center;
+    color: #121212;
+    margin-bottom: 50px;
+    margin-top: 0;
+    padding: 0;
+}
+
+.club-header__text {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 50px;
+}
+
+.club-header__btn {
+    background: #F8AC53;
+    border-radius: 40px;
+    padding: 10px 25px;
+    display: table;
+    margin: auto;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+}
+}
+
+/*--------------------------------------------------------------
+# CLUB
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------

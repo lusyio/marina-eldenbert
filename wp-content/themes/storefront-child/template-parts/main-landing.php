@@ -15,10 +15,6 @@ Template Post Type: post, page, product
             <div class="swiper-container-popular">
                 <div class="swiper-wrapper">
                     <?php
-                    $tags = array(
-                        'new',
-                        'bestseller'
-                    );
                     $query = new WC_Product_Query(array(
                         'status' => 'publish',
                         'orderby' => 'date',
@@ -28,7 +24,7 @@ Template Post Type: post, page, product
                             array(
                                 'taxonomy' => 'product_tag',
                                 'field' => 'slug',
-                                'terms' => $tags,
+                                'terms' => 'bestseller',
                             )
                         )
                     ));
@@ -49,7 +45,7 @@ Template Post Type: post, page, product
                                 <div class="col-12 col-lg-7">
                                     <div class="row">
                                         <div class="col-lg-11 offset-lg-1 offset-0 col-12">
-                                            <h2 class="popular-header d-lg-block d-none"><?php echo $product->get_tags(); ?></h2>
+                                            <h2 class="popular-header d-lg-block d-none">Популярное</h2>
                                             <h2 class="popular-title"><?php echo $product->get_name(); ?>
                                             </h2>
                                             <p class="popular-content">
