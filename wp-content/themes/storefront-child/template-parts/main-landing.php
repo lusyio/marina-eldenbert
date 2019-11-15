@@ -172,48 +172,31 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-lg-0">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="#">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
+                <?php $catquery = new WP_Query('cat=33&posts_per_page=2'); // portfolio  ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12 mb-lg-0">
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="announcement-img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-12 mb-sm-0 mb-4">
+                                <h3 class="announcement-header">
+                                    <?php the_title(); ?>
+                                </h3>
+                                <div class="announcement-content">
+                                    <?php the_content(); ?>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
+                                <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12 d-md-flex d-none">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
             <div class="row">
                 <div class="col text-center"><a class="announcement__link" href="#">Смотреть все анонсы</a></div>

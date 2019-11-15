@@ -1814,7 +1814,7 @@ ul.pagination > .page-item:last-of-type .page-link {
     margin-top: 2.2rem;
 }
 
-.announcement-content {
+.announcement-content p {
     font-weight: 300;
     font-size: 1.125rem;
     line-height: 24px;
@@ -3039,7 +3039,7 @@ and (max-width: 576px) {
         width: 100%;
     }
 
-    .announcement-content {
+    .announcement-content p {
         margin-bottom: 2.875rem;
         text-align: center;
     }
