@@ -8,13 +8,22 @@
 ?>
 
 <div class="col-12 col-lg-4 order-lg-3 order-1">
-    <div class="sidebar-announcement">
-        <a href=""><img class="sidebar-announcement__img"
-                        src="/wp-content/themes/storefront-child/images/announcement-example.jpg" alt=""></a>
-        <p class="sidebar-announcement__title">Аудиокнига “Девушка в цепях”</p>
-        <p class="sidebar-announcement__text">Аудиокнига “Девушка в цепях”</p>
-        <a href="#" class="sidebar-announcement__btn">Подробнее</a>
-    </div>
+    <?php $catquery = new WP_Query('cat=33&posts_per_page=1'); // portfolio  ?>
+    <?php while ($catquery->have_posts()) :
+        $catquery->the_post(); ?>
+        <div class="sidebar-announcement">
+            <a href="<?php the_permalink() ?>">
+                <div class="sidebar-announcement__img">
+                    <?= get_the_post_thumbnail() ?>
+                </div>
+
+            </a>
+            <p class="sidebar-announcement__title"><?php the_title(); ?></p>
+            <div class="sidebar-announcement__text"><?php the_content(); ?></div>
+            <a href="<?php the_permalink() ?>" class="sidebar-announcement__btn">Подробнее</a>
+        </div>
+    <?php endwhile; ?>
+    <?php wp_reset_postdata(); ?>
     <hr class="sidebar-announcement__hr">
     <div class="sidebar-news">
         <div class="row">
