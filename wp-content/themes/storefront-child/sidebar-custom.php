@@ -16,7 +16,6 @@
                 <div class="sidebar-announcement__img">
                     <?= get_the_post_thumbnail() ?>
                 </div>
-
             </a>
             <p class="sidebar-announcement__title"><?php the_title(); ?></p>
             <div class="sidebar-announcement__text"><?php the_content(); ?></div>
