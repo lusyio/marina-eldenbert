@@ -2059,7 +2059,7 @@ h2.related-product {
     margin-bottom: 25px;
 }
 
-.news-n-events-card__text {
+.news-n-events-card__text p{
     font-weight: 300;
     font-size: 1rem;
     line-height: 24px;
@@ -2092,7 +2092,7 @@ h2.related-product {
     color: #757575;
 }
 
-.news-n-events-card__avatar {
+.news-n-events-card__avatar img {
     border: 3px solid #F6F5F2;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -2506,7 +2506,7 @@ h2.related-product {
     border-color: #D8D8D8;
 }
 
-.sidebar-news__img {
+.sidebar-news__img img {
     border: 3px solid #F6F5F2;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -2514,7 +2514,7 @@ h2.related-product {
     max-width: 60px;
 }
 
-.sidebar-news__text {
+.sidebar-news__text p {
     font-weight: 300;
     font-size: 14px;
     line-height: 18px;

@@ -251,51 +251,33 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
+                <?php $catquery = new WP_Query('cat=35&posts_per_page=3'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-4 col-12">
+                        <div class="news-n-events-card">
+                            <div class="news-n-events-card-body">
+                                <p class="news-n-events-card__date"><?= get_the_date() ?></p>
+                                <div class="news-n-events-card__text">
+                                    <?php the_content(); ?>
+                                </div>
+                                <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
+                                <p class="news-n-events-card__author"><?php the_author(); ?></p>
+                            </div>
+                            <div class="news-n-events-card__avatar">
+                                <?php echo get_avatar(get_the_author_meta($user_id)); ?>
+                            </div>
                         </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
+                    <?php if ($portfolio_counter == 3): ?>
+                    <div class="col-12 text-center"><a class="news-n-events__link" href="#">Смотреть все новости</a>
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="news-n-events__link" href="#">Смотреть все новости</a></div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
 
