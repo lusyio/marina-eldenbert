@@ -2694,7 +2694,7 @@ h2.related-product {
     border-radius: 0;
     text-align: left;
     display: block;
-    margin-right: 0;
+    margin-right: 20px;
     margin-bottom: 0;
     margin-left: 20px;
 }
@@ -2725,11 +2725,11 @@ h2.related-product {
 .products .product {
     position: relative;
     display: inline-block;
-    -webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-transition: 0.4s;
+    -moz-transition: 0.4s;
+    -ms-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .before-block{
@@ -2749,6 +2749,9 @@ h2.related-product {
     -ms-transform: translate(20px, 20px);
     -o-transform: translate(20px, 20px);
     transform: translate(20px, 20px);
+}
+.woocommerce ul.products li.product, .woocommerce-page ul.products li.product{
+    margin: 0 2.8% 2.992em 0 !important;
 }
 
 .products .product .before-block:hover:before {
