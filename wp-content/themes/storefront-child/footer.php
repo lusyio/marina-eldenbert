@@ -146,6 +146,7 @@
 
     var swiperRelated = new Swiper('.swiper-container-related', {
         slidesPerView: 4,
+        spaceBetween: 10,
         navigation: {
             nextEl: '.container-related__next',
             prevEl: '.container-related__prev',
@@ -166,6 +167,7 @@
             },
             1199: {
                 slidesPerView: 4,
+                spaceBetween: 10,
             }
         },
     });
