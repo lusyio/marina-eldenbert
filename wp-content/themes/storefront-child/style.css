@@ -2652,6 +2652,95 @@ h2.related-product {
     bottom: 30px;
 }
 
+.avatar-status-box {
+    position: relative;
+    height: 115px;
+}
+
+.avatar-status-box .mycred-my-rank {
+    position: absolute;
+    left: 30px;
+    top: 75px;
+}
+
+#comments {
+    padding-top: 2.617924em; }
+
+#comments .comment-body {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.83rem;
+    padding: 30px 30px 0 0;
+}
+#comments .comment-text .wpulike {
+    display: inline-block;
+}
+
+#comments .comment-text .quote-comment {
+    background-color: #fbfbfb;
+    padding: 15px 20px 20px 20px;
+    margin-bottom: 20px;
+}
+#comments .comments-title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 0.5407911001em;
+    margin-bottom: 1.618em; }
+#comments .comment-list {
+    list-style: none;
+    margin-left: 0; }
+#comments .comment-list .comment-body::before, #comments .comment-list .comment-body::after {
+    content: '';
+    display: table; }
+#comments .comment-list .comment-body::after {
+    clear: both; }
+#comments .comment-list .comment-content {
+    padding-bottom: 0;
+    margin-bottom: 0; }
+#comments .comment-list .comment-content .comment-text {
+    background-color: #ffffff;
+}
+#comments .comment-list .comment-content .comment-text p {
+    margin-left: 20px;
+}
+#comments .comment-list .comment-content .comment-text p:last-child {
+    margin-bottom: 0; }
+#comments .comment-list .comment-meta {
+    margin-bottom: 1em; }
+#comments .comment-list .comment-meta .avatar {
+    margin-bottom: 0;
+    max-width: 100px;
+    height: auto;
+    position: absolute;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    top: 0;
+    left: 0;
+}
+#comments .comment-list .comment-meta a.comment-date {
+    font-size: 0.875em; }
+#comments .comment-list .comment-meta cite {
+    font-style: normal;
+    clear: both;
+    display: block; }
+#comments .comment-list .reply {
+    margin-bottom: 0;
+    padding-top: 0.6180469716em; }
+#comments .comment-list .reply::before, #comments .comment-list .reply::after {
+    content: '';
+    display: table; }
+#comments .comment-list .reply::after {
+    clear: both; }
+#comments .comment-list .reply a {
+    display: inline-block;
+    margin-right: 1em; }
+#comments .comment-list .reply a:last-child {
+    margin-right: 0; }
+#comments .comment-list .children {
+    list-style: none; }
+
+.comment-content a {
+    word-wrap: break-word; }
+
 /*--------------------------------------------------------------
 # COMMENTS
 --------------------------------------------------------------*/
