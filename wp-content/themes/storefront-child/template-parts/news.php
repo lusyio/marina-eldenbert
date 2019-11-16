@@ -20,102 +20,77 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-4 mb-lg-0">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="#">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
+                <?php $catquery = new WP_Query('cat=33&posts_per_page=2'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12 mb-5">
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="announcement-img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-12 mb-sm-0 mb-4 position-relative">
+                                <h3 class="announcement-header">
+                                    <?php the_title(); ?>
+                                </h3>
+                                <div class="announcement-content">
+                                    <?php the_content(); ?>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
+                                <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="#">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
+                    <?php if ($portfolio_counter == 2): ?>
+
+                    <div class="col-12 text-center"><a class="announcement__link" href="<?php echo get_permalink($post = 42) ?>">Смотреть все анонсы</a></div>
+
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
-            <div class="row">
-                <div class="col text-center"><a class="announcement__link" href="#">Смотреть все анонсы</a></div>
-            </div>
-        </div><div class="container blog">
+        </div>
+
+        <div class="container blog">
             <div class="row blog-hr-block">
                 <div class="col-12">
                     <p class="blog-hr-block__text">Авторский блог</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
+                <?php $catquery = new WP_Query('cat=34&posts_per_page=2'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12 mb-5">
+                        <div class="blog-card">
+                            <div class="blog-card__header">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="blog-card__img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="blog-card__body">
+                                <p class="blog-card__date"><?= get_the_date() ?></p>
+                                <div class="blog-card__text"><?php the_content(); ?>
+                                </div>
+                                <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="blog__link" href="#">Смотреть все посты</a></div>
+                    <?php if ($portfolio_counter == 2): ?>
+                    <div class="col-12 text-center"><a class="blog__link" href="<?php echo get_permalink($post = 33) ?>">Смотреть все посты</a></div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
 
@@ -126,51 +101,33 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
+                <?php $catquery = new WP_Query('cat=35&posts_per_page=3'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-4 col-12 mb-5">
+                        <div class="news-n-events-card">
+                            <div class="news-n-events-card-body">
+                                <p class="news-n-events-card__date"><?= get_the_date() ?></p>
+                                <div class="news-n-events-card__text">
+                                    <?php the_content(); ?>
+                                </div>
+                                <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
+                                <p class="news-n-events-card__author"><?php the_author(); ?></p>
+                            </div>
+                            <div class="news-n-events-card__avatar">
+                                <?php echo get_avatar(get_the_author_meta($user_id)); ?>
+                            </div>
                         </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
+                    <?php if ($portfolio_counter == 3): ?>
+                    <div class="col-12 text-center"><a class="news-n-events__link" href="<?php echo get_permalink($post = 44) ?>">Смотреть все новости</a>
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="news-n-events__link" href="#">Смотреть все новости</a></div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
     </div>

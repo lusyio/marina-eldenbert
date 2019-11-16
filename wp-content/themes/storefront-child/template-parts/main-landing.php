@@ -14,46 +14,49 @@ Template Post Type: post, page, product
 
             <div class="swiper-container-popular">
                 <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="row">
-                            <div class="col-12 col-lg-4 offset-lg-1 offset-0">
-                                <h2 class="popular-header d-block d-lg-none text-center">Популярное</h2>
-                                <div class="d-table m-auto">
-                                    <div class="popular-img-container">
-                                        <img src="/wp-content/themes/storefront-child/images/popular-example.jpg"
-                                             alt="">
-                                        <span class="popular-img-container__price">149 Р</span>
+                    <?php
+                    $query = new WC_Product_Query(array(
+                        'status' => 'publish',
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'limit' => 5,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_tag',
+                                'field' => 'slug',
+                                'terms' => 'bestseller',
+                            )
+                        )
+                    ));
+                    $terms = get_the_terms(get_the_ID(), 'product_cat');
+                    $products = $query->get_products();
+                    foreach ($products as $product): ?>
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <div class="col-12 col-lg-4 offset-lg-1 offset-0">
+                                    <h2 class="popular-header d-block d-lg-none text-center">Популярное</h2>
+                                    <div class="d-table m-auto">
+                                        <div class="popular-img-container">
+                                            <?php echo $product->get_image(385); ?>
+                                            <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12 col-lg-7">
-                                <div class="row">
-                                    <div class="col-lg-11 offset-lg-1 offset-0 col-12">
-                                        <h2 class="popular-header d-lg-block d-none">Популярное</h2>
-                                        <h2 class="popular-title">Поющая для дракона. Книга 3.
-                                            Между двух огней
-                                        </h2>
-                                        <p class="popular-content">
-                                            Он считает, что я в его власти, но он ошибается. Мир иртханов не прощает
-                                            слабости, а
-                                            значит, мне
-                                            придется научиться играть по его правилам. На его условиях, по законам,
-                                            которые
-                                            ближе к
-                                            звериным, чем к человеческим. Чем закончится наше противостояние? Я не знаю.
-                                            Знаю
-                                            только, что
-                                            буду петь. Даже если сердце в огне. Он считает, что я в его власти, но он
-                                            ошибается.
-                                            Мир
-                                            иртханов не прощает слабости, а значит, мне придется научиться играть по его
-                                            правилам.
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-lg-5 col-12">
-                                                <div class="popular-btn">
-                                                    Подробнее
+                                <div class="col-12 col-lg-7">
+                                    <div class="row">
+                                        <div class="col-lg-11 offset-lg-1 offset-0 col-12">
+                                            <h2 class="popular-header d-lg-block d-none">Популярное</h2>
+                                            <h2 class="popular-title"><?php echo $product->get_name(); ?>
+                                            </h2>
+                                            <p class="popular-content">
+                                                <?php echo $product->get_short_description(); ?>
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-lg-5 col-12">
+                                                    <a href="<?php echo $product->get_permalink(); ?>"
+                                                       class="popular-btn">
+                                                        Подробнее
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,55 +64,7 @@ Template Post Type: post, page, product
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="row">
-                            <div class="col-12 col-lg-4 offset-lg-1 offset-0">
-                                <h2 class="popular-header d-block d-lg-none text-center">Популярное</h2>
-                                <div class="d-table m-auto">
-                                    <div class="popular-img-container">
-                                        <img src="/wp-content/themes/storefront-child/images/popular-example.jpg"
-                                             alt="">
-                                        <span class="popular-img-container__price">149 Р</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-7">
-                                <div class="row">
-                                    <div class="col-lg-11 offset-lg-1 offset-0 col-12">
-                                        <h2 class="popular-header d-lg-block d-none">Популярное</h2>
-                                        <h2 class="popular-title">Поющая для дракона. Книга 3.
-                                            Между двух огней
-                                        </h2>
-                                        <p class="popular-content">
-                                            Он считает, что я в его власти, но он ошибается. Мир иртханов не прощает
-                                            слабости, а
-                                            значит, мне
-                                            придется научиться играть по его правилам. На его условиях, по законам,
-                                            которые
-                                            ближе к
-                                            звериным, чем к человеческим. Чем закончится наше противостояние? Я не знаю.
-                                            Знаю
-                                            только, что
-                                            буду петь. Даже если сердце в огне. Он считает, что я в его власти, но он
-                                            ошибается.
-                                            Мир
-                                            иртханов не прощает слабости, а значит, мне придется научиться играть по его
-                                            правилам.
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-lg-5 col-12">
-                                                <div class="popular-btn">
-                                                    Подробнее
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <?php endforeach; ?>
                 </div>
                 <div class="swiper-pagination popular-pagination">
                 </div>
@@ -172,51 +127,41 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-lg-0">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="#">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
+                <?php $catquery = new WP_Query('cat=33&posts_per_page=2'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12 mb-5">
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="announcement-img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-12 mb-sm-0 mb-4 position-relative">
+                                <h3 class="announcement-header">
+                                    <?php the_title(); ?>
+                                </h3>
+                                <div class="announcement-content">
+                                    <?php the_content(); ?>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
+                                <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-12 d-md-flex d-none">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <a href="">
-                                <div class="announcement-img">
-                                    <img src="/wp-content/themes/storefront-child/images/announcement-example.jpg"
-                                         alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-12 mb-sm-0 mb-4">
-                            <h3 class="announcement-header">
-                                Аудиокнига “Девушка в цепях”
-                            </h3>
-                            <p class="announcement-content">
-                                🎧 Совсем скоро! Аудиокнига "Девушка в цепях" на Литрес!
-                            </p>
-                            <a href="#" class="announcement-btn">Подробнее</a>
-                        </div>
+                    <?php if ($portfolio_counter == 2): ?>
+
+                    <div class="col-12 text-center"><a class="announcement__link"
+                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все анонсы</a>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="announcement__link" href="#">Смотреть все анонсы</a></div>
+
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
         <div class="container blog">
@@ -226,49 +171,34 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12 mb-lg-0">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-12 mb-lg-0 mb-3 d-md-flex d-none">
-                    <div class="blog-card">
-                        <div class="blog-card__header">
-                            <a href="#">
-                                <img class="blog-card__img"
-                                     src="/wp-content/themes/storefront-child/images/blog-example.jpg"
-                                     alt="">
-                            </a>
-                        </div>
-                        <div class="blog-card__body">
-                            <p class="blog-card__date">31.10.2019</p>
-                            <p class="blog-card__text">Название найдено! Из предложенных вариантов издательство
-                                остановилось
-                                на
-                                варианте, предложенном Оксаной Тимофеевой 😉 Итак, вторая часть будет называться...
-                            </p>
-                            <a class="blog-card__link" href="#">Подробнее</a>
+                <?php $catquery = new WP_Query('cat=34&posts_per_page=2'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-6 col-12 mb-5">
+                        <div class="blog-card">
+                            <div class="blog-card__header">
+                                <a href="<?php the_permalink() ?>">
+                                    <div class="blog-card__img">
+                                        <?= get_the_post_thumbnail() ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="blog-card__body">
+                                <p class="blog-card__date"><?= get_the_date() ?></p>
+                                <div class="blog-card__text"><?php the_content(); ?>
+                                </div>
+                                <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="blog__link" href="#">Смотреть все посты</a></div>
+                    <?php if ($portfolio_counter == 2): ?>
+                    <div class="col-12 text-center"><a class="blog__link" href="<?php echo get_permalink($post = 33) ?>">Смотреть все посты</a></div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
         <div class="container news-n-events">
@@ -278,51 +208,33 @@ Template Post Type: post, page, product
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
+                <?php $catquery = new WP_Query('cat=35&posts_per_page=3'); // portfolio  ?>
+                <?php $portfolio_counter = 1; ?>
+                <?php while ($catquery->have_posts()) :
+                    $catquery->the_post(); ?>
+                    <div class="col-lg-4 col-12 mb-5">
+                        <div class="news-n-events-card">
+                            <div class="news-n-events-card-body">
+                                <p class="news-n-events-card__date"><?= get_the_date() ?></p>
+                                <div class="news-n-events-card__text">
+                                    <?php the_content(); ?>
+                                </div>
+                                <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
+                                <p class="news-n-events-card__author"><?php the_author(); ?></p>
+                            </div>
+                            <div class="news-n-events-card__avatar">
+                                <?php echo get_avatar(get_the_author_meta($user_id)); ?>
+                            </div>
                         </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
+                    <?php if ($portfolio_counter == 3): ?>
+                    <div class="col-12 text-center"><a class="news-n-events__link" href="<?php echo get_permalink($post = 44) ?>">Смотреть все новости</a>
                     </div>
-                </div>
-                <div class="col-lg-4 col-12">
-                    <div class="news-n-events-card">
-                        <div class="news-n-events-card-body">
-                            <p class="news-n-events-card__date">31.10.2019</p>
-                            <p class="news-n-events-card__text">Скоро будем обсуждать обложку для Фервернской
-                                истории с
-                                Ириной Косулиной </p>
-                            <a href="#" class="news-n-events-card__link">Подробнее</a>
-                            <a href="#" class="news-n-events-card__author">Марина Эльденбер</a>
-                        </div>
-                        <img class="news-n-events-card__avatar"
-                             src="/wp-content/themes/storefront-child/images/avatar.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center"><a class="news-n-events__link" href="#">Смотреть все новости</a></div>
+                    <?php break; ?>
+                <?php endif; ?>
+                    <?php $portfolio_counter++; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
             </div>
         </div>
 
