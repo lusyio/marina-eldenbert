@@ -15,7 +15,7 @@ jQuery(function ($) {
     };
     let loadFilter = getUrlParameter('filter');
     let filterClass = '.product_tag-' + loadFilter;
-    let filterButton = $('button[data-filter="'+ filterClass +'"]');
+    let filterButton = $('button[data-filter="' + filterClass + '"]');
 
     let params = {
         itemSelector: '.product',
@@ -30,16 +30,16 @@ jQuery(function ($) {
     let isoGrid = $('.products').isotope(params);
 
 
-    $('.button-group').each( function( i, buttonGroup ) {
-        let $buttonGroup = $( buttonGroup );
-        $buttonGroup.on( 'click', 'button', function() {
+    $('.button-group').each(function (i, buttonGroup) {
+        let $buttonGroup = $(buttonGroup);
+        $buttonGroup.on('click', 'button', function () {
             $buttonGroup.find('.active').removeClass('active');
-            $( this ).addClass('active');
+            $(this).addClass('active');
         });
     });
     $('.clear-filters').on('click', function () {
         let filterValue = $(this).attr('data-filter');
-        isoGrid.isotope({ filter: filterValue });
+        isoGrid.isotope({filter: filterValue});
         filters = {};
         $('.button-group').each(function (i, buttonGroup) {
             $(buttonGroup).find('.active').removeClass('active');
@@ -49,22 +49,22 @@ jQuery(function ($) {
 
     let filters = {};
 
-    $('.filter-button-group').on( 'click', '.button', function() {
+    $('.filter-button-group').on('click', '.button', function () {
         let $this = $(this);
         // get group key
         let $buttonGroup = $this.parents('.button-group');
         let filterGroup = $buttonGroup.attr('data-filter-group');
         // set filter for group
-        filters[ filterGroup ] = $this.attr('data-filter');
+        filters[filterGroup] = $this.attr('data-filter');
         // combine filters
-        let filterValue = concatValues( filters );
-        isoGrid.isotope({ filter: filterValue });
+        let filterValue = concatValues(filters);
+        isoGrid.isotope({filter: filterValue});
     });
 
-    function concatValues( obj ) {
+    function concatValues(obj) {
         let value = '';
-        for ( let prop in obj ) {
-            value += obj[ prop ];
+        for (let prop in obj) {
+            value += obj[prop];
         }
         return value;
     }
@@ -99,4 +99,15 @@ jQuery(function ($) {
     $('.load-more').on('click', function () {
         loadProductPage();
     });
+
+    // display message box if no filtered items
+    $('.filter-btn').on('click', function () {
+        setTimeout(function () {
+            if ($('.product:visible').length === 0) {
+                $('.isotope-empty').show();
+            }
+        }, 450)
+
+    });
+
 });

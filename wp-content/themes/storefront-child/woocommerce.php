@@ -43,6 +43,9 @@ get_header(); ?>
     <section id="primary" class="content-area col-sm-12 col-lg-9 archive-product-page">
         <main id="main" class="site-main" role="main">
             <?php woocommerce_content(); ?>
+            <div class="isotope-empty">
+                <p>По заданным параметрам не найдено ни одной книги</p>
+            </div>
             <div class="row pb-5 mb-5">
                 <div class="col text-center">
                     <div class="load-more" style="display: none">Загрузить еще</div>
