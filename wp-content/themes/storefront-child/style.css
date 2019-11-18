@@ -3325,7 +3325,7 @@ h2.related-product {
     transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
-.products .product:hover {
+.products .product .before-block:hover {
     cursor: pointer;
     -webkit-transform: translate(20px, 20px);
     -moz-transform: translate(20px, 20px);
@@ -3333,6 +3333,15 @@ h2.related-product {
     -o-transform: translate(20px, 20px);
     transform: translate(20px, 20px);
 }
+
+.products .product .before-block:hover ~ .woocommerce-loop-product__title, .products .product .before-block:hover ~ .price {
+    -webkit-transform: translate(20px, 20px);
+    -moz-transform: translate(20px, 20px);
+    -ms-transform: translate(20px, 20px);
+    -o-transform: translate(20px, 20px);
+    transform: translate(20px, 20px);
+}
+
 
 .woocommerce ul.products li.product, .woocommerce-page ul.products li.product {
     margin: 0 2.8% 2.992em 0 !important;
@@ -3395,6 +3404,11 @@ h2.related-product {
     margin-left: auto;
     margin-right: auto;
     z-index: 3;
+    -webkit-transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -moz-transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -ms-transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -o-transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
 .products .product .before-block:before {
