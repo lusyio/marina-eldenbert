@@ -1777,6 +1777,10 @@ ul.pagination > .page-item:last-of-type .page-link {
     padding-bottom: 6.25rem;
 }
 
+.related .container-related__prev, .related .container-related__next {
+    top: 55%;
+}
+
 .container-related__prev, .container-related__next {
     position: absolute;
     z-index: 10;
@@ -1785,6 +1789,13 @@ ul.pagination > .page-item:last-of-type .page-link {
 
 .container-related__prev:hover, .container-related__next:hover {
     cursor: pointer;
+}
+
+.container-related__prev:focus, .container-related__next:focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline: none;
 }
 
 .container-related__prev {
@@ -3475,7 +3486,7 @@ and (max-width: 991px) {
         margin-bottom: 50px;
     }
 
-    .popular-img-container img{
+    .popular-img-container img {
         max-height: 35rem;
         width: auto;
     }
