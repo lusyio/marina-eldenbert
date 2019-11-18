@@ -3098,6 +3098,7 @@ h2.related-product {
 
 .comment .children {
     width: 100% !important;
+    margin-left: 0;
 }
 
 .comment-reply-link:focus {
@@ -3674,8 +3675,11 @@ and (max-width: 576px) {
     }
 
     .announcement-btn {
-        display: table;
+        display: block;
         margin: auto;
+        left: 0;
+        right: 0;
+        width: 55%;
     }
 
     .popular {

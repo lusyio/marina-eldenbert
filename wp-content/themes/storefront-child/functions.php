@@ -1271,6 +1271,84 @@ function storefront_comment($comment, $args, $depth)
     <?php
 }
 
+function woocommerce_comments($comment, $args, $depth)
+{
+    if ('div' === $args['style']) {
+        $tag = 'div';
+        $add_below = 'comment';
+    } else {
+        $tag = 'li ';
+        $add_below = 'div-comment';
+    }
+    ?>
+    <<?php echo esc_attr($tag); ?><?php comment_class(empty($args['has_children']) ? 'comment' : 'parent comment'); ?> id="comment-<?php comment_ID(); ?>">
+    <div class="comment-body">
+    <div class="comment-meta commentmetadata">
+        <div class="comment-author vcard">
+            <div class="avatar-status-box position-relative">
+                <?php echo get_avatar($comment, 100); ?>
+                <?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=0 show_logo=1 logo_size="rank"]'); ?>
+            </div>
+            <div class="text-center">
+                <?php printf(wp_kses_post('<cite class="comment-body__author fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
+                <cite><?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
+            </div>
+        </div>
+        <?php if ('0' === $comment->comment_approved) : ?>
+            <em class="comment-awaiting-moderation"><?php esc_attr_e('Your comment is awaiting moderation.', 'storefront'); ?></em>
+            <br/>
+        <?php endif; ?>
+
+        <a href="<?php echo esc_url(htmlspecialchars(get_comment_link($comment->comment_ID))); ?>"
+           class="comment-date">
+
+        </a>
+    </div>
+    <?php if ('div' !== $args['style']) : ?>
+    <div id="div-comment-<?php comment_ID(); ?>" class="comment-content">
+<?php endif; ?>
+    <div class="comment-text">
+        <div class="comment-container">
+            <?php if ($comment->comment_parent != 0):
+                $comment = get_comment($comment->comment_parent);
+                $comment_text = get_comment_text($comment);
+                ?>
+                <div class="quote-comment">
+                    <?php echo $comment_text; ?>
+                </div>
+            <?php endif; ?>
+            <?php comment_text(); ?>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php
+                comment_reply_link(
+                    array_merge(
+                        $args, array(
+                            'add_below' => $add_below,
+                            'depth' => $depth,
+                            'max_depth' => $args['max_depth'],
+                        )
+                    )
+                );
+                ?>
+            </div>
+            <time datetime="<?php echo get_comment_date('c'); ?> "><?php echo renameMonth(get_comment_date()); ?></time>
+        </div>
+    </div>
+    <div class="reply">
+
+        <?php edit_comment_link(__('Edit', 'storefront'), '  ', ''); ?>
+
+    </div>
+    </div>
+    <?php if ('div' !== $args['style']) : ?>
+    </div>
+<?php endif; ?>
+    <?php
+}
+
 /**
  * Добавляем новый размер изображений для статуса
  */
