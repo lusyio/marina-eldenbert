@@ -36,10 +36,12 @@ Template Post Type: post, page, product
                                 <div class="col-12 col-lg-4 offset-lg-1 offset-0">
                                     <h2 class="popular-header d-block d-lg-none text-center">Популярное</h2>
                                     <div class="d-table m-auto">
-                                        <div class="popular-img-container">
-                                            <?php echo $product->get_image(385); ?>
-                                            <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
-                                        </div>
+                                        <a href="<?php echo $product->get_permalink(); ?>">
+                                            <div class="popular-img-container">
+                                                <?php echo $product->get_image(385); ?>
+                                                <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-7">
@@ -154,7 +156,8 @@ Template Post Type: post, page, product
                     <?php if ($portfolio_counter == 2): ?>
 
                     <div class="col-12 text-center"><a class="announcement__link"
-                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все анонсы</a>
+                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все
+                            анонсы</a>
                     </div>
 
                     <?php break; ?>
@@ -193,7 +196,9 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                     <?php if ($portfolio_counter == 2): ?>
-                    <div class="col-12 text-center"><a class="blog__link" href="<?php echo get_permalink($post = 33) ?>">Смотреть все посты</a></div>
+                    <div class="col-12 text-center"><a class="blog__link"
+                                                       href="<?php echo get_permalink($post = 33) ?>">Смотреть все
+                            посты</a></div>
                     <?php break; ?>
                 <?php endif; ?>
                     <?php $portfolio_counter++; ?>
@@ -228,7 +233,9 @@ Template Post Type: post, page, product
                         </div>
                     </div>
                     <?php if ($portfolio_counter == 3): ?>
-                    <div class="col-12 text-center"><a class="news-n-events__link" href="<?php echo get_permalink($post = 44) ?>">Смотреть все новости</a>
+                    <div class="col-12 text-center"><a class="news-n-events__link"
+                                                       href="<?php echo get_permalink($post = 44) ?>">Смотреть все
+                            новости</a>
                     </div>
                     <?php break; ?>
                 <?php endif; ?>

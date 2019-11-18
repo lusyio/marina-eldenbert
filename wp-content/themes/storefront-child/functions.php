@@ -209,40 +209,43 @@ add_filter('woocommerce_checkout_fields', 'new_woocommerce_checkout_fields', 10,
 
 function new_woocommerce_checkout_fields($fields)
 {
-        unset($fields['billing']['billing_address_2']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_address_1']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_city']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_postcode']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_country']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_state']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_company']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_last_name']); //удаляем Населённый пункт
-        unset($fields['billing']['billing_phone']); //удаляем Населённый пункт
-        unset($fields['order']['order_comments']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_address_2']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_address_1']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_city']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_postcode']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_country']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_state']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_company']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_last_name']); //удаляем Населённый пункт
+    unset($fields['billing']['billing_phone']); //удаляем Населённый пункт
+    unset($fields['order']['order_comments']); //удаляем Населённый пункт
     return $fields;
 }
 
-add_filter( 'woocommerce_cart_needs_shipping_address', '__return_false');
+add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
 
 add_filter('woocommerce_enable_order_notes_field', '__return_false');
 
 //Замена placeholder
 add_filter('woocommerce_default_address_fields', 'override_default_address_checkout_fields', 20, 1);
-function override_default_address_checkout_fields( $address_fields ) {
+function override_default_address_checkout_fields($address_fields)
+{
     $address_fields['first_name']['placeholder'] = 'Как к вам обращаться?';
     $address_fields['address_1']['placeholder'] = 'Где вы проживаете?';
     $address_fields['postcode']['placeholder'] = 'Postnummer';
     return $address_fields;
 }
 
-add_filter( 'woocommerce_checkout_fields' , 'override_billing_checkout_fields', 20, 1 );
-function override_billing_checkout_fields( $fields ) {
+add_filter('woocommerce_checkout_fields', 'override_billing_checkout_fields', 20, 1);
+function override_billing_checkout_fields($fields)
+{
     $fields['billing']['billing_email']['placeholder'] = 'Укажите Email';
     return $fields;
 }
 
-add_filter( 'woocommerce_billing_fields', 'ts_unrequire_wc_phone_field');
-function ts_unrequire_wc_phone_field( $fields ) {
+add_filter('woocommerce_billing_fields', 'ts_unrequire_wc_phone_field');
+function ts_unrequire_wc_phone_field($fields)
+{
     $fields['billing_phone']['required'] = true;
     return $fields;
 }
@@ -355,7 +358,7 @@ function article_content($articleId)
 {
     global $post;
     $query = new WP_Query('p=' . $articleId);
-    $bookId = get_post_meta($post->ID, 'book_id',true);
+    $bookId = get_post_meta($post->ID, 'book_id', true);
     $content = '';
     if ($query->have_posts()) {
 
@@ -469,7 +472,7 @@ function wp_custom_link_pages($args = '')
                 </li>';
             }
 
-            for ( $i = 1; $i <= $numpages; $i++ ) {
+            for ($i = 1; $i <= $numpages; $i++) {
                 $activeClass = ($i == $page) ? ' active' : '';
 
                 $link = '<li class="page-item' . $activeClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
@@ -628,6 +631,7 @@ function isBookBought($bookId)
     }
     return false;
 }
+
 /**
  * Выводит содержание книги
  * @param $isArticle
@@ -636,7 +640,7 @@ function contentList($isArticle)
 {
     global $post;
     $baseUrl = get_permalink();
-    $bookId = get_post_meta($post->ID, 'book_id',true);
+    $bookId = get_post_meta($post->ID, 'book_id', true);
 
     $currentArticle = 0;
     if (isset($_GET['a']) && intval($_GET['a'] > 0)) {
@@ -754,7 +758,7 @@ add_filter('comment_post_redirect', function ($url) {
 function readButton()
 {
     global $post;
-    $bookId = get_post_meta($post->ID, 'book_id',true);
+    $bookId = get_post_meta($post->ID, 'book_id', true);
 
     $baseUrl = get_permalink();
     $lastBookmark = getBookmarkMeta($bookId);
@@ -961,7 +965,7 @@ function jk_remove_storefront_handheld_footer_bar()
  */
 function isAdmin()
 {
-    if ( current_user_can( 'manage_options' ) ) {
+    if (current_user_can('manage_options')) {
         return true;
     }
     return false;
@@ -1001,7 +1005,7 @@ function setBookmarkCookies()
  */
 function setBookmarkMeta($bookId, $articleId)
 {
-    if(!is_user_logged_in()) {
+    if (!is_user_logged_in()) {
         return;
     }
     $userId = get_current_user_id();
@@ -1015,7 +1019,7 @@ function setBookmarkMeta($bookId, $articleId)
  */
 function setBookmarkPageMeta($articleId, $page)
 {
-    if(!is_user_logged_in()) {
+    if (!is_user_logged_in()) {
         return;
     }
     $userId = get_current_user_id();
@@ -1029,11 +1033,11 @@ function setBookmarkPageMeta($articleId, $page)
  */
 function getBookmarkMeta($bookId)
 {
-    if(!is_user_logged_in()) {
+    if (!is_user_logged_in()) {
         return false;
     }
     $userId = get_current_user_id();
-    $articleId = get_user_meta( $userId, 'b_' . $bookId, true );
+    $articleId = get_user_meta($userId, 'b_' . $bookId, true);
     if ($articleId == '') {
         return false;
     }
@@ -1047,11 +1051,11 @@ function getBookmarkMeta($bookId)
  */
 function getBookmarkPageMeta($articleId)
 {
-    if(!is_user_logged_in()) {
+    if (!is_user_logged_in()) {
         return false;
     }
     $userId = get_current_user_id();
-    $page = get_user_meta( $userId, 'a_' . $articleId, true );
+    $page = get_user_meta($userId, 'a_' . $articleId, true);
     if ($page == '') {
         return false;
     }
@@ -1085,14 +1089,14 @@ function addIsotopeScript()
 function addFilterBar()
 {
     $bookTypeFilters = [
-      'free-books',
-      'paper-books',
-      'audio-books',
+        'free-books',
+        'paper-books',
+        'audio-books',
     ];
     $otherFilters = [
-      'new',
-      'bestseller',
-      'pre-order'
+        'new',
+        'bestseller',
+        'pre-order'
     ];
 
     $tags = get_terms('product_tag');
@@ -1101,38 +1105,41 @@ function addFilterBar()
         $nonEmptyTags[$tag->slug] = $tag->name;
     }
 
-?>
+    ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3" role="complementary">
-    <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
+        <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
         <div class="filter-button-group">
-        <div class="button-group mb-5" data-filter-group="type">
-        <?php foreach ($bookTypeFilters as $filter): ?>
-        <?php if (!key_exists($filter, $nonEmptyTags)) {
-            continue;
-            } ?>
-    <button class="button filter-btn" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-        <?php endforeach; ?>
-        </div>
-        <div class="button-group mb-5" data-filter-group="other">
-        <?php foreach ($otherFilters as $filter): ?>
-        <?php if (!key_exists($filter, $nonEmptyTags)) {
-            continue;
-            } ?>
-    <button class="button filter-btn" data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-        <?php endforeach; ?>
-        </div>
-        <div class="button-group" data-filter-group="category">
-            <?php
-            $categories = get_terms('product_cat');
+            <div class="button-group mb-5" data-filter-group="type">
+                <?php foreach ($bookTypeFilters as $filter): ?>
+                    <?php if (!key_exists($filter, $nonEmptyTags)) {
+                        continue;
+                    } ?>
+                    <button class="button filter-btn"
+                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                <?php endforeach; ?>
+            </div>
+            <div class="button-group mb-5" data-filter-group="other">
+                <?php foreach ($otherFilters as $filter): ?>
+                    <?php if (!key_exists($filter, $nonEmptyTags)) {
+                        continue;
+                    } ?>
+                    <button class="button filter-btn"
+                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                <?php endforeach; ?>
+            </div>
+            <div class="button-group" data-filter-group="category">
+                <?php
+                $categories = get_terms('product_cat');
 
-            foreach ($categories as $category): ?>
-                <?php if ($category->slug == 'uncategorized') {
-                    continue;
-                } ?>
-                <button class="button filter-btn" data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
-            <?php endforeach; ?>
+                foreach ($categories as $category): ?>
+                    <?php if ($category->slug == 'uncategorized') {
+                        continue;
+                    } ?>
+                    <button class="button filter-btn"
+                            data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
     </aside>
     <?php
 }
@@ -1147,16 +1154,18 @@ add_filter('woocommerce_form_field', function ($form) {
     return $form;
 });
 
-add_filter( 'woocommerce_show_page_title', '__return_null' );
+add_filter('woocommerce_show_page_title', '__return_null');
 
 add_action('woocommerce_before_shop_loop_item_title', 'my_theme_wrapper_start', 9);
 add_action('woocommerce_before_shop_loop_item_title', 'my_theme_wrapper_end', 10);
 
-function my_theme_wrapper_start() {
+function my_theme_wrapper_start()
+{
     echo '<div class="before-block">';
 }
 
-function my_theme_wrapper_end() {
+function my_theme_wrapper_end()
+{
     echo '</div>';
 }
 
@@ -1166,17 +1175,17 @@ function my_theme_wrapper_end() {
  * @param $args
  * @param $depth
  */
-function storefront_comment( $comment, $args, $depth )
+function storefront_comment($comment, $args, $depth)
 {
     if ('div' === $args['style']) {
         $tag = 'div';
         $add_below = 'comment';
     } else {
-        $tag = 'li';
+        $tag = 'li ';
         $add_below = 'div-comment';
     }
     ?>
-    <<?php echo esc_attr($tag); ?> <?php comment_class(empty($args['has_children']) ? '' : 'parent'); ?> id="comment-<?php comment_ID(); ?>">
+    <<?php echo esc_attr($tag); ?><?php comment_class(empty($args['has_children']) ? '' : 'parent'); ?> id="comment-<?php comment_ID(); ?>">
     <div class="comment-body">
     <div class="comment-meta commentmetadata">
         <div class="comment-author vcard">
@@ -1185,7 +1194,7 @@ function storefront_comment( $comment, $args, $depth )
                 <?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=0 show_logo=1 logo_size="rank"]'); ?>
             </div>
             <div class="text-center">
-                <?php printf(wp_kses_post('<cite class="fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
+                <?php printf(wp_kses_post('<cite class="comment-body__author fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
                 <cite><?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
             </div>
         </div>
@@ -1194,7 +1203,8 @@ function storefront_comment( $comment, $args, $depth )
             <br/>
         <?php endif; ?>
 
-        <a href="<?php echo esc_url(htmlspecialchars(get_comment_link($comment->comment_ID))); ?>" class="comment-date">
+        <a href="<?php echo esc_url(htmlspecialchars(get_comment_link($comment->comment_ID))); ?>"
+           class="comment-date">
 
         </a>
     </div>
@@ -1202,27 +1212,34 @@ function storefront_comment( $comment, $args, $depth )
     <div id="div-comment-<?php comment_ID(); ?>" class="comment-content">
 <?php endif; ?>
     <div class="comment-text">
-        <?php if ($comment->comment_parent != 0):
-            $comment = get_comment( $comment->comment_parent );
-            $comment_text = get_comment_text( $comment );
-            ?>
-        <div class="quote-comment">
-            <?php echo $comment_text; ?>
+        <div class="comment-container">
+            <?php if ($comment->comment_parent != 0):
+                $comment = get_comment($comment->comment_parent);
+                $comment_text = get_comment_text($comment);
+                ?>
+                <div class="quote-comment">
+                    <?php echo $comment_text; ?>
+                </div>
+            <?php endif; ?>
+            <?php comment_text(); ?>
         </div>
-        <?php endif;?>
-        <?php comment_text(); ?>
-        <?php
-        comment_reply_link(
-            array_merge(
-                $args, array(
-                    'add_below' => $add_below,
-                    'depth' => $depth,
-                    'max_depth' => $args['max_depth'],
-                )
-            )
-        );
-        ?>
-        <?php echo '<time datetime="' . get_comment_date('c') . '">' . renameMonth(get_comment_date()) . '</time>'; ?>
+        <div class="d-flex justify-content-between">
+            <div>
+                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php
+                comment_reply_link(
+                    array_merge(
+                        $args, array(
+                            'add_below' => $add_below,
+                            'depth' => $depth,
+                            'max_depth' => $args['max_depth'],
+                        )
+                    )
+                );
+                ?>
+            </div>
+            <time datetime="<?php echo get_comment_date('c'); ?> "><?php echo renameMonth(get_comment_date()); ?></time>
+        </div>
     </div>
     <div class="reply">
 
@@ -1245,7 +1262,8 @@ add_image_size('rank', 40, 40);
  * Изменяет дату вида 21.04.2019 на 21 апр 2019
  * @param $date
  */
-function renameMonth($date) {
+function renameMonth($date)
+{
     $dateParts = preg_split('~\.~', $date);
     $months = [
         '01' => 'янв',
@@ -1286,3 +1304,12 @@ add_filter('wp_ulike_respond_for_not_liked_data', 'removePlusInLikes');
 add_filter('wp_ulike_respond_for_unliked_data', 'removePlusInLikes');
 add_filter('wp_ulike_respond_for_liked_data', 'removePlusInLikes');
 add_filter('wp_ulike_count_box_template', 'removePlusInLikes');
+
+add_filter('comment_reply_link', 'replace_reply_link_class');
+
+
+function replace_reply_link_class($class)
+{
+    $class = str_replace("class='comment-reply-link", "class='comment-reply-link", $class);
+    return $class;
+}
