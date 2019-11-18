@@ -927,7 +927,25 @@ function add_links_to_book_stores()
     }
     foreach ($links as $link) {
         $link_parts = preg_split('~\(:\)~', $link, 2);
-        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить в бумаге на ' . $link_parts[0] . '</a></p>';
+        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить бумажную версию ' . $link_parts[0] . '</a></p>';
+    }
+}
+
+/**
+ * Добавляем ссылки на аудио
+ */
+add_action('woocommerce_after_add_to_cart_form', 'add_links_to_audiobook_stores');
+
+function add_links_to_audiobook_stores()
+{
+    global $product;
+    $links = get_post_custom_values('buy_audio_book', $product->get_id());
+    if (!is_array($links)) {
+        return;
+    }
+    foreach ($links as $link) {
+        $link_parts = preg_split('~\(:\)~', $link, 2);
+        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить аудиокнигу ' . $link_parts[0] . '</a></p>';
     }
 }
 
@@ -1106,7 +1124,7 @@ function addFilterBar()
     }
 
     ?>
-    <aside id="secondary" class="widget-area col-sm-12 col-lg-3" role="complementary">
+    <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
         <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
         <div class="filter-button-group">
             <div class="button-group mb-5" data-filter-group="type">
@@ -1313,3 +1331,5 @@ function replace_reply_link_class($class)
     $class = str_replace("class='comment-reply-link", "class='comment-reply-link", $class);
     return $class;
 }
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );

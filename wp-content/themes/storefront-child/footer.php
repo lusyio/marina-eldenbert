@@ -78,11 +78,11 @@
             </div>
             <div class="col-12 footer-socials text-center col-lg-2 text-lg-right m-auto pl-0">
                 <div class="mb-0 mt-lg-0 mt-2">
-                    <a class="text-decoration-none socials" href="#"><img
+                    <a class="text-decoration-none socials" href="https://vk.com/meldenbert"><img
                                 src="/wp-content/themes/storefront-child/svg/vk.svg" alt=""></a>
-                    <a class="text-decoration-none ml-3 socials" href="#"><img
+                    <a class="text-decoration-none ml-3 socials" href="https://www.facebook.com/marina.eldenbert"><img
                                 src="/wp-content/themes/storefront-child/svg/facebook.svg" alt=""></a>
-                    <a class="text-decoration-none ml-3 socials" href="#"><img
+                    <a class="text-decoration-none ml-3 socials" href="https://www.instagram.com/marinaeldenbert/"><img
                                 src="/wp-content/themes/storefront-child/svg/instagram.svg" alt=""></a>
                 </div>
             </div>
