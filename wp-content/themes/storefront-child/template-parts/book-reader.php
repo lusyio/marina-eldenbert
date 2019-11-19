@@ -38,9 +38,15 @@ Template Post Type: post, page, product
         <?php endif; ?>
         <div class="col-1 order-lg-2 d-lg-flex d-none reader-hr"></div>
         <div class="col-12 col-lg-4 order-lg-3 order-1 mb-5">
-            <div class="reader-sidebar">
-                <div class="reader-sidebar__image"><?php bookCardInReader(); ?></div>
-                <div class="reader-sidebar__menu"><?php contentList($isArticle); ?></div>
+            <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseReader"
+                 aria-expanded="false" aria-controls="collapseReader">
+                Оглавление
+            </div>
+            <div class="collapse d-lg-block" id="collapseReader">
+                <div class="reader-sidebar">
+                    <div class="reader-sidebar__image"><?php bookCardInReader(); ?></div>
+                    <div class="reader-sidebar__menu"><?php contentList($isArticle); ?></div>
+                </div>
             </div>
         </div>
     </div>
