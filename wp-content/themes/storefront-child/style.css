@@ -3161,6 +3161,14 @@ img.emoji {
     width: 2rem;
 }
 
+.woocommerce-privacy-policy-link {
+    color: #F8AC53;
+}
+
+.woocommerce-privacy-policy-link:hover {
+    color: #F8AC53;
+}
+
 #comment {
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
