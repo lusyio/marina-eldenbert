@@ -38,7 +38,7 @@ get_header(); ?>
                             }
 
                             if (storefront_is_woocommerce_activated()) {
-                                
+
                                 echo '</div>';
 
                                 echo '<div class="col-1 order-lg-2 d-lg-flex d-none reader-hr">';
