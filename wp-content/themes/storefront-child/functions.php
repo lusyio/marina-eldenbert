@@ -1118,11 +1118,11 @@ function addFilterBar()
     ];
 
     $tags = get_terms('product_tag');
+    $series = get_terms('pa_series-book');
     $nonEmptyTags = [];
     foreach ($tags as $tag) {
         $nonEmptyTags[$tag->slug] = $tag->name;
     }
-
     ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
         <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
@@ -1151,15 +1151,11 @@ function addFilterBar()
                     <?php endforeach; ?>
                 </div>
                 <div class="button-group" data-filter-group="category">
-                    <?php
-                    $categories = get_terms('product_cat');
-
-                    foreach ($categories as $category): ?>
-                        <?php if ($category->slug == 'uncategorized') {
-                            continue;
-                        } ?>
+                    <button class="button filter-btn"
+                            data-filter=".series-no-series">Книги вне циклов</button>
+                    <?php foreach ($series as $ser):?>
                         <button class="button filter-btn"
-                                data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+                                data-filter=".series-<?php echo $ser->slug ?>"><?php echo $ser->name ?></button>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -1460,3 +1456,21 @@ function getBookPageIdByCategoryId($categoryId)
     }
     return false;
 }
+
+/**
+ * Добавляем в карточку товара класс "series-{слаг атрибута серия}", если серии нет, то добавляем "series-no-series"
+ */
+add_filter('post_class', 'addSeriesToClass');
+function addSeriesToClass($args) {
+    global $product;
+    $seriesTerms = get_the_terms($product->get_id(), 'pa_series-book');
+    if (!$seriesTerms) {
+        return ['series-no-series'];
+    }
+    $series = [];
+    foreach ($seriesTerms as $seriesTerm) {
+        $series[] = 'series-' . $seriesTerm->slug;
+    }
+    $result = array_merge($args, $series);
+    return $result;
+};
