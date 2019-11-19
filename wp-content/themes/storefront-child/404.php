@@ -7,77 +7,56 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area col-12">
+    <div id="primary" class="content-area col-12">
 
-		<main id="main" class="site-main" role="main">
+        <main id="main" class="site-main" role="main">
 
-			<div class="error-404 not-found">
+            <div class="error-404 not-found">
 
-				<div class="page-content">
+                <div class="page-content">
 
-					<header class="page-header">
-						<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'storefront' ); ?></h1>
-					</header><!-- .page-header -->
+                    <div class="row">
 
-					<p><?php esc_html_e( 'Nothing was found at this location. Try searching, or check out the links below.', 'storefront' ); ?></p>
+                        <div class="col-lg-7 col-12 order-lg-1 order-2 position-relative">
 
-					<?php
-					echo '<section aria-label="' . esc_html__( 'Search', 'storefront' ) . '">';
+                            <header class="page-header">
+                                <h1 class="page-title"><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'storefront'); ?></h1>
+                            </header>
 
-					if ( storefront_is_woocommerce_activated() ) {
-						the_widget( 'WC_Widget_Product_Search' );
-					} else {
-						get_search_form();
-					}
+                            <p><?php esc_html_e('Nothing was found at this location. Try searching, or check out the links below.', 'storefront'); ?></p>
 
-					echo '</section>';
+                            <?php
 
-					if ( storefront_is_woocommerce_activated() ) {
+                            if (storefront_is_woocommerce_activated()) {
+                                the_widget('WC_Widget_Product_Search');
+                            } else {
+                                get_search_form();
 
-						echo '<div class="row">';
+                                echo '</div>';
 
-							echo '<section class="col" aria-label="' . esc_html__( 'Promoted Products', 'storefront' ) . '">';
+                                echo '</div>';
+                            }
 
-								storefront_promoted_products();
+                            if (storefront_is_woocommerce_activated()) {
 
-							echo '</section>';
+                                echo '</div>';
 
-							echo '<nav class="col" aria-label="' . esc_html__( 'Product Categories', 'storefront' ) . '">';
+                                echo '<div class="col-1 order-lg-2 d-lg-flex d-none reader-hr">';
 
-								echo '<h2>' . esc_html__( 'Product Categories', 'storefront' ) . '</h2>';
+                                echo '</div>';
 
-								the_widget(
-									'WC_Widget_Product_Categories', array(
-										'count' => 1,
-									)
-								);
+                                get_sidebar('custom');
 
-							echo '</nav>';
+                                echo '</div>';
 
-						echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
 
-						echo '<section aria-label="' . esc_html__( 'Popular Products', 'storefront' ) . '">';
-
-							echo '<h2>' . esc_html__( 'Popular Products', 'storefront' ) . '</h2>';
-
-							$shortcode_content = storefront_do_shortcode(
-								'best_selling_products', array(
-									'per_page' => 4,
-									'columns'  => 4,
-								)
-							);
-
-							echo $shortcode_content; // WPCS: XSS ok.
-
-						echo '</section>';
-					}
-					?>
-
-				</div><!-- .page-content -->
-			</div><!-- .error-404 -->
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+                        </div><!-- .page-content -->
+                    </div><!-- .error-404 -->
+        </main><!-- #main -->
+    </div><!-- #primary -->
 
 <?php
 get_footer();

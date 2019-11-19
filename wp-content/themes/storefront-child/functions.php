@@ -763,10 +763,10 @@ function readButton()
     $baseUrl = get_permalink();
     $lastBookmark = getBookmarkMeta($bookId);
     if ($lastBookmark) {
-        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
+        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
-        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
+        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
         return;
     }
 
@@ -1125,37 +1125,43 @@ function addFilterBar()
 
     ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
-        <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
-        <div class="filter-button-group">
-            <div class="button-group mb-5" data-filter-group="type">
-                <?php foreach ($bookTypeFilters as $filter): ?>
-                    <?php if (!key_exists($filter, $nonEmptyTags)) {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                <?php endforeach; ?>
-            </div>
-            <div class="button-group mb-5" data-filter-group="other">
-                <?php foreach ($otherFilters as $filter): ?>
-                    <?php if (!key_exists($filter, $nonEmptyTags)) {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                <?php endforeach; ?>
-            </div>
-            <div class="button-group" data-filter-group="category">
-                <?php
-                $categories = get_terms('product_cat');
+        <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Фильтры
+        </div>
+        <div class="collapse d-lg-block" id="collapseFilter">
+            <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
+            </button>
+            <div class="filter-button-group">
+                <div class="button-group mb-5" data-filter-group="type">
+                    <?php foreach ($bookTypeFilters as $filter): ?>
+                        <?php if (!key_exists($filter, $nonEmptyTags)) {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-group mb-5" data-filter-group="other">
+                    <?php foreach ($otherFilters as $filter): ?>
+                        <?php if (!key_exists($filter, $nonEmptyTags)) {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-group" data-filter-group="category">
+                    <?php
+                    $categories = get_terms('product_cat');
 
-                foreach ($categories as $category): ?>
-                    <?php if ($category->slug == 'uncategorized') {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
-                <?php endforeach; ?>
+                    foreach ($categories as $category): ?>
+                        <?php if ($category->slug == 'uncategorized') {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </aside>
@@ -1243,7 +1249,7 @@ function storefront_comment($comment, $args, $depth)
         </div>
         <div class="d-flex justify-content-between">
             <div>
-                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
                     array_merge(
@@ -1321,7 +1327,7 @@ function woocommerce_comments($comment, $args, $depth)
         </div>
         <div class="d-flex justify-content-between">
             <div>
-                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
                     array_merge(
@@ -1401,16 +1407,8 @@ add_filter('wp_ulike_respond_for_unliked_data', 'removePlusInLikes');
 add_filter('wp_ulike_respond_for_liked_data', 'removePlusInLikes');
 add_filter('wp_ulike_count_box_template', 'removePlusInLikes');
 
-add_filter('comment_reply_link', 'replace_reply_link_class');
 
-
-function replace_reply_link_class($class)
-{
-    $class = str_replace("class='comment-reply-link", "class='comment-reply-link", $class);
-    return $class;
-}
-
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
 /**
  * используем свой cart.js вместо стандартного - в нем добавлено обновление свайпера после аякс-запроса

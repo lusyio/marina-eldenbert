@@ -17,7 +17,7 @@ Template Post Type: post, page, product
     </div>
     <div class="grid">
         <div class="grid-sizer"></div>
-        <div class="grid-item">
+        <div class="grid-item grid-item--width2">
             <a href="/wp-content/themes/storefront-child/images/image1.jpg" data-fancybox>
                 <div class="img-bg">
                     <img src="/wp-content/themes/storefront-child/images/image1.jpg" alt="">
@@ -75,17 +75,25 @@ Template Post Type: post, page, product
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
 <script>
-    jQuery(document).ready(function ($) {
+
+    jQuery(function ($) {
+        $('[data-fancybox').fancybox({
+            buttons : [
+                'download',
+                'thumbs',
+                'close'
+            ]
+        });
         var $grid = $('.grid').masonry({
             itemSelector: '.grid-item',
             percentPosition: true,
             columnWidth: '.grid-sizer',
+            gutter: 30,
         });
     })
 </script>
-<script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
 
 <?php get_footer(); ?>

@@ -732,6 +732,12 @@ footer.site-footer {
 
 ul.products li.product {
     padding-bottom: 1rem;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+    width: 22% !important;
 }
 
 .wc-block-grid__product-onsale, .onsale {
@@ -1060,6 +1066,10 @@ td.product-name a:hover {
     line-height: 24px;
     color: #F8AC53;
     border-radius: 40px;
+}
+
+.book-store-link a:hover {
+    color: #F8AC53;
 }
 
 .edit-account em {
@@ -2488,11 +2498,21 @@ h2.related-product {
 }
 
 .grid-item {
-    /*width: auto;*/
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    float: left;
+    height: auto;
+    margin-bottom: 30px;
 }
 
+.grid-item,
 .grid-sizer {
-    width: 10px;
+    width: 22%;
+}
+
+.grid-item--width2 {
+    width: 46.6%;
 }
 
 .grid-item img {
@@ -2514,11 +2534,6 @@ h2.related-product {
     content: '';
     display: block;
     clear: both;
-}
-
-.grid-item {
-    float: left;
-    margin-bottom: 30px;
 }
 
 .wc-forward::after, .woocommerce-Button--next::after {
@@ -3063,10 +3078,20 @@ h2.related-product {
     color: #757575 !important;
 }
 
+.error404 .site-content .widget_product_search {
+    padding-left: 0;
+    padding-right: 0;
+    background: transparent;
+}
+
+.widget_search form::before, .widget_product_search form::before {
+    top: 1.7em;
+}
+
 .comment-reply-link {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 21px;
+    font-weight: 300 !important;
+    font-size: 18px !important;
+    line-height: 21px !important;
     color: #757575 !important;
     padding: 0;
     margin-left: 20px;
@@ -3342,7 +3367,7 @@ h2.related-product {
     transform: translate(20px, 20px);
 }
 
-.isotope-empty{
+.isotope-empty {
     padding: 4em 1.618em;
     margin-bottom: 2rem;
     background-color: #fff;
@@ -3355,7 +3380,7 @@ h2.related-product {
     display: none;
 }
 
-.isotope-empty p{
+.isotope-empty p {
     font-weight: 300;
     font-size: 1.125rem;
     line-height: 21px;
@@ -3452,6 +3477,30 @@ h2.related-product {
     margin: 0;
 }
 
+.filter-collapse-btn{
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 32px;
+    color: #1C1C1C;
+    background: #fff;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.filter-collapse-btn:before{
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 50%;
+    border-bottom: 1px solid #D8D8D8;
+    top: 50%;
+    margin-right: 15px;
+}
+
+.filter-collapse-btn:hover{
+    cursor: pointer;
+}
+
 
 /*--------------------------------------------------------------
 # MEDIA
@@ -3482,6 +3531,10 @@ and (max-width: 1199px) {
 
     .outer-menu .menu ul {
         text-align: left;
+    }
+
+    ul.products li.product {
+        width: 30% !important;
     }
 
 }
@@ -3526,6 +3579,15 @@ and (max-width: 991px) {
         width: auto;
     }
 
+    .grid-item,
+    .grid-sizer {
+        width: 30%;
+    }
+
+    .grid-item--width2{
+        width: 64.4%;
+    }
+
 }
 
 @media screen
@@ -3533,11 +3595,6 @@ and (max-width: 768px) {
 
     footer.site-footer {
         padding-bottom: 75px;
-    }
-
-    .grid-sizer,
-    .grid-item {
-        width: 45%;
     }
 
     .popular-img-container:before {
@@ -3625,10 +3682,28 @@ and (max-width: 768px) {
         width: auto;
     }
 
+    ul.products li.product {
+        width: 45% !important;
+    }
+
+    .grid-item,
+    .grid-sizer {
+        width: 47%;
+    }
+
+    .grid-item--width2{
+        width: 100%;
+        margin-right: 0;
+    }
+
 }
 
 @media screen
 and (max-width: 576px) {
+
+    ul.products li.product {
+        width: 100% !important;
+    }
 
     .popular-pagination {
         text-align: center;
@@ -3733,11 +3808,6 @@ and (max-width: 576px) {
         margin-left: 0;
     }
 
-    .grid-sizer,
-    .grid-item {
-        width: 100%;
-    }
-
     .announcement-content p {
         text-align: center;
         min-height: 110px;
@@ -3783,6 +3853,21 @@ and (max-width: 576px) {
 
     .woocommerce-cart-form__cart-item {
         height: 130px;
+    }
+
+    .grid-item,
+    .grid-sizer {
+        width: 100%;
+    }
+
+    .grid-item img{
+        width: 100%;
+        height: auto;
+    }
+
+    .grid-item--width2{
+        width: 100%;
+        margin-right: 0;
     }
 
 }
