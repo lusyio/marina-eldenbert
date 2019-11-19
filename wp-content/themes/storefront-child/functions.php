@@ -1411,3 +1411,9 @@ function replace_reply_link_class($class)
 }
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+
+/**
+ * используем свой cart.js вместо стандартного - в нем добавлено обновление свайпера после аякс-запроса
+ */
+wp_dequeue_script('wc-cart');
+wp_enqueue_script( 'wc-cart', get_bloginfo( 'stylesheet_directory' ). '/inc/assets/js/cart.js' , array( 'jquery' ), false, true );
