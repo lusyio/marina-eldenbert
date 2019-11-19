@@ -2497,11 +2497,21 @@ h2.related-product {
 }
 
 .grid-item {
-    /*width: auto;*/
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    float: left;
+    height: auto;
+    margin-bottom: 30px;
 }
 
+.grid-item,
 .grid-sizer {
-    width: 10px;
+    width: 22%;
+}
+
+.grid-item--width2 {
+    width: 46.6%;
 }
 
 .grid-item img {
@@ -2523,11 +2533,6 @@ h2.related-product {
     content: '';
     display: block;
     clear: both;
-}
-
-.grid-item {
-    float: left;
-    margin-bottom: 30px;
 }
 
 .wc-forward::after, .woocommerce-Button--next::after {
@@ -3566,11 +3571,6 @@ and (max-width: 768px) {
         padding-bottom: 75px;
     }
 
-    .grid-sizer,
-    .grid-item {
-        width: 45%;
-    }
-
     .popular-img-container:before {
 
     }
@@ -3770,11 +3770,6 @@ and (max-width: 576px) {
 
     .outer-menu .menu li {
         margin-left: 0;
-    }
-
-    .grid-sizer,
-    .grid-item {
-        width: 100%;
     }
 
     .announcement-content p {
