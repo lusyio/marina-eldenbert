@@ -1243,7 +1243,7 @@ function storefront_comment($comment, $args, $depth)
         </div>
         <div class="d-flex justify-content-between">
             <div>
-                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
                     array_merge(
@@ -1321,7 +1321,7 @@ function woocommerce_comments($comment, $args, $depth)
         </div>
         <div class="d-flex justify-content-between">
             <div>
-                <?php if (function_exists('wp_ulike')) wp_ulike('get'); ?>
+                <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
                     array_merge(
@@ -1401,14 +1401,6 @@ add_filter('wp_ulike_respond_for_unliked_data', 'removePlusInLikes');
 add_filter('wp_ulike_respond_for_liked_data', 'removePlusInLikes');
 add_filter('wp_ulike_count_box_template', 'removePlusInLikes');
 
-add_filter('comment_reply_link', 'replace_reply_link_class');
-
-
-function replace_reply_link_class($class)
-{
-    $class = str_replace("class='comment-reply-link", "class='comment-reply-link", $class);
-    return $class;
-}
 
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 
