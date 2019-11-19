@@ -1125,10 +1125,10 @@ function addFilterBar()
 
     ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
-        <div class="filter-collapse-btn d-md-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+        <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
             Фильтры
         </div>
-        <div class="collapse d-md-block" id="collapseFilter">
+        <div class="collapse d-lg-block" id="collapseFilter">
             <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
             </button>
             <div class="filter-button-group">
