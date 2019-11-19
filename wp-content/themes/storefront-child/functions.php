@@ -1125,7 +1125,8 @@ function addFilterBar()
 
     ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
-        <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+        <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseFilter"
+             aria-expanded="false" aria-controls="collapseFilter">
             Фильтры
         </div>
         <div class="collapse d-lg-block" id="collapseFilter">
@@ -1415,3 +1416,35 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
  */
 wp_dequeue_script('wc-cart');
 wp_enqueue_script('wc-cart', get_bloginfo('stylesheet_directory') . '/inc/assets/js/cart.js', array('jquery'), false, true);
+
+
+//Изменение полей комментариев WP
+function modify_comment_fields($fields)
+{
+
+    $fields = array(
+        'author' => '<div class="row mb-5"><div class="col-lg-6 col-12"><label for="author">Автор</label><input class="form-control" id="author" name="author" maxlength="100" type="text"/></div>',
+        'email' => '<div class="col-lg-6 col-12"><label for="email">Email</label><input class="form-control" id="email" name="email" maxlength="100" type="text"/></div></div>',
+        'url' => ''
+    );
+
+    return $fields;
+
+}
+
+add_filter('comment_form_default_fields', 'modify_comment_fields');
+
+
+function modify_comment_textarea($fields)
+{
+
+    $fields = '<div class="row mb-5">
+                    <div class="col-12">
+                        <textarea placeholder="Введите текст сообщения" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+                    </div>
+                </div>';
+
+    return $fields;
+}
+
+add_filter('comment_form_field_comment', 'modify_comment_textarea');

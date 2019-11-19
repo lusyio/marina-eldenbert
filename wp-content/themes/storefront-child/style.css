@@ -1066,6 +1066,7 @@ td.product-name a:hover {
     line-height: 24px;
     color: #F8AC53;
     border-radius: 40px;
+    position: relative;
 }
 
 .book-store-link a:hover {
@@ -2009,14 +2010,16 @@ ul.pagination > .page-item:last-of-type .page-link {
     position: relative;
 }
 
-.announcement__link:hover::after, .announcement__link:focus::after, .blog-card__link:hover::after, .blog-card__link:focus::after, .blog__link:hover::after, .blog__link:focus::after, .news-n-events-card__link:hover::after, .news-n-events-card__link:focus::after, .news-n-events__link:hover::after, .news-n-events__link:focus::after, .sidebar-news__link:hover::after, .sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after, .lost_password > a:hover::after, .lost_password > a:focus::after, .register-toggle:hover::after, .register-toggle:focus::after {
+.announcement__link:hover::after, .announcement__link:focus::after, .blog-card__link:hover::after, .blog-card__link:focus::after, .blog__link:hover::after, .blog__link:focus::after, .news-n-events-card__link:hover::after, .news-n-events-card__link:focus::after, .news-n-events__link:hover::after, .news-n-events__link:focus::after, .sidebar-news__link:hover::after,
+.sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after, .lost_password > a:hover::after, .lost_password > a:focus::after, .register-toggle:hover::after, .register-toggle:focus::after, .book-store-link a:hover::after, .book-store-link a:focus::after {
     opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     transform: translateY(0px);
 }
 
-.announcement__link::after, .blog-card__link::after, .blog__link::after, .news-n-events-card__link::after, .news-n-events__link::after, .attr-label > a::after, .sidebar-news__link::after, .sidebar-blog-card__link::after, .lost_password a::after, .register-toggle::after {
+.announcement__link::after, .blog-card__link::after, .blog__link::after, .news-n-events-card__link::after, .news-n-events__link::after, .attr-label > a::after,
+.sidebar-news__link::after, .sidebar-blog-card__link::after, .lost_password a::after, .register-toggle::after, .book-store-link a::after {
     content: '';
     position: absolute;
     left: 0;
@@ -3153,9 +3156,50 @@ h2.related-product {
     background: transparent;
 }
 
+img.emoji {
+    height: 2rem;
+    width: 2rem;
+}
+
+#comment {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border-bottom-right-radius: 0;
+}
+
+.must-log-in a {
+    color: #F8AC53;
+}
+
+.must-log-in a:hover {
+    color: #F8AC53;
+}
+
+.comment-reply-login {
+    font-weight: 300 !important;
+    font-size: 18px !important;
+    line-height: 21px !important;
+    color: #757575 !important;
+    padding: 0;
+    margin-left: 20px;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+a#nep_call_panel.nep_right_bottom {
+    bottom: 10px !important;
+    right: 10px !important;
+}
+
 .wpulike .wp_ulike_btn {
     vertical-align: unset;
     padding: 9px 9px;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
 }
 
 .wpulike {
@@ -3477,7 +3521,7 @@ h2.related-product {
     margin: 0;
 }
 
-.filter-collapse-btn{
+.filter-collapse-btn {
     font-weight: 300;
     font-size: 22px;
     line-height: 32px;
@@ -3487,7 +3531,7 @@ h2.related-product {
     margin-bottom: 25px;
 }
 
-.filter-collapse-btn:before{
+.filter-collapse-btn:before {
     content: '';
     position: absolute;
     right: 0;
@@ -3497,7 +3541,7 @@ h2.related-product {
     margin-right: 15px;
 }
 
-.filter-collapse-btn:hover{
+.filter-collapse-btn:hover {
     cursor: pointer;
 }
 
@@ -3584,7 +3628,7 @@ and (max-width: 991px) {
         width: 30%;
     }
 
-    .grid-item--width2{
+    .grid-item--width2 {
         width: 64.4%;
     }
 
@@ -3691,7 +3735,7 @@ and (max-width: 768px) {
         width: 47%;
     }
 
-    .grid-item--width2{
+    .grid-item--width2 {
         width: 100%;
         margin-right: 0;
     }
@@ -3860,12 +3904,12 @@ and (max-width: 576px) {
         width: 100%;
     }
 
-    .grid-item img{
+    .grid-item img {
         width: 100%;
         height: auto;
     }
 
-    .grid-item--width2{
+    .grid-item--width2 {
         width: 100%;
         margin-right: 0;
     }
