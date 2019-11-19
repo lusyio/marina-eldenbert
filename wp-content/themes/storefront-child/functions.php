@@ -1417,3 +1417,48 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
  */
 wp_dequeue_script('wc-cart');
 wp_enqueue_script( 'wc-cart', get_bloginfo( 'stylesheet_directory' ). '/inc/assets/js/cart.js' , array( 'jquery' ), false, true );
+
+/**
+ * Перенаправление с отдельной страницы главы книги в читалку
+ */
+add_action('wp', 'redirectIfHiddenPage');
+function redirectIfHiddenPage()
+{
+    global $post;
+    if (is_admin() || $post->post_type != 'post') {
+        return;
+    }
+    $categories = wp_get_post_categories($post->ID);
+
+    if (count($categories) == 0) {
+        return;
+    }
+
+    foreach ($categories as $category) {
+        $bookPageId = getBookPageIdByCategoryId($category);
+        if ($bookPageId) {
+            $bookLink = get_permalink($bookPageId);
+            $articleId = $post->ID;
+            wp_redirect($bookLink . '?a=' . $articleId);
+        }
+    }
+}
+
+/**
+ * Возвращает id страницы книги по id категории записей (страницы, где в произвольном поле указан cat_id) или false
+ * если такой страницы нет
+ * @param $categoryId
+ * @return bool|int
+ */
+function getBookPageIdByCategoryId($categoryId)
+{
+    $query_args = array(
+        'meta_key' => 'cat_id',
+        'meta_value' => $categoryId,
+    );
+    $pages = get_pages($query_args);
+    if (count($pages) > 0) {
+        return $pages[0]->ID;
+    }
+    return false;
+}
