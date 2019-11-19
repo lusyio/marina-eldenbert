@@ -3476,6 +3476,30 @@ h2.related-product {
     margin: 0;
 }
 
+.filter-collapse-btn{
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 32px;
+    color: #1C1C1C;
+    background: #fff;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.filter-collapse-btn:before{
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 50%;
+    border-bottom: 1px solid #D8D8D8;
+    top: 50%;
+    margin-right: 15px;
+}
+
+.filter-collapse-btn:hover{
+    cursor: pointer;
+}
+
 
 /*--------------------------------------------------------------
 # MEDIA

@@ -763,10 +763,10 @@ function readButton()
     $baseUrl = get_permalink();
     $lastBookmark = getBookmarkMeta($bookId);
     if ($lastBookmark) {
-        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
+        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
-        echo '<a class="btn btn-primary" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
+        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
         return;
     }
 
@@ -1125,37 +1125,43 @@ function addFilterBar()
 
     ?>
     <aside id="secondary" class="widget-area col-sm-12 col-lg-3 mb-5" role="complementary">
-        <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры</button>
-        <div class="filter-button-group">
-            <div class="button-group mb-5" data-filter-group="type">
-                <?php foreach ($bookTypeFilters as $filter): ?>
-                    <?php if (!key_exists($filter, $nonEmptyTags)) {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                <?php endforeach; ?>
-            </div>
-            <div class="button-group mb-5" data-filter-group="other">
-                <?php foreach ($otherFilters as $filter): ?>
-                    <?php if (!key_exists($filter, $nonEmptyTags)) {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                <?php endforeach; ?>
-            </div>
-            <div class="button-group" data-filter-group="category">
-                <?php
-                $categories = get_terms('product_cat');
+        <div class="filter-collapse-btn d-md-none d-block" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Фильтры
+        </div>
+        <div class="collapse d-md-block" id="collapseFilter">
+            <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
+            </button>
+            <div class="filter-button-group">
+                <div class="button-group mb-5" data-filter-group="type">
+                    <?php foreach ($bookTypeFilters as $filter): ?>
+                        <?php if (!key_exists($filter, $nonEmptyTags)) {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-group mb-5" data-filter-group="other">
+                    <?php foreach ($otherFilters as $filter): ?>
+                        <?php if (!key_exists($filter, $nonEmptyTags)) {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-group" data-filter-group="category">
+                    <?php
+                    $categories = get_terms('product_cat');
 
-                foreach ($categories as $category): ?>
-                    <?php if ($category->slug == 'uncategorized') {
-                        continue;
-                    } ?>
-                    <button class="button filter-btn"
-                            data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
-                <?php endforeach; ?>
+                    foreach ($categories as $category): ?>
+                        <?php if ($category->slug == 'uncategorized') {
+                            continue;
+                        } ?>
+                        <button class="button filter-btn"
+                                data-filter=".product_cat-<?php echo $category->slug ?>"><?php echo $category->name ?></button>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </aside>
@@ -1402,10 +1408,10 @@ add_filter('wp_ulike_respond_for_liked_data', 'removePlusInLikes');
 add_filter('wp_ulike_count_box_template', 'removePlusInLikes');
 
 
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 
 /**
  * используем свой cart.js вместо стандартного - в нем добавлено обновление свайпера после аякс-запроса
  */
 wp_dequeue_script('wc-cart');
-wp_enqueue_script( 'wc-cart', get_bloginfo( 'stylesheet_directory' ). '/inc/assets/js/cart.js' , array( 'jquery' ), false, true );
+wp_enqueue_script('wc-cart', get_bloginfo('stylesheet_directory') . '/inc/assets/js/cart.js', array('jquery'), false, true);
