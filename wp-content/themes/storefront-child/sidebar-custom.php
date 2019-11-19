@@ -7,7 +7,7 @@
 
 ?>
 
-<div class="col-12 col-lg-4 order-lg-3 order-1">
+<div class="col-12 col-lg-4 order-lg-3 order-1 mb-5">
     <?php $catquery = new WP_Query('cat=33&posts_per_page=1'); // portfolio  ?>
     <?php while ($catquery->have_posts()) :
         $catquery->the_post(); ?>
