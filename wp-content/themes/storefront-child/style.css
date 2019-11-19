@@ -3068,10 +3068,20 @@ h2.related-product {
     color: #757575 !important;
 }
 
+.error404 .site-content .widget_product_search{
+    padding-left: 0;
+    padding-right: 0;
+    background: transparent;
+}
+
+.widget_search form::before, .widget_product_search form::before{
+    top: 1.7em;
+}
+
 .comment-reply-link {
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 21px;
+    font-weight: 300 !important;
+    font-size: 18px !important;
+    line-height: 21px !important;
     color: #757575 !important;
     padding: 0;
     margin-left: 20px;
