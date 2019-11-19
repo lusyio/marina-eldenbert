@@ -1153,8 +1153,9 @@ function addFilterBar()
                 </div>
                 <div class="button-group" data-filter-group="category">
                     <button class="button filter-btn"
-                            data-filter=".series-no-series">Книги вне циклов</button>
-                    <?php foreach ($series as $ser):?>
+                            data-filter=".series-no-series">Книги вне циклов
+                    </button>
+                    <?php foreach ($series as $ser): ?>
                         <button class="button filter-btn"
                                 data-filter=".series-<?php echo $ser->slug ?>"><?php echo $ser->name ?></button>
                     <?php endforeach; ?>
@@ -1444,7 +1445,7 @@ function modify_comment_textarea($fields)
 
 add_filter('comment_form_field_comment', 'modify_comment_textarea');
 
-wp_enqueue_script( 'wc-cart', get_bloginfo( 'stylesheet_directory' ). '/inc/assets/js/cart.js' , array( 'jquery' ), false, true );
+wp_enqueue_script('wc-cart', get_bloginfo('stylesheet_directory') . '/inc/assets/js/cart.js', array('jquery'), false, true);
 
 /**
  * Перенаправление с отдельной страницы главы книги в читалку
@@ -1495,7 +1496,8 @@ function getBookPageIdByCategoryId($categoryId)
  * Добавляем в карточку товара класс "series-{слаг атрибута серия}", если серии нет, то добавляем "series-no-series"
  */
 add_filter('post_class', 'addSeriesToClass');
-function addSeriesToClass($args) {
+function addSeriesToClass($args)
+{
     if (!is_shop()) {
         return $args;
     }
@@ -1510,4 +1512,24 @@ function addSeriesToClass($args) {
     }
     $result = array_merge($args, $series);
     return $result;
-};
+}
+
+;
+
+
+//Заменя ссылок в комментах и в инпуте коммента
+add_filter('comment_form_defaults', function ($fields) {
+    $fields['must_log_in'] = sprintf(
+        '<p class="must-log-in">
+                 Для отправки комментария вам необходимо
+                 <a href="%s">авторизоваться</a></p>'
+        ,
+        get_permalink(wc_get_page_id('myaccount'))
+    );
+    return $fields;
+});
+
+add_filter('login_url', function ($link) {
+    $link = get_permalink(wc_get_page_id('myaccount'));
+    return $link;
+});
