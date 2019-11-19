@@ -3562,6 +3562,15 @@ and (max-width: 991px) {
         width: 30% !important;
     }
 
+    .grid-item,
+    .grid-sizer {
+        width: 30%;
+    }
+
+    .grid-item--width2{
+        width: 64.4%;
+    }
+
 }
 
 @media screen
@@ -3658,6 +3667,16 @@ and (max-width: 768px) {
 
     ul.products li.product {
         width: 45% !important;
+    }
+
+    .grid-item,
+    .grid-sizer {
+        width: 47%;
+    }
+
+    .grid-item--width2{
+        width: 100%;
+        margin-right: 0;
     }
 
 }
@@ -3817,6 +3836,21 @@ and (max-width: 576px) {
 
     .woocommerce-cart-form__cart-item {
         height: 130px;
+    }
+
+    .grid-item,
+    .grid-sizer {
+        width: 100%;
+    }
+
+    .grid-item img{
+        width: 100%;
+        height: auto;
+    }
+
+    .grid-item--width2{
+        width: 100%;
+        margin-right: 0;
     }
 
 }
