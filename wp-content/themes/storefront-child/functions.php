@@ -1419,7 +1419,7 @@ add_action('wp', 'redirectIfHiddenPage');
 function redirectIfHiddenPage()
 {
     global $post;
-    if (is_admin() || $post->post_type != 'post') {
+    if (is_admin() || is_search() || $post->post_type != 'post') {
         return;
     }
     $categories = wp_get_post_categories($post->ID);
@@ -1462,6 +1462,9 @@ function getBookPageIdByCategoryId($categoryId)
  */
 add_filter('post_class', 'addSeriesToClass');
 function addSeriesToClass($args) {
+    if (!is_shop()) {
+        return $args;
+    }
     global $product;
     $seriesTerms = get_the_terms($product->get_id(), 'pa_series-book');
     if (!$seriesTerms) {
