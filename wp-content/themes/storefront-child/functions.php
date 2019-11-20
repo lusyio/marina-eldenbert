@@ -1617,3 +1617,19 @@ function getRankTitle($rank_object)
     $content = '<div class="mycred-my-rank">' . $rank_object->title . '</div>';
     return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
 }
+
+/**
+ * Добавляет мета-поле vipStatus для пользователей, получивших ранг platinum-dragon
+ * @param $user_id
+ * @param $rank_id
+ * @param $results
+ * @param $point_type
+ */
+function giveVipStatus($user_id, $rank_id, $results, $point_type) {
+    $newRank = mycred_get_rank($rank_id);
+    if ($newRank->post->post_name = 'platinum-dragon') {
+        update_user_meta( $user_id, 'vipStatus', true );
+    }
+}
+
+add_action( 'mycred_user_got_promoted', 'giveVipStatus', 10, 4 );
