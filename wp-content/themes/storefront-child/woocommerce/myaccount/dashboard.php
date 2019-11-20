@@ -69,7 +69,7 @@ if (is_null($nextRank)):
             <div class="row">
                 <div class="col left">
                     <p class="progress-dashboard__text">
-                        Поздравляем! У вас высший ранг
+                        Поздравляем! У вам предоставлен доступ в закрытый клуб
                     </p>
                     <?php echo getRankLogo($myRank, '100'); ?>
                 </div>
