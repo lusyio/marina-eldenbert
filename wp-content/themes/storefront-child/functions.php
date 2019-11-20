@@ -1587,3 +1587,33 @@ function rank_discount_total(WC_Cart $cart)
     }
 }
 add_action("woocommerce_cart_calculate_fees" , "rank_discount_total");
+
+/** Возвращает html-код с изображением переданного ранга
+ * @param $rank_object
+ * @param string $logo_size
+ * @return mixed
+ */
+function getRankLogo($rank_object, $logo_size = 'post-thumbnail')
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $user_id = get_current_user_id();
+    $content = '<div class="mycred-my-rank">' .  mycred_get_rank_logo( $rank_object->post_id, $logo_size ) . '</div>';
+    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+}
+
+/**
+ * Возвращает html-код с именем переданного ранга
+ * @param $rank_object
+ * @return mixed
+ */
+function getRankTitle($rank_object)
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $user_id = get_current_user_id();
+    $content = '<div class="mycred-my-rank">' . $rank_object->title . '</div>';
+    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+}

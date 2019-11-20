@@ -19,34 +19,69 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-$user_id = get_current_user_id();
-?>
 
+$ctype = MYCRED_DEFAULT_TYPE_KEY;
+$user_id = mycred_get_user_id('current');
+$account_object = mycred_get_account($user_id);
+$balance = $account_object->total_balance;
+$myRank = mycred_get_my_rank();
+$allRanks = mycred_get_ranks();
+$nextRank = null;
+foreach ($allRanks as $rank) {
+    if ($myRank->maximum + 1 == $rank->minimum) {
+        $nextRank = $rank;
+    }
+}
+if (is_null($nextRank)):
+    $rankRelativeProgress = $balance - $myRank->minimum;
+    $pointsForNextRank = $myRank->maximum + 1 - $balance;
+    $currentRankTotalProgress = $myRank->maximum + 1 - $myRank->minimum;
+    $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
+?>
     <div class="row mb-5">
         <div class="col-12 progress-dashboard">
             <div class="row">
                 <div class="col left">
-                    <?php echo do_shortcode('[mycred_my_rank user_id=' . $user_id . ' show_title=0 show_logo=1 logo_size="100"]'); ?>
+                    <?php  ?>
+                    <?php echo getRankLogo($myRank, '100'); ?>
                 </div>
                 <div class="col right text-right">
-                    <?php echo do_shortcode('[mycred_my_rank user_id=' . $user_id . ' show_title=0 show_logo=1 logo_size="100"]'); ?>
+                    <?php echo getRankLogo($nextRank, '100'); ?>
                 </div>
             </div>
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%" aria-valuenow="0" aria-valuemin="0"
                      aria-valuemax="100"></div>
             </div>
             <div class="row">
                 <div class="col">
-                    <p><?php echo do_shortcode('[mycred_my_rank user_id=' . $user_id . ' show_title=1 show_logo=0]'); ?></p>
+                    <p><?php echo getRankTitle($myRank); ?></p>
                 </div>
                 <div class="col text-right">
-                    <p><?php echo do_shortcode('[mycred_my_rank user_id=' . $user_id . ' show_title=1 show_logo=0]'); ?></p>
+                    <p><?php echo getRankTitle($nextRank); ?></p>
                 </div>
             </div>
         </div>
     </div>
+<?php else: ?>
+    <div class="row mb-5">
+        <div class="col-12 progress-dashboard">
+            <div class="row">
+                <div class="col left">
+                    <?php  ?>
+                    <?php echo getRankLogo($myRank, '100'); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><?php echo getRankTitle($myRank); ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;
 
+?>
     <p><?php
         /* translators: 1: user display name 2: logout url */
         printf(
