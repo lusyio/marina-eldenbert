@@ -8,6 +8,7 @@ Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
 */
+@import url('https://fonts.googleapis.com/css?family=Caveat&display=swap&subset=cyrillic');
 
 html {
     font-size: 16px;
@@ -3553,6 +3554,106 @@ a#nep_call_panel.nep_right_bottom {
 .filter-collapse-btn:hover {
     cursor: pointer;
 }
+
+/*--------------------------------------------------------------
+# ABOUT
+--------------------------------------------------------------*/
+
+.page-title-about {
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 75px;
+    text-align: center;
+    color: #000000;
+    margin: 45px 0;
+    padding: 0;
+}
+
+.after-title-about {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 96px;
+}
+
+.about-image__text {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-bottom: 97px;
+    margin-top: 23px;
+}
+
+.about-image-after {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 77px;
+}
+
+.about-content {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.about-content strong {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.about-bg {
+    background: #FBFAF9;
+    padding-top: 220px;
+    padding-bottom: 130px;
+}
+
+.about-card {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-card-body {
+    padding: 100px 130px 75px 90px;
+}
+
+.about-card-body__text p {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 28px;
+    color: #000000;
+    margin-bottom: 30px;
+}
+
+.about-wishes {
+    font-family: 'Caveat', san-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 44px;
+    color: #000000;
+}
+
+.about-wishes img {
+    position: absolute;
+    top: -21rem;
+    right: -16rem;
+    z-index: 2;
+    max-width: 120%;
+}
+
+/*--------------------------------------------------------------
+# ABOUT
+--------------------------------------------------------------*/
 
 
 /*--------------------------------------------------------------
