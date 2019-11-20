@@ -98,8 +98,23 @@ do_action( 'woocommerce_before_cart' ); ?>
                 <?php
             }
         }
-        ?>
-
+        $cartFees = WC()->cart->get_fees();
+        if (is_array($cartFees) && count($cartFees) > 0):
+            foreach ($cartFees as $cartFee): ?>
+        <tr class="woocommerce-cart-form__cart-item">
+            <td class="product-thumbnail">
+            </td>
+            <td class="product-name">
+                <?php echo $cartFee->name ?>
+            </td>
+            <td class="cart-total">
+                <?php echo wc_price($cartFee->total) ?>
+            </td>
+            <td class="product-remove">
+            </td>
+        </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <tr class="woocommerce-cart-form__cart-item">
             <td class="product-thumbnail">
             </td>
@@ -107,7 +122,7 @@ do_action( 'woocommerce_before_cart' ); ?>
                 Сумма к оплате
             </td>
             <td class="cart-total">
-                <?php echo WC()->cart->get_cart_total() ?>
+                <?php echo WC()->cart->get_total() ?>
             </td>
             <td class="product-remove">
             </td>
