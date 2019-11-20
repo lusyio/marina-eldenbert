@@ -1633,3 +1633,33 @@ function giveVipStatus($user_id, $rank_id, $results, $point_type) {
 }
 
 add_action( 'mycred_user_got_promoted', 'giveVipStatus', 10, 4 );
+
+/**
+ * Добавляем колонку VIP в таблицу пользователей в админке
+ * @param $column
+ * @return mixed
+ */
+function addVipStatusColumn( $column ) {
+    $column['VIP'] = 'VIP';
+    return $column;
+}
+add_filter( 'manage_users_columns', 'addVipStatusColumn' );
+
+/**
+ * Заполняем колонку VIP в таблицу пользователей в админке
+ * @param $val
+ * @param $column_name
+ * @param $user_id
+ * @return string
+ */
+function addVipStatusColumnValue( $val, $column_name, $user_id ) {
+    switch($column_name) {
+
+        case 'VIP' :
+            return (get_user_meta($user_id, 'vipStatus', true)) ? 'VIP' : '';
+            break;
+
+        default:
+    }
+}
+add_filter( 'manage_users_custom_column', 'addVipStatusColumnValue', 10, 3 );
