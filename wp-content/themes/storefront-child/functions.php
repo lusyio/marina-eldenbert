@@ -1533,3 +1533,16 @@ add_filter('login_url', function ($link) {
     $link = get_permalink(wc_get_page_id('myaccount'));
     return $link;
 });
+
+/**
+ * Задает для стандартного поиска вывод в результатах только товаров
+ * @param $query
+ * @return mixed
+ */
+function search_product($query) {
+    if ($query->is_search) {
+        $query->set('post_type', 'product');
+    }
+    return $query;
+}
+add_action('pre_get_posts','search_product');
