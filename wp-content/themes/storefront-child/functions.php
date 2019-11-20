@@ -1681,10 +1681,12 @@ add_action('wp_dashboard_setup', 'VipStatusWidget');
 
 
 /**
- * Виджет гостевого вип-статуса в консоли админки
+ * Виджет управления вип-статусами в консоли админки
  */
 function vipStatusControl() {
     $isGuestVipStatusEnabled = get_option('guestVip', false);
+    $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
+
     if ($isGuestVipStatusEnabled) {
         echo '<p><strong>Сейчас все пользователи имеют статус VIP</strong></p>';
     }
@@ -1693,7 +1695,17 @@ function vipStatusControl() {
         <input type="hidden" name="guestVip" value="<?php echo ($isGuestVipStatusEnabled) ? 0 : 1 ?>">
         <button class="button" type="submit"><?php echo ($isGuestVipStatusEnabled) ? 'Выключить' : 'Включить' ?> гостевой VIP статус</button>
     </form>
+    <hr>
         <?php
+    if ($doesNewUserGetVipStatus) {
+        echo '<p><strong>Сейчас все новые пользователи получают статус VIP</strong></p>';
+    }
+    ?>
+    <form method="post">
+        <input type="hidden" name="vipForNewUsers" value="<?php echo ($doesNewUserGetVipStatus) ? 0 : 1 ?>">
+        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?> присвоение VIP-статуса новым пользователям</button>
+    </form>
+    <?php
 }
 
 /**
@@ -1711,3 +1723,31 @@ function changeGuestVipStatus()
     }
 }
 add_action('init', 'changeGuestVipStatus', 10);
+
+/**
+ * Изменяет присвоение VIP_статуса новым пользователям
+ */
+function changeNewUserVipStatus()
+{
+    if (is_admin() && isset($_POST['vipForNewUsers'])) {
+        if (intval($_POST['vipForNewUsers']) === 1) {
+            update_option('vipForNewUsers', true);
+        } elseif (intval($_POST['vipForNewUsers']) === 0) {
+            update_option('vipForNewUsers', false);
+        }
+        header("Location:".$_SERVER['PHP_SELF']);
+    }
+}
+add_action('init', 'changeNewUserVipStatus', 10);
+
+/**
+ * Устанавливает статус VIP новым пользователям, если включена соответствующая настройка
+ * @param $user_id
+ */
+function setVipStatus($user_id) {
+    $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
+    if ($doesNewUserGetVipStatus) {
+        update_user_meta($user_id, 'vipStatus', true);
+    }
+}
+add_action( 'user_register', 'setVipStatus' );
