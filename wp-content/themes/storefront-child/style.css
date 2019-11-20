@@ -3487,7 +3487,7 @@ a#nep_call_panel.nep_right_bottom {
 }
 
 .products .product .price {
-    background: #F8AC53;;
+    background: #F8AC53;
     border-radius: 20px;
     font-weight: bold;
     font-size: 1.125rem;
@@ -3585,6 +3585,28 @@ a#nep_call_panel.nep_right_bottom {
     color: #000000;
     margin-bottom: 97px;
     margin-top: 23px;
+}
+
+.progress-dashboard .mycred-my-rank {
+    font-size: 16px;
+    line-height: 14px;
+    margin-top: 9px;
+    color: #C5C5C5;
+}
+
+.progress-dashboard .progress-bar {
+    background-color: #F8AC53;
+}
+.progress-dashboard .mycred-my-rank img {
+    margin-bottom: 20px;
+}
+
+.progress-dashboard .left .mycred-my-rank img {
+    margin-left: 40px;
+}
+
+.progress-dashboard .right .mycred-my-rank img {
+    margin-right: 40px;
 }
 
 .about-image-after {
