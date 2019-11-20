@@ -20,6 +20,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+$hasVipStatus = get_user_meta(get_current_user_id(), 'vipStatus', true);
+
 $ctype = MYCRED_DEFAULT_TYPE_KEY;
 $user_id = mycred_get_user_id('current');
 $account_object = mycred_get_account($user_id);
