@@ -1546,3 +1546,44 @@ function search_product($query) {
     return $query;
 }
 add_action('pre_get_posts','search_product');
+
+
+/**
+ * Добавляет скидку в зависимости от статуса пользователя из плагина mycred
+ * @param WC_Cart $cart
+ */
+function rank_discount_total(WC_Cart $cart)
+{
+    //Скидки в зависимости от статуса
+    $statusDiscounts = [
+        'metal-dragon' => 0,
+        'copper-dragon' => 3,
+        'bronze-dragon' => 5,
+        'silver-dragon' => 10,
+        'golden-dragon' => 15,
+        'platinum-dragon' => 20,
+    ];
+    //тип баллов плагина - вибираем по умолчанию
+    $ctype = MYCRED_DEFAULT_TYPE_KEY;
+
+    $user_id = mycred_get_user_id('current');
+    if ($user_id === false) {
+        return;
+    }
+    $account_object = mycred_get_account($user_id);
+    $rank_object = $account_object->balance[$ctype]->rank;
+    if ($rank_object === false) {
+        return;
+    }
+    $rankSlug = $account_object->balance[$ctype]->rank->post->post_name;
+    if (key_exists($rankSlug, $statusDiscounts) && $statusDiscounts[$rankSlug] != 0) {
+
+        $discount = $cart->subtotal * $statusDiscounts[$rankSlug] / 100;
+        // Название ранга
+        $rankName = $rank_object->title;
+        // Текст, выводимый в корзине
+        $feeText = $rankName . ' - скидка ' . $statusDiscounts[$rankSlug] . '%';
+        $cart->add_fee($feeText, -$discount);
+    }
+}
+add_action("woocommerce_cart_calculate_fees" , "rank_discount_total");
