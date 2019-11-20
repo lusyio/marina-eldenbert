@@ -3613,6 +3613,7 @@ a#nep_call_panel.nep_right_bottom {
 
 .progress-dashboard .progress-bar {
     background-color: #F8AC53;
+    text-align: center;
 }
 
 .progress-dashboard .mycred-my-rank img {

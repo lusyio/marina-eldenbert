@@ -51,7 +51,7 @@ if (is_null($nextRank)):
             </div>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%" aria-valuenow="0" aria-valuemin="0"
-                     aria-valuemax="100"></div>
+                     aria-valuemax="100"><?php echo $pointsForNextRank - $myRank->maximum;; ?>/<?php echo $myRank->maximum; ?></div>
             </div>
             <div class="row">
                 <div class="col">
@@ -68,7 +68,9 @@ if (is_null($nextRank)):
         <div class="col-12 progress-dashboard">
             <div class="row">
                 <div class="col left">
-                    <?php  ?>
+                    <p class="progress-dashboard__text">
+                        Поздравляем! У вас высший ранг
+                    </p>
                     <?php echo getRankLogo($myRank, '100'); ?>
                 </div>
             </div>
