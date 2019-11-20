@@ -1663,3 +1663,51 @@ function addVipStatusColumnValue( $val, $column_name, $user_id ) {
     }
 }
 add_filter( 'manage_users_custom_column', 'addVipStatusColumnValue', 10, 3 );
+
+
+/**
+ * Регистрирует виджет гостевого вип-статуса в консоли админки
+ */
+function VipStatusWidget() {
+    global $wp_meta_boxes;
+
+    wp_add_dashboard_widget(
+        'VipStatusWidget', //Слаг виджета
+        'Гостевой VIP-статус', //Заголовок виджета
+        'vipStatusControl' //Функция вывода
+    );
+}
+add_action('wp_dashboard_setup', 'VipStatusWidget');
+
+
+/**
+ * Виджет гостевого вип-статуса в консоли админки
+ */
+function vipStatusControl() {
+    $isGuestVipStatusEnabled = get_option('guestVip', false);
+    if ($isGuestVipStatusEnabled) {
+        echo '<p><strong>Сейчас все пользователи имеют статус VIP</strong></p>';
+    }
+    ?>
+    <form method="post">
+        <input type="hidden" name="guestVip" value="<?php echo ($isGuestVipStatusEnabled) ? 0 : 1 ?>">
+        <button class="button" type="submit"><?php echo ($isGuestVipStatusEnabled) ? 'Выключить' : 'Включить' ?> гостевой VIP статус</button>
+    </form>
+        <?php
+}
+
+/**
+ * Изменяет гостевой вип-стастус
+ */
+function changeGuestVipStatus()
+{
+    if (is_admin() && isset($_POST['guestVip'])) {
+        if (intval($_POST['guestVip']) === 1) {
+            update_option('guestVip', true);
+        } elseif (intval($_POST['guestVip']) === 0) {
+            update_option('guestVip', false);
+        }
+        header("Location:".$_SERVER['PHP_SELF']);
+    }
+}
+add_action('init', 'changeGuestVipStatus', 10);
