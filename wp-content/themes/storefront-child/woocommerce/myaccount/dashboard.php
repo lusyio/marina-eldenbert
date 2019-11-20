@@ -51,7 +51,7 @@ if (!is_null($nextRank)):
             </div>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%" aria-valuenow="0" aria-valuemin="0"
-                     aria-valuemax="100"><?php echo $pointsForNextRank - $myRank->maximum;; ?>/<?php echo $myRank->maximum; ?></div>
+                     aria-valuemax="100"><?php echo $balance; ?>/<?php echo $myRank->maximum + 1; ?></div>
             </div>
             <div class="row">
                 <div class="col">
