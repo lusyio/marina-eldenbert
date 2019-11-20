@@ -3594,9 +3594,27 @@ a#nep_call_panel.nep_right_bottom {
     color: #C5C5C5;
 }
 
+.entry-title a {
+    color: #F8AC53;
+}
+
+.entry-title a:hover {
+    color: #F8AC53;
+}
+
+.entry-content{
+    margin-bottom: 40px;
+}
+
+.entry-content img {
+    max-height: 400px;
+    width: auto;
+}
+
 .progress-dashboard .progress-bar {
     background-color: #F8AC53;
 }
+
 .progress-dashboard .mycred-my-rank img {
     margin-bottom: 20px;
 }
