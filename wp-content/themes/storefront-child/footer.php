@@ -44,7 +44,7 @@
                         $menu_number = 0;
                         $half_count = ceil(count($menu_items) / 3);
                         foreach ((array)$menu_items as $key => $menu_item) {
-                            if ($col_counter == $half_count){
+                            if ($col_counter == $half_count) {
                                 $col = 'col-md-3 p-0';
                             }
                             if ($col_counter == $half_count * 2) {
@@ -132,8 +132,59 @@
 <?php do_action('storefront_after_footer'); ?>
 <script src="/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js"></script>
 <script>
+    jQuery(document).ready(function ($) {
+
+        var num = 0;
+
+        function loadItems(item, number) {
+            num += number;
+            var items = $("" + item + ":visible").slice(0, num);
+            $(item).hide();
+            items.show();
+        }
+
+        function loadProductPage(item, loadBtn, number) {
+            num += number;
+            var products = $(item).slice(0, num);
+            $.when($(item).fadeOut(150)).done(function () {
+                $.when(products.fadeIn(300)).done(function () {
+                    checkForEmptyHiddenProducts(item, loadBtn);
+                });
+            });
+        }
+
+        function checkForEmptyHiddenProducts(item, loadBtn) {
+            if ($("" + item + ":hidden").length === 0) {
+                $(loadBtn).hide();
+            }
+        }
+
+        function loadMore(item, loadBtn, number) {
+            $(loadBtn).on('click', function () {
+                loadProductPage(item, loadBtn, number);
+            });
+        }
+
+        if ($('.blog-item:visible').length !== 0) {
+            loadItems('.blog-item', 6);
+            checkForEmptyHiddenProducts('.blog-item', '.load-more');
+            loadMore('.blog-item', '.load-more', 6);
+        }
+        if ($('.announcement-item:visible').length !== 0) {
+            loadItems('.announcement-item', 6);
+            checkForEmptyHiddenProducts('.announcement-item', '.load-more');
+            loadMore('.announcement-item', '.load-more', 6);
+        }
+        if ($('.news-n-events-item:visible').length !== 0) {
+            loadItems('.news-n-events-item', 9);
+            checkForEmptyHiddenProducts('.news-n-events-item', '.load-more');
+            loadMore('.news-n-events-item', '.load-more', 9);
+        }
+
+    });
+
     var swiperPopular = new Swiper('.swiper-container-popular', {
-        fadeEffect: { crossFade: true },
+        fadeEffect: {crossFade: true},
         effect: 'fade',
         pagination: {
             el: '.popular-pagination',

@@ -15,11 +15,10 @@ Template Post Type: post, page, product
                 <div class="col-12"><h2 class="page-title"><?php the_title() ?></h2></div>
             </div>
             <div class="row news-n-events-row">
-                <?php $catquery = new WP_Query('cat=35&posts_per_page=9'); // portfolio  ?>
-                <?php $portfolio_counter = 1; ?>
+                <?php $catquery = new WP_Query('cat=35&posts_per_page=999'); // portfolio  ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                    <div class="col-lg-4 col-12">
+                    <div class="col-lg-4 col-12 news-n-events-item">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
@@ -34,15 +33,11 @@ Template Post Type: post, page, product
                             </div>
                         </div>
                     </div>
-                    <?php if ($portfolio_counter == 9): ?>
-                    <div class="col-12 text-center">
-                        <div class="load-more">Загрузить еще</div>
-                    </div>
-                    <?php break; ?>
-                <?php endif; ?>
-                    <?php $portfolio_counter++; ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
+                <div class="col-12 text-center">
+                    <div class="load-more">Загрузить еще</div>
+                </div>
             </div>
         </div>
     </div>

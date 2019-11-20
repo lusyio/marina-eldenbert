@@ -15,11 +15,10 @@ Template Post Type: post, page, product
                 <div class="col-12"><h2 class="page-title"><?php the_title() ?></h2></div>
             </div>
             <div class="row announcement-row">
-                <?php $catquery = new WP_Query('cat=33&posts_per_page=6'); // portfolio  ?>
-                <?php $portfolio_counter = 1; ?>
+                <?php $catquery = new WP_Query('cat=33&posts_per_page=999'); // portfolio  ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-6 col-12 announcement-item">
                         <div class="row">
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
@@ -39,17 +38,11 @@ Template Post Type: post, page, product
                             </div>
                         </div>
                     </div>
-                    <?php if ($portfolio_counter == 6): ?>
-
-                    <div class="col-12 text-center">
-                        <div class="load-more">Загрузить еще</div>
-                    </div>
-
-                    <?php break; ?>
-                <?php endif; ?>
-                    <?php $portfolio_counter++; ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
+                <div class="col-12 text-center">
+                    <div class="load-more">Загрузить еще</div>
+                </div>
             </div>
         </div>
     </div>
