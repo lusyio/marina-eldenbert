@@ -39,46 +39,58 @@ if (!is_null($nextRank)):
     $pointsForNextRank = $myRank->maximum + 1 - $balance;
     $currentRankTotalProgress = $myRank->maximum + 1 - $myRank->minimum;
     $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
-?>
-    <div class="row mb-5">
-        <div class="col-12 progress-dashboard">
-            <div class="row">
-                <div class="col left">
-                    <?php  ?>
-                    <?php echo getRankLogo($myRank, '100'); ?>
+    ?>
+    <div class="row">
+        <div class="col-12">
+            <p class="club-content__title">Ваш текущий статус</p>
+            <div class="row mb-4">
+                <div class="col-5 m-auto text-left">
+                    <div class="row">
+                        <div class="col-5 m-auto">
+                            <?php echo getRankLogo($myRank, '100'); ?>
+                        </div>
+                        <div class="col-6 m-auto pl-lg-0 pl-unset">
+                            <?php echo getRankTitle($myRank); ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="col right text-right">
-                    <?php echo getRankLogo($nextRank, '100'); ?>
+                <div class="col m-auto text-center">
+                    <span class="status-count"><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span>
                 </div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%" aria-valuenow="0" aria-valuemin="0"
-                     aria-valuemax="100"><?php echo $balance; ?>/<?php echo $myRank->maximum + 1; ?></div>
+                <div class="col-5 m-auto text-right">
+                    <div class="row">
+                        <div class="col-6 m-auto pr-lg-0 pr-unset">
+                            <?php echo getRankTitle($nextRank); ?>
+                        </div>
+                        <div class="col-5 m-auto">
+                            <?php echo getRankLogo($nextRank, '100'); ?>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <p><?php echo getRankTitle($myRank); ?></p>
-                </div>
-                <div class="col text-right">
-                    <p><?php echo getRankTitle($nextRank); ?></p>
+                    <div class="progress progress-status">
+                        <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%"
+                             aria-valuenow="0" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 <?php else: ?>
     <div class="row mb-5">
-        <div class="col-12 progress-dashboard">
+        <div class="col-12">
+            <p class="club-content__title">Поздравляем! Вам предоставлен доступ в закрытый клуб</p>
+        </div>
+        <div class="col-12 m-auto text-left">
             <div class="row">
-                <div class="col left">
-                    <p class="progress-dashboard__text">
-                        Поздравляем! У вам предоставлен доступ в закрытый клуб
-                    </p>
+                <div class="col-12 mb-3">
                     <?php echo getRankLogo($myRank, '100'); ?>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p><?php echo getRankTitle($myRank); ?></p>
+                <div class="col-12">
+                    <?php echo getRankTitle($myRank); ?>
                 </div>
             </div>
         </div>
