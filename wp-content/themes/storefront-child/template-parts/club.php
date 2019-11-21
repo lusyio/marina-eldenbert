@@ -83,23 +83,23 @@ Template Post Type: post, page, product
                 <div class="row mb-4">
                     <div class="col-5 m-auto text-left">
                         <div class="row">
-                            <div class="col-5 m-auto">
+                            <div class="col-5 m-auto d-lg-block d-none">
                                 <?php echo getRankLogo($myRank, '100'); ?>
                             </div>
-                            <div class="col-7 m-auto pl-lg-0 pl-unset">
+                            <div class="col-lg-7 col-12 m-auto pl-lg-0 pl-unset">
                                 <?php echo getRankTitle($myRank); ?>
                             </div>
                         </div>
                     </div>
-                    <div class="col m-auto text-center">
+                    <div class="col-2 m-auto text-center p-lg-unset p-0">
                         <span class="status-count"><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span>
                     </div>
                     <div class="col-5 m-auto text-right">
                         <div class="row">
-                            <div class="col-7 m-auto pr-lg-0 pr-unset">
+                            <div class="col-lg-7 col-12 m-auto pr-lg-0 pr-unset">
                                 <?php echo getRankTitle($nextRank); ?>
                             </div>
-                            <div class="col-5 m-auto">
+                            <div class="col-5 m-auto d-lg-block d-none">
                                 <?php echo getRankLogo($nextRank, '100'); ?>
                             </div>
                         </div>

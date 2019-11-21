@@ -3882,6 +3882,14 @@ and (max-width: 991px) {
         width: 64.4%;
     }
 
+    .club-content__text{
+        margin-bottom: 30px;
+    }
+
+    .club-content__img{
+        margin-bottom: 40px;
+    }
+
 }
 
 @media screen
@@ -4010,10 +4018,24 @@ and (max-width: 768px) {
         margin-bottom: 40px;
     }
 
+    .woocommerce-orders-table__cell .woocommerce-button{
+        margin-left: auto;
+    }
+
 }
 
 @media screen
 and (max-width: 576px) {
+
+    .mycred-my-rank{
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .status-count{
+        font-size: 14px;
+        line-height: 16px;
+    }
 
     ul.products li.product {
         width: 100% !important;
