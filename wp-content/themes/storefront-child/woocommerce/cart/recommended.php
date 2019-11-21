@@ -57,6 +57,7 @@ if ($related_products) : ?>
                                         <div class="related-img-container">
                                             <?php echo $related_product->get_image(200); ?>
                                         </div>
+                                        <p class="related-img-container__header"><?php echo $related_product->get_name(); ?></p>
                                     </a>
                                 </div>
 

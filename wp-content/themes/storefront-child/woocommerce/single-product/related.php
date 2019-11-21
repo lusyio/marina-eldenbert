@@ -52,6 +52,7 @@ if ($related_products) : ?>
                                                 <?php echo $related_product->get_image(200); ?>
                                                 <span class="related-img-container__price"><?php echo $related_product->get_price_html(); ?></span>
                                             </div>
+                                            <p class="related-img-container__header"><?php echo $related_product->get_name(); ?></p>
                                         </a>
                                     </div>
 
