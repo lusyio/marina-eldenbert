@@ -2021,3 +2021,59 @@ function getBookPageIdByBookId($bookId)
     }
     return false;
 }
+
+/**
+ * Возвращает ID заказов, содержащих товар с указанным ID
+ *
+ * @param  integer  $product_id (required)
+ * @param  array    $order_status (optional) Default is 'wc-completed
+ * @return array
+ */
+function get_orders_ids_by_product_id( $product_id, $order_status = array( 'wc-completed' ) ){
+    global $wpdb;
+
+    $results = $wpdb->get_col("
+        SELECT order_items.order_id
+        FROM {$wpdb->prefix}woocommerce_order_items as order_items
+        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
+        LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
+        WHERE posts.post_type = 'shop_order'
+        AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
+        AND order_items.order_item_type = 'line_item'
+        AND order_item_meta.meta_key = '_product_id'
+        AND order_item_meta.meta_value = '$product_id'
+    ");
+
+    return $results;
+}
+
+/**
+ * Пересоздает загрузки для заказа
+ * @param  Integer $order_id
+ */
+function regen_woo_downloadable_product_permissions( $order_id ){
+
+    // Remove all existing download permissions for this order.
+    // This uses the same code as the "regenerate download permissions" action in the WP admin (https://github.com/woocommerce/woocommerce/blob/3.5.2/includes/admin/meta-boxes/class-wc-meta-box-order-actions.php#L129-L131)
+    // An instance of the download's Data Store (WC_Customer_Download_Data_Store) is created and
+    // uses its method to delete a download permission from the database by order ID.
+    $data_store = WC_Data_Store::load( 'customer-download' );
+    $data_store->delete_by_order_id( $order_id );
+
+    // Run WooCommerce's built in function to create the permissions for an order (https://docs.woocommerce.com/wc-apidocs/function-wc_downloadable_product_permissions.html)
+    // Setting the second "force" argument to true makes sure that this ignores the fact that permissions
+    // have already been generated on the order.
+    wc_downloadable_product_permissions( $order_id, true );
+
+}
+
+add_action('save_post', 'updateProductsInOrders', 99, 3);
+function updateProductsInOrders($post_id, $post, $update)
+{
+    if ($update && $post->post_type == 'product') {
+        $ordersWithProduct = get_orders_ids_by_product_id($post_id);
+        foreach ($ordersWithProduct as $orderId) {
+            regen_woo_downloadable_product_permissions($orderId);
+        }
+    }
+}
