@@ -519,8 +519,8 @@ function myajax_data()
     if (isset($_GET['a'])) {
         $articleId = intval($_GET['a']);
     }
-    // Первый параметр 'twentyfifteen-script' означает, что код будет прикреплен к скрипту с ID 'twentyfifteen-script'
-    // 'twentyfifteen-script' должен быть добавлен в очередь на вывод, иначе WP не поймет куда вставлять код локализации
+    // Первый параметр означает, что код будет прикреплен к скрипту с таким ID
+    // Этот ID должен быть добавлен в очередь на вывод, иначе WP не поймет куда вставлять код локализации
     // Заметка: обычно этот код нужно добавлять в functions.php в том месте где подключаются скрипты, после указанного скрипта
     wp_localize_script('pagination-script', 'myajax',
         array(
@@ -1661,14 +1661,32 @@ add_filter( 'manage_users_columns', 'addVipStatusColumn' );
  * @return string
  */
 function addVipStatusColumnValue( $val, $column_name, $user_id ) {
-    switch($column_name) {
+    $status = '';
+    $abonementUntil = hasAbonement($user_id);
+    ob_start();
+    if ($column_name == 'VIP') {
+        if (get_user_meta($user_id, 'vipStatus', true)) {
+            echo '<p>VIP</p>';
+        }
+        if ($abonementUntil) {
+            $date = date('d.m.Y', strtotime($abonementUntil));
+            ?>
+            <p>Есть абонемент до <?php echo $date ?></p>
+            <button type="button" class="btn btn-outline-primary btn-sm addAbonement" data-user-id="<?php echo $user_id ?>" data-abonement-until="<?php echo date('Y-m-d', strtotime($abonementUntil)); ?>">
+                Изменить абонемент
+            </button>
+        <?php } else { ?>
+            <button type="button" class="btn btn-outline-primary btn-sm addAbonement" data-user-id="<?php echo $user_id ?>" data-abonement-until="0">
+                Подарить абонемент
+            </button>
+        <?php
+        }
+        if ($abonementUntil) {
 
-        case 'VIP' :
-            return (get_user_meta($user_id, 'vipStatus', true)) ? 'VIP' : '';
-            break;
-
-        default:
+        }
     }
+    return ob_get_clean();
+
 }
 add_filter( 'manage_users_custom_column', 'addVipStatusColumnValue', 10, 3 );
 
@@ -1847,3 +1865,120 @@ function custom_render_my_rank( $atts, $content = '' ) {
 
 }
 add_shortcode( 'custom_my_rank','custom_render_my_rank' );
+
+// Добавляем скрипты и стили bootstrap в админку
+add_action('admin_enqueue_scripts', function () {
+    wp_enqueue_style('bootstrap-css', get_stylesheet_directory_uri() . '/inc/assets/css/bootstrap.min.css', false, NULL, 'all');
+    wp_enqueue_script('wp-bootstrap-starter-popper', get_stylesheet_directory_uri() . '/inc/assets/js/popper.min.js', array(), '', true);
+    wp_enqueue_script('wp-bootstrap-starter-bootstrapjs', get_stylesheet_directory_uri() . '/inc/assets/js/bootstrap.min.js', array(), '', true);
+});
+
+/**
+ * Выводит код модального окна управления абонементом
+ */
+function abonementModal()
+{
+    ?>
+<div class="modal fade" id="abonementModal" tabindex="-1" role="dialog" aria-labelledby="abonementModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подарить абонемент на чтение</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Укажите дату, до которой пользователь сможет читать все книги</p>
+                <p>Для отмены абонемента укажите любую прошедшую дату</p>
+                <input type="hidden" id="userId">
+                <input class="form-control" type="date" name="abonement" id="abonementDate"
+                       data-trigger="manual" data-content="Это текущий срок абонемента">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="saveAbonement">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(function ($) {
+        let abonementUntil = 0;
+        $('.addAbonement').on('click', function () {
+            abonementUntil = $(this).data('abonement-until');
+            console.log(abonementUntil);
+            $('#abonementModal').modal('show');
+            $('#userId').val($(this).data('user-id'));
+            if (abonementUntil !== '0') {
+                $('#abonementDate').val(abonementUntil)
+            }
+        });
+        $('#saveAbonement').on('click', function () {
+            let userId = $('#userId').val();
+            let date = $('#abonementDate').val();
+            if (date !== '' && date !== abonementUntil) {
+                $.ajax({
+                    url: ajaxurl,
+                    // dataType: 'json',
+                    data: {
+                        'action': 'add_abonement',
+                        'userId': userId,
+                        'date': date,
+                    },
+                    type: 'POST',
+                    beforeSend: function () {
+
+                    },
+                    success: function (data) {
+                        if (data) {
+                            location.reload();
+                        }
+                    }
+                });
+            }
+            if (date === abonementUntil) {
+                $('#abonementDate').popover('show');
+                setTimeout(function () {
+                    $('#abonementDate').popover('hide');
+
+                }, 2000)
+            }
+        })
+    });
+</script>
+<?php
+}
+add_action('admin_footer', 'abonementModal');
+
+/**
+ * ajax-обработчик изменения абонемента
+ */
+function add_abonement()
+{
+    if (!is_admin()) {
+        return;
+    }
+    $userId = intval($_POST['userId']);
+    $date = filter_var($_POST['date'], FILTER_SANITIZE_STRING);
+    update_user_meta($userId,'abonement', $date);
+    echo 1;
+    wp_die();
+}
+add_action('wp_ajax_add_abonement', 'add_abonement');
+
+/**
+ * Проверяет наличие абонемента у пользователя, если есть - возвращает дату его окончания, если нет - false
+ * @param $userId
+ * @return bool|mixed
+ */
+function hasAbonement($userId)
+{
+    $abonementUntil = get_user_meta($userId, 'abonement', true);
+    if ($abonementUntil) {
+        if (strtotime($abonementUntil) >= strtotime('midnight')) {
+            return $abonementUntil;
+        }
+    }
+    return false;
+}
