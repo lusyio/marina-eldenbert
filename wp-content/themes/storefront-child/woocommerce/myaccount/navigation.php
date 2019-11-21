@@ -23,7 +23,10 @@ do_action('woocommerce_before_account_navigation');
 ?>
 <div class="row">
     <nav class="col-lg-3 col-12">
-        <ul class="navigation-my-account">
+        <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseMyaccount" aria-expanded="false" aria-controls="collapseMyaccount">
+            Сайдбар
+        </div>
+        <ul class="navigation-my-account collapse d-lg-block" id="collapseMyaccount">
             <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                 <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
                     <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
