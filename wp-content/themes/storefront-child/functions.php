@@ -728,7 +728,7 @@ function bookCardInReader()
             foreach ($downloads as $download) {
                 if ($download['product_id'] == $bookId) { ?>
                     <div class="mb-3 ml-5">
-                        <a class="download-link" href="<?php $download['download_url'] ?>" class="mb-3">Скачать в
+                        <a class="download-link mb-3" href="<?php $download['download_url'] ?>">Скачать в
                             формате <?php echo $download['file']['name'] ?></a>
                     </div>
                     <?php
@@ -1999,6 +1999,25 @@ function hasAbonement($userId)
         if (strtotime($abonementUntil) >= strtotime('midnight')) {
             return $abonementUntil;
         }
+    }
+    return false;
+}
+
+/**
+ * Возвращает id страницы книги по id товара или false
+ * если такой страницы нет
+ * @param $categoryId
+ * @return bool|int
+ */
+function getBookPageIdByBookId($bookId)
+{
+    $query_args = array(
+        'meta_key' => 'book_id',
+        'meta_value' => $bookId,
+    );
+    $pages = get_pages($query_args);
+    if (count($pages) > 0) {
+        return $pages[0]->ID;
     }
     return false;
 }
