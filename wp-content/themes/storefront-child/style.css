@@ -3187,7 +3187,7 @@ img.emoji {
     color: #F8AC53;
 }
 
-.stream-container__empty{
+.stream-container__empty {
     padding: 4em 1.618em;
     margin-bottom: 2rem;
     margin-top: 2rem;
@@ -3200,6 +3200,10 @@ img.emoji {
     box-shadow: 0 1px 1px 0 rgba(60, 64, 67, .08), 0 1px 3px 1px rgba(60, 64, 67, .16);
     transition: box-shadow 135ms cubic-bezier(.4, 0, .2, 1);
     align-items: center;
+}
+
+.heateor_sss_sharing_container {
+    margin-bottom: 50px !important;
 }
 
 #comment {
