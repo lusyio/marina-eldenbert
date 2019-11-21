@@ -18,9 +18,15 @@ Template Post Type: post, page, product
     <div class="row">
         <div class="col">
             <div class="stream-container">
+                <?php if (get_post_meta( $post->ID, 'youtube_id', true ) != ''): ?>
                 <div id="player">
                     <div id="ytplayer"></div>
                 </div>
+                <?php else: ?>
+                <div class="stream-container__empty">
+                    Трансляция еще не началась, приходите позже :)
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
