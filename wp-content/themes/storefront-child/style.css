@@ -3187,6 +3187,25 @@ img.emoji {
     color: #F8AC53;
 }
 
+.stream-container__empty {
+    padding: 4em 1.618em;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    background-color: #fff;
+    margin-left: 0;
+    border-radius: 3px;
+    color: #212121;
+    text-align: center;
+    border: none;
+    box-shadow: 0 1px 1px 0 rgba(60, 64, 67, .08), 0 1px 3px 1px rgba(60, 64, 67, .16);
+    transition: box-shadow 135ms cubic-bezier(.4, 0, .2, 1);
+    align-items: center;
+}
+
+.heateor_sss_sharing_container {
+    margin-bottom: 50px !important;
+}
+
 #comment {
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
