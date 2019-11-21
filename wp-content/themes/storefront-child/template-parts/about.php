@@ -38,21 +38,29 @@ Template Post Type: post, page, product
     </div>
     <div class="row">
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-            <p class="about-content">Написать <strong>26 романов</strong>
+            <p class="about-content">Написать <strong>26 романов</strong> <br>
                 ( + 2 в процессе написания)</p>
-            <p>Опубликовать <strong>более 15 книг</strong> в крупнейших издательствах России (Альфа-книга, Clever, АСТ,
+        </div>
+        <div class="col-lg-5 col-12">
+            <p class="about-content">Написать <strong>книгу, взорвавшую Инстаграм</strong> («Бабочка», издательство Clever, 2019 год)
+            </p>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-12 offset-0">
+            <p class="about-content">Опубликовать <strong>более 15 книг</strong> в крупнейших издательствах России (Альфа-книга, Clever, АСТ,
                 ЭКСМО, Рипол)</p>
-            <p>Стать <strong>победительницей конкурса «Руны любви. Весна-лето 2016»</strong> издательства АСТ («Заклятые
+        </div>
+        <div class="col-lg-5 col-12">
+            <p class="about-content">Номинироваться на премию <strong>«Лучшая книга года»</strong> в жанре «Русское фэнтези» («Бабочка»,
+                издательство Clever,
+                2019 г.)</p>
+        </div>
+        <div class="col-lg-5 offset-lg-1 col-12 offset-0">
+            <p class="about-content">Стать <strong>победительницей конкурса «Руны любви. Весна-лето 2016»</strong> издательства АСТ («Заклятые
                 супруги. Золотая
                 мгла», июнь 2016 г.)</p>
         </div>
         <div class="col-lg-5 col-12">
-            <p>Написать <strong>книгу, взорвавшую Инстаграм</strong> («Бабочка», издательство Clever, 2019 год)
-            </p>
-            <p>Номинироваться на премию <strong>«Лучшая книга года»</strong> в жанре «Русское фэнтези» («Бабочка»,
-                издательство Clever,
-                2019 г.)</p>
-            <p>Стать <strong>рекордсменом сайта Литнет</strong> по количеству проданных за сутки книг («Поющая для
+            <p class="about-content">Стать <strong>рекордсменом сайта Литнет</strong> по количеству проданных за сутки книг («Поющая для
                 дракона. Между двух
                 огней», август 2017 г)</p>
         </div>

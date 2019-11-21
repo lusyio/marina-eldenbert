@@ -260,7 +260,7 @@ Template Post Type: post, page, product
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
                 <?php if ($portfolio_counter < 3): ?>
-                <div class="col-lg-4 col-12 mb-5">
+                <div class="col-lg-4 col-12 mb-lg-5 mb-2">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
@@ -277,7 +277,7 @@ Template Post Type: post, page, product
                     </div>
                 <?php endif; ?>
                     <?php if ($portfolio_counter == 3): ?>
-                    <div class="col-lg-4 col-12 mb-5 d-lg-block d-none">
+                    <div class="col-lg-4 col-12 mb-lg-5 mb-2 d-lg-block d-none">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
