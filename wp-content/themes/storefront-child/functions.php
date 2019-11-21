@@ -1217,7 +1217,7 @@ function storefront_comment($comment, $args, $depth)
             </div>
             <div class="text-center">
                 <?php printf(wp_kses_post('<cite class="comment-body__author fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
-                <cite><?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
+                <cite><?php echo do_shortcode('[custom_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
             </div>
         </div>
         <?php if ('0' === $comment->comment_approved) : ?>
@@ -1614,7 +1614,15 @@ function getRankTitle($rank_object)
         return;
     }
     $user_id = get_current_user_id();
-    $content = '<div class="mycred-my-rank">' . $rank_object->title . '</div>';
+    $userSex = get_user_meta($user_id, 'sex', true);
+    $titles = explode(':',$rank_object->title);
+    if ($userSex == 'male' && count($titles) > 1) {
+        $title = $titles[1];
+    } else {
+        $title = $titles[0];
+    }
+
+    $content = '<div class="mycred-my-rank">' . $title . '</div>';
     return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
 }
 
@@ -1751,3 +1759,91 @@ function setVipStatus($user_id) {
     }
 }
 add_action( 'user_register', 'setVipStatus' );
+
+/**
+ * Обновляем пол пользователя при изменении профиля в личном кабинете
+ * @param $userId
+ */
+function updateUserSex($userId)
+{
+    echo 12345;
+    if (isset($_POST['account_sex'])) {
+        if ($_POST['account_sex'] == 'male') {
+            update_user_meta($userId, 'sex', 'male');
+
+        } elseif ($_POST['account_sex'] == 'female') {
+            update_user_meta($userId, 'sex', 'female');
+        }
+    }
+}
+add_action('woocommerce_save_account_details', 'updateUserSex');
+
+/**
+ * Удаляем имя и фамилию из списка обязательных полей в аккаунте
+ * @param $fields
+ * @return mixed
+ */
+function removeRequiredAccountFields($fields) {
+    if (key_exists('account_first_name', $fields)) {
+        unset($fields['account_first_name']);
+    }
+    if (key_exists('account_last_name', $fields)) {
+        unset($fields['account_last_name']);
+    }
+    return $fields;
+}
+add_filter('woocommerce_save_account_details_required_fields', 'removeRequiredAccountFields');
+
+/**
+ * Шорткод на базе mycred_my_rank - отличие в выводе гендерного ранга
+ * (разделяет название ранга по двоеточию, если пользователь мужчина возвращается вторая часть, иначе - первая)
+ */
+function custom_render_my_rank( $atts, $content = '' ) {
+
+    extract( shortcode_atts( array(
+        'user_id'    => 'current',
+        'ctype'      => MYCRED_DEFAULT_TYPE_KEY,
+        'show_title' => 1,
+        'show_logo'  => 0,
+        'logo_size'  => 'post-thumbnail',
+        'first'      => 'logo'
+    ), $atts, MYCRED_SLUG . '_my_rank' ) );
+
+    if ( $user_id == '' && ! is_user_logged_in() ) return;
+
+    if ( ! mycred_point_type_exists( $ctype ) )
+        $ctype = MYCRED_DEFAULT_TYPE_KEY;
+
+    $show           = array();
+    $user_id        = mycred_get_user_id( $user_id );
+    if ( $user_id === false ) return;
+
+    $account_object = mycred_get_account( $user_id );
+    $rank_object    = $account_object->balance[ $ctype ]->rank;
+
+    if ( $rank_object !== false ) {
+
+        if ( $show_logo == 1 && $rank_object->has_logo )
+            $show[] = mycred_get_rank_logo( $rank_object->post_id, $logo_size );
+
+        if ( $show_title == 1 ) {
+            $userSex = get_user_meta($user_id, 'sex', true);
+            $titles = explode(':',$rank_object->title);
+            if ($userSex == 'male' && count($titles) > 1) {
+                $show[] = $titles[1];
+            } else {
+                $show[] = $titles[0];
+            }
+        }
+        if ( $first != 'logo' )
+            $show = array_reverse( $show );
+
+    }
+
+    if ( ! empty( $show ) )
+        $content = '<div class="mycred-my-rank">' . implode( ' ', $show ) . '</div>';
+
+    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+
+}
+add_shortcode( 'custom_my_rank','custom_render_my_rank' );
