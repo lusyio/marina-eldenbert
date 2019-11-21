@@ -17,6 +17,8 @@
 
 defined('ABSPATH') || exit;
 
+$userSex = get_user_meta($user->ID, 'sex', true);
+
 do_action('woocommerce_before_edit_account_form'); ?>
 
 <div class="row">
@@ -56,6 +58,17 @@ do_action('woocommerce_before_edit_account_form'); ?>
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                <p>Пол</p>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="account_sex" id="account_sex_f" value="female"<?php echo ($userSex == 'female') ? ' checked' : ''; ?>>
+                    <label class="form-check-label " for="account_sex_f">женский</label>
+                    <input type="radio" class="form-check-input" name="account_sex" id="account_sex_m" value="male" <?php echo ($userSex == 'male') ? ' checked' : ''; ?>>
+                    <label class="form-check-label" for="account_sex_m">мужской</label>
+                </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <label for="account_email"><?php esc_html_e('Email address', 'woocommerce'); ?>&nbsp;<span
