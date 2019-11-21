@@ -90,7 +90,7 @@ if (!comments_open()) {
                 );
 
                 if ($account_page_url = wc_get_page_permalink('myaccount')) {
-                    $comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf(__('Для отправки комментария вам необходимо<a href="%s">авторизоваться </a>', 'woocommerce'), esc_url($account_page_url)) . '</p>';
+                    $comment_form['must_log_in'] = '<p class="must-log-in">' . sprintf(__('Для отправки комментария вам необходимо <a href="%s">авторизоваться </a>', 'woocommerce'), esc_url($account_page_url)) . '</p>';
                 }
 
                 $comment_form['comment_field'] .= '<div class="row"><div class="col-lg-7 col-12"><p class="comment-form-comment"><label  for="comment">' . '<span class="required"></span></label><textarea placeholder="Ваш комментарий" id="comment" name="comment" cols="45" rows="6" required></textarea></p></div>';
