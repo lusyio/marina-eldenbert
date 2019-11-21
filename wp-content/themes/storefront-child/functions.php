@@ -413,7 +413,7 @@ function article_content($articleId)
             <?php
 
             wp_custom_link_pages(array(
-                'before' => '<nav><ul class="pagination">',
+                'before' => '<nav><ul class="pagination" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
@@ -471,11 +471,31 @@ function wp_custom_link_pages($args = '')
                     </a>
                 </li>';
             }
-
+            $mobileVisiblePages = [1,2,3,4,5];
+            if ($numpages > 5) {
+                if ($page > $numpages - 2) {
+                    $mobileVisiblePages = [];
+                    for ($i = $numpages; $i > $numpages - 5; $i--)
+                    {
+                        $mobileVisiblePages[] = $i;
+                    }
+                }
+                elseif ($page > 3) {
+                    $mobileVisiblePages = [];
+                    for ($i = $page - 2; $i <= $page + 2; $i++)
+                    {
+                        $mobileVisiblePages[] = $i;
+                    }
+                }
+            }
             for ($i = 1; $i <= $numpages; $i++) {
+                $nearestClass = '';
+                if (in_array($i, $mobileVisiblePages)) {
+                    $nearestClass = ' mobile-visible';
+                }
                 $activeClass = ($i == $page) ? ' active' : '';
 
-                $link = '<li class="page-item' . $activeClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
+                $link = '<li class="page-item' . $activeClass . $nearestClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
                 $output .= $link;
             }
             if ($numpages > 1) {
