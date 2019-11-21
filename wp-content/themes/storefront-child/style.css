@@ -4252,7 +4252,7 @@ and (max-width: 576px) {
         display: list-item;
     }
 
-    .page-item.mobile-show {
+    .page-item.mobile-visible {
         display: list-item;
     }
 

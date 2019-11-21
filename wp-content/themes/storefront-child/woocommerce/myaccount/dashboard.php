@@ -41,7 +41,7 @@ if (!is_null($nextRank)):
     $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
     ?>
     <div class="row">
-        <div class="col-lg-8 offset-lg-2 col-12 offset-0">
+        <div class="col-12">
             <p class="club-content__title">Ваш текущий статус</p>
             <div class="row mb-4">
                 <div class="col-5 m-auto text-left">
