@@ -1719,7 +1719,7 @@ function VipStatusWidget() {
 
     wp_add_dashboard_widget(
         'VipStatusWidget', //Слаг виджета
-        'Гостевой VIP-статус', //Заголовок виджета
+        'Управление статусами', //Заголовок виджета
         'vipStatusControl' //Функция вывода
     );
 }
@@ -1735,6 +1735,8 @@ function vipStatusControl() {
 
     if ($isGuestVipStatusEnabled) {
         echo '<p><strong>Сейчас все пользователи имеют статус VIP</strong></p>';
+    } else {
+        echo '<p>Включить гостевой VIP-статус для всех пользователей?</p>';
     }
     ?>
     <form method="post">
@@ -1744,12 +1746,14 @@ function vipStatusControl() {
     <hr>
         <?php
     if ($doesNewUserGetVipStatus) {
-        echo '<p><strong>Сейчас все новые пользователи получают статус VIP</strong></p>';
+        echo '<p><strong>Сейчас все новые пользователи получают статус Платиновая драконесса</strong></p>';
+    } else {
+        echo '<p>Включить присвоение статуса Платиновая драконесса всем новым пользователям?</p>';
     }
     ?>
     <form method="post">
         <input type="hidden" name="vipForNewUsers" value="<?php echo ($doesNewUserGetVipStatus) ? 0 : 1 ?>">
-        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?> присвоение VIP-статуса новым пользователям</button>
+        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?> присвоение статуса</button>
     </form>
     <?php
 }
@@ -1771,7 +1775,7 @@ function changeGuestVipStatus()
 add_action('init', 'changeGuestVipStatus', 10);
 
 /**
- * Изменяет присвоение VIP_статуса новым пользователям
+ * Изменяет настройку присвоения статуса Платиновая драконесса новым пользователям
  */
 function changeNewUserVipStatus()
 {
@@ -1787,13 +1791,19 @@ function changeNewUserVipStatus()
 add_action('init', 'changeNewUserVipStatus', 10);
 
 /**
- * Устанавливает статус VIP новым пользователям, если включена соответствующая настройка
+ * Добавляем 500 баллов при регистрации, если включена соответствующая настройка
  * @param $user_id
  */
 function setVipStatus($user_id) {
     $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
     if ($doesNewUserGetVipStatus) {
-        update_user_meta($user_id, 'vipStatus', true);
+        $user_id = $user_id;
+        $mycred  = mycred();
+        $amount  = 500;
+
+// Update the balance if the user is not excluded
+        if ( ! $mycred->exclude_user( $user_id ) )
+            $mycred->update_users_balance( $user_id, $amount );
     }
 }
 add_action( 'user_register', 'setVipStatus' );

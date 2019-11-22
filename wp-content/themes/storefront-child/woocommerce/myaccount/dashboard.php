@@ -96,8 +96,11 @@ if (!is_null($nextRank)):
         </div>
     </div>
 <?php endif;
-
+$abonement = hasAbonement($user_id);
+if ($abonement):
 ?>
+<div class="text-center mb-3"><p>У вас есть абонемент на чтение книг до <?php echo date('d.m.Y', strtotime($abonement)) ?>. Перейдите в <a href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>">магазин</a>, откройте любую понравившуюся книгу и нажмите кнопку "Читать"</p></div>
+<?php endif; ?>
     <p><?php
         /* translators: 1: user display name 2: logout url */
         printf(
