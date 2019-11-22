@@ -30,7 +30,7 @@ if (!defined('ABSPATH')) {
 
             <span>С помощью
         <?php echo $gateway->get_title(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?><?php echo $gateway->get_icon(); /* phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped */ ?>
-    </span>
+            </span>
         </label>
     </label>
     <?php if ($gateway->has_fields() || $gateway->get_description()) : ?>

@@ -30,14 +30,14 @@ do_action('woocommerce_before_edit_account_form'); ?>
             <?php do_action('woocommerce_edit_account_form_start'); ?>
 
             <div class="row">
-                <div class="col">
+                <div class="col-lg-6 col-12 mb-lg-0 mb-4">
                     <label for="account_first_name"><?php esc_html_e('First name', 'woocommerce'); ?>&nbsp;<span
                                 class="required">*</span></label>
                     <input type="text" class="form-control"
                            name="account_first_name" id="account_first_name" autocomplete="given-name"
                            value="<?php echo esc_attr($user->first_name); ?>"/>
                 </div>
-                <div class="col">
+                <div class="col-lg-6 col-12">
                     <label for="account_last_name"><?php esc_html_e('Last name', 'woocommerce'); ?>&nbsp;<span
                                 class="required">*</span></label>
                     <input type="text" class="form-control"
@@ -48,7 +48,7 @@ do_action('woocommerce_before_edit_account_form'); ?>
             </div>
 
             <div class="row">
-                <div class="col">
+                <div class="col-12">
                     <label for="account_display_name"><?php esc_html_e('Display name', 'woocommerce'); ?>&nbsp;<span
                                 class="required">*</span></label>
                     <input type="text" class="form-control"
@@ -59,18 +59,24 @@ do_action('woocommerce_before_edit_account_form'); ?>
             </div>
 
             <div class="row">
-                <div class="col">
-                <p>Пол</p>
-                <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="account_sex" id="account_sex_f" value="female"<?php echo ($userSex == 'female') ? ' checked' : ''; ?>>
-                    <label class="form-check-label " for="account_sex_f">женский</label>
-                    <input type="radio" class="form-check-input" name="account_sex" id="account_sex_m" value="male" <?php echo ($userSex == 'male') ? ' checked' : ''; ?>>
-                    <label class="form-check-label" for="account_sex_m">мужской</label>
-                </div>
+                <div class="col-12">
+                    <label>Пол</label>
+                    <div>
+                        <label class="form-check-label pure-material-radio mr-4" for="account_sex_f">
+                            <input type="radio" class="form-check-input" name="account_sex" id="account_sex_f"
+                                   value="female"<?php echo ($userSex == 'female') ? ' checked' : ''; ?>>
+                            <span>Женский</span>
+                        </label>
+                        <label class="form-check-label pure-material-radio" for="account_sex_m">
+                            <input type="radio" class="form-check-input" name="account_sex" id="account_sex_m"
+                                   value="male" <?php echo ($userSex == 'male') ? ' checked' : ''; ?>>
+                            <span>Мужской</span>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-12">
                     <label for="account_email"><?php esc_html_e('Email address', 'woocommerce'); ?>&nbsp;<span
                                 class="required">*</span></label>
                     <input type="email" class="form-control"
@@ -107,8 +113,8 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
             <?php do_action('woocommerce_edit_account_form'); ?>
 
-            <div class="row">
-                <div class="col text-center">
+            <div class="row mt-4">
+                <div class="col-12 text-center">
                     <?php wp_nonce_field('save_account_details', 'save-account-details-nonce'); ?>
                     <button type="submit" class="woocommerce-Button m-auto" name="save_account_details"
                             value="<?php esc_attr_e('Save changes', 'woocommerce'); ?>"><?php esc_html_e('Save changes', 'woocommerce'); ?></button>
