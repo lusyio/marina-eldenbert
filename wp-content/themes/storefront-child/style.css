@@ -858,7 +858,7 @@ input[type='text']::placeholder, input[type='number']::placeholder, input[type='
 
 button, input[type='button'], input[type='reset'], input[type='submit'], .button, .wc-block-grid__products .wc-block-grid__product .wp-block-button__link, .added_to_cart {
     border: 1px solid #000000;
-    border-radius: 40px;
+    border-radius: 40px !important;
     padding: 1rem 4.375rem;
     font-weight: normal;
     font-size: 1.125rem;
@@ -1083,10 +1083,10 @@ td.product-name a:hover {
 }
 
 .edit-account .row {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.edit-account label {
+.edit-account label:not(.pure-material-radio) {
     padding-left: 40px;
     margin-bottom: 12px;
     font-weight: normal;
