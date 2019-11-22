@@ -2087,3 +2087,16 @@ function updateProductsInOrders($post_id, $post, $update)
         }
     }
 }
+
+/**
+ * Удаляю крошки на странице клуба
+ */
+add_action('id_site_check', 'wc_remove_storefront_breadcrumbs');
+
+function wc_remove_storefront_breadcrumbs()
+{
+    global $post;
+    if ($post->ID == 37) {
+        remove_action('storefront_before_content', 'woocommerce_breadcrumb', 10);
+    }
+}

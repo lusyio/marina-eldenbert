@@ -3,6 +3,8 @@
 Template Name: club
 Template Post Type: post, page, product
 */
+
+do_action('id_site_check');
 ?>
 
 <?php get_header(); ?>
