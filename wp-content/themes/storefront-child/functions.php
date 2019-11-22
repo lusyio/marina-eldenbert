@@ -2166,3 +2166,17 @@ function storefront_sticky_single_add_to_cart() {
     </section><!--1 .storefront-sticky-add-to-cart -->
     <?php
 }
+
+
+/**
+ * Удаляю крошки на странице клуба
+ */
+add_action('id_page_check', 'wc_remove_storefront_breadcrumbs');
+
+function wc_remove_storefront_breadcrumbs()
+{
+    global $post;
+    if ($post->ID == 37) {
+        remove_action('storefront_before_content', 'woocommerce_breadcrumb', 10);
+    }
+}
