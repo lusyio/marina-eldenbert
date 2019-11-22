@@ -116,6 +116,8 @@ Template Post Type: post, page, product
                 </div>
             </div>
         </div>
+    <?php endif; ?>
+
     <?php else: ?>
         <div class="row club-footer">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
@@ -126,7 +128,6 @@ Template Post Type: post, page, product
                     закрытый клуб</a>
             </div>
         </div>
-    <?php endif; ?>
     <?php endif; ?>
 </div>
 
