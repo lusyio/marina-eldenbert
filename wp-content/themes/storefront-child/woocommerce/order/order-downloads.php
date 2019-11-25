@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 case 'download-file':
                                     foreach ($download['files'] as $file) {
                                         echo '<a href="' . esc_url( $download['download_url'] ) . '" class="download-link">';
-                                        echo '' . esc_html( $download['download_name'] ) . '<i class="ml-2 fas fa-cloud-download-alt"></i>';
+                                        echo esc_html( $download['download_name'] );
                                         echo '</a>';
                                     }
                                     break;
