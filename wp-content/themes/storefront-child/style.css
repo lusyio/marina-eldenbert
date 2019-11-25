@@ -1477,7 +1477,6 @@ ul.pagination > .page-item:last-of-type .page-link {
     font-size: 14px;
     line-height: 18px;
     color: #F8AC53;
-    padding-left: 40px;
 }
 
 .reader-sidebar__image a {
@@ -4029,6 +4028,14 @@ and (max-width: 768px) {
 
     .woocommerce-orders-table__cell .woocommerce-button {
         margin-left: auto;
+    }
+
+    .reader-sidebar__image img{
+        display: none;
+    }
+
+    .reader-sidebar__menu hr:last-of-type{
+        margin-bottom: 0;
     }
 
 }

@@ -398,7 +398,15 @@ function article_content($articleId)
                 $pageToLoad = 1;
             }
             $GLOBALS['page'] = $pageToLoad;
+
+            wp_custom_link_pages(array(
+                'before' => '<nav><ul class="pagination mb-3 mt-0" data-pages="' . $numpages . '">',
+                'after' => '</ul></nav>',
+                'link_before' => '<span>',
+                'link_after' => '</span>',
+            ));
             ?>
+
             <p class="h3 reader-h3"><?php the_title(); ?></p>
             <?php
             ?>
