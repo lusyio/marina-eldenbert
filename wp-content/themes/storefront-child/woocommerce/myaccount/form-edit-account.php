@@ -57,7 +57,15 @@ do_action('woocommerce_before_edit_account_form'); ?>
                     <span><em><?php esc_html_e('This will be how your name will be displayed in the account section and in reviews', 'woocommerce'); ?></em></span>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-12">
+                    <label for="account_email"><?php esc_html_e('Email address', 'woocommerce'); ?>&nbsp;<span
+                                class="required">*</span></label>
+                    <input type="email" class="form-control"
+                           name="account_email"
+                           id="account_email" autocomplete="email" value="<?php echo esc_attr($user->user_email); ?>"/>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <label>Пол</label>
@@ -75,16 +83,6 @@ do_action('woocommerce_before_edit_account_form'); ?>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <label for="account_email"><?php esc_html_e('Email address', 'woocommerce'); ?>&nbsp;<span
-                                class="required">*</span></label>
-                    <input type="email" class="form-control"
-                           name="account_email"
-                           id="account_email" autocomplete="email" value="<?php echo esc_attr($user->user_email); ?>"/>
-                </div>
-            </div>
-
             <fieldset class="bg-white">
                 <legend class="m-0 bg-white"><?php esc_html_e('Password change', 'woocommerce'); ?></legend>
 
