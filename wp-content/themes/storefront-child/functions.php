@@ -342,7 +342,7 @@ function my_custom_sale_flash($text, $post, $_product)
 }
 
 // Колонки related
-add_filter('woocommerce_output_related_products_args', 'jk_related_products_args');
+add_filter('woocommerce_output_related_products_args', 'jk_related_products_args', 30);
 function jk_related_products_args($args)
 {
     $args['posts_per_page'] = 6; // количество "Похожих товаров"
