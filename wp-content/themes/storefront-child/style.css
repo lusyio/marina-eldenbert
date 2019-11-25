@@ -1548,7 +1548,7 @@ ul.pagination > .page-item:last-of-type .page-link {
 .popular-content {
     font-weight: 300;
     font-size: 1.125rem;
-    line-height: 24px;
+    line-height: 32px;
     color: #000000;
     margin-bottom: 4.0625rem;
 }
@@ -2310,7 +2310,7 @@ h2.related-product {
 .woocommerce-product-details__short-description p {
     font-weight: 300;
     font-size: 1.125rem;
-    line-height: 24px;
+    line-height: 32px;
     color: #000000;
     margin-bottom: 20px;
 }
@@ -2549,6 +2549,12 @@ h2.related-product {
     border: none;
 }
 
+.grid-item > p {
+    font-size: 0;
+    display: none;
+    visibility: hidden;
+}
+
 .grid-item {
     position: relative;
     display: inline-block;
@@ -2560,11 +2566,7 @@ h2.related-product {
 
 .grid-item,
 .grid-sizer {
-    width: 22%;
-}
-
-.grid-item--width2 {
-    width: 46.6%;
+    width: 30%;
 }
 
 .grid-item img {
@@ -2580,6 +2582,7 @@ h2.related-product {
 
 .grid {
     margin-top: 52px;
+    margin-bottom: 52px;
 }
 
 .grid:after {
@@ -3875,7 +3878,7 @@ and (max-width: 991px) {
 
     .grid-item,
     .grid-sizer {
-        width: 30%;
+        width: 47%;
     }
 
     .grid-item--width2 {
@@ -3990,7 +3993,7 @@ and (max-width: 768px) {
 
     .grid-item,
     .grid-sizer {
-        width: 47%;
+        width: 100%;
     }
 
     .grid-item--width2 {

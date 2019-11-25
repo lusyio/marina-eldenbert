@@ -24,7 +24,7 @@ do_action('id_page_check');
                         соцсетях и зарабатывай за это балы. Члены клуба получают эксклюзивные материалы по книгам Марины
                         Эльденберт.</p>
                     <a class="club-header__btn"
-                       href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Вступить</a>
+                       href="#howToJoin">Вступить</a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ do_action('id_page_check');
                     составляет 20%</strong></p>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="howToJoin">
         <div class="col-lg-8 offset-lg-1 col-12 offset-0">
             <p class="club-content__title text-left">Как вступить в клуб?</p>
             <p class="club-content__text text-left">Чтобы получить VIP-карточку, нужно достичь уровня «Платиновая

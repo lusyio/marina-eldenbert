@@ -101,10 +101,12 @@ jQuery(function ($) {
     });
 
     // display message box if no filtered items
-    $('.filter-btn').on('click', function () {
+    $('.filter-btn, .clear-filters').on('click', function () {
         setTimeout(function () {
             if ($('.product:visible').length === 0) {
                 $('.isotope-empty').show();
+            } else {
+                $('.isotope-empty').hide();
             }
         }, 450)
 

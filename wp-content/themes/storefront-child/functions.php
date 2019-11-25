@@ -471,19 +471,16 @@ function wp_custom_link_pages($args = '')
                     </a>
                 </li>';
             }
-            $mobileVisiblePages = [1,2,3,4,5];
+            $mobileVisiblePages = [1, 2, 3, 4, 5];
             if ($numpages > 5) {
                 if ($page > $numpages - 2) {
                     $mobileVisiblePages = [];
-                    for ($i = $numpages; $i > $numpages - 5; $i--)
-                    {
+                    for ($i = $numpages; $i > $numpages - 5; $i--) {
                         $mobileVisiblePages[] = $i;
                     }
-                }
-                elseif ($page > 3) {
+                } elseif ($page > 3) {
                     $mobileVisiblePages = [];
-                    for ($i = $page - 2; $i <= $page + 2; $i++)
-                    {
+                    for ($i = $page - 2; $i <= $page + 2; $i++) {
                         $mobileVisiblePages[] = $i;
                     }
                 }
@@ -1453,14 +1450,24 @@ add_filter('comment_form_default_fields', 'modify_comment_fields');
 
 function modify_comment_textarea($fields)
 {
+    global $post;
 
-    $fields = '<div class="row mb-5">
+    if ($post->ID == 35) {
+        $fields = '<div class="row mb-5">
+                    <div class="col-12">
+                        <textarea placeholder="Введите текст сообщения" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
+                      ' . get_cir_upload_field() . '
+                    </div>
+                </div>';
+        return $fields;
+    } else {
+        $fields = '<div class="row mb-5">
                     <div class="col-12">
                         <textarea placeholder="Введите текст сообщения" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea>
                     </div>
                 </div>';
-
-    return $fields;
+        return $fields;
+    }
 }
 
 add_filter('comment_form_field_comment', 'modify_comment_textarea');
@@ -1559,13 +1566,15 @@ add_filter('login_url', function ($link) {
  * @param $query
  * @return mixed
  */
-function search_product($query) {
+function search_product($query)
+{
     if ($query->is_search) {
         $query->set('post_type', 'product');
     }
     return $query;
 }
-add_action('pre_get_posts','search_product');
+
+add_action('pre_get_posts', 'search_product');
 
 
 /**
@@ -1606,7 +1615,8 @@ function rank_discount_total(WC_Cart $cart)
         $cart->add_fee($feeText, -$discount);
     }
 }
-add_action("woocommerce_cart_calculate_fees" , "rank_discount_total");
+
+add_action("woocommerce_cart_calculate_fees", "rank_discount_total");
 
 /** Возвращает html-код с изображением переданного ранга
  * @param $rank_object
@@ -1619,8 +1629,8 @@ function getRankLogo($rank_object, $logo_size = 'post-thumbnail')
         return;
     }
     $user_id = get_current_user_id();
-    $content = '<div class="mycred-my-rank">' .  mycred_get_rank_logo( $rank_object->post_id, $logo_size ) . '</div>';
-    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+    $content = '<div class="mycred-my-rank">' . mycred_get_rank_logo($rank_object->post_id, $logo_size) . '</div>';
+    return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 }
 
 /**
@@ -1635,7 +1645,7 @@ function getRankTitle($rank_object)
     }
     $user_id = get_current_user_id();
     $userSex = get_user_meta($user_id, 'sex', true);
-    $titles = explode(':',$rank_object->title);
+    $titles = explode(':', $rank_object->title);
     if ($userSex == 'male' && count($titles) > 1) {
         $title = $titles[1];
     } else {
@@ -1643,7 +1653,7 @@ function getRankTitle($rank_object)
     }
 
     $content = '<div class="mycred-my-rank">' . $title . '</div>';
-    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+    return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 }
 
 /**
@@ -1653,25 +1663,28 @@ function getRankTitle($rank_object)
  * @param $results
  * @param $point_type
  */
-function giveVipStatus($user_id, $rank_id, $results, $point_type) {
+function giveVipStatus($user_id, $rank_id, $results, $point_type)
+{
     $newRank = mycred_get_rank($rank_id);
     if ($newRank->post->post_name = 'platinum-dragon') {
-        update_user_meta( $user_id, 'vipStatus', true );
+        update_user_meta($user_id, 'vipStatus', true);
     }
 }
 
-add_action( 'mycred_user_got_promoted', 'giveVipStatus', 10, 4 );
+add_action('mycred_user_got_promoted', 'giveVipStatus', 10, 4);
 
 /**
  * Добавляем колонку VIP в таблицу пользователей в админке
  * @param $column
  * @return mixed
  */
-function addVipStatusColumn( $column ) {
+function addVipStatusColumn($column)
+{
     $column['VIP'] = 'VIP';
     return $column;
 }
-add_filter( 'manage_users_columns', 'addVipStatusColumn' );
+
+add_filter('manage_users_columns', 'addVipStatusColumn');
 
 /**
  * Заполняем колонку VIP в таблицу пользователей в админке
@@ -1680,7 +1693,8 @@ add_filter( 'manage_users_columns', 'addVipStatusColumn' );
  * @param $user_id
  * @return string
  */
-function addVipStatusColumnValue( $val, $column_name, $user_id ) {
+function addVipStatusColumnValue($val, $column_name, $user_id)
+{
     $status = '';
     $abonementUntil = hasAbonement($user_id);
     ob_start();
@@ -1692,14 +1706,17 @@ function addVipStatusColumnValue( $val, $column_name, $user_id ) {
             $date = date('d.m.Y', strtotime($abonementUntil));
             ?>
             <p>Есть абонемент до <?php echo $date ?></p>
-            <button type="button" class="btn btn-outline-primary btn-sm addAbonement" data-user-id="<?php echo $user_id ?>" data-abonement-until="<?php echo date('Y-m-d', strtotime($abonementUntil)); ?>">
+            <button type="button" class="btn btn-outline-primary btn-sm addAbonement"
+                    data-user-id="<?php echo $user_id ?>"
+                    data-abonement-until="<?php echo date('Y-m-d', strtotime($abonementUntil)); ?>">
                 Изменить абонемент
             </button>
         <?php } else { ?>
-            <button type="button" class="btn btn-outline-primary btn-sm addAbonement" data-user-id="<?php echo $user_id ?>" data-abonement-until="0">
+            <button type="button" class="btn btn-outline-primary btn-sm addAbonement"
+                    data-user-id="<?php echo $user_id ?>" data-abonement-until="0">
                 Подарить абонемент
             </button>
-        <?php
+            <?php
         }
         if ($abonementUntil) {
 
@@ -1708,13 +1725,15 @@ function addVipStatusColumnValue( $val, $column_name, $user_id ) {
     return ob_get_clean();
 
 }
-add_filter( 'manage_users_custom_column', 'addVipStatusColumnValue', 10, 3 );
+
+add_filter('manage_users_custom_column', 'addVipStatusColumnValue', 10, 3);
 
 
 /**
  * Регистрирует виджет гостевого вип-статуса в консоли админки
  */
-function VipStatusWidget() {
+function VipStatusWidget()
+{
     global $wp_meta_boxes;
 
     wp_add_dashboard_widget(
@@ -1723,13 +1742,15 @@ function VipStatusWidget() {
         'vipStatusControl' //Функция вывода
     );
 }
+
 add_action('wp_dashboard_setup', 'VipStatusWidget');
 
 
 /**
  * Виджет управления вип-статусами в консоли админки
  */
-function vipStatusControl() {
+function vipStatusControl()
+{
     $isGuestVipStatusEnabled = get_option('guestVip', false);
     $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
 
@@ -1741,10 +1762,12 @@ function vipStatusControl() {
     ?>
     <form method="post">
         <input type="hidden" name="guestVip" value="<?php echo ($isGuestVipStatusEnabled) ? 0 : 1 ?>">
-        <button class="button" type="submit"><?php echo ($isGuestVipStatusEnabled) ? 'Выключить' : 'Включить' ?> гостевой VIP статус</button>
+        <button class="button" type="submit"><?php echo ($isGuestVipStatusEnabled) ? 'Выключить' : 'Включить' ?>
+            гостевой VIP статус
+        </button>
     </form>
     <hr>
-        <?php
+    <?php
     if ($doesNewUserGetVipStatus) {
         echo '<p><strong>Сейчас все новые пользователи получают статус Платиновая драконесса</strong></p>';
     } else {
@@ -1753,7 +1776,9 @@ function vipStatusControl() {
     ?>
     <form method="post">
         <input type="hidden" name="vipForNewUsers" value="<?php echo ($doesNewUserGetVipStatus) ? 0 : 1 ?>">
-        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?> присвоение статуса</button>
+        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?>
+            присвоение статуса
+        </button>
     </form>
     <?php
 }
@@ -1769,9 +1794,10 @@ function changeGuestVipStatus()
         } elseif (intval($_POST['guestVip']) === 0) {
             update_option('guestVip', false);
         }
-        header("Location:".$_SERVER['PHP_SELF']);
+        header("Location:" . $_SERVER['PHP_SELF']);
     }
 }
+
 add_action('init', 'changeGuestVipStatus', 10);
 
 /**
@@ -1785,28 +1811,31 @@ function changeNewUserVipStatus()
         } elseif (intval($_POST['vipForNewUsers']) === 0) {
             update_option('vipForNewUsers', false);
         }
-        header("Location:".$_SERVER['PHP_SELF']);
+        header("Location:" . $_SERVER['PHP_SELF']);
     }
 }
+
 add_action('init', 'changeNewUserVipStatus', 10);
 
 /**
  * Добавляем 500 баллов при регистрации, если включена соответствующая настройка
  * @param $user_id
  */
-function setVipStatus($user_id) {
+function setVipStatus($user_id)
+{
     $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
     if ($doesNewUserGetVipStatus) {
         $user_id = $user_id;
-        $mycred  = mycred();
-        $amount  = 500;
+        $mycred = mycred();
+        $amount = 500;
 
 // Update the balance if the user is not excluded
-        if ( ! $mycred->exclude_user( $user_id ) )
-            $mycred->update_users_balance( $user_id, $amount );
+        if (!$mycred->exclude_user($user_id))
+            $mycred->update_users_balance($user_id, $amount);
     }
 }
-add_action( 'user_register', 'setVipStatus' );
+
+add_action('user_register', 'setVipStatus');
 
 /**
  * Обновляем пол пользователя при изменении профиля в личном кабинете
@@ -1824,6 +1853,7 @@ function updateUserSex($userId)
         }
     }
 }
+
 add_action('woocommerce_save_account_details', 'updateUserSex');
 
 /**
@@ -1831,7 +1861,8 @@ add_action('woocommerce_save_account_details', 'updateUserSex');
  * @param $fields
  * @return mixed
  */
-function removeRequiredAccountFields($fields) {
+function removeRequiredAccountFields($fields)
+{
     if (key_exists('account_first_name', $fields)) {
         unset($fields['account_first_name']);
     }
@@ -1840,61 +1871,64 @@ function removeRequiredAccountFields($fields) {
     }
     return $fields;
 }
+
 add_filter('woocommerce_save_account_details_required_fields', 'removeRequiredAccountFields');
 
 /**
  * Шорткод на базе mycred_my_rank - отличие в выводе гендерного ранга
  * (разделяет название ранга по двоеточию, если пользователь мужчина возвращается вторая часть, иначе - первая)
  */
-function custom_render_my_rank( $atts, $content = '' ) {
+function custom_render_my_rank($atts, $content = '')
+{
 
-    extract( shortcode_atts( array(
-        'user_id'    => 'current',
-        'ctype'      => MYCRED_DEFAULT_TYPE_KEY,
+    extract(shortcode_atts(array(
+        'user_id' => 'current',
+        'ctype' => MYCRED_DEFAULT_TYPE_KEY,
         'show_title' => 1,
-        'show_logo'  => 0,
-        'logo_size'  => 'post-thumbnail',
-        'first'      => 'logo'
-    ), $atts, MYCRED_SLUG . '_my_rank' ) );
+        'show_logo' => 0,
+        'logo_size' => 'post-thumbnail',
+        'first' => 'logo'
+    ), $atts, MYCRED_SLUG . '_my_rank'));
 
-    if ( $user_id == '' && ! is_user_logged_in() ) return;
+    if ($user_id == '' && !is_user_logged_in()) return;
 
-    if ( ! mycred_point_type_exists( $ctype ) )
+    if (!mycred_point_type_exists($ctype))
         $ctype = MYCRED_DEFAULT_TYPE_KEY;
 
-    $show           = array();
-    $user_id        = mycred_get_user_id( $user_id );
-    if ( $user_id === false ) return;
+    $show = array();
+    $user_id = mycred_get_user_id($user_id);
+    if ($user_id === false) return;
 
-    $account_object = mycred_get_account( $user_id );
-    $rank_object    = $account_object->balance[ $ctype ]->rank;
+    $account_object = mycred_get_account($user_id);
+    $rank_object = $account_object->balance[$ctype]->rank;
 
-    if ( $rank_object !== false ) {
+    if ($rank_object !== false) {
 
-        if ( $show_logo == 1 && $rank_object->has_logo )
-            $show[] = mycred_get_rank_logo( $rank_object->post_id, $logo_size );
+        if ($show_logo == 1 && $rank_object->has_logo)
+            $show[] = mycred_get_rank_logo($rank_object->post_id, $logo_size);
 
-        if ( $show_title == 1 ) {
+        if ($show_title == 1) {
             $userSex = get_user_meta($user_id, 'sex', true);
-            $titles = explode(':',$rank_object->title);
+            $titles = explode(':', $rank_object->title);
             if ($userSex == 'male' && count($titles) > 1) {
                 $show[] = $titles[1];
             } else {
                 $show[] = $titles[0];
             }
         }
-        if ( $first != 'logo' )
-            $show = array_reverse( $show );
+        if ($first != 'logo')
+            $show = array_reverse($show);
 
     }
 
-    if ( ! empty( $show ) )
-        $content = '<div class="mycred-my-rank">' . implode( ' ', $show ) . '</div>';
+    if (!empty($show))
+        $content = '<div class="mycred-my-rank">' . implode(' ', $show) . '</div>';
 
-    return apply_filters( 'mycred_my_rank', $content, $user_id, $rank_object );
+    return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 
 }
-add_shortcode( 'custom_my_rank','custom_render_my_rank' );
+
+add_shortcode('custom_my_rank', 'custom_render_my_rank');
 
 // Добавляем скрипты и стили bootstrap в админку
 add_action('admin_enqueue_scripts', function () {
@@ -1909,76 +1943,78 @@ add_action('admin_enqueue_scripts', function () {
 function abonementModal()
 {
     ?>
-<div class="modal fade" id="abonementModal" tabindex="-1" role="dialog" aria-labelledby="abonementModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Подарить абонемент на чтение</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Укажите дату, до которой пользователь сможет читать все книги</p>
-                <p>Для отмены абонемента укажите любую прошедшую дату</p>
-                <input type="hidden" id="userId">
-                <input class="form-control" type="date" name="abonement" id="abonementDate"
-                       data-trigger="manual" data-content="Это текущий срок абонемента">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" id="saveAbonement">Сохранить</button>
+    <div class="modal fade" id="abonementModal" tabindex="-1" role="dialog" aria-labelledby="abonementModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подарить абонемент на чтение</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Укажите дату, до которой пользователь сможет читать все книги</p>
+                    <p>Для отмены абонемента укажите любую прошедшую дату</p>
+                    <input type="hidden" id="userId">
+                    <input class="form-control" type="date" name="abonement" id="abonementDate"
+                           data-trigger="manual" data-content="Это текущий срок абонемента">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="saveAbonement">Сохранить</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    jQuery(function ($) {
-        let abonementUntil = 0;
-        $('.addAbonement').on('click', function () {
-            abonementUntil = $(this).data('abonement-until');
-            console.log(abonementUntil);
-            $('#abonementModal').modal('show');
-            $('#userId').val($(this).data('user-id'));
-            if (abonementUntil !== '0') {
-                $('#abonementDate').val(abonementUntil)
-            }
-        });
-        $('#saveAbonement').on('click', function () {
-            let userId = $('#userId').val();
-            let date = $('#abonementDate').val();
-            if (date !== '' && date !== abonementUntil) {
-                $.ajax({
-                    url: ajaxurl,
-                    // dataType: 'json',
-                    data: {
-                        'action': 'add_abonement',
-                        'userId': userId,
-                        'date': date,
-                    },
-                    type: 'POST',
-                    beforeSend: function () {
+    <script>
+        jQuery(function ($) {
+            let abonementUntil = 0;
+            $('.addAbonement').on('click', function () {
+                abonementUntil = $(this).data('abonement-until');
+                console.log(abonementUntil);
+                $('#abonementModal').modal('show');
+                $('#userId').val($(this).data('user-id'));
+                if (abonementUntil !== '0') {
+                    $('#abonementDate').val(abonementUntil)
+                }
+            });
+            $('#saveAbonement').on('click', function () {
+                let userId = $('#userId').val();
+                let date = $('#abonementDate').val();
+                if (date !== '' && date !== abonementUntil) {
+                    $.ajax({
+                        url: ajaxurl,
+                        // dataType: 'json',
+                        data: {
+                            'action': 'add_abonement',
+                            'userId': userId,
+                            'date': date,
+                        },
+                        type: 'POST',
+                        beforeSend: function () {
 
-                    },
-                    success: function (data) {
-                        if (data) {
-                            location.reload();
+                        },
+                        success: function (data) {
+                            if (data) {
+                                location.reload();
+                            }
                         }
-                    }
-                });
-            }
-            if (date === abonementUntil) {
-                $('#abonementDate').popover('show');
-                setTimeout(function () {
-                    $('#abonementDate').popover('hide');
+                    });
+                }
+                if (date === abonementUntil) {
+                    $('#abonementDate').popover('show');
+                    setTimeout(function () {
+                        $('#abonementDate').popover('hide');
 
-                }, 2000)
-            }
-        })
-    });
-</script>
-<?php
+                    }, 2000)
+                }
+            })
+        });
+    </script>
+    <?php
 }
+
 add_action('admin_footer', 'abonementModal');
 
 /**
@@ -1991,10 +2027,11 @@ function add_abonement()
     }
     $userId = intval($_POST['userId']);
     $date = filter_var($_POST['date'], FILTER_SANITIZE_STRING);
-    update_user_meta($userId,'abonement', $date);
+    update_user_meta($userId, 'abonement', $date);
     echo 1;
     wp_die();
 }
+
 add_action('wp_ajax_add_abonement', 'add_abonement');
 
 /**
@@ -2035,11 +2072,12 @@ function getBookPageIdByBookId($bookId)
 /**
  * Возвращает ID заказов, содержащих товар с указанным ID
  *
- * @param  integer  $product_id (required)
- * @param  array    $order_status (optional) Default is 'wc-completed
+ * @param integer $product_id (required)
+ * @param array $order_status (optional) Default is 'wc-completed
  * @return array
  */
-function get_orders_ids_by_product_id( $product_id, $order_status = array( 'wc-completed' ) ){
+function get_orders_ids_by_product_id($product_id, $order_status = array('wc-completed'))
+{
     global $wpdb;
 
     $results = $wpdb->get_col("
@@ -2048,7 +2086,7 @@ function get_orders_ids_by_product_id( $product_id, $order_status = array( 'wc-c
         LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
         LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
         WHERE posts.post_type = 'shop_order'
-        AND posts.post_status IN ( '" . implode( "','", $order_status ) . "' )
+        AND posts.post_status IN ( '" . implode("','", $order_status) . "' )
         AND order_items.order_item_type = 'line_item'
         AND order_item_meta.meta_key = '_product_id'
         AND order_item_meta.meta_value = '$product_id'
@@ -2059,21 +2097,22 @@ function get_orders_ids_by_product_id( $product_id, $order_status = array( 'wc-c
 
 /**
  * Пересоздает загрузки для заказа
- * @param  Integer $order_id
+ * @param Integer $order_id
  */
-function regen_woo_downloadable_product_permissions( $order_id ){
+function regen_woo_downloadable_product_permissions($order_id)
+{
 
     // Remove all existing download permissions for this order.
     // This uses the same code as the "regenerate download permissions" action in the WP admin (https://github.com/woocommerce/woocommerce/blob/3.5.2/includes/admin/meta-boxes/class-wc-meta-box-order-actions.php#L129-L131)
     // An instance of the download's Data Store (WC_Customer_Download_Data_Store) is created and
     // uses its method to delete a download permission from the database by order ID.
-    $data_store = WC_Data_Store::load( 'customer-download' );
-    $data_store->delete_by_order_id( $order_id );
+    $data_store = WC_Data_Store::load('customer-download');
+    $data_store->delete_by_order_id($order_id);
 
     // Run WooCommerce's built in function to create the permissions for an order (https://docs.woocommerce.com/wc-apidocs/function-wc_downloadable_product_permissions.html)
     // Setting the second "force" argument to true makes sure that this ignores the fact that permissions
     // have already been generated on the order.
-    wc_downloadable_product_permissions( $order_id, true );
+    wc_downloadable_product_permissions($order_id, true);
 
 }
 
@@ -2100,3 +2139,20 @@ function wc_remove_storefront_breadcrumbs()
         remove_action('storefront_before_content', 'woocommerce_breadcrumb', 10);
     }
 }
+
+/**
+ * Выводит комментарии на страницу иллюстрации
+ * @param $comment
+ * @param $args
+ * @param $depth
+ */
+function images_comment($comment, $args, $depth)
+{
+    ?>
+    <div class="grid-item">
+        <?php comment_text(); ?>
+    </div>
+    <?php
+}
+
+
