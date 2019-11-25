@@ -33,7 +33,17 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
         </thead>
 
-        <?php foreach ( $downloads as $download ) : ?>
+        <?php
+        $groupedDownloads = array();
+
+        foreach ($downloads as $download) {
+        if (!key_exists($download['product_id'], $groupedDownloads)) {
+        $groupedDownloads[$download['product_id']] = $download;
+        }
+        $groupedDownloads[$download['product_id']]['files'][] = array_merge($download['file'], [ 'download_url' => $download['download_url']]);
+        }
+        ?>
+        <?php foreach ( $groupedDownloads as $download ) : ?>
             <tr>
                 <?php foreach ( wc_get_account_downloads_columns() as $column_id => $column_name ) : ?>
                     <td class="<?php echo esc_attr( $column_id ); ?>" data-title="<?php echo esc_attr( $column_name ); ?>">
@@ -50,7 +60,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     }
                                     break;
                                 case 'download-file':
-                                    echo '<a href="' . esc_url( $download['download_url'] ) . '" class="">Скачать в формате ' . esc_html( $download['download_name'] ) . '</a>';
+                                    foreach ($download['files'] as $file) {
+                                        echo '<a href="' . esc_url( $download['download_url'] ) . '" class="download-link">';
+                                        echo '' . esc_html( $download['download_name'] ) . '<i class="ml-2 fas fa-cloud-download-alt"></i>';
+                                        echo '</a>';
+                                    }
                                     break;
                                 case 'download-remaining':
                                     echo is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'woocommerce' );

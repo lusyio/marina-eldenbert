@@ -1058,11 +1058,11 @@ td.product-name a:hover {
     color: #F8AC53;
 }
 
-.book-store-link {
+.book-store-link, .download-link {
     margin-bottom: 10px;
 }
 
-.book-store-link a {
+.book-store-link a, .download-link {
     font-size: 18px;
     line-height: 24px;
     color: #F8AC53;
@@ -1070,7 +1070,7 @@ td.product-name a:hover {
     position: relative;
 }
 
-.book-store-link a:hover {
+.book-store-link a:hover, .download-link:hover {
     color: #F8AC53;
 }
 
@@ -1103,12 +1103,16 @@ table.cart td.product-remove a.remove {
     padding: 30px 0;
 }
 
-.woocommerce table.shop_table td.download-file, .woocommerce table.shop_table th.download-file{
+.woocommerce table.shop_table td.download-file, .woocommerce table.shop_table th.download-file {
     padding: 1.41575em;
     text-align: center;
 }
 
-.woocommerce table.shop_table td.download-product{
+.download-file a {
+    margin-right: 9px;
+}
+
+.woocommerce table.shop_table td.download-product {
     padding: 1.41575em;
 }
 
@@ -2074,7 +2078,7 @@ ul > .page-item:last-of-type .page-link {
 }
 
 .announcement__link:hover::after, .announcement__link:focus::after, .blog-card__link:hover::after, .blog-card__link:focus::after, .blog__link:hover::after, .blog__link:focus::after, .news-n-events-card__link:hover::after, .news-n-events-card__link:focus::after, .news-n-events__link:hover::after, .news-n-events__link:focus::after, .sidebar-news__link:hover::after,
-.sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after, .lost_password > a:hover::after, .lost_password > a:focus::after, .register-toggle:hover::after, .register-toggle:focus::after, .book-store-link a:hover::after, .book-store-link a:focus::after {
+.sidebar-news__link:focus::after, .sidebar-blog-card__link:hover::after, .sidebar-blog-card__link:focus::after, .attr-label > a:hover::after, .attr-label > a:focus::after, .lost_password > a:hover::after, .lost_password > a:focus::after, .register-toggle:hover::after, .register-toggle:focus::after, .book-store-link a:hover::after, .book-store-link a:focus::after, .download-link:hover::after, .download-link:focus::after {
     opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
@@ -2082,7 +2086,7 @@ ul > .page-item:last-of-type .page-link {
 }
 
 .announcement__link::after, .blog-card__link::after, .blog__link::after, .news-n-events-card__link::after, .news-n-events__link::after, .attr-label > a::after,
-.sidebar-news__link::after, .sidebar-blog-card__link::after, .lost_password a::after, .register-toggle::after, .book-store-link a::after {
+.sidebar-news__link::after, .sidebar-blog-card__link::after, .lost_password a::after, .register-toggle::after, .book-store-link a::after, .download-link::after {
     content: '';
     position: absolute;
     left: 0;
@@ -3058,7 +3062,7 @@ h2.related-product {
     margin-bottom: 100px;
 }
 
-.comment .mycred-my-rank{
+.comment .mycred-my-rank {
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
@@ -3784,7 +3788,7 @@ a#nep_call_panel.nep_right_bottom {
     padding-bottom: 130px;
 }
 
-.page-link.next-page-btn, .page-link.prev-page-btn{
+.page-link.next-page-btn, .page-link.prev-page-btn {
     padding: 10px 16px;
     -webkit-transition: ease-in 200ms;
     -moz-transition: ease-in 200ms;
@@ -4066,15 +4070,15 @@ and (max-width: 768px) {
         margin-left: auto;
     }
 
-    .reader-sidebar__image img{
+    .reader-sidebar__image img {
         display: none;
     }
 
-    .reader-sidebar__menu hr:last-of-type{
+    .reader-sidebar__menu hr:last-of-type {
         margin-bottom: 0;
     }
 
-    .woocommerce table.shop_table td.download-file{
+    .woocommerce table.shop_table td.download-file {
         text-align: right;
     }
 
