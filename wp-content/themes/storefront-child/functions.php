@@ -2175,7 +2175,7 @@ function storefront_sticky_single_add_to_cart() {
                     <?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating() ) ); ?>
                 </div>
                 <?php if (is_product_in_cart()): ?>
-                    <a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>" class="button">Товар в корзине</a>
+                    <a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>" class="single_add_to_cart_button button alt">Товар в корзине</a>
                 <?php
                 else: ?>
                     <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="storefront-sticky-add-to-cart__content-button button alt">

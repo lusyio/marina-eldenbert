@@ -3049,6 +3049,13 @@ h2.related-product {
     margin-bottom: 100px;
 }
 
+.comment .mycred-my-rank{
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: #C5C5C5;
+}
+
 .mycred-my-rank {
     font-weight: normal;
     font-size: 20px;
@@ -3069,6 +3076,7 @@ h2.related-product {
     font-size: 12px;
     line-height: 14px;
     margin-top: 15px;
+    margin-bottom: 10px;
     color: #000000;
 }
 
@@ -3084,6 +3092,8 @@ h2.related-product {
 
 #comments .comment-text .wpulike {
     display: inline-block;
+    height: 100%;
+    vertical-align: -webkit-baseline-middle;
 }
 
 #comments .comment-text .quote-comment {
