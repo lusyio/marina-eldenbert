@@ -1103,6 +1103,15 @@ table.cart td.product-remove a.remove {
     padding: 30px 0;
 }
 
+.woocommerce table.shop_table td.download-file, .woocommerce table.shop_table th.download-file{
+    padding: 1.41575em;
+    text-align: center;
+}
+
+.woocommerce table.shop_table td.download-product{
+    padding: 1.41575em;
+}
+
 .woocommerce-orders-table__row td {
     padding: 1em 1.41575em !important;
 }
@@ -4063,6 +4072,10 @@ and (max-width: 768px) {
 
     .reader-sidebar__menu hr:last-of-type{
         margin-bottom: 0;
+    }
+
+    .woocommerce table.shop_table td.download-file{
+        text-align: right;
     }
 
 }
