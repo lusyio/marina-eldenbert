@@ -357,6 +357,8 @@ function jk_related_products_args($args)
 function article_content($articleId)
 {
     global $post;
+    $prevArticleButton = articleButton($articleId, 'prev');
+    $nextArticleButton = articleButton($articleId, 'next');
     $query = new WP_Query('p=' . $articleId);
     $bookId = get_post_meta($post->ID, 'book_id', true);
     $content = '';
@@ -401,6 +403,14 @@ function article_content($articleId)
             ?>
             <p class="h3 reader-h3"><?php the_title(); ?></p>
             <?php
+            echo $prevArticleButton;
+            wp_custom_link_pages(array(
+                'before' => '<nav><ul class="pagination" data-pages="' . $numpages . '">',
+                'after' => '</ul></nav>',
+                'link_before' => '<span>',
+                'link_after' => '</span>',
+            ));
+            echo $nextArticleButton;
             ?>
             <div id="articleText">
                 <?php the_content(); ?>
@@ -411,13 +421,14 @@ function article_content($articleId)
                 </div>
             </div>
             <?php
-
+            echo $prevArticleButton;
             wp_custom_link_pages(array(
                 'before' => '<nav><ul class="pagination" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
             ));
+            echo $nextArticleButton;
             ?>
             <?php
         }
@@ -2202,4 +2213,80 @@ function images_comment($comment, $args, $depth)
     <?php
 }
 
+function articleButton($currentArticleId, $direction)
+{
+    global $post;
+    $baseUrl = get_permalink();
+    $bookId = get_post_meta($post->ID, 'book_id', true);
+    $query = new WP_Query('p=' . $currentArticleId);
+    $currentArticleDate = null;
+    $content = '';
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $currentArticleDate = $post->post_date;
+        }
+    }
+    wp_reset_query();
+    if (is_null($currentArticleDate)) {
+        return '';
+    }
+    if ($direction == 'next') {
+        $order = 'asc';
+        $dateQuery = [
+            'after' => $currentArticleDate,
+        ];
+        $text = 'След. глава';
+    } elseif ($direction == 'prev') {
+        $order = 'desc';
+        $dateQuery = [
+            'before' => $currentArticleDate,
+        ];
+        $text = 'Пред. глава';
+    } else {
+        return '';
+    }
 
+    $query = new WP_Query(array(
+        'cat' => get_post_meta($post->ID, 'cat_id', true),
+        'order' => $order,
+        'orderby' => 'date',
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'date_query' => $dateQuery,
+        'posts_per_page' => 1
+    ));
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $tags = get_the_tags();
+            $isFree = false;
+            if (is_array($tags)) {
+                foreach ($tags as $tag) {
+                    if ($tag->slug == 'free-article') {
+                        $isFree = true;
+                    }
+                }
+            }
+            if ($isFree || isBookBought($bookId) || hasAbonement(get_current_user_id()) || isAdmin()) {
+                $content = articleButtonHtml($baseUrl . '?a=' . $post->ID, $text);
+            }
+
+        }
+    }
+    wp_reset_query();
+    return $content;
+}
+
+function articleButtonHtml($url, $text)
+{
+    ob_start();
+    ?>
+    <a href="<?php echo $url?>" class="page-link next-page-btn" aria-label="Next">
+        <span aria-hidden="true"><?php echo $text?></span>
+    </a>
+    <?php
+    $content = ob_get_clean();
+    return $content;
+}
