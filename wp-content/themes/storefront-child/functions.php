@@ -739,8 +739,8 @@ function bookCardInReader()
         if (!empty($downloads)) {
             foreach ($downloads as $download) {
                 if ($download['product_id'] == $bookId) { ?>
-                    <div class="mb-3 ml-5">
-                        <a class="download-link mb-3" href="<?php $download['download_url'] ?>">Скачать в
+                    <div>
+                        <a class=" mb-3" href="<?php $download['download_url'] ?>">Скачать в
                             формате <?php echo $download['file']['name'] ?></a>
                     </div>
                     <?php
