@@ -14,7 +14,13 @@ jQuery(function ($) {
         }
     };
     let loadFilter = getUrlParameter('filter');
-    let filterClass = '.product_tag-' + loadFilter;
+    let filterClass = '';
+    if (loadFilter.match(/^series/) === null) {
+        filterClass = '.product_tag-' + loadFilter;
+    } else {
+        filterClass = '.' + loadFilter;
+    }
+    console.log(filterClass);
     let filterButton = $('button[data-filter="' + filterClass + '"]');
 
     let params = {
