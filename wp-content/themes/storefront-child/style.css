@@ -1416,13 +1416,13 @@ ul.pagination {
     padding-top: 0;
 }
 
-ul.pagination > .page-item .page-link:hover {
+ul > .page-item .page-link:hover {
     cursor: pointer;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     background: #F5F5F5;
 }
 
-ul.pagination > .page-item .page-link:active {
+ul > .page-item .page-link:active {
     -webkit-transform: translateY(2px);
     -moz-transform: translateY(2px);
     -ms-transform: translateY(2px);
@@ -1430,7 +1430,7 @@ ul.pagination > .page-item .page-link:active {
     transform: translateY(2px);
 }
 
-ul.pagination > .page-item .page-link {
+ul > .page-item .page-link {
     padding: 10px 16px;
     -webkit-transition: ease-in 200ms;
     -moz-transition: ease-in 200ms;
@@ -1447,7 +1447,7 @@ ul.pagination > .page-item .page-link {
     border: none;
 }
 
-ul.pagination > .page-item.active .page-link {
+ul > .page-item.active .page-link {
     background: #F5F5F5;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     font-weight: 500;
@@ -1456,7 +1456,7 @@ ul.pagination > .page-item.active .page-link {
     color: #000000;
 }
 
-ul.pagination > .page-item:last-of-type .page-link {
+ul > .page-item:last-of-type .page-link {
     margin-right: 0;
 }
 
@@ -3763,6 +3763,23 @@ a#nep_call_panel.nep_right_bottom {
     background: #FBFAF9;
     padding-top: 220px;
     padding-bottom: 130px;
+}
+
+.page-link.next-page-btn, .page-link.prev-page-btn{
+    padding: 10px 16px;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 15px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+    border: none;
 }
 
 .about-card {
