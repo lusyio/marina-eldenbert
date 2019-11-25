@@ -54,7 +54,7 @@ if ($product->is_in_stock()) : ?>
             if ($bookPageId) {
                 $link = get_permalink($bookPageId); ?>
 
-                <a class="button mb-3" href="<?php echo $link ?>">Читать</a>
+                <a class="product-read" href="<?php echo $link ?>">Читать</a>
                 <?php
             }
             // выводим сылки на скачивание книги
