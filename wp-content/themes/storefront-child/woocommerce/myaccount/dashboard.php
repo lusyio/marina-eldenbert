@@ -36,6 +36,9 @@ foreach ($allRanks as $rank) {
 }
 if (!is_null($nextRank)):
     $rankRelativeProgress = $balance - $myRank->minimum;
+    if ($rankRelativeProgress == 0) {
+        $rankRelativeProgress = 1;
+    }
     $pointsForNextRank = $myRank->maximum + 1 - $balance;
     $currentRankTotalProgress = $myRank->maximum + 1 - $myRank->minimum;
     $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
