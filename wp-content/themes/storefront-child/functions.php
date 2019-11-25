@@ -403,14 +403,16 @@ function article_content($articleId)
             ?>
             <p class="h3 reader-h3"><?php the_title(); ?></p>
             <?php
+            echo '<ul class="article-btns pagination mb-3 mt-3 pb-0">';
             echo $prevArticleButton;
+            echo $nextArticleButton;
+            echo '</ul>';
             wp_custom_link_pages(array(
-                'before' => '<nav><ul class="pagination" data-pages="' . $numpages . '">',
+                'before' => '<nav><ul class="pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
             ));
-            echo $nextArticleButton;
             ?>
             <div id="articleText">
                 <?php the_content(); ?>
@@ -421,14 +423,16 @@ function article_content($articleId)
                 </div>
             </div>
             <?php
-            echo $prevArticleButton;
             wp_custom_link_pages(array(
-                'before' => '<nav><ul class="pagination" data-pages="' . $numpages . '">',
+                'before' => '<nav><ul class="pagination mb-3 mt-4 pb-0" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
             ));
+            echo '<ul class="article-btns pagination mt-3 pb-0">';
+            echo $prevArticleButton;
             echo $nextArticleButton;
+            echo '</ul>';
             ?>
             <?php
         }
@@ -2295,9 +2299,10 @@ function articleButtonHtml($url, $text)
 {
     ob_start();
     ?>
-    <a href="<?php echo $url?>" class="page-link next-page-btn" aria-label="Next">
+    <li class="page-item mobile-visible"><a href="<?php echo $url?>" class="page-link next-page-btn" aria-label="Next">
         <span aria-hidden="true"><?php echo $text?></span>
     </a>
+    </li>
     <?php
     $content = ob_get_clean();
     return $content;
