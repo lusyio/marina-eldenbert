@@ -62,7 +62,7 @@ if (!is_null($nextRank)):
                 </div>
                 <div class="col-5 m-auto text-right">
                     <div class="row">
-                        <div class="col-lg-7 col-12 m-auto pr-lg-0 pr-unset">
+                        <div class="col-lg-7 col-12 m-auto pr-lg-unset pr-unset">
                             <?php echo getRankTitle($nextRank); ?>
                         </div>
                         <div class="col-5 m-auto d-lg-block d-none">

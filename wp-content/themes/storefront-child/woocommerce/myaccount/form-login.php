@@ -43,6 +43,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                 &nbsp;<span class="required">*</span></label>
                             <input type="text" class="login-input form-control"
                                    name="username"
+                                   placeholder="Введите логин или email"
                                    id="username" autocomplete="username"
                                    value="<?php echo (!empty($_POST['username'])) ? esc_attr(wp_unslash($_POST['username'])) : ''; ?>"/><?php // @codingStandardsIgnoreLine ?>
                         </div>
@@ -54,6 +55,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                 &nbsp;<span
                                         class="required">*</span></label>
                             <input class="login-input form-control" type="password"
+                                   placeholder="Введите пароль"
                                    name="password" id="password" autocomplete="current-password"/>
                         </div>
                     </div>
