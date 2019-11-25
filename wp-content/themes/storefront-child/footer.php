@@ -135,7 +135,7 @@
     jQuery(document).ready(function ($) {
 
         var $page = $('html, body');
-        $('a[href*="#"]').on('click', function() {
+        $('a.scrollTop').on('click', function() {
             $page.animate({
                 scrollTop: $($.attr(this, 'href')).offset().top
             }, 400);
