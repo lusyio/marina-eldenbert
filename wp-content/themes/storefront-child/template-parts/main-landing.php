@@ -106,7 +106,7 @@ Template Post Type: post, page, product
                             <div class="swiper-slide">
                                 <a href="<?php echo $product->get_permalink(); ?>">
                                     <div class="related-img-container">
-                                        <?php echo $product->get_image(200); ?>
+                                        <?php echo $product->get_image('woocommerce_thumbnail'); ?>
                                         <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
                                     </div>
                                     <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>

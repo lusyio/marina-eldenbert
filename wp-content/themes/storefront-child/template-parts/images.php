@@ -6,7 +6,6 @@ Template Post Type: post, page, product
 ?>
 
 <?php get_header(); ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -15,65 +14,7 @@ Template Post Type: post, page, product
             </div>
         </div>
     </div>
-    <div class="grid">
-        <div class="grid-sizer"></div>
-        <div class="grid-item grid-item--width2">
-            <a href="/wp-content/themes/storefront-child/images/image1.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image1.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image3.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image3.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image4.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image4.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image5.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image5.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image6.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image6.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="/wp-content/themes/storefront-child/images/image2.jpg" data-fancybox>
-                <div class="img-bg">
-                    <img src="/wp-content/themes/storefront-child/images/image2.jpg" alt="">
-                </div>
-            </a>
-        </div>
-    </div>
+    <?php comments_template('/image-comments.php'); ?>
 </div>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
@@ -81,7 +22,7 @@ Template Post Type: post, page, product
 
     jQuery(function ($) {
         $('[data-fancybox').fancybox({
-            buttons : [
+            buttons: [
                 'download',
                 'thumbs',
                 'close'

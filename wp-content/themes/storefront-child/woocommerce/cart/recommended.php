@@ -55,7 +55,7 @@ if ($related_products) : ?>
                                 <div class="swiper-slide">
                                     <a href="<?php echo $related_product->get_permalink(); ?>">
                                         <div class="related-img-container">
-                                            <?php echo $related_product->get_image(200); ?>
+                                            <?php echo $related_product->get_image('woocommerce_thumbnail'); ?>
                                         </div>
                                         <p class="related-img-container__header"><?php echo $related_product->get_name(); ?></p>
                                     </a>
