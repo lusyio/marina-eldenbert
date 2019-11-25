@@ -1683,8 +1683,8 @@ function getRankTitle($rank_object, $textOnly = false)
 function giveVipStatus($user_id, $rank_id, $results, $point_type)
 {
     $newRank = mycred_get_rank($rank_id);
-    if ($newRank->post->post_name = 'platinum-dragon') {
-        update_user_meta($user_id, 'vipStatus', true);
+    if ($newRank->post->post_name == 'platinum-dragon') {
+        update_user_meta($user_id, 'vipStatus', 1);
     }
 }
 
@@ -1716,7 +1716,7 @@ function addVipStatusColumnValue($val, $column_name, $user_id)
     $abonementUntil = hasAbonement($user_id);
     ob_start();
     if ($column_name == 'VIP') {
-        if (get_user_meta($user_id, 'vipStatus', true)) {
+        if (get_user_meta($user_id, 'vipStatus', true) == 1) {
             echo '<p>VIP</p>';
         }
         if ($abonementUntil) {
@@ -1768,7 +1768,7 @@ add_action('wp_dashboard_setup', 'VipStatusWidget');
  */
 function vipStatusControl()
 {
-    $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
+    $doesNewUserGetVipStatus = get_option('vipForNewUsers', 0);
     if ($doesNewUserGetVipStatus) {
         echo '<p><strong>Сейчас все новые пользователи получают статус Платиновая драконесса</strong></p>';
     } else {
@@ -1791,9 +1791,9 @@ function changeNewUserVipStatus()
 {
     if (is_admin() && isset($_POST['vipForNewUsers'])) {
         if (intval($_POST['vipForNewUsers']) === 1) {
-            update_option('vipForNewUsers', true);
+            update_option('vipForNewUsers', 1);
         } elseif (intval($_POST['vipForNewUsers']) === 0) {
-            update_option('vipForNewUsers', false);
+            update_option('vipForNewUsers', 0);
         }
         header("Location:" . $_SERVER['PHP_SELF']);
     }
@@ -1807,7 +1807,7 @@ add_action('init', 'changeNewUserVipStatus', 10);
  */
 function setVipStatus($user_id)
 {
-    $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
+    $doesNewUserGetVipStatus = get_option('vipForNewUsers', 0);
     if ($doesNewUserGetVipStatus) {
         $user_id = $user_id;
         $mycred = mycred();
