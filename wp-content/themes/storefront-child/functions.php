@@ -1753,23 +1753,7 @@ add_action('wp_dashboard_setup', 'VipStatusWidget');
  */
 function vipStatusControl()
 {
-    $isGuestVipStatusEnabled = get_option('guestVip', false);
     $doesNewUserGetVipStatus = get_option('vipForNewUsers', false);
-
-    if ($isGuestVipStatusEnabled) {
-        echo '<p><strong>Сейчас все пользователи имеют статус VIP</strong></p>';
-    } else {
-        echo '<p>Включить гостевой VIP-статус для всех пользователей?</p>';
-    }
-    ?>
-    <form method="post">
-        <input type="hidden" name="guestVip" value="<?php echo ($isGuestVipStatusEnabled) ? 0 : 1 ?>">
-        <button class="button" type="submit"><?php echo ($isGuestVipStatusEnabled) ? 'Выключить' : 'Включить' ?>
-            гостевой VIP статус
-        </button>
-    </form>
-    <hr>
-    <?php
     if ($doesNewUserGetVipStatus) {
         echo '<p><strong>Сейчас все новые пользователи получают статус Платиновая драконесса</strong></p>';
     } else {
@@ -1784,23 +1768,6 @@ function vipStatusControl()
     </form>
     <?php
 }
-
-/**
- * Изменяет гостевой вип-стастус
- */
-function changeGuestVipStatus()
-{
-    if (is_admin() && isset($_POST['guestVip'])) {
-        if (intval($_POST['guestVip']) === 1) {
-            update_option('guestVip', true);
-        } elseif (intval($_POST['guestVip']) === 0) {
-            update_option('guestVip', false);
-        }
-        header("Location:" . $_SERVER['PHP_SELF']);
-    }
-}
-
-add_action('init', 'changeGuestVipStatus', 10);
 
 /**
  * Изменяет настройку присвоения статуса Платиновая драконесса новым пользователям
