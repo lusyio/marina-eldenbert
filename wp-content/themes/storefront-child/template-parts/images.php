@@ -6,7 +6,6 @@ Template Post Type: post, page, product
 ?>
 
 <?php get_header(); ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -17,22 +16,19 @@ Template Post Type: post, page, product
     </div>
     <?php comments_template('/image-comments.php'); ?>
 </div>
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js"></script>
 <script>
-
     jQuery(function ($) {
         $('.cir-image-link').fancybox(
             {
-            buttons: [
-                'download',
-                'thumbs',
-                'close'
-            ],
-            caption : function () {
-                return $(this).parents('.grid-item').children('p').text();
-            },
-    });
+                buttons: [
+                    'download',
+                    'thumbs',
+                    'close'
+                ],
+                caption: function () {
+                    return $(this).parents('.grid-item').children('p').text();
+                },
+            });
         var $grid = $('.grid').masonry({
             itemSelector: '.grid-item',
             percentPosition: true,

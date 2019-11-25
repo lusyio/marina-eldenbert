@@ -2149,6 +2149,7 @@ function storefront_sticky_single_add_to_cart() {
     wp_localize_script( 'storefront-sticky-add-to-cart', 'storefront_sticky_add_to_cart_params', $params );
 
     wp_enqueue_script( 'storefront-sticky-add-to-cart' );
+
     ?>
     <section class="storefront-sticky-add-to-cart">
         <div class="col-full">
@@ -2214,5 +2215,22 @@ function cir_js_file(){
     }
 }
 add_action( 'wp_enqueue_scripts', 'cir_js_file', 999 );
+
+
+/**
+ * Добавление библиотек на странице иллюстраций
+ */
+add_action('wp_enqueue_scripts', 'add_cdn_images');
+
+function add_cdn_images()
+{
+    global $post;
+    if ($post->ID == 35) {
+        wp_enqueue_script( 'fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'));
+        wp_enqueue_script( 'maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'));
+        wp_enqueue_style( 'fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css' );
+    }
+}
+
 
 
