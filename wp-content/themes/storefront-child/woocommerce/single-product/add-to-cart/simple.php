@@ -29,49 +29,54 @@ if ( $product->is_in_stock() ) : ?>
     <?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
     <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
-        <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+        <?php if (is_product_in_cart()): ?>
+
+            <a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>" class="button">Товар в корзине</a>
+            <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
         <?php
-        do_action( 'woocommerce_before_add_to_cart_quantity' );
+        else:
+            do_action( 'woocommerce_before_add_to_cart_quantity' );
 
-        woocommerce_quantity_input( array(
-            'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-            'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-            'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-        ) );
+            woocommerce_quantity_input( array(
+                'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+                'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+                'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+            ) );
 
-        do_action( 'woocommerce_after_add_to_cart_quantity' );
+            do_action( 'woocommerce_after_add_to_cart_quantity' );
 
-        //выводим ссылку на чтение книги
-        $bookPageId = getBookPageIdByBookId($product->get_id());
-        if ($bookPageId) {
-            $link = get_permalink($bookPageId);?>
-            <div class="mb-3 ml-5">
-                <a class="button mb-3" href="<?php echo $link ?>">Читать</a>
-            </div>
-            <?php
-        }
-        // выводим сылки на скачивание книги
-        $downloads = array();
-        $user_id = get_current_user_id();
-        $downloads = wc_get_customer_available_downloads($user_id);
-        $hasDownloads = false;
-        if (!empty($downloads)) {
-            foreach ($downloads as $download) {
-                if ($download['product_id'] == $product->get_id()) { ?>
-                    <div class="mb-3 ml-5">
-                        <a class="download-link mb-3" href="<?php echo $download['download_url'] ?>">Скачать в формате <?php echo $download['file']['name']; ?></a>
-                    </div>
-                    <?php
-                    $hasDownloads = true;
+            //выводим ссылку на чтение книги
+            $bookPageId = getBookPageIdByBookId($product->get_id());
+            if ($bookPageId) {
+                $link = get_permalink($bookPageId);?>
+                <div class="mb-3 ml-5">
+                    <a class="button mb-3" href="<?php echo $link ?>">Читать</a>
+                </div>
+                <?php
+            }
+            // выводим сылки на скачивание книги
+            $downloads = array();
+            $user_id = get_current_user_id();
+            $downloads = wc_get_customer_available_downloads($user_id);
+            $hasDownloads = false;
+            if (!empty($downloads)) {
+                foreach ($downloads as $download) {
+                    if ($download['product_id'] == $product->get_id()) { ?>
+                        <div class="mb-3 ml-5">
+                            <a class="download-link mb-3" href="<?php echo $download['download_url'] ?>">Скачать в формате <?php echo $download['file']['name']; ?></a>
+                        </div>
+                        <?php
+                        $hasDownloads = true;
+                    }
                 }
             }
-        }
-            if (!$hasDownloads):
-        ?>
-        <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-        <?php endif;
-        do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+                if (!$hasDownloads):
+            ?>
+            <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+            <?php endif;
+            do_action( 'woocommerce_after_add_to_cart_button' );
+        endif;?>
     </form>
 
     <?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>

@@ -1609,7 +1609,7 @@ function rank_discount_total(WC_Cart $cart)
 
         $discount = $cart->subtotal * $statusDiscounts[$rankSlug] / 100;
         // Название ранга
-        $rankName = $rank_object->title;
+        $rankName = getRankTitle($rank_object, true);
         // Текст, выводимый в корзине
         $feeText = $rankName . ' - скидка ' . $statusDiscounts[$rankSlug] . '%';
         $cart->add_fee($feeText, -$discount);
@@ -1638,7 +1638,7 @@ function getRankLogo($rank_object, $logo_size = 'post-thumbnail')
  * @param $rank_object
  * @return mixed
  */
-function getRankTitle($rank_object)
+function getRankTitle($rank_object, $textOnly = false)
 {
     if (!is_user_logged_in()) {
         return;
@@ -1651,7 +1651,9 @@ function getRankTitle($rank_object)
     } else {
         $title = $titles[0];
     }
-
+    if ($textOnly) {
+        return $title;
+    }
     $content = '<div class="mycred-my-rank">' . $title . '</div>';
     return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 }
@@ -2126,6 +2128,84 @@ function updateProductsInOrders($post_id, $post, $update)
         }
     }
 }
+
+/**
+ * Проверяет товар текущей страницы на наличие в корзине
+ * @return bool
+ */
+function is_product_in_cart() {
+    foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+        $cart_product = $values['data'];
+
+        if( get_the_ID() == $cart_product->id ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Sticky Add to Cart
+ *
+ * @since 2.3.0
+ */
+function storefront_sticky_single_add_to_cart() {
+    global $product;
+
+    if ( class_exists( 'Storefront_Sticky_Add_to_Cart' ) || true !== get_theme_mod( 'storefront_sticky_add_to_cart' ) ) {
+        return;
+    }
+
+    if ( ! is_product() ) {
+        return;
+    }
+
+    $show = false;
+
+    if ( $product->is_purchasable() && $product->is_in_stock() ) {
+        $show = true;
+    } else if ( $product->is_type( 'external' ) ) {
+        $show = true;
+    }
+
+    if ( ! $show ) {
+        return;
+    }
+
+    $params = apply_filters(
+        'storefront_sticky_add_to_cart_params', array(
+            'trigger_class' => 'entry-summary',
+        )
+    );
+
+    wp_localize_script( 'storefront-sticky-add-to-cart', 'storefront_sticky_add_to_cart_params', $params );
+
+    wp_enqueue_script( 'storefront-sticky-add-to-cart' );
+    ?>
+    <section class="storefront-sticky-add-to-cart">
+        <div class="col-full">
+            <div class="storefront-sticky-add-to-cart__content">
+                <?php echo wp_kses_post( woocommerce_get_product_thumbnail() ); ?>
+                <div class="storefront-sticky-add-to-cart__content-product-info">
+                    <span class="storefront-sticky-add-to-cart__content-title"><?php esc_attr_e( 'You\'re viewing:', 'storefront' ); ?> <strong><?php the_title(); ?></strong></span>
+                    <span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
+                    <?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating() ) ); ?>
+                </div>
+                <?php if (is_product_in_cart()): ?>
+                    <a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>" class="button">Товар в корзине</a>
+                <?php
+                else: ?>
+                    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="storefront-sticky-add-to-cart__content-button button alt">
+                        <?php echo esc_attr( $product->add_to_cart_text() ); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section><!--1 .storefront-sticky-add-to-cart -->
+    <?php
+}
+
 
 /**
  * Удаляю крошки на странице клуба
