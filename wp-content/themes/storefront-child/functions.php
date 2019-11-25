@@ -2347,3 +2347,14 @@ add_filter('woocommerce_account_menu_items', function ($args) {
     }
     return $args;
 });
+
+// Убираем столбцы осталось загрузок и истекает в таблице Загрузки
+add_filter('woocommerce_account_downloads_columns', function($args) {
+    if (key_exists('download-remaining', $args)) {
+        unset($args['download-remaining']);
+    }
+    if (key_exists('download-expires', $args)) {
+        unset($args['download-expires']);
+    }
+    return $args;
+});
