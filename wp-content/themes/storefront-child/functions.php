@@ -2235,4 +2235,17 @@ function images_comment($comment, $args, $depth)
     <?php
 }
 
+//отключение магнифика для плагина комментов
+function cir_js_file(){
+
+    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+    if ( wp_script_is('comment-images-reloaded') && is_plugin_active( 'comment-images-reloaded/comment-image-reloaded.php' ) ) {
+
+        wp_dequeue_script( 'comment-images-reloaded' );
+        wp_enqueue_script( 'my-comment-images-reloaded', plugins_url( 'comment-images-reloaded/js/cir.min.js' ), array( 'jquery' ), false, true );
+        wp_dequeue_style( 'magnific' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'cir_js_file', 999 );
+
 

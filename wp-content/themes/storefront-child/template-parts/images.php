@@ -6,6 +6,7 @@ Template Post Type: post, page, product
 ?>
 
 <?php get_header(); ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -21,13 +22,17 @@ Template Post Type: post, page, product
 <script>
 
     jQuery(function ($) {
-        $('[data-fancybox').fancybox({
+        $('.cir-image-link').fancybox(
+            {
             buttons: [
                 'download',
                 'thumbs',
                 'close'
-            ]
-        });
+            ],
+            caption : function () {
+                return $(this).parents('.grid-item').children('p').text();
+            },
+    });
         var $grid = $('.grid').masonry({
             itemSelector: '.grid-item',
             percentPosition: true,
