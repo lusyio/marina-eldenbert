@@ -2334,7 +2334,6 @@ function add_cdn_images()
 
 // Изменяем название Детали на Настройки, убираем из меню пункт Адреса
 add_filter('woocommerce_account_menu_items', function ($args) {
-    var_dump($args);
     if (key_exists('edit-account', $args)) {
         $args['edit-account'] = 'Настройки';
     }
