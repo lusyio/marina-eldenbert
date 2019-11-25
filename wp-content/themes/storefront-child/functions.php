@@ -926,7 +926,7 @@ function productSeries()
 // Выборка значения заданного атрибута
         foreach ($attribute_names as $attribute_name):
 // Вывод значений атрибута
-            echo '<a href="/product-category/' . $attribute_name->slug . '/">';
+            echo '<a href="/shop/?series=' . $attribute_name->slug . '/">';
             echo $attribute_name->name;
             echo '</a>';
             echo '</p>';
@@ -2213,6 +2213,12 @@ function images_comment($comment, $args, $depth)
     <?php
 }
 
+/**
+ * Вывод кнопки предыдущей или следующей главф
+ * @param $currentArticleId
+ * @param $direction ('next', 'prev')
+ * @return false|string
+ */
 function articleButton($currentArticleId, $direction)
 {
     global $post;
@@ -2228,6 +2234,7 @@ function articleButton($currentArticleId, $direction)
         }
     }
     wp_reset_query();
+
     if (is_null($currentArticleDate)) {
         return '';
     }
@@ -2272,13 +2279,18 @@ function articleButton($currentArticleId, $direction)
             if ($isFree || isBookBought($bookId) || hasAbonement(get_current_user_id()) || isAdmin()) {
                 $content = articleButtonHtml($baseUrl . '?a=' . $post->ID, $text);
             }
-
         }
     }
     wp_reset_query();
     return $content;
 }
 
+
+/** Получение html-кода кнопок предыдущей и следующей главы
+ * @param $url
+ * @param $text
+ * @return false|string
+ */
 function articleButtonHtml($url, $text)
 {
     ob_start();
@@ -2289,4 +2301,33 @@ function articleButtonHtml($url, $text)
     <?php
     $content = ob_get_clean();
     return $content;
+}
+
+//отключение магнифика для плагина комментов
+function cir_js_file(){
+
+    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+    if ( wp_script_is('comment-images-reloaded') && is_plugin_active( 'comment-images-reloaded/comment-image-reloaded.php' ) ) {
+
+        wp_dequeue_script( 'comment-images-reloaded' );
+        wp_enqueue_script( 'my-comment-images-reloaded', plugins_url( 'comment-images-reloaded/js/cir.min.js' ), array( 'jquery' ), false, true );
+        wp_dequeue_style( 'magnific' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'cir_js_file', 999 );
+
+
+/**
+ * Добавление библиотек на странице иллюстраций
+ */
+add_action('wp_enqueue_scripts', 'add_cdn_images');
+
+function add_cdn_images()
+{
+    global $post;
+    if ($post->ID == 35) {
+        wp_enqueue_script( 'fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'));
+        wp_enqueue_script( 'maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'));
+        wp_enqueue_style( 'fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css' );
+    }
 }
