@@ -55,7 +55,7 @@ Template Post Type: post, page, product
                 2019 г.)</p>
         </div>
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-            <p class="about-content">Стали <strong>победительницей конкурса «Руны любви. Весна-лето 2016»</strong> издательства АСТ («Заклятые
+            <p class="about-content">Стали <strong>победителем конкурса «Руны любви. Весна-лето 2016»</strong> издательства АСТ («Заклятые
                 супруги. Золотая
                 мгла», июнь 2016 г.)</p>
         </div>
