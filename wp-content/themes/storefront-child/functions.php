@@ -1318,7 +1318,7 @@ function storefront_comment($comment, $args, $depth)
             <?php comment_text(); ?>
         </div>
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="d-sm-block d-flex">
                 <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
@@ -1396,7 +1396,7 @@ function woocommerce_comments($comment, $args, $depth)
             <?php comment_text(); ?>
         </div>
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="d-sm-block d-flex">
                 <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
@@ -2409,3 +2409,4 @@ function get_current_template() {
         return false;
     return $GLOBALS['current_template'];
 }
+

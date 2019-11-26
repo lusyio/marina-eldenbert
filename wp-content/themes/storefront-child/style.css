@@ -282,7 +282,7 @@ ul.menu li.current-menu-item > a:before {
     padding-left: 40px;
     margin-bottom: 12px;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #1C1C1C;
 }
@@ -4108,6 +4108,10 @@ and (max-width: 768px) {
         padding-bottom: 75px;
     }
 
+    .related-product br{
+        display: none;
+    }
+
     .popular-img-container:before {
 
     }
@@ -4247,6 +4251,14 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .comment-body .comment-reply-login, .comment-body .comment-reply-link{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 7rem;
+        align-self: center;
+    }
 
     .mycred-my-rank {
         font-size: 14px;
