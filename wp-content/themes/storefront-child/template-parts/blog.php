@@ -3,7 +3,9 @@
 Template Name: blog
 Template Post Type: post, page, product
 */
-?>
+if ($post->post_name == 'club' && (get_user_meta(get_current_user_id(), 'vipStatus', true) != 1 || !isAdmin())) {
+    get_template_part('template-parts/club');
+} else { ?>
 
 <?php get_header(); ?>
 
@@ -44,4 +46,6 @@ Template Post Type: post, page, product
     </div>
 </div>
 
-<?php get_footer(); ?>
+<?php }
+
+get_footer(); ?>
