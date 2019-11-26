@@ -164,6 +164,8 @@
         function checkForEmptyHiddenProducts(item, loadBtn) {
             if ($("" + item + ":hidden").length === 0) {
                 $(loadBtn).hide();
+            } else {
+                $(loadBtn).show();
             }
         }
 

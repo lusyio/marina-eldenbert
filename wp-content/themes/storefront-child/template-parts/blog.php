@@ -17,29 +17,46 @@ if ($post->post_name == 'club' && (get_user_meta(get_current_user_id(), 'vipStat
                 <div class="col-12"><h2 class="page-title"><?php the_title() ?></h2></div>
             </div>
             <div class="row blog-row">
-                <?php $catquery = new WP_Query('cat=34&posts_per_page=999'); // portfolio  ?>
-                <?php while ($catquery->have_posts()) :
-                    $catquery->the_post(); ?>
-                    <div class="col-lg-6 col-12 blog-item">
-                        <div class="blog-card">
-                            <div class="blog-card__header">
-                                <a href="<?php the_permalink() ?>">
-                                    <div class="blog-card__img">
-                                        <?= get_the_post_thumbnail() ?>
-                                    </div>
-                                </a>
+                <?php
+                if ($post->post_name == 'club') {
+                    $categoryId = 44; // рубрика "клуб"
+                } else {
+                    $categoryId = 34; // рубрика "блог"
+
+                }
+                $catquery = new WP_Query('cat=' . $categoryId . '&posts_per_page=999');  ?>
+                <?php if ($catquery->have_posts()) : ?>
+                    <?php while ($catquery->have_posts()) :
+                        $catquery->the_post(); ?>
+                        <div class="col-lg-6 col-12 blog-item">
+                            <div class="blog-card">
+                                <div class="blog-card__header">
+                                    <a href="<?php the_permalink() ?>">
+                                        <div class="blog-card__img">
+                                            <?= get_the_post_thumbnail() ?>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="blog-card__body">
+                                    <p class="blog-card__date"><?= get_the_date() ?></p>
+                                    <div class="blog-card__text"><?php the_content(); ?></div>
+                                    <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                                </div>
                             </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <div class="col-lg-6 offset-lg-3 col-12 blog-item">
+                        <div class="blog-card">
                             <div class="blog-card__body">
-                                <p class="blog-card__date"><?= get_the_date() ?></p>
-                                <div class="blog-card__text"><?php the_content(); ?></div>
-                                <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                                <div class="blog-card__text text-center">Пока нет новостей</div>
                             </div>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php endif;?>
                 <?php wp_reset_postdata(); ?>
                 <div class="col-12 text-center">
-                    <div class="load-more">Загрузить еще</div>
+                    <div class="load-more" style="display: none">Загрузить еще</div>
                 </div>
             </div>
         </div>
