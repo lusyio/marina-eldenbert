@@ -2396,3 +2396,16 @@ function add_sassy()
 {
    echo do_shortcode('[Sassy_Social_Share]');
 }
+
+// функция проверки используемого шаблона внутри цикла
+function filter_template_include( $t ) {
+    $GLOBALS['current_template'] = basename($t);
+    return $t;
+}
+add_filter( 'template_include', 'filter_template_include', 1000 );
+
+function get_current_template() {
+    if( !isset( $GLOBALS['current_template'] ) )
+        return false;
+    return $GLOBALS['current_template'];
+}
