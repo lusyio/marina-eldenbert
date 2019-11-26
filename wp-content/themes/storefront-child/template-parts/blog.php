@@ -3,7 +3,8 @@
 Template Name: blog
 Template Post Type: post, page, product
 */
-if ($post->post_name == 'club' && (get_user_meta(get_current_user_id(), 'vipStatus', true) != 1 || !isAdmin())) {
+$myRank = mycred_get_my_rank();
+if ($post->post_name == 'club' && (is_null($myRank) || $myRank->post->post_name != 'platinum-dragon') && !isAdmin()) {
     get_template_part('template-parts/club');
 } else { ?>
 
