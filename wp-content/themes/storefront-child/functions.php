@@ -377,10 +377,12 @@ function article_content($articleId)
             }
 
             if (!$isFree && !isBookBought($bookId) && !(is_user_logged_in() && hasAbonement(get_current_user_id())) && !isAdmin()) {
-                $GLOBALS['isArticle'] = false;
+                $GLOBALS['showBuyScreen'] = true;
                 wp_reset_query();
                 return;
             }
+            setBookmarkMeta($bookId, $articleId);
+
             global $numpages;
             $pageToLoad = 1;
             $lastPage = getBookmarkPageMeta($articleId);
@@ -705,15 +707,18 @@ function contentList($isArticle)
                     }
                 }
             }
+
+
+            $buyLinkClass = ' buy-link';
             if ($isFree || isBookBought($bookId) || hasAbonement(get_current_user_id()) || isAdmin()) {
-                if ($currentArticle > 0 && $currentArticle == $post->ID) {
-                    echo '<p class="active-title">' . $post->post_title . '</p>';
-
-                } else {
-                    echo '<p><a href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
-                }
+                $buyLinkClass = '';
             }
+            if ($currentArticle > 0 && $currentArticle == $post->ID) {
+                echo '<p class="active-title">' . $post->post_title . '</p>';
 
+            } else {
+                echo '<p><a class="' . $buyLinkClass . '" href="' . $baseUrl . '?a=' . $post->ID . '">' . $post->post_title . '</a></p>';
+            }
         }
         echo '<hr>';
     }
@@ -1038,9 +1043,17 @@ function setBookmarkCookies()
             while ($query->have_posts()) {
                 $query->the_post();
                 $articleCategories = wp_get_post_categories($articleId);
-                if (in_array($bookCategoryId, $articleCategories)) {
+                $tags = get_the_tags();
+                $isFree = false;
+                if (is_array($tags)) {
+                    foreach ($tags as $tag) {
+                        if ($tag->slug == 'free-article') {
+                            $isFree = true;
+                        }
+                    }
+                }
+                if (in_array($bookCategoryId, $articleCategories) && $isFree) {
                     setcookie('b_' . $bookId, $articleId, strtotime('+1 year'), '/');
-                    setBookmarkMeta($bookId, $articleId);
                 }
             }
         }
