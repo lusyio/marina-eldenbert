@@ -49,7 +49,7 @@ Template Post Type: post, page, product
                 <div class="text-center"><a class="club-header__btn mb-3" href="<?php echo $book->get_permalink(); ?>">Купить</a></div>
                 <div class="text-center"><a class="club-header__btn" href="<?php echo $link ?>">Назад</a></div>
             </div>
-        <?php else: ?>
+        <?php elseif (!$isArticle): ?>
             <div class="col-lg-7 col-12 order-lg-1 order-2 position-relative">
                 <div class="reader-content"><?php the_content(); ?></div>
                 <div class="text-center"><?php readButton(); ?></div>

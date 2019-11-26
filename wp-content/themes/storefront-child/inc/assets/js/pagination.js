@@ -1,6 +1,10 @@
 jQuery(function ($) {
     $('.next-page-btn').on('click', function () {
+        let totalPages = $(this).closest('.pagination').data('pages');
         let currentPage = $('.page-item.active').find('.post-page-numbers').data('page');
+        if (currentPage == totalPages) {
+            //переход к след главе
+        }
         let nextPage = $('.post-page-numbers[data-page=' + ++currentPage + ']');
         nextPage.trigger('click');
 
@@ -16,38 +20,63 @@ jQuery(function ($) {
         if ($(this).parent('li').hasClass('active')) {
             return;
         }
-
-        let pageToLoad = $(this).data('page');
-        // $(this).parent('li').removeClass('active');
-        $('.post-page-numbers').parent('li').removeClass('active');
-        $('.post-page-numbers[data-page=' + pageToLoad + ']').parent('li').addClass('active');
-
         let totalPages = $(this).closest('.pagination').data('pages');
-        console.log(totalPages);
+        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page');
+        let pageToLoad = $(this).data('page');
+        let prevPageButton = $('.prev-page-btn');
+        let nextPageButton = $('.next-page-btn');
 
-        if (totalPages > 5) {
-
-            let mobileVisiblePages = [];
-            if (pageToLoad < 3) {
-                mobileVisiblePages = [1, 2, 3, 4, 5]
-            } else if (pageToLoad > (totalPages - 2)) {
-                for (let i = totalPages; i > totalPages - 5; i--) {
-                    mobileVisiblePages.push(i);
-                }
+        if (pageToLoad == 1) {
+            if ($(prevPageButton).data('article-id') == 0) {
+                $(prevPageButton).parent('li').addClass('d-none');
             } else {
-                for (let i = pageToLoad - 2; i <= pageToLoad + 2; i++) {
-                    mobileVisiblePages.push(i);
-                }
+                $(prevPageButton).find('span').text($(prevPageButton).data('for-article'))
             }
-            $('.mobile-visible').each(function (i, el) {
-                $(el).removeClass('mobile-visible');
-            });
-            $(mobileVisiblePages).each(function (i, va) {
-                console.log(va);
-                $('.post-page-numbers[data-page=' + va + ']').parent('li').addClass('mobile-visible');
-            });
+        } else {
+            if (totalPages > 1) {
+                $(prevPageButton).parent('li').removeClass('d-none');
+                $(prevPageButton).find('span').text($(prevPageButton).data('for-page'))
+            }
         }
 
+        if (pageToLoad === totalPages) {
+            if ($(nextPageButton).data('article-id') == 0) {
+                $(nextPageButton).parent('li').addClass('d-none');
+            } else {
+                $(nextPageButton).find('span').text($(nextPageButton).data('for-article'))
+            }
+        } else {
+            if (totalPages > 1) {
+                $(nextPageButton).parent('li').removeClass('d-none');
+                $(nextPageButton).find('span').text($(nextPageButton).data('for-page'))
+            }
+        }
+
+        $('.post-page-numbers').parent('li').removeClass('active');
+        $('.post-page-numbers').parent('li').addClass('d-none');
+        $('.post-page-numbers[data-page=' + pageToLoad + ']').parent('li').addClass('active');
+
+        let firstDots = $('.first-dots');
+        let lastDots = $('.last-dots');
+        if (pageToLoad > 3) {
+            firstDots.removeClass('d-none');
+        } else {
+            firstDots.addClass('d-none');
+        }
+
+        if (pageToLoad < totalPages - 2) {
+            lastDots.removeClass('d-none');
+        } else {
+            lastDots.addClass('d-none');
+        }
+
+        let visiblePages = [pageToLoad - 1, pageToLoad , pageToLoad + 1];
+
+        $(visiblePages).each(function (i, value) {
+            $('.post-page-numbers[data-page=' + value + ']').parent('li').removeClass('d-none');
+        });
+        $('.post-page-numbers[data-page=1]').parent('li').removeClass('d-none');
+        $('.post-page-numbers[data-page=' + totalPages + ']').parent('li').removeClass('d-none');
 
         $.ajax({
             url: myajax.url,

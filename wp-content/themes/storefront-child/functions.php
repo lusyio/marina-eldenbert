@@ -357,8 +357,9 @@ function jk_related_products_args($args)
 function article_content($articleId)
 {
     global $post;
-    $prevArticleButton = articleButton($articleId, 'prev');
-    $nextArticleButton = articleButton($articleId, 'next');
+    $prevArticleId = nearestArticleId($articleId, 'prev');
+    $nextArticleId = nearestArticleId($articleId, 'next');
+
     $query = new WP_Query('p=' . $articleId);
     $bookId = get_post_meta($post->ID, 'book_id', true);
     $content = '';
@@ -406,14 +407,14 @@ function article_content($articleId)
             <p class="h3 reader-h3"><?php the_title(); ?></p>
             <?php
             echo '<ul class="article-btns pagination mb-3 mt-3 pb-0">';
-            echo $prevArticleButton;
-            echo $nextArticleButton;
             echo '</ul>';
             wp_custom_link_pages(array(
                 'before' => '<nav><ul class="pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
+                'prev_article_id' => $prevArticleId,
+                'next_article_id' => $nextArticleId,
             ));
             ?>
             <div id="articleText">
@@ -430,10 +431,10 @@ function article_content($articleId)
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
+                'prev_article_id' => $prevArticleId,
+                'next_article_id' => $nextArticleId,
             ));
             echo '<ul class="article-btns pagination mt-3 pb-0">';
-            echo $prevArticleButton;
-            echo $nextArticleButton;
             echo '</ul>';
             ?>
             <?php
@@ -477,49 +478,75 @@ function wp_custom_link_pages($args = '')
     $r = apply_filters('wp_link_pages_args', $params);
 
     $output = '';
+    $prevPageText = '&laquo;';
+    $nextPageText = '&raquo;';
+    $prevArticleText = 'Пред. часть';
+    $nextArticleText = 'След. часть';
     if ($multipage) {
         if ('number' == $r['next_or_number']) {
             $output .= $r['before'];
-            if ($numpages > 1) {
-                $output .= '<li class="page-item">
-                    <a class="page-link prev-page-btn" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>';
+            if ($params['prev_article_id']) {
+                $prevArticleId = $params['prev_article_id'];
+            } else {
+                $prevArticleId = 0;
             }
-            $mobileVisiblePages = [1, 2, 3, 4, 5];
-            if ($numpages > 5) {
-                if ($page > $numpages - 2) {
-                    $mobileVisiblePages = [];
-                    for ($i = $numpages; $i > $numpages - 5; $i--) {
-                        $mobileVisiblePages[] = $i;
-                    }
-                } elseif ($page > 3) {
-                    $mobileVisiblePages = [];
-                    for ($i = $page - 2; $i <= $page + 2; $i++) {
-                        $mobileVisiblePages[] = $i;
-                    }
+            $prevPageClass = '';
+            if ($page == 1) {
+                $prevText = $prevArticleText;
+                if ($prevArticleId == 0) {
+                    $prevPageClass .= ' d-none';
                 }
+            } else {
+                $prevText = $prevPageText;
             }
-            for ($i = 1; $i <= $numpages; $i++) {
-                $nearestClass = '';
-                if (in_array($i, $mobileVisiblePages)) {
-                    $nearestClass = ' mobile-visible';
-                }
-                $activeClass = ($i == $page) ? ' active' : '';
 
-                $link = '<li class="page-item' . $activeClass . $nearestClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
-                $output .= $link;
-            }
-            if ($numpages > 1) {
-                $output .= '<li class="page-item">
-                    <a class="page-link next-page-btn" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
+                $output .= '<li class="page-item' . $prevPageClass . '">
+                    <a data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn' . $prevPageClass . '" aria-label="Previous">
+                        <span aria-hidden="true">' . $prevText . '</span>
                     </a>
                 </li>';
+
+            for ($i = 1; $i <= $numpages; $i++) {
+
+                $firstDots = '';
+                $lastDots = '';
+                $firstDotsClass = ($page < 3) ? ' d-none' : '';
+                $lastDotsClass = ($page > $numpages - 2) ? ' d-none' : '';
+                if ($i == 1) {
+                    $firstDots = '<li><span class="dots first-dots' . $firstDotsClass . '">...</span></li>';
+                }
+                if ($i == $numpages) {
+                    $lastDots = '<li><span class="dots last-dots' . $lastDotsClass . '">...</span></li>';
+                }
+
+                $activeClass = ($i == $page) ? ' active' : '';
+                $nonVisibleClass = ($i != $page && $i != $page - 1 && $i != $page + 1 && $i != 1 && $i != $numpages) ? ' d-none' : '';
+                $link = '<li class="page-item' . $activeClass . $nonVisibleClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
+
+                $output .= $lastDots;
+                $output .= $link;
+                $output .= $firstDots;
+
             }
+            if ($params['next_article_id']) {
+                $nextArticleId = $params['next_article_id'];
+            } else {
+                $nextArticleId = 0;
+            }
+            $nextPageClass = '';
+            if ($page == $numpages) {
+                $nextText = $nextArticleText;
+                if ($nextArticleId == 0) {
+                    $nextPageClass .= ' d-none';
+                }
+            } else {
+                $nextText = $nextPageText;
+            }
+                $output .= '<li class="page-item' . $nextPageClass . '">
+                    <a data-article-id="' . $nextArticleId . '" data-for-page="' . $nextPageText . '" data-for-article="' . $nextArticleText . '" class="page-link next-page-btn' . $prevPageClass . '" aria-label="Next">
+                        <span aria-hidden="true">' . $nextText . '</span>
+                    </a>
+                </li>';
             $output .= $r['after'];
         }
     }
@@ -2240,14 +2267,11 @@ function images_comment($comment, $args, $depth)
  * @param $direction ('next', 'prev')
  * @return false|string
  */
-function articleButton($currentArticleId, $direction)
+function nearestArticleId($currentArticleId, $direction)
 {
     global $post;
-    $baseUrl = get_permalink();
-    $bookId = get_post_meta($post->ID, 'book_id', true);
     $query = new WP_Query('p=' . $currentArticleId);
     $currentArticleDate = null;
-    $content = '';
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
@@ -2257,22 +2281,20 @@ function articleButton($currentArticleId, $direction)
     wp_reset_query();
 
     if (is_null($currentArticleDate)) {
-        return '';
+        return false;
     }
     if ($direction == 'next') {
         $order = 'asc';
         $dateQuery = [
             'after' => $currentArticleDate,
         ];
-        $text = 'След. глава';
     } elseif ($direction == 'prev') {
         $order = 'desc';
         $dateQuery = [
             'before' => $currentArticleDate,
         ];
-        $text = 'Пред. глава';
     } else {
-        return '';
+        return false;
     }
 
     $query = new WP_Query(array(
@@ -2285,25 +2307,15 @@ function articleButton($currentArticleId, $direction)
         'posts_per_page' => 1
     ));
 
+    $articleId = false;
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
-            $tags = get_the_tags();
-            $isFree = false;
-            if (is_array($tags)) {
-                foreach ($tags as $tag) {
-                    if ($tag->slug == 'free-article') {
-                        $isFree = true;
-                    }
-                }
-            }
-            if ($isFree || isBookBought($bookId) || hasAbonement(get_current_user_id()) || isAdmin()) {
-                $content = articleButtonHtml($baseUrl . '?a=' . $post->ID, $text);
-            }
+            $articleId = $post->ID;
         }
     }
     wp_reset_query();
-    return $content;
+    return $articleId;
 }
 
 
