@@ -385,7 +385,7 @@ header#masthead {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
 }
 
-.content-search .popular-title{
+.content-search .popular-title {
     font-weight: normal;
     font-size: 2rem;
     line-height: 38px;
@@ -395,7 +395,11 @@ header#masthead {
     margin-bottom: 1.5rem;
 }
 
-.content-search__hr{
+article:last-of-type > hr.content-search__hr {
+    border-color: white;
+}
+
+.content-search__hr {
     border-color: #D8D8D8;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -757,7 +761,7 @@ footer.site-footer {
 # PRODUCT
 --------------------------------------------------------------*/
 
-.submit-field-comments{
+.submit-field-comments {
     margin-top: 3rem;
     margin-bottom: 3rem;
     padding-bottom: 3rem;
@@ -769,10 +773,11 @@ footer.site-footer {
     padding-bottom: 0;
 }
 
-#respond #cancel-comment-reply-link{
+#respond #cancel-comment-reply-link {
     font-size: 1.3rem;
 }
-#respond #cancel-comment-reply-link::before{
+
+#respond #cancel-comment-reply-link::before {
     margin-top: 2px;
 }
 
@@ -783,11 +788,11 @@ footer.site-footer {
 
 #respond .comment-reply-title, #respond .logged-in-as {
     font-size: 0;
-    color:transparent;
+    color: transparent;
     margin-bottom: 10px;
 }
 
-#reviews .comment-reply-title{
+#reviews .comment-reply-title {
     display: block;
 }
 
@@ -795,13 +800,13 @@ footer.site-footer {
     margin-bottom: 0;
 }
 
-#respond .submit-field-comments{
+#respond .submit-field-comments {
     margin-top: 0;
     margin-bottom: 0;
     padding-bottom: 0;
 }
 
-#respond #nep_fake_textarea{
+#respond #nep_fake_textarea {
     max-width: 100%;
 }
 
