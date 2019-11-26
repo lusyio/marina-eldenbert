@@ -70,7 +70,7 @@ if (!comments_open()) {
 
                 $comment_form = array(
                     'submit_button' => '<input name="%1$s" type="submit" id="%2$s" class="%3$s load-more" value="Оставить комментарий" />',
-                    'submit_field' => '<div class="col-12 text-center mb-5 mt-5 pb-5"><p class="form-submit">%1$s %2$s</p></div>',
+                    'submit_field' => '<div class="col-12 text-center submit-field-comments"><p class="form-submit">%1$s %2$s</p></div>',
                     'title_reply' => 'Оставить комментарий',
                     'title_reply_to' => '',
                     'title_reply_before' => '<span id="reply-title" class="comment-reply-title">',

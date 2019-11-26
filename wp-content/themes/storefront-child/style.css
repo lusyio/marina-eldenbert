@@ -712,8 +712,52 @@ footer.site-footer {
 # PRODUCT
 --------------------------------------------------------------*/
 
+.submit-field-comments{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+}
+
 #respond {
     background: transparent;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#respond #cancel-comment-reply-link{
+    font-size: 1.3rem;
+}
+#respond #cancel-comment-reply-link::before{
+    margin-top: 2px;
+}
+
+#respond small {
+    display: block;
+    height: 1rem;
+}
+
+#respond .comment-reply-title, #respond .logged-in-as {
+    font-size: 0;
+    color:transparent;
+    margin-bottom: 10px;
+}
+
+#reviews .comment-reply-title{
+    display: block;
+}
+
+#respond .submit {
+    margin-bottom: 0;
+}
+
+#respond .submit-field-comments{
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#respond #nep_fake_textarea{
+    max-width: 100%;
 }
 
 #reviews .commentlist li .avatar {
@@ -4351,19 +4395,6 @@ and (max-width: 576px) {
         padding: 16px 44px;
         margin-bottom: 40px;
     }
-
-    .page-item {
-        display: none;
-    }
-
-    .page-item.active {
-        display: list-item;
-    }
-
-    .page-item.mobile-visible {
-        display: list-item;
-    }
-
 }
 
 @media screen
