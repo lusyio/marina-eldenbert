@@ -33,7 +33,7 @@ Template Post Type: post, page, product
     <div class="row">
         <div class="col-lg-4 offset-lg-4 col-12-offset-0">
             <p class="about-image-after">За эти шесть лет мы прошли
-                действительно огромный путь.</p>
+                действительно огромный путь</p>
         </div>
     </div>
     <div class="row">
@@ -65,6 +65,7 @@ Template Post Type: post, page, product
                 огней», август 2017 г)</p>
         </div>
     </div>
+    <img src="/wp-content/themes/storefront-child/images/marina-eldenbert-together.jpg" alt="Марина Эльденберт" class="big-image-about"/>
 </div>
 </div>
 </div>
