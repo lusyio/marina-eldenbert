@@ -9,7 +9,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <div class="row content-search">
         <div class="col-lg-4 col-12">
-            <div class="post-thumbnail mt-0 mb-0">
+            <div class="post-thumbnail mt-0 mb-lg-0 mb-3 text-lg-left text-center">
                 <a href="<?php
                 global $product;
                 echo get_permalink(); ?>">
