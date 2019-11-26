@@ -2826,7 +2826,7 @@ h2.related-product {
 
 .club-header__title {
     font-weight: 900;
-    font-size: 48px;
+    font-size: 3rem;
     line-height: 56px;
     text-align: center;
     color: #121212;
@@ -3361,7 +3361,7 @@ h2.related-product {
 
 .comment-reply-link {
     font-weight: 300 !important;
-    font-size: 18px !important;
+    font-size: 1.125rem !important;
     line-height: 21px !important;
     color: #757575 !important;
     padding: 0 !important;
@@ -4258,6 +4258,15 @@ and (max-width: 576px) {
         text-overflow: ellipsis;
         width: 7rem;
         align-self: center;
+    }
+
+    .grid{
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .comment-text time{
+        margin-bottom: 8px;
     }
 
     .mycred-my-rank {
