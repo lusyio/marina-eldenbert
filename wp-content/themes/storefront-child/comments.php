@@ -19,7 +19,6 @@ if ( post_password_required() ) {
 ?>
 
 <section id="comments" class="comments-area" aria-label="<?php esc_html_e( 'Post Comments', 'storefront' ); ?>">
-    <?php echo do_shortcode('[Sassy_Social_Share]'); ?>
 	<?php
 	if ( have_comments() ) :
 		?>

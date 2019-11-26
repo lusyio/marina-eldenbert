@@ -385,6 +385,26 @@ header#masthead {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
 }
 
+.content-search .popular-title {
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 38px;
+    color: #000000;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+article:last-of-type > hr.content-search__hr {
+    border-color: white;
+}
+
+.content-search__hr {
+    border-color: #D8D8D8;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 .navbar-light .navbar-nav .nav-link {
     position: relative;
     padding: 1rem 0 !important;
@@ -641,6 +661,35 @@ header#masthead {
     transition: 200ms;
 }
 
+.footer-menu li > a {
+    position: relative;
+}
+
+.footer-menu li > a:hover::after {
+    opacity: 1;
+    -webkit-transform: translateY(11px);
+    -moz-transform: translateY(11px);
+    transform: translateY(11px);
+}
+
+.footer-menu li > a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    height: 1px;
+    background: #333333;
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    transform: translateY(20px);
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
+}
+
 .footer-hr {
     border-color: #E8E8E8 !important;
     margin-top: 50px;
@@ -712,8 +761,56 @@ footer.site-footer {
 # PRODUCT
 --------------------------------------------------------------*/
 
-#respond {
+.submit-field-comments {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+}
+.comment-body #respond {
     background: transparent;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#respond{
+    background: transparent;
+}
+
+.comment-body #respond #cancel-comment-reply-link {
+    font-size: 1.3rem;
+}
+
+.comment-body #respond #cancel-comment-reply-link::before {
+    margin-top: 2px;
+}
+
+.comment-body #respond small {
+    display: block;
+    height: 1rem;
+}
+
+.comment-body #respond .comment-reply-title, #respond .logged-in-as {
+    font-size: 0;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+#reviews .comment-reply-title {
+    display: block;
+}
+
+.comment-body #respond .submit {
+    margin-bottom: 0;
+}
+
+.comment-body #respond .submit-field-comments {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#respond #nep_fake_textarea {
+    max-width: 100%;
 }
 
 #reviews .commentlist li .avatar {
@@ -3153,7 +3250,7 @@ h2.related-product {
 #comments .comment-text .wpulike {
     display: inline-block;
     height: 100%;
-    vertical-align: -webkit-baseline-middle;
+    vertical-align: middle;
 }
 
 #comments .comment-text .quote-comment {
@@ -3251,7 +3348,7 @@ h2.related-product {
     font-size: 18px !important;
     line-height: 21px !important;
     color: #757575 !important;
-    padding: 0;
+    padding: 0 !important;
     margin-left: 20px;
     background-color: transparent !important;
     border-color: transparent !important;
@@ -4351,19 +4448,6 @@ and (max-width: 576px) {
         padding: 16px 44px;
         margin-bottom: 40px;
     }
-
-    .page-item {
-        display: none;
-    }
-
-    .page-item.active {
-        display: list-item;
-    }
-
-    .page-item.mobile-visible {
-        display: list-item;
-    }
-
 }
 
 @media screen
