@@ -94,9 +94,9 @@
             <div class="col-12 col-lg-4">
                 <p class="mb-4 mb-lg-0 footer-disclaimer text-lg-left text-center">
                     <img src="/wp-content/themes/storefront-child/svg/18.svg" alt="">
-                    Сайт может содержать материалы,
+                    Сайт содержит материалы,
                     не предназначенные для просмотра
-                    лицами, не достигшими 18 лет!
+                    лицами, не достигшими 18 лет
                 </p>
             </div>
             <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
@@ -135,7 +135,7 @@
     jQuery(document).ready(function ($) {
 
         var $page = $('html, body');
-        $('a.scrollTop').on('click', function() {
+        $('a.scrollTop').on('click', function () {
             $page.animate({
                 scrollTop: $($.attr(this, 'href')).offset().top
             }, 400);
