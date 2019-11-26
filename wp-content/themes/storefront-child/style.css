@@ -1861,12 +1861,14 @@ ul > .page-item:last-of-type .page-link {
 
 .popular-pagination__btn.swiper-pagination-bullet-active {
     background: #F8AC53;
+    z-index: 2;
 }
 
 .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
     left: unset;
     width: unset;
     right: 0;
+    z-index: 2;
 }
 
 .popular-img-container__price {
@@ -4258,6 +4260,20 @@ and (max-width: 576px) {
         text-overflow: ellipsis;
         width: 7rem;
         align-self: center;
+    }
+
+    .basket-btn__counter{
+        right: -40%;
+        top: -45%;
+    }
+
+    .woocommerce-message, .woocommerce-error{
+        display: block;
+    }
+
+    .woocommerce-message .button, .woocommerce-error .button{
+        margin: auto;
+        margin-bottom: 15px;
     }
 
     .grid{
