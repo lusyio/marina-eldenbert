@@ -322,6 +322,7 @@ header .dropdown-menu {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
+    padding: 22px 32px;
 }
 
 header .dropdown-item::after {
