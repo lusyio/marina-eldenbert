@@ -322,12 +322,16 @@ header .dropdown-menu {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    padding: 22px 32px;
+    padding: 22px 0;
 }
 
 header .dropdown-item::after {
     content: none;
     display: none;
+}
+
+header .dropdown-item{
+    padding: .25rem 32px;
 }
 
 header .dropdown-item:focus, header .dropdown-item:hover{
