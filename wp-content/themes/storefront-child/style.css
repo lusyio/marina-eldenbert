@@ -3153,7 +3153,7 @@ h2.related-product {
 #comments .comment-text .wpulike {
     display: inline-block;
     height: 100%;
-    vertical-align: -webkit-baseline-middle;
+    vertical-align: middle;
 }
 
 #comments .comment-text .quote-comment {
@@ -3251,7 +3251,7 @@ h2.related-product {
     font-size: 18px !important;
     line-height: 21px !important;
     color: #757575 !important;
-    padding: 0;
+    padding: 0 !important;
     margin-left: 20px;
     background-color: transparent !important;
     border-color: transparent !important;
