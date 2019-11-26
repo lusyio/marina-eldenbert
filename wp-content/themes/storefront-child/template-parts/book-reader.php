@@ -18,7 +18,6 @@ Template Post Type: post, page, product
         $hasArticle = false;
         $bookCategoryId = get_post_meta($post->ID, 'cat_id', true);
         $bookId = get_post_meta($post->ID, 'book_id', true);
-
         $book = wc_get_product($bookId);
 
         if (isset($_GET['a'])) {

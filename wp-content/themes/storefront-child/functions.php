@@ -357,6 +357,7 @@ function jk_related_products_args($args)
 function article_content($articleId)
 {
     global $post;
+    $baseUrl = get_permalink();
     $prevArticleId = nearestArticleId($articleId, 'prev');
     $nextArticleId = nearestArticleId($articleId, 'next');
 
@@ -415,6 +416,7 @@ function article_content($articleId)
                 'link_after' => '</span>',
                 'prev_article_id' => $prevArticleId,
                 'next_article_id' => $nextArticleId,
+                'base_url' => $baseUrl,
             ));
             ?>
             <div id="articleText">
@@ -433,6 +435,7 @@ function article_content($articleId)
                 'link_after' => '</span>',
                 'prev_article_id' => $prevArticleId,
                 'next_article_id' => $nextArticleId,
+                'base_url' => $baseUrl,
             ));
             echo '<ul class="article-btns pagination mt-3 pb-0">';
             echo '</ul>';
@@ -482,6 +485,7 @@ function wp_custom_link_pages($args = '')
     $nextPageText = '&raquo;';
     $prevArticleText = 'Пред. часть';
     $nextArticleText = 'След. часть';
+    $multipage = 1; // Считаем все записи мультистраничными для отображения сслыок на соседние главы
     if ($multipage) {
         if ('number' == $r['next_or_number']) {
             $output .= $r['before'];
@@ -501,7 +505,7 @@ function wp_custom_link_pages($args = '')
             }
 
                 $output .= '<li class="page-item' . $prevPageClass . '">
-                    <a data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn' . $prevPageClass . '" aria-label="Previous">
+                    <a data-link="' . $params['base_url'] . '?a=' . $prevArticleId . '" data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn" aria-label="Previous">
                         <span aria-hidden="true">' . $prevText . '</span>
                     </a>
                 </li>';
@@ -521,13 +525,15 @@ function wp_custom_link_pages($args = '')
 
                 $activeClass = ($i == $page) ? ' active' : '';
                 $nonVisibleClass = ($i != $page && $i != $page - 1 && $i != $page + 1 && $i != 1 && $i != $numpages) ? ' d-none' : '';
-                $link = '<li class="page-item' . $activeClass . $nonVisibleClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
-
-                $output .= $lastDots;
-                $output .= $link;
-                $output .= $firstDots;
+                if ($numpages > 1) {
+                    $link = '<li class="page-item' . $activeClass . $nonVisibleClass . '"><a class="post-page-numbers page-link" data-page="' . $i . '">' . $i . '</a></li>';
+                    $output .= $lastDots;
+                    $output .= $link;
+                    $output .= $firstDots;
+                }
 
             }
+
             if ($params['next_article_id']) {
                 $nextArticleId = $params['next_article_id'];
             } else {
@@ -542,11 +548,12 @@ function wp_custom_link_pages($args = '')
             } else {
                 $nextText = $nextPageText;
             }
-                $output .= '<li class="page-item' . $nextPageClass . '">
-                    <a data-article-id="' . $nextArticleId . '" data-for-page="' . $nextPageText . '" data-for-article="' . $nextArticleText . '" class="page-link next-page-btn' . $prevPageClass . '" aria-label="Next">
-                        <span aria-hidden="true">' . $nextText . '</span>
-                    </a>
-                </li>';
+            $output .= '<li class="page-item' . $nextPageClass . '">
+                <a data-link="' . $params['base_url'] . '?a=' . $nextArticleId . '" data-article-id="' . $nextArticleId . '" data-for-page="' . $nextPageText . '" data-for-article="' . $nextArticleText . '" class="page-link next-page-btn" aria-label="Next">
+                    <span aria-hidden="true">' . $nextText . '</span>
+                </a>
+            </li>';
+
             $output .= $r['after'];
         }
     }
