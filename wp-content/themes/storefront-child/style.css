@@ -1221,7 +1221,7 @@ td.product-name a:hover {
     background: #F8AC53;
     border-radius: 40px;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;;
     line-height: 24px;
     color: #FFFFFF;
     text-align: center;
@@ -1603,7 +1603,7 @@ ul > .page-item .page-link {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-right: 15px;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 19px;
     color: #000000;
     border: none;
@@ -1613,8 +1613,6 @@ ul > .page-item.active .page-link {
     background: #F5F5F5;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
     color: #000000;
 }
 
@@ -2853,7 +2851,7 @@ h2.related-product {
     display: table;
     margin: auto;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;;
     line-height: 24px;
     color: #FFFFFF;
     text-align: center;
@@ -4110,7 +4108,7 @@ and (max-width: 768px) {
         padding-bottom: 75px;
     }
 
-    .related-product br{
+    .related-product br {
         display: none;
     }
 
@@ -4254,7 +4252,11 @@ and (max-width: 768px) {
 @media screen
 and (max-width: 576px) {
 
-    .comment-body .comment-reply-login, .comment-body .comment-reply-link{
+    ul > .page-item .page-link{
+        padding: 8px 13px;
+    }
+
+    .comment-body .comment-reply-login, .comment-body .comment-reply-link {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -4262,26 +4264,30 @@ and (max-width: 576px) {
         align-self: center;
     }
 
-    .basket-btn__counter{
+    .basket-btn__counter {
         right: -40%;
         top: -45%;
     }
 
-    .woocommerce-message, .woocommerce-error{
+    .dots {
+        display: none;
+    }
+
+    .woocommerce-message, .woocommerce-error {
         display: block;
     }
 
-    .woocommerce-message .button, .woocommerce-error .button{
+    .woocommerce-message .button, .woocommerce-error .button {
         margin: auto;
         margin-bottom: 15px;
     }
 
-    .grid{
+    .grid {
         margin-bottom: 20px;
         margin-top: 20px;
     }
 
-    .comment-text time{
+    .comment-text time {
         margin-bottom: 8px;
     }
 
