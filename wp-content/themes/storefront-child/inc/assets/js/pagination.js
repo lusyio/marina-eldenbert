@@ -1,27 +1,31 @@
 jQuery(function ($) {
     $('.next-page-btn').on('click', function () {
         let totalPages = $(this).closest('.pagination').data('pages');
-        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page');
+        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page') || 1;
         if (currentPage == totalPages) {
-            //переход к след главе
+            window.location.href = $(this).data('link');
+        } else {
+            let nextPage = $('.post-page-numbers[data-page=' + ++currentPage + ']');
+            nextPage.trigger('click');
         }
-        let nextPage = $('.post-page-numbers[data-page=' + ++currentPage + ']');
-        nextPage.trigger('click');
 
     });
     $('.prev-page-btn').on('click', function () {
-        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page');
-        let prevPage = $('.post-page-numbers[data-page=' + --currentPage + ']');
-        prevPage.trigger('click');
-
+        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page') || 1;
+        if (currentPage == 1) {
+            window.location.href = $(this).data('link');
+        } else {
+            let prevPage = $('.post-page-numbers[data-page=' + --currentPage + ']');
+            prevPage.trigger('click');
+        }
     });
+
     $('.post-page-numbers').on('click', function (e) {
         e.preventDefault();
         if ($(this).parent('li').hasClass('active')) {
             return;
         }
         let totalPages = $(this).closest('.pagination').data('pages');
-        let currentPage = $('.page-item.active').find('.post-page-numbers').data('page');
         let pageToLoad = $(this).data('page');
         let prevPageButton = $('.prev-page-btn');
         let nextPageButton = $('.next-page-btn');
@@ -80,7 +84,6 @@ jQuery(function ($) {
 
         $.ajax({
             url: myajax.url,
-            // dataType: 'json',
             data: {
                 'action': 'custom_pagination',
                 'article': myajax.articleId,
