@@ -4,7 +4,11 @@ Template Name: blog
 Template Post Type: post, page, product
 */
 $myRank = mycred_get_my_rank();
-if ($post->post_name == 'club' && (is_null($myRank) || $myRank->post->post_name != 'platinum-dragon') && !isAdmin()) {
+$hasVip = false;
+if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+    $hasVip = true;
+}
+if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
     get_template_part('template-parts/club');
 } else { ?>
 
