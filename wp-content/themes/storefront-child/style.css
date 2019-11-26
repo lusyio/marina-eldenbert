@@ -3846,6 +3846,14 @@ a#nep_call_panel.nep_right_bottom {
     cursor: pointer;
 }
 
+#comment-image-reloaded-wrapper{
+    margin-top: 1rem !important;
+}
+
+#comment-image-reloaded-error{
+    display: none !important;
+}
+
 /*--------------------------------------------------------------
 # ABOUT
 --------------------------------------------------------------*/
