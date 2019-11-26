@@ -930,7 +930,7 @@ function productSeries()
 // Выборка значения заданного атрибута
         foreach ($attribute_names as $attribute_name):
 // Вывод значений атрибута
-            echo '<a href="/shop/?filter=series-' . $attribute_name->slug . '/">';
+            echo '<a href="/shop/?filter=series-' . $attribute_name->slug . '">';
             echo $attribute_name->name;
             echo '</a>';
             echo '</p>';
