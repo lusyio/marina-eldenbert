@@ -774,10 +774,16 @@ footer.site-footer {
 
 #respond{
     background: transparent;
+    padding-top: 0;
 }
 
 .comment-body #respond #cancel-comment-reply-link {
     font-size: 1.3rem;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
 }
 
 .comment-body #respond #cancel-comment-reply-link::before {
@@ -809,7 +815,7 @@ footer.site-footer {
     padding-bottom: 0;
 }
 
-#respond #nep_fake_textarea {
+.comment-body #respond #nep_fake_textarea {
     max-width: 100%;
 }
 
@@ -1223,7 +1229,7 @@ td.product-name a:hover {
     padding-left: 40px;
     margin-bottom: 12px;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #1C1C1C;
 }
@@ -1243,6 +1249,7 @@ table.cart td.product-remove a.remove {
 
 .download-file a {
     margin-right: 9px;
+    font-weight: 300;
 }
 
 .woocommerce table.shop_table td.download-product {
