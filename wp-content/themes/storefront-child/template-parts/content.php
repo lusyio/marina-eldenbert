@@ -16,4 +16,5 @@
         the_content();
         ?>
     </div>
+    <?php echo do_shortcode('[Sassy_Social_Share]'); ?>
 </article>
