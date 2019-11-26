@@ -744,8 +744,8 @@ function bookCardInReader()
         if (!empty($downloads)) {
             foreach ($downloads as $download) {
                 if ($download['product_id'] == $bookId) { ?>
-                    <div class="mb-3 ml-5">
-                        <a class="download-link mb-3" href="<?php $download['download_url'] ?>">Скачать в
+                    <div>
+                        <a class=" mb-3" href="<?php $download['download_url'] ?>">Скачать в
                             формате <?php echo $download['file']['name'] ?></a>
                     </div>
                     <?php
@@ -935,7 +935,7 @@ function productSeries()
 // Выборка значения заданного атрибута
         foreach ($attribute_names as $attribute_name):
 // Вывод значений атрибута
-            echo '<a href="/shop/?filter=series-' . $attribute_name->slug . '/">';
+            echo '<a href="/shop/?filter=series-' . $attribute_name->slug . '">';
             echo $attribute_name->name;
             echo '</a>';
             echo '</p>';
@@ -2128,11 +2128,12 @@ function updateProductsInOrders($post_id, $post, $update)
  * Проверяет товар текущей страницы на наличие в корзине
  * @return bool
  */
-function is_product_in_cart() {
-    foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
+function is_product_in_cart()
+{
+    foreach (WC()->cart->get_cart() as $cart_item_key => $values) {
         $cart_product = $values['data'];
 
-        if( get_the_ID() == $cart_product->id ) {
+        if (get_the_ID() == $cart_product->id) {
             return true;
         }
     }
@@ -2145,26 +2146,27 @@ function is_product_in_cart() {
  *
  * @since 2.3.0
  */
-function storefront_sticky_single_add_to_cart() {
+function storefront_sticky_single_add_to_cart()
+{
     global $product;
 
-    if ( class_exists( 'Storefront_Sticky_Add_to_Cart' ) || true !== get_theme_mod( 'storefront_sticky_add_to_cart' ) ) {
+    if (class_exists('Storefront_Sticky_Add_to_Cart') || true !== get_theme_mod('storefront_sticky_add_to_cart')) {
         return;
     }
 
-    if ( ! is_product() ) {
+    if (!is_product()) {
         return;
     }
 
     $show = false;
 
-    if ( $product->is_purchasable() && $product->is_in_stock() ) {
+    if ($product->is_purchasable() && $product->is_in_stock()) {
         $show = true;
-    } else if ( $product->is_type( 'external' ) ) {
+    } else if ($product->is_type('external')) {
         $show = true;
     }
 
-    if ( ! $show ) {
+    if (!$show) {
         return;
     }
 
@@ -2174,25 +2176,27 @@ function storefront_sticky_single_add_to_cart() {
         )
     );
 
-    wp_localize_script( 'storefront-sticky-add-to-cart', 'storefront_sticky_add_to_cart_params', $params );
+    wp_localize_script('storefront-sticky-add-to-cart', 'storefront_sticky_add_to_cart_params', $params);
 
-    wp_enqueue_script( 'storefront-sticky-add-to-cart' );
+    wp_enqueue_script('storefront-sticky-add-to-cart');
     ?>
     <section class="storefront-sticky-add-to-cart">
         <div class="col-full">
             <div class="storefront-sticky-add-to-cart__content">
-                <?php echo wp_kses_post( woocommerce_get_product_thumbnail() ); ?>
+                <?php echo wp_kses_post(woocommerce_get_product_thumbnail()); ?>
                 <div class="storefront-sticky-add-to-cart__content-product-info">
-                    <span class="storefront-sticky-add-to-cart__content-title"><?php esc_attr_e( 'You\'re viewing:', 'storefront' ); ?> <strong><?php the_title(); ?></strong></span>
-                    <span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
-                    <?php echo wp_kses_post( wc_get_rating_html( $product->get_average_rating() ) ); ?>
+                    <span class="storefront-sticky-add-to-cart__content-title"><?php esc_attr_e('You\'re viewing:', 'storefront'); ?> <strong><?php the_title(); ?></strong></span>
+                    <span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post($product->get_price_html()); ?></span>
+                    <?php echo wp_kses_post(wc_get_rating_html($product->get_average_rating())); ?>
                 </div>
                 <?php if (is_product_in_cart()): ?>
-                    <a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>" class="single_add_to_cart_button button alt">Товар в корзине</a>
+                    <a href="<?php echo get_permalink(wc_get_page_id('cart')); ?>"
+                       class="single_add_to_cart_button button alt">Товар в корзине</a>
                 <?php
                 else: ?>
-                    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="storefront-sticky-add-to-cart__content-button button alt">
-                        <?php echo esc_attr( $product->add_to_cart_text() ); ?>
+                    <a href="<?php echo esc_url($product->add_to_cart_url()); ?>"
+                       class="storefront-sticky-add-to-cart__content-button button alt">
+                        <?php echo esc_attr($product->add_to_cart_text()); ?>
                     </a>
                 <?php endif; ?>
             </div>
@@ -2312,9 +2316,9 @@ function articleButtonHtml($url, $text)
 {
     ob_start();
     ?>
-    <li class="page-item mobile-visible"><a href="<?php echo $url?>" class="page-link next-page-btn" aria-label="Next">
-        <span aria-hidden="true"><?php echo $text?></span>
-    </a>
+    <li class="page-item mobile-visible"><a href="<?php echo $url ?>" class="page-link next-page-btn" aria-label="Next">
+            <span aria-hidden="true"><?php echo $text ?></span>
+        </a>
     </li>
     <?php
     $content = ob_get_clean();
@@ -2322,17 +2326,19 @@ function articleButtonHtml($url, $text)
 }
 
 //отключение магнифика для плагина комментов
-function cir_js_file(){
+function cir_js_file()
+{
 
-    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-    if ( wp_script_is('comment-images-reloaded') && is_plugin_active( 'comment-images-reloaded/comment-image-reloaded.php' ) ) {
+    include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+    if (wp_script_is('comment-images-reloaded') && is_plugin_active('comment-images-reloaded/comment-image-reloaded.php')) {
 
-        wp_dequeue_script( 'comment-images-reloaded' );
-        wp_enqueue_script( 'my-comment-images-reloaded', plugins_url( 'comment-images-reloaded/js/cir.min.js' ), array( 'jquery' ), false, true );
-        wp_dequeue_style( 'magnific' );
+        wp_dequeue_script('comment-images-reloaded');
+        wp_enqueue_script('my-comment-images-reloaded', plugins_url('comment-images-reloaded/js/cir.min.js'), array('jquery'), false, true);
+        wp_dequeue_style('magnific');
     }
 }
-add_action( 'wp_enqueue_scripts', 'cir_js_file', 999 );
+
+add_action('wp_enqueue_scripts', 'cir_js_file', 999);
 
 
 /**
@@ -2344,9 +2350,9 @@ function add_cdn_images()
 {
     global $post;
     if ($post->ID == 35) {
-        wp_enqueue_script( 'fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'));
-        wp_enqueue_script( 'maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'));
-        wp_enqueue_style( 'fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css' );
+        wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'));
+        wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'));
+        wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
     }
 }
 
@@ -2362,7 +2368,7 @@ add_filter('woocommerce_account_menu_items', function ($args) {
 });
 
 // Убираем столбцы осталось загрузок и истекает в таблице Загрузки
-add_filter('woocommerce_account_downloads_columns', function($args) {
+add_filter('woocommerce_account_downloads_columns', function ($args) {
     if (key_exists('download-remaining', $args)) {
         unset($args['download-remaining']);
     }
@@ -2371,3 +2377,10 @@ add_filter('woocommerce_account_downloads_columns', function($args) {
     }
     return $args;
 });
+
+//перенос поделиться под кнопку в корзину
+add_action('woocommerce_after_add_to_cart_form', 'add_sassy', 1);
+function add_sassy()
+{
+   echo do_shortcode('[Sassy_Social_Share]');
+}
