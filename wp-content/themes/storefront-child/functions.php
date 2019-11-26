@@ -513,10 +513,10 @@ function wp_custom_link_pages($args = '')
                 $firstDotsClass = ($page < 3) ? ' d-none' : '';
                 $lastDotsClass = ($page > $numpages - 2) ? ' d-none' : '';
                 if ($i == 1) {
-                    $firstDots = '<li><span class="dots first-dots' . $firstDotsClass . '">...</span></li>';
+                    $firstDots = '<li><div class="dots first-dots' . $firstDotsClass . '">...</div></li>';
                 }
                 if ($i == $numpages) {
-                    $lastDots = '<li><span class="dots last-dots' . $lastDotsClass . '">...</span></li>';
+                    $lastDots = '<li><div class="dots last-dots' . $lastDotsClass . '">...</div></li>';
                 }
 
                 $activeClass = ($i == $page) ? ' active' : '';
