@@ -517,10 +517,10 @@ function wp_custom_link_pages($args = '')
                 $firstDotsClass = ($page < 3) ? ' d-none' : '';
                 $lastDotsClass = ($page > $numpages - 2) ? ' d-none' : '';
                 if ($i == 1) {
-                    $firstDots = '<li><span class="dots first-dots' . $firstDotsClass . '">...</span></li>';
+                    $firstDots = '<li><div class="dots first-dots' . $firstDotsClass . '">...</div></li>';
                 }
                 if ($i == $numpages) {
-                    $lastDots = '<li><span class="dots last-dots' . $lastDotsClass . '">...</span></li>';
+                    $lastDots = '<li><div class="dots last-dots' . $lastDotsClass . '">...</div></li>';
                 }
 
                 $activeClass = ($i == $page) ? ' active' : '';
@@ -1325,7 +1325,7 @@ function storefront_comment($comment, $args, $depth)
             <?php comment_text(); ?>
         </div>
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="d-sm-block d-flex">
                 <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
@@ -1403,7 +1403,7 @@ function woocommerce_comments($comment, $args, $depth)
             <?php comment_text(); ?>
         </div>
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="d-sm-block d-flex">
                 <?php wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
@@ -2403,3 +2403,17 @@ function add_sassy()
 {
    echo do_shortcode('[Sassy_Social_Share]');
 }
+
+// функция проверки используемого шаблона внутри цикла
+function filter_template_include( $t ) {
+    $GLOBALS['current_template'] = basename($t);
+    return $t;
+}
+add_filter( 'template_include', 'filter_template_include', 1000 );
+
+function get_current_template() {
+    if( !isset( $GLOBALS['current_template'] ) )
+        return false;
+    return $GLOBALS['current_template'];
+}
+

@@ -282,7 +282,7 @@ ul.menu li.current-menu-item > a:before {
     padding-left: 40px;
     margin-bottom: 12px;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #1C1C1C;
 }
@@ -766,18 +766,33 @@ footer.site-footer {
     margin-bottom: 3rem;
     padding-bottom: 3rem;
 }
+
 .comment-body #respond {
     background: transparent;
     margin-bottom: 0;
     padding-bottom: 0;
 }
 
-#respond{
+#respond {
     background: transparent;
+    padding-top: 0;
+}
+
+.dots {
+    padding: 10px 8px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    margin-right: 15px;
 }
 
 .comment-body #respond #cancel-comment-reply-link {
     font-size: 1.3rem;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
 }
 
 .comment-body #respond #cancel-comment-reply-link::before {
@@ -809,7 +824,7 @@ footer.site-footer {
     padding-bottom: 0;
 }
 
-#respond #nep_fake_textarea {
+.comment-body #respond #nep_fake_textarea {
     max-width: 100%;
 }
 
@@ -1223,7 +1238,7 @@ td.product-name a:hover {
     padding-left: 40px;
     margin-bottom: 12px;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #1C1C1C;
 }
@@ -1243,6 +1258,7 @@ table.cart td.product-remove a.remove {
 
 .download-file a {
     margin-right: 9px;
+    font-weight: 300;
 }
 
 .woocommerce table.shop_table td.download-product {
@@ -1530,7 +1546,7 @@ input[type='text']:focus, input[type='number']:focus, input[type='email']:focus,
 
 #articleSpinner {
     position: absolute;
-    top: 10%;
+    top: 10rem;
     left: 0;
     right: 0;
     margin: auto;
@@ -4092,6 +4108,10 @@ and (max-width: 768px) {
         padding-bottom: 75px;
     }
 
+    .related-product br{
+        display: none;
+    }
+
     .popular-img-container:before {
 
     }
@@ -4231,6 +4251,14 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .comment-body .comment-reply-login, .comment-body .comment-reply-link{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 7rem;
+        align-self: center;
+    }
 
     .mycred-my-rank {
         font-size: 14px;
