@@ -4088,6 +4088,10 @@ and (max-width: 1199px) {
         width: 30% !important;
     }
 
+    header .dropdown-menu{
+        display: none !important;
+    }
+
 }
 
 @media screen
