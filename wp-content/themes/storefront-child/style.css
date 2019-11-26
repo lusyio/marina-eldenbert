@@ -1643,7 +1643,7 @@ ul > .page-item:last-of-type .page-link {
     color: #F8AC53;
 }
 
-.reader-sidebar__menu > p.disabled-title {
+.reader-sidebar__menu > p > .buy-link {
     color: #c8c8c8;
 }
 
