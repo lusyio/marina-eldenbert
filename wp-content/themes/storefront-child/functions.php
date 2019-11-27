@@ -1051,6 +1051,29 @@ function your_prefix_wc_remove_uncategorized_from_breadcrumb($crumbs)
 
 add_filter('woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb');
 
+
+/**
+ * Меняет сслыку на блог/клуб в хлебных крошках записи блога/клуба
+ * @param $crumbs
+ * @return mixed
+ */
+function changeBreadcrumbLinkAuthorBlog($crumbs)
+{
+    $categories = get_the_category();
+    foreach ($categories as $category) {
+        if ($category->slug == 'author-blog') {
+            $link = get_permalink(get_page_by_path('blog'));
+            $crumbs[1][1] = $link;
+        }
+        if ($category->slug == 'club') {
+            $link = get_permalink(get_page_by_path('club'));
+            $crumbs[1][1] = $link;
+        }
+    }
+    return $crumbs;
+}
+add_filter('woocommerce_get_breadcrumb', 'changeBreadcrumbLinkAuthorBlog');
+
 add_action('init', 'jk_remove_storefront_handheld_footer_bar');
 
 function jk_remove_storefront_handheld_footer_bar()
@@ -1905,7 +1928,6 @@ add_action('user_register', 'setVipStatus');
  */
 function updateUserSex($userId)
 {
-    echo 12345;
     if (isset($_POST['account_sex'])) {
         if ($_POST['account_sex'] == 'male') {
             update_user_meta($userId, 'sex', 'male');
