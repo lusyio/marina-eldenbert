@@ -1699,15 +1699,6 @@ add_action('pre_get_posts', 'search_product');
  */
 function rank_discount_total(WC_Cart $cart)
 {
-    //Скидки в зависимости от статуса
-    $statusDiscounts = [
-        'metal-dragon' => 0,
-        'copper-dragon' => 3,
-        'bronze-dragon' => 5,
-        'silver-dragon' => 10,
-        'golden-dragon' => 15,
-        'platinum-dragon' => 20,
-    ];
     //тип баллов плагина - вибираем по умолчанию
     $ctype = MYCRED_DEFAULT_TYPE_KEY;
 
@@ -1721,18 +1712,39 @@ function rank_discount_total(WC_Cart $cart)
         return;
     }
     $rankSlug = $account_object->balance[$ctype]->rank->post->post_name;
-    if (key_exists($rankSlug, $statusDiscounts) && $statusDiscounts[$rankSlug] != 0) {
-
-        $discount = $cart->subtotal * $statusDiscounts[$rankSlug] / 100;
+    $rankDiscount = getRankDiscount($rankSlug);
+    if ($rankDiscount != 0) {
+        $discount = $cart->subtotal * $rankDiscount / 100;
         // Название ранга
         $rankName = getRankTitle($rank_object, true);
         // Текст, выводимый в корзине
-        $feeText = $rankName . ' - скидка ' . $statusDiscounts[$rankSlug] . '%';
+        $feeText = $rankName . ' - скидка ' . $rankDiscount . '%';
         $cart->add_fee($feeText, -$discount);
     }
 }
 
 add_action("woocommerce_cart_calculate_fees", "rank_discount_total");
+
+/**
+ * Возвращает размер скидки в зависимости от статуса, 0 если переданного статуса не существует
+ * @param $rankSlug
+ * @return int
+ */
+function getRankDiscount($rankSlug)
+{
+    $statusDiscounts = [
+        'metal-dragon' => 0,
+        'copper-dragon' => 3,
+        'bronze-dragon' => 5,
+        'silver-dragon' => 10,
+        'golden-dragon' => 15,
+        'platinum-dragon' => 20,
+    ];
+    if (key_exists($rankSlug, $statusDiscounts)) {
+        return $statusDiscounts[$rankSlug];
+    }
+    return 0;
+}
 
 /** Возвращает html-код с изображением переданного ранга
  * @param $rank_object
