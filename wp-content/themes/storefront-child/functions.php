@@ -635,9 +635,7 @@ function custom_pagination()
  */
 function adultModal()
 {
-    global $post;
-    $isForAdult = get_post_meta($post->ID, '18+', true);
-
+    $isForAdult = has_term( 'adult-18', 'post_tag' ) || has_term('adult-18', 'product_tag');
     if ($isForAdult != 1 || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
@@ -2464,3 +2462,18 @@ function do_excerpt($string, $word_limit)
         array_pop($words);
     echo implode(' ', $words) . ' ...';
 }
+
+function true_apply_tags_for_pages(){
+    add_meta_box( 'tagsdiv-post_tag', 'Теги', 'post_tags_meta_box', 'page', 'side', 'normal' ); // сначала добавляем метабокс меток
+    register_taxonomy_for_object_type('post_tag', 'page'); // затем включаем их поддержку страницами wp
+}
+
+add_action('admin_init','true_apply_tags_for_pages');
+
+function true_expanded_request_post_tags($q) {
+    if (isset($q['tag'])) // если в запросе присутствует параметр метки
+        $q['post_type'] = array('post', 'page');
+    return $q;
+}
+
+add_filter('request', 'true_expanded_request_post_tags');
