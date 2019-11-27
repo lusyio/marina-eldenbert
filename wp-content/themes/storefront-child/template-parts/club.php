@@ -79,10 +79,13 @@ do_action('id_page_check');
             $ctype = MYCRED_DEFAULT_TYPE_KEY;
             ?>
             <?php foreach (array_reverse($allRanks, true) as $rank): ?>
+            <?php
+                $titles = explode(':', $rank->title);
+                ?>
                 <div class="club-ranks-row">
                     <div class="row">
                         <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
-                        <div class="col-5 col-md m-auto"><?php echo getRankTitle($rank); ?></div>
+                        <div class="col-5 col-md m-auto"><?php echo $titles[0]; ?></div>
                         <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
                         <div class="col m-auto text-center d-md-block d-none"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
