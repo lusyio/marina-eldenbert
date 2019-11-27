@@ -1078,6 +1078,7 @@ function changeBreadcrumbLinkAuthorBlog($crumbs)
     }
     return $crumbs;
 }
+
 add_filter('woocommerce_get_breadcrumb', 'changeBreadcrumbLinkAuthorBlog');
 
 add_action('init', 'jk_remove_storefront_handheld_footer_bar');
@@ -2440,9 +2441,10 @@ function add_cdn_images()
 {
     global $post;
     if ($post->ID == 35) {
-        wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'));
-        wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'));
+        wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
+        wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
         wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
+        wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/fancybox-custom.js', array(), '', true);
     }
 }
 
@@ -2503,20 +2505,30 @@ function do_excerpt($string, $word_limit)
     echo implode(' ', $words) . ' ...';
 }
 
-function true_apply_tags_for_pages(){
-    add_meta_box( 'tagsdiv-post_tag', 'Теги', 'post_tags_meta_box', 'page', 'side', 'normal' ); // сначала добавляем метабокс меток
+function true_apply_tags_for_pages()
+{
+    add_meta_box('tagsdiv-post_tag', 'Теги', 'post_tags_meta_box', 'page', 'side', 'normal'); // сначала добавляем метабокс меток
     register_taxonomy_for_object_type('post_tag', 'page'); // затем включаем их поддержку страницами wp
 }
 
-add_action('admin_init','true_apply_tags_for_pages');
+add_action('admin_init', 'true_apply_tags_for_pages');
 
-function true_expanded_request_post_tags($q) {
+function true_expanded_request_post_tags($q)
+{
     if (isset($q['tag'])) // если в запросе присутствует параметр метки
         $q['post_type'] = array('post', 'page');
     return $q;
 }
 
 add_filter('request', 'true_expanded_request_post_tags');
+
+//Добавление кастомного js
+add_action('wp_enqueue_scripts', 'add_custom_js');
+function add_custom_js()
+{
+    wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
+    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), '', true);
+}
 
 // Удаление инлайн-скриптов из хедера
 add_filter('storefront_customizer_css', '__return_false');

@@ -17,11 +17,11 @@ do_action('id_page_check');
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
                 <div class="club-header">
-                    <h2 class="club-header__title">VIP-клуб
-                        Марины Эльденберт</h2>
+                    <h1 class="club-header__title">VIP-клуб
+                        Марины Эльденберт</h1>
                     <p class="club-header__text">Хочешь получить доступ к неопубликованным историям и рассказам,
                         получать эксклюзивные подарки от автора, а также покупать книги с постоянной скидкой? Вступай в
-                        VIP-клуб Марины Эльденберт и становись членом нашего большого сообщетсва!</p>
+                        VIP-клуб Марины Эльденберт и становись членом нашего большого сообщества!</p>
                     <a class="club-header__btn scrollTop"
                        href="#howToJoin">Вступить</a>
                 </div>
@@ -33,7 +33,7 @@ do_action('id_page_check');
 <div class="container club-content">
     <div class="row">
         <div class="col-lg-8 offset-lg-2 col-12 offset-0">
-            <p class="club-content__title">Что дает членство в клубе?</p>
+            <h2 class="club-content__title">Что дает членство в клубе?</h2>
         </div>
     </div>
     <div class="row">
@@ -49,7 +49,7 @@ do_action('id_page_check');
     </div>
     <div class="row" id="howToJoin">
         <div class="col-lg-8 offset-lg-1 col-12 offset-0">
-            <p class="club-content__title text-left">Как стать участником?</p>
+            <h2 class="club-content__title text-left">Как стать участником?</h2>
             <p class="club-content__text text-left mb-5">Чтобы получить VIP-карточку, нужно достичь уровня «Платина».
                 После
                 этого вам автоматически выдается VIP-карта, и вы можете посещать закрытый раздел на сайте.</p>
@@ -58,7 +58,7 @@ do_action('id_page_check');
                 и героев, вы получаете различные бонусы:
             </p>
         </div>
-        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset">
+        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none">
             <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
         </div>
         <div class="col-1"></div>
@@ -67,11 +67,11 @@ do_action('id_page_check');
         <div class="col-lg-10 offset-lg-1 col-12 offset-0">
             <div class="club-ranks-row">
                 <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col"><p>Статус</p></div>
-                    <div class="col col-lg-3 text-center"><p>Условия получения</p></div>
-                    <div class="col text-center"><p>Доступ</p></div>
-                    <div class="col text-center"><p>Скидка</p></div>
+                    <div class="col-2 d-md-block d-none"></div>
+                    <div class="col-5 col-md"><p>Статус</p></div>
+                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-inline d-none">получения</span></p></div>
+                    <div class="col text-center d-md-block d-none"><p>Доступ</p></div>
+                    <div class="col text-right text-md-center"><p>Скидка</p></div>
                 </div>
             </div>
             <?php
@@ -79,14 +79,17 @@ do_action('id_page_check');
             $ctype = MYCRED_DEFAULT_TYPE_KEY;
             ?>
             <?php foreach (array_reverse($allRanks, true) as $rank): ?>
+            <?php
+                $titles = explode(':', $rank->title);
+                ?>
                 <div class="club-ranks-row">
                     <div class="row">
-                        <div class="col-2 m-auto"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
-                        <div class="col m-auto"><?php echo $rank->title; ?></div>
-                        <div class="col col-lg-3 m-auto text-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
+                        <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
+                        <div class="col-5 col-md m-auto"><?php echo $titles[0]; ?></div>
+                        <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
-                        <div class="col m-auto text-center"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
-                        <div class="col m-auto text-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
+                        <div class="col m-auto text-center d-md-block d-none"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
+                        <div class="col m-auto text-right text-md-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>

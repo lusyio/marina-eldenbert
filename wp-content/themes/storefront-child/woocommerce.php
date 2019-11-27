@@ -53,9 +53,6 @@ get_header(); ?>
             </div>
         </main><!-- #main -->
     </section><!-- #primary -->
-    <script>
-
-    </script>
 <?php endif; ?>
 
 <?php

@@ -2913,6 +2913,14 @@ h2.related-product {
     color: #000000;
 }
 
+.club-ranks-row .mycred-my-rank{
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 21px;
+    color: #000000;
+    text-align: left;
+}
+
 .club-ranks-row strong{
     font-weight: normal;
 }
@@ -2920,6 +2928,7 @@ h2.related-product {
 .club-ranks-row p {
     font-size: 1.25rem;
     line-height: 23px;
+    font-weight: normal;
     color: #000000;
     padding-bottom: 30px;
     margin-bottom: 0;
@@ -2998,6 +3007,8 @@ h2.related-product {
     line-height: 56px;
     text-align: center;
     color: #121212;
+    padding: 0;
+    margin-top: 0;
     margin-bottom: 50px;
 }
 
@@ -3098,6 +3109,8 @@ h2.related-product {
     line-height: 36px;
     text-align: center;
     color: #000000;
+    padding-top: 0;
+    margin-top: 0;
     margin-bottom: 20px;
 }
 
@@ -4389,6 +4402,14 @@ and (max-width: 768px) {
         text-align: right;
     }
 
+    .club-ranks-row:last-of-type .mycred-my-rank, .club-ranks-row:last-of-type {
+        font-weight: normal;
+    }
+
+    .club-ranks-row p{
+        padding-bottom: 0;
+    }
+
 }
 
 @media screen
@@ -4396,6 +4417,10 @@ and (max-width: 576px) {
 
     ul > .page-item .page-link {
         padding: 8px 13px;
+    }
+
+    .club-content__text{
+        line-height: 24px;
     }
 
     .comment-body .comment-reply-login, .comment-body .comment-reply-link {

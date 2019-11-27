@@ -21,7 +21,7 @@
                         <?= get_the_post_thumbnail() ?>
                     </div>
                 </a>
-                <p class="sidebar-announcement__title"><?php the_title(); ?></p>
+                <h3 class="sidebar-announcement__title"><?php the_title(); ?></h3>
                 <div class="sidebar-announcement__text"><?php the_content(); ?></div>
                 <a href="<?php the_permalink() ?>" class="sidebar-announcement__btn">Подробнее</a>
             </div>

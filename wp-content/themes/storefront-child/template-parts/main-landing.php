@@ -34,7 +34,7 @@ Template Post Type: post, page, product
                         <div class="swiper-slide">
                             <div class="row">
                                 <div class="col-12 col-lg-4 offset-lg-1 offset-0">
-                                    <h2 class="popular-header d-block d-lg-none text-center">Популярное</h2>
+                                    <p class="popular-header d-block d-lg-none text-center">Популярное</p>
                                     <div class="d-table m-auto">
                                         <a href="<?php echo $product->get_permalink(); ?>">
                                             <div class="popular-img-container">
@@ -47,7 +47,7 @@ Template Post Type: post, page, product
                                 <div class="col-12 col-lg-7">
                                     <div class="row">
                                         <div class="col-lg-11 offset-lg-1 offset-0 col-12">
-                                            <h2 class="popular-header d-lg-block d-none">Популярное</h2>
+                                            <p class="popular-header d-lg-block d-none">Популярное</p>
                                             <h2 class="popular-title"><?php echo $product->get_name(); ?>
                                             </h2>
                                             <p class="popular-content">

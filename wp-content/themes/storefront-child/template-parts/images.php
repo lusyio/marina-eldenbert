@@ -18,26 +18,5 @@ Template Post Type: post, page, product
         comments_template('/image-comments.php');
     endif; ?>
 </div>
-<script>
-    jQuery(function ($) {
-        $('.cir-image-link').fancybox(
-            {
-                buttons: [
-                    'download',
-                    'thumbs',
-                    'close'
-                ],
-                caption: function () {
-                    return $(this).parents('.grid-item').children('p').text();
-                },
-            });
-        var $grid = $('.grid').masonry({
-            itemSelector: '.grid-item',
-            percentPosition: true,
-            columnWidth: '.grid-sizer',
-            gutter: 30,
-        });
-    })
-</script>
 
 <?php get_footer(); ?>
