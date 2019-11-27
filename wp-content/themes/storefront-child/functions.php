@@ -1059,16 +1059,22 @@ add_filter('woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_fr
  */
 function changeBreadcrumbLinkAuthorBlog($crumbs)
 {
-    $categories = get_the_category();
-    foreach ($categories as $category) {
-        if ($category->slug == 'author-blog') {
-            $link = get_permalink(get_page_by_path('blog'));
-            $crumbs[1][1] = $link;
-        }
-        if ($category->slug == 'club') {
-            $link = get_permalink(get_page_by_path('club'));
-            $crumbs[1][1] = $link;
-        }
+    $cat = new WPSEO_Primary_Term('category', get_the_ID());
+    $cat_id = $cat->get_primary_term();
+    $category = get_category($cat_id);
+
+    if ($category->slug == 'author-blog') {
+        $link = get_permalink(get_page_by_path('blog'));
+        $crumbs[1][1] = $link;
+    } elseif ($category->slug == 'club') {
+        $link = get_permalink(get_page_by_path('club'));
+        $crumbs[1][1] = $link;
+    } elseif ($category->slug == 'announcement') {
+        $link = get_permalink(get_page_by_path('anonsy-knig'));
+        $crumbs[1][1] = $link;
+    } elseif ($category->slug == 'news-n-events') {
+        $link = get_permalink(get_page_by_path('novosti-i-sobytiya'));
+        $crumbs[1][1] = $link;
     }
     return $crumbs;
 }
