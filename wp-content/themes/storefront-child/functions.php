@@ -881,11 +881,22 @@ function my_add_next_page_button($buttons, $id)
 }
 
 /**
- * Замена стандартных крошек от вукомерса
+ * Замена стандартных крошек от вукомерса, крошки по центру для страницы about
  */
 add_filter('woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs', 20);
 function jk_woocommerce_breadcrumbs()
 {
+    global $post;
+    if ($post->ID == 39) {
+        return array(
+            'delimiter' => ' / ',
+            'wrap_before' => '<nav class="woocommerce-breadcrumb container text-center breadcrumb-container" itemprop="breadcrumb">',
+            'wrap_after' => '</nav>',
+            'before' => '',
+            'after' => '',
+            'home' => _x('Home', 'breadcrumb', 'woocommerce'),
+        );
+    } else {
     return array(
         'delimiter' => ' / ',
         'wrap_before' => '<nav class="woocommerce-breadcrumb container breadcrumb-container" itemprop="breadcrumb">',
@@ -894,6 +905,7 @@ function jk_woocommerce_breadcrumbs()
         'after' => '',
         'home' => _x('Home', 'breadcrumb', 'woocommerce'),
     );
+    }
 }
 
 remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
@@ -2420,6 +2432,7 @@ function get_current_template() {
     return $GLOBALS['current_template'];
 }
 
+// функция ограничения кол-ва слов
 function do_excerpt($string, $word_limit) {
     $words = explode(' ', $string, ($word_limit + 1));
     if (count($words) > $word_limit)
