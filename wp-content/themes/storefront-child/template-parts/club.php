@@ -69,7 +69,7 @@ do_action('id_page_check');
                 <div class="row">
                     <div class="col-2 d-md-block d-none"></div>
                     <div class="col-5 col-md"><p>Статус</p></div>
-                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-block d-none">получения</span></p></div>
+                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-inline d-none">получения</span></p></div>
                     <div class="col text-center d-md-block d-none"><p>Доступ</p></div>
                     <div class="col text-right text-md-center"><p>Скидка</p></div>
                 </div>
@@ -82,7 +82,7 @@ do_action('id_page_check');
                 <div class="club-ranks-row">
                     <div class="row">
                         <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
-                        <div class="col-5 col-md m-auto"><?php echo $rank->title; ?></div>
+                        <div class="col-5 col-md m-auto"><?php echo getRankTitle($rank); ?></div>
                         <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
                         <div class="col m-auto text-center d-md-block d-none"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>

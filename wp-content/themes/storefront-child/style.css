@@ -2913,6 +2913,14 @@ h2.related-product {
     color: #000000;
 }
 
+.club-ranks-row .mycred-my-rank{
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 21px;
+    color: #000000;
+    text-align: left;
+}
+
 .club-ranks-row strong{
     font-weight: normal;
 }
@@ -4390,7 +4398,7 @@ and (max-width: 768px) {
         text-align: right;
     }
 
-    .club-ranks-row:last-of-type{
+    .club-ranks-row:last-of-type .mycred-my-rank, .club-ranks-row:last-of-type {
         font-weight: normal;
     }
 
