@@ -2913,6 +2913,10 @@ h2.related-product {
     color: #000000;
 }
 
+.club-ranks-row strong{
+    font-weight: normal;
+}
+
 .club-ranks-row p {
     font-size: 1.25rem;
     line-height: 23px;

@@ -76,6 +76,7 @@ do_action('id_page_check');
             </div>
             <?php
             $allRanks = mycred_get_ranks();
+            $ctype = MYCRED_DEFAULT_TYPE_KEY;
             ?>
             <?php foreach (array_reverse($allRanks, true) as $rank): ?>
                 <div class="club-ranks-row">
@@ -84,15 +85,14 @@ do_action('id_page_check');
                         <div class="col m-auto"><?php echo $rank->title; ?></div>
                         <div class="col col-lg-3 m-auto text-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
-                        <div class="col m-auto text-center">Общий</div>
-                        <div class="col m-auto text-center">-</div>
+                        <div class="col m-auto text-center"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
+                        <div class="col m-auto text-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
     <?php
-    $ctype = MYCRED_DEFAULT_TYPE_KEY;
     $user_id = mycred_get_user_id('current');
     $account_object = mycred_get_account($user_id);
     $balance = $account_object->total_balance;
