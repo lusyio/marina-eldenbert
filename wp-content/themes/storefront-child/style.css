@@ -4390,6 +4390,14 @@ and (max-width: 768px) {
         text-align: right;
     }
 
+    .club-ranks-row:last-of-type{
+        font-weight: normal;
+    }
+
+    .club-ranks-row p{
+        padding-bottom: 0;
+    }
+
 }
 
 @media screen
@@ -4401,14 +4409,6 @@ and (max-width: 576px) {
 
     .club-content__text{
         line-height: 24px;
-    }
-
-    .club-ranks-row:last-of-type{
-        font-weight: normal;
-    }
-
-    .club-ranks-row p{
-        padding-bottom: 0;
     }
 
     .comment-body .comment-reply-login, .comment-body .comment-reply-link {
