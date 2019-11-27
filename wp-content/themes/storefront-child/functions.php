@@ -635,7 +635,15 @@ function custom_pagination()
  */
 function adultModal()
 {
-    $isForAdult = has_term( 'adult-18', 'post_tag' ) || (is_product() && has_term('adult-18', 'product_tag'));
+    global $post;
+    $bookId = get_post_meta($post->ID, 'book_id', true);
+    if ($bookId) {
+        $isBookForAdult = has_term('adult-18', 'product_tag', $bookId);
+    } else {
+        $isBookForAdult = false;
+    }
+
+    $isForAdult = has_term( 'adult-18', 'post_tag' ) || (is_product() && has_term('adult-18', 'product_tag')) || $isBookForAdult;
     if (!$isForAdult || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
