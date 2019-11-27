@@ -1284,9 +1284,9 @@ function my_theme_wrapper_start()
     }
 
     if (in_array('bestseller', $tagSlugList)) {
-        echo '<span class="product-label">Бестселлер</span>';
+        echo '<span class="product-label product-label__bestseller">Бестселлер</span>';
     }elseif (in_array('new', $tagSlugList)) {
-        echo '<span class="product-label">Новинка</span>';
+        echo '<span class="product-label product-label__new">Новинка</span>';
     }
 }
 
