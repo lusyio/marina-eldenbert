@@ -12,20 +12,3 @@
                title="<?php _ex('Search for:', 'label', 'wp-bootstrap-starter'); ?>">
     </form>
 </div>
-
-<script>
-    jQuery(document).ready(function ($) {
-        $('#searchBtn').on('click', function () {
-            $('#searchForm').show();
-            if ($('#searchForm').is(':visible')) {
-                $(document).on('click', function (e) {
-                    var div = $("#searchForm");
-                    var dov = $("#searchBtn");
-                    if (!div.is(e.target) && !dov.is(e.target) && div.has(e.target).length === 0 && dov.has(e.target).length === 0) {
-                        div.hide();
-                    }
-                });
-            }
-        });
-    });
-</script>
