@@ -504,7 +504,7 @@ function wp_custom_link_pages($args = '')
                 $prevText = $prevPageText;
             }
 
-                $output .= '<li class="page-item' . $prevPageClass . '">
+            $output .= '<li class="page-item' . $prevPageClass . '">
                     <a data-link="' . $params['base_url'] . '?a=' . $prevArticleId . '" data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn" aria-label="Previous">
                         <span aria-hidden="true">' . $prevText . '</span>
                     </a>
@@ -895,14 +895,14 @@ function jk_woocommerce_breadcrumbs()
             'home' => _x('Home', 'breadcrumb', 'woocommerce'),
         );
     } else {
-    return array(
-        'delimiter' => ' / ',
-        'wrap_before' => '<nav class="woocommerce-breadcrumb container breadcrumb-container" itemprop="breadcrumb">',
-        'wrap_after' => '</nav>',
-        'before' => '',
-        'after' => '',
-        'home' => _x('Home', 'breadcrumb', 'woocommerce'),
-    );
+        return array(
+            'delimiter' => ' / ',
+            'wrap_before' => '<nav class="woocommerce-breadcrumb container breadcrumb-container" itemprop="breadcrumb">',
+            'wrap_after' => '</nav>',
+            'before' => '',
+            'after' => '',
+            'home' => _x('Home', 'breadcrumb', 'woocommerce'),
+        );
     }
 }
 
@@ -1282,11 +1282,17 @@ function my_theme_wrapper_start()
     }
 
     if (in_array('bestseller', $tagSlugList)) {
+        echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__bestseller">Бестселлер</span>';
+        echo '</div>';
     } elseif (in_array('new', $tagSlugList)) {
+        echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__new">Новинка</span>';
+        echo '</div>';
     } elseif (in_array('pre-order', $tagSlugList)) {
+        echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__pre-order">Предзаказ</span>';
+        echo '</div>';
     }
 }
 
@@ -2429,28 +2435,32 @@ add_filter('woocommerce_account_downloads_columns', function ($args) {
 add_action('woocommerce_after_add_to_cart_form', 'add_sassy', 1);
 function add_sassy()
 {
-   echo do_shortcode('[Sassy_Social_Share]');
+    echo do_shortcode('[Sassy_Social_Share]');
 }
 
 // функция проверки используемого шаблона внутри цикла
-function filter_template_include( $t ) {
+function filter_template_include($t)
+{
     $GLOBALS['current_template'] = basename($t);
     return $t;
 }
-add_filter( 'template_include', 'filter_template_include', 1000 );
 
-function get_current_template() {
-    if( !isset( $GLOBALS['current_template'] ) )
+add_filter('template_include', 'filter_template_include', 1000);
+
+function get_current_template()
+{
+    if (!isset($GLOBALS['current_template']))
         return false;
     return $GLOBALS['current_template'];
 }
 
 // функция ограничения кол-ва слов
-function do_excerpt($string, $word_limit) {
+function do_excerpt($string, $word_limit)
+{
     $words = explode(' ', $string, ($word_limit + 1));
     if (count($words) > $word_limit)
         array_pop($words);
-    echo implode(' ', $words).' ...';
+    echo implode(' ', $words) . ' ...';
 }
 
 function true_apply_tags_for_pages(){
