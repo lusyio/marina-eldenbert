@@ -2375,10 +2375,13 @@ function add_cdn_images()
     }
 }
 
-// Изменяем название Детали на Настройки, убираем из меню пункт Адреса
+// Изменяем название Детали на Настройки, Консоль на Мой аккаунт, убираем из меню пункт Адреса
 add_filter('woocommerce_account_menu_items', function ($args) {
     if (key_exists('edit-account', $args)) {
         $args['edit-account'] = 'Настройки';
+    }
+    if (key_exists('dashboard', $args)) {
+        $args['dashboard'] = 'Мой аккаунт';
     }
     if (key_exists('edit-address', $args)) {
         unset($args['edit-address']);
