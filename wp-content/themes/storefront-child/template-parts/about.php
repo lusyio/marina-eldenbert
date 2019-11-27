@@ -11,7 +11,7 @@ Template Post Type: post, page, product
 <div class="container popular pt-0">
     <div class="row">
         <div class="col-lg-6 col-12 offset-lg-3 offset-0">
-            <h2 class="page-title-about mt-0">Нас двое</h2>
+            <h1 class="page-title-about mt-0">Нас двое</h1>
             <p class="after-title-about">Мы пишем только вместе и только под
                 одним псевдонимом - Марина Эльденберт.</p>
         </div>

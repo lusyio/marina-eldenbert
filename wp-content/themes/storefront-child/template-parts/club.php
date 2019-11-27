@@ -17,8 +17,8 @@ do_action('id_page_check');
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
                 <div class="club-header">
-                    <h2 class="club-header__title">VIP-клуб
-                        Марины Эльденберт</h2>
+                    <h1 class="club-header__title">VIP-клуб
+                        Марины Эльденберт</h1>
                     <p class="club-header__text">Хочешь получить доступ к неопубликованным историям и рассказам,
                         получать эксклюзивные подарки от автора, а также покупать книги с постоянной скидкой? Вступай в
                         VIP-клуб Марины Эльденберт и становись членом нашего большого сообщества!</p>
@@ -33,7 +33,7 @@ do_action('id_page_check');
 <div class="container club-content">
     <div class="row">
         <div class="col-lg-8 offset-lg-2 col-12 offset-0">
-            <p class="club-content__title">Что дает членство в клубе?</p>
+            <h2 class="club-content__title">Что дает членство в клубе?</h2>
         </div>
     </div>
     <div class="row">
@@ -49,7 +49,7 @@ do_action('id_page_check');
     </div>
     <div class="row" id="howToJoin">
         <div class="col-lg-8 offset-lg-1 col-12 offset-0">
-            <p class="club-content__title text-left">Как стать участником?</p>
+            <h2 class="club-content__title text-left">Как стать участником?</h2>
             <p class="club-content__text text-left mb-5">Чтобы получить VIP-карточку, нужно достичь уровня «Платина».
                 После
                 этого вам автоматически выдается VIP-карта, и вы можете посещать закрытый раздел на сайте.</p>
