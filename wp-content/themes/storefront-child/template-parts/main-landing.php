@@ -51,7 +51,9 @@ Template Post Type: post, page, product
                                             <h2 class="popular-title"><?php echo $product->get_name(); ?>
                                             </h2>
                                             <p class="popular-content">
-                                                <?php echo $product->get_short_description(); ?>
+                                                <?php
+                                                $desc = $product->get_short_description();
+                                                echo  mb_strimwidth( $desc, 0, 550, '...'); ?>
                                             </p>
                                             <div class="row">
                                                 <div class="col-lg-5 col-12">
@@ -148,7 +150,10 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <p><?php do_excerpt(get_the_excerpt(), 10); ?>..</p>
+                                    <?php
+                                    $desc = get_the_content();
+                                    echo  mb_strimwidth( $desc, 0, 100, '...');
+                                    ?>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>
@@ -170,7 +175,10 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php the_content(); ?>
+                                    <?php
+                                    $desc = get_the_content();
+                                    echo  mb_strimwidth( $desc, 0, 100, '...');
+                                    ?>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>

@@ -17,12 +17,11 @@ do_action('id_page_check');
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
                 <div class="club-header">
-                    <h2 class="club-header__title">Закрытый клуб
+                    <h2 class="club-header__title">VIP-клуб
                         Марины Эльденберт</h2>
-                    <p class="club-header__text">Закрытый тайный клуб, доступный только для избранных читателей.
-                        Участвуй в жизни сайта, комментируй. общайся, рассказывай друзьям о новостях и событиях в
-                        соцсетях и зарабатывай за это балы. Члены клуба получают эксклюзивные материалы по книгам Марины
-                        Эльденберт.</p>
+                    <p class="club-header__text">Хочешь получить доступ к неопубликованным историям и рассказам,
+                        получать эксклюзивные подарки от автора, а также покупать книги с постоянной скидкой? Вступай в
+                        VIP-клуб Марины Эльденберт и становись членом нашего большого сообщетсва!</p>
                     <a class="club-header__btn scrollTop"
                        href="#howToJoin">Вступить</a>
                 </div>
@@ -39,25 +38,58 @@ do_action('id_page_check');
     </div>
     <div class="row">
         <div class="col-lg-10 offset-lg-1 col-12 offset-0 p-lg-0 p-unset">
-            <p class="club-content__text">Всем членам VIP клуба открывается доступ к закрытому разделу сайта, в котором
-                публкиуются эксклюзивные материалы, бонусные рассказы к любимым историям, проводятся розыгрыши книг с
-                автографом, абонементов на бесплатное чтение и сувениров от автора. <strong>Скидка постоянного читателя
+            <p class="club-content__text mb-5">VIP-клуб – это территория наших читателей, где:
+                выкладываются бонусные рассказы к любимым историям
+                и проводятся закрытые розыгрыши: книги на бумаге с автографами, абонементы на бесплатное чтение,
+                сувениры от авторов (закладки, открытки, календари)
+            </p>
+            <p class="club-content__text"><strong>Скидка постоянного читателя
                     составляет 20%</strong></p>
         </div>
     </div>
     <div class="row" id="howToJoin">
         <div class="col-lg-8 offset-lg-1 col-12 offset-0">
-            <p class="club-content__title text-left">Как вступить в клуб?</p>
-            <p class="club-content__text text-left">Чтобы получить VIP-карточку, нужно достичь уровня «Платиновая
-                драконесса». По
-                достижении этого уровня, вам автоматически выдается VIP-карта, и вы можете посещать закрытый раздел на
-                сайте.
+            <p class="club-content__title text-left">Как стать участником?</p>
+            <p class="club-content__text text-left mb-5">Чтобы получить VIP-карточку, нужно достичь уровня «Платина».
+                После
+                этого вам автоматически выдается VIP-карта, и вы можете посещать закрытый раздел на сайте.</p>
+            <p class="club-content__text text-left mb-5">
+                На нашем сайте существует система рейтингов - комментируя книги и обсуждая с другими участниками сюжеты
+                и героев, вы получаете различные бонусы:
             </p>
         </div>
-        <div class="col-lg-2 col-12 m-auto p-lg-0 p-unset">
+        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset">
             <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
         </div>
         <div class="col-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-12 offset-0">
+            <div class="club-ranks-row">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col"><p>Статус</p></div>
+                    <div class="col col-lg-3 text-center"><p>Условия получения</p></div>
+                    <div class="col text-center"><p>Доступ</p></div>
+                    <div class="col text-center"><p>Скидка</p></div>
+                </div>
+            </div>
+            <?php
+            $allRanks = mycred_get_ranks();
+            ?>
+            <?php foreach (array_reverse($allRanks, true) as $rank): ?>
+                <div class="club-ranks-row">
+                    <div class="row">
+                        <div class="col-2 m-auto"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
+                        <div class="col m-auto"><?php echo $rank->title; ?></div>
+                        <div class="col col-lg-3 m-auto text-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
+                        </div>
+                        <div class="col m-auto text-center">Общий</div>
+                        <div class="col m-auto text-center">-</div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
     <?php
     $ctype = MYCRED_DEFAULT_TYPE_KEY;
@@ -65,7 +97,6 @@ do_action('id_page_check');
     $account_object = mycred_get_account($user_id);
     $balance = $account_object->total_balance;
     $myRank = mycred_get_my_rank();
-    $allRanks = mycred_get_ranks();
     $nextRank = null;
     foreach ($allRanks as $rank) {
         if ($myRank->maximum + 1 == $rank->minimum) {

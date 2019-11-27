@@ -878,9 +878,12 @@ footer.site-footer {
     margin-top: 2px;
 }
 
+.comments-post .comment-body #respond #cancel-comment-reply-link::before {
+    margin-top: 1px;
+}
+
 .comment-body #respond small {
     display: block;
-    height: 1rem;
 }
 
 .comment-body #respond .comment-reply-title, #respond .logged-in-as {
@@ -895,6 +898,10 @@ footer.site-footer {
 
 .comment-body #respond .submit {
     margin-bottom: 0;
+}
+
+.comment-body .comment-respond {
+    margin-top: 20px !important;
 }
 
 .comment-body #respond .submit-field-comments {
@@ -2237,13 +2244,10 @@ ul > .page-item:last-of-type .page-link {
 }
 
 .announcement-img img {
-    max-height: 346px;
-    max-width: 235px;
     display: block;
     margin: auto;
     position: relative;
     z-index: 2;
-    height: 100%;
     width: auto;
 }
 
@@ -2251,7 +2255,7 @@ ul > .page-item:last-of-type .page-link {
     max-height: 346px;
     max-width: 235px;
     position: relative;
-    display: inline-block;
+    display: table;
     -webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     -ms-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2900,6 +2904,27 @@ h2.related-product {
     background-position: center;
 }
 
+.club-ranks-row {
+    border-bottom: 1px solid #D8D8D8;
+    padding: 20px 0;
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 21px;
+    color: #000000;
+}
+
+.club-ranks-row p {
+    font-size: 1.25rem;
+    line-height: 23px;
+    color: #000000;
+    padding-bottom: 30px;
+    margin-bottom: 0;
+}
+
+.club-ranks-row:last-of-type {
+    margin-bottom: 70px;
+}
+
 .club-header {
     padding-top: 270px;
     padding-bottom: 250px;
@@ -3422,8 +3447,17 @@ h2.related-product {
 }
 
 #respond #cancel-comment-reply-link {
-    top: 1.540791em;
+    top: unset !important;
+    right: unset !important;
     color: #757575 !important;
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+    position: relative;
+}
+
+.comment-list .reply {
+    text-align: left;
 }
 
 .comment-edit-link {
@@ -4522,11 +4556,14 @@ and (max-width: 576px) {
     }
 
     .announcement-btn {
+        margin-top: 20px;
         display: block;
-        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
         left: 0;
         right: 0;
         width: 55%;
+        position: relative;
     }
 
     .popular {

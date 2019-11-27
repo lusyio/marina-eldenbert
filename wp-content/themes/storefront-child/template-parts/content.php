@@ -17,4 +17,11 @@
         ?>
     </div>
     <?php echo do_shortcode('[Sassy_Social_Share]'); ?>
+    <div class="row comments-post">
+        <div class="col-12">
+            <?php if (comments_open() || get_comments_number()) :
+                comments_template();
+            endif; ?>
+        </div>
+    </div>
 </article>
