@@ -806,6 +806,22 @@ footer.site-footer {
 # PRODUCT
 --------------------------------------------------------------*/
 
+.before-block .product-label {
+    background: #FFFFFF;
+    display: block;
+    transform: rotate(-45deg);
+    position: absolute;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #801414;
+    width: 100%;
+    padding: 10px 0;
+    left: -2.26rem;
+    top: 1.9rem;
+    z-index: 4;
+}
+
 .submit-field-comments {
     margin-top: 3rem;
     margin-bottom: 3rem;
