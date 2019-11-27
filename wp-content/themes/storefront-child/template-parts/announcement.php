@@ -34,7 +34,7 @@ Template Post Type: post, page, product
                                 <div class="announcement-content">
                                     <?php
                                     $desc = get_the_content();
-                                    echo  mb_strimwidth( $desc, 0, 150, '...');
+                                    echo  mb_strimwidth( $desc, 0, 100, '...');
                                     ?>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
