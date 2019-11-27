@@ -58,7 +58,7 @@ do_action('id_page_check');
                 и героев, вы получаете различные бонусы:
             </p>
         </div>
-        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset">
+        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none">
             <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
         </div>
         <div class="col-1"></div>
@@ -67,11 +67,11 @@ do_action('id_page_check');
         <div class="col-lg-10 offset-lg-1 col-12 offset-0">
             <div class="club-ranks-row">
                 <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col"><p>Статус</p></div>
-                    <div class="col col-lg-3 text-center"><p>Условия получения</p></div>
-                    <div class="col text-center"><p>Доступ</p></div>
-                    <div class="col text-center"><p>Скидка</p></div>
+                    <div class="col-2 d-md-block d-none"></div>
+                    <div class="col-5 col-md"><p>Статус</p></div>
+                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-block d-none">получения</span></p></div>
+                    <div class="col text-center d-md-block d-none"><p>Доступ</p></div>
+                    <div class="col text-right text-md-center"><p>Скидка</p></div>
                 </div>
             </div>
             <?php
@@ -81,12 +81,12 @@ do_action('id_page_check');
             <?php foreach (array_reverse($allRanks, true) as $rank): ?>
                 <div class="club-ranks-row">
                     <div class="row">
-                        <div class="col-2 m-auto"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
-                        <div class="col m-auto"><?php echo $rank->title; ?></div>
-                        <div class="col col-lg-3 m-auto text-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
+                        <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
+                        <div class="col-5 m-auto"><?php echo $rank->title; ?></div>
+                        <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
-                        <div class="col m-auto text-center"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
-                        <div class="col m-auto text-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
+                        <div class="col m-auto text-center d-md-block d-none"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
+                        <div class="col m-auto text-right text-md-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>

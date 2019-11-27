@@ -2920,6 +2920,7 @@ h2.related-product {
 .club-ranks-row p {
     font-size: 1.25rem;
     line-height: 23px;
+    font-weight: normal;
     color: #000000;
     padding-bottom: 30px;
     margin-bottom: 0;
@@ -4396,6 +4397,18 @@ and (max-width: 576px) {
 
     ul > .page-item .page-link {
         padding: 8px 13px;
+    }
+
+    .club-content__text{
+        line-height: 24px;
+    }
+
+    .club-ranks-row:last-of-type{
+        font-weight: normal;
+    }
+
+    .club-ranks-row p{
+        padding-bottom: 0;
     }
 
     .comment-body .comment-reply-login, .comment-body .comment-reply-link {
