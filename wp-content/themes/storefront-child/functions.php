@@ -2517,3 +2517,17 @@ function true_expanded_request_post_tags($q) {
 }
 
 add_filter('request', 'true_expanded_request_post_tags');
+
+// Удаление инлайн-скриптов из хедера
+add_filter('storefront_customizer_css', '__return_false');
+add_filter('storefront_customizer_woocommerce_css', '__return_false');
+add_filter('storefront_gutenberg_block_editor_customizer_css', '__return_false');
+
+add_action( 'wp_print_styles', function () {
+    wp_styles()->add_data('woocommerce-inline', 'after', '');
+} );
+
+add_action('init', function () {
+    remove_action( 'wp_head', 'wc_gallery_noscript' );
+});
+// Конец удаления инлайн-скриптов из хедера
