@@ -49,7 +49,12 @@
                     </div>
                     <div class="col">
                         <div class="sidebar-news__text">
-                            <?php the_content(); ?>
+                            <p>
+                                <?php
+                                $desc = get_the_content();
+                                echo mb_strimwidth($desc, 0, 105, '...');
+                                ?>
+                            </p>
                         </div>
                         <a href="<?php the_permalink() ?>" class="sidebar-news__link">Подробнее</a>
                     </div>
@@ -73,7 +78,12 @@
                     </div>
                     <div class="sidebar-blog-card__body">
                         <div class="sidebar-blog-card__text">
-                            <?php the_content(); ?>
+                            <p>
+                                <?php
+                                $desc = get_the_content();
+                                echo mb_strimwidth($desc, 0, 140, '...');
+                                ?>
+                            </p>
                         </div>
                         <a href="<?php the_permalink() ?>" class="sidebar-blog-card__link">Подробнее</a>
                     </div>
