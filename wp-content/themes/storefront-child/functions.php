@@ -2420,3 +2420,9 @@ function get_current_template() {
     return $GLOBALS['current_template'];
 }
 
+function do_excerpt($string, $word_limit) {
+    $words = explode(' ', $string, ($word_limit + 1));
+    if (count($words) > $word_limit)
+        array_pop($words);
+    echo implode(' ', $words).' ...';
+}

@@ -148,7 +148,7 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php the_content(); ?>
+                                    <p><?php do_excerpt(get_the_excerpt(), 10); ?>..</p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>

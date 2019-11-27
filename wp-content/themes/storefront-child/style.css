@@ -3913,6 +3913,7 @@ a#nep_call_panel.nep_right_bottom {
     padding: 0;
 }
 
+
 .after-title-about {
     font-weight: 300;
     font-size: 24px;
@@ -4066,6 +4067,10 @@ a#nep_call_panel.nep_right_bottom {
 and (min-width: 1200px) {
     .outer-menu {
         display: none;
+    }
+    .big-image-about {
+        margin-bottom: -380px;
+        margin-top: 30px;
     }
 }
 
