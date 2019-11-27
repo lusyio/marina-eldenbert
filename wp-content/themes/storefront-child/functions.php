@@ -635,7 +635,7 @@ function custom_pagination()
  */
 function adultModal()
 {
-    $isForAdult = has_term('adult-18', 'post_tag') || has_term('adult-18', 'product_tag');
+    $isForAdult = has_term( 'adult-18', 'post_tag' ) || has_term('adult-18', 'product_tag');
     if ($isForAdult != 1 || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
@@ -2529,3 +2529,17 @@ function add_custom_js()
     wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
     wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), '', true);
 }
+
+// Удаление инлайн-скриптов из хедера
+add_filter('storefront_customizer_css', '__return_false');
+add_filter('storefront_customizer_woocommerce_css', '__return_false');
+add_filter('storefront_gutenberg_block_editor_customizer_css', '__return_false');
+
+add_action( 'wp_print_styles', function () {
+    wp_styles()->add_data('woocommerce-inline', 'after', '');
+} );
+
+add_action('init', function () {
+    remove_action( 'wp_head', 'wc_gallery_noscript' );
+});
+// Конец удаления инлайн-скриптов из хедера
