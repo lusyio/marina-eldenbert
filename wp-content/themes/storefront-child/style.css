@@ -878,9 +878,12 @@ footer.site-footer {
     margin-top: 2px;
 }
 
+.comments-post .comment-body #respond #cancel-comment-reply-link::before{
+    margin-top: 1px;
+}
+
 .comment-body #respond small {
     display: block;
-    height: 1rem;
 }
 
 .comment-body #respond .comment-reply-title, #respond .logged-in-as {
@@ -895,6 +898,10 @@ footer.site-footer {
 
 .comment-body #respond .submit {
     margin-bottom: 0;
+}
+
+.comment-body .comment-respond {
+    margin-top: 20px !important;
 }
 
 .comment-body #respond .submit-field-comments {
@@ -3422,8 +3429,17 @@ h2.related-product {
 }
 
 #respond #cancel-comment-reply-link {
-    top: 1.540791em;
+    top: unset !important;
+    right: unset !important;
     color: #757575 !important;
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+    position: relative;
+}
+
+.comment-list .reply{
+    text-align: left;
 }
 
 .comment-edit-link {

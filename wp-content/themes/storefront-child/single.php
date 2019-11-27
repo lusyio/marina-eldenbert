@@ -22,13 +22,6 @@ get_header(); ?>
             <div class="col-1 order-lg-2 d-lg-flex d-none reader-hr"></div>
             <?php get_sidebar('custom'); ?>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <?php if (comments_open() || get_comments_number()) :
-                    comments_template();
-                endif; ?>
-            </div>
-        </div>
     </div>
 
 <?php

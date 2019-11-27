@@ -14,7 +14,9 @@ Template Post Type: post, page, product
             </div>
         </div>
     </div>
-    <?php comments_template('/image-comments.php'); ?>
+    <?php if (comments_open() || get_comments_number()) :
+        comments_template('/image-comments.php');
+    endif; ?>
 </div>
 <script>
     jQuery(function ($) {
