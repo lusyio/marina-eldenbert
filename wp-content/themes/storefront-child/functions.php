@@ -635,8 +635,8 @@ function custom_pagination()
  */
 function adultModal()
 {
-    $isForAdult = has_term( 'adult-18', 'post_tag' ) || has_term('adult-18', 'product_tag');
-    if ($isForAdult != 1 || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
+    $isForAdult = has_term( 'adult-18', 'post_tag' ) || (is_product() && has_term('adult-18', 'product_tag'));
+    if (!$isForAdult || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
     ?>
