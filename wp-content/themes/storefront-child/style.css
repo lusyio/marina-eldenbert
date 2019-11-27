@@ -4522,11 +4522,14 @@ and (max-width: 576px) {
     }
 
     .announcement-btn {
+        margin-top: 20px;
         display: block;
-        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
         left: 0;
         right: 0;
         width: 55%;
+        position: relative;
     }
 
     .popular {
