@@ -1275,6 +1275,19 @@ add_action('woocommerce_before_shop_loop_item_title', 'my_theme_wrapper_end', 10
 function my_theme_wrapper_start()
 {
     echo '<div class="before-block">';
+
+    global $product;
+    $tags = wc_get_object_terms($product->get_id(), 'product_tag');
+    $tagSlugList = [];
+    foreach ($tags as $tag) {
+        $tagSlugList[] = $tag->slug;
+    }
+
+    if (in_array('bestseller', $tagSlugList)) {
+        echo '<span class="product-label">Бестселлер</span>';
+    }elseif (in_array('new', $tagSlugList)) {
+        echo '<span class="product-label">Новинка</span>';
+    }
 }
 
 function my_theme_wrapper_end()
