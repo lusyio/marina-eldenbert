@@ -8,7 +8,8 @@
 ?>
 
 <div class="col-12 col-lg-4 order-lg-3 order-1 mb-5">
-    <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseSidebar">
+    <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseSidebar"
+         aria-expanded="false" aria-controls="collapseSidebar">
         Сайдбар
     </div>
     <div class="collapse d-lg-block" id="collapseSidebar">
@@ -22,7 +23,14 @@
                     </div>
                 </a>
                 <h3 class="sidebar-announcement__title"><?php the_title(); ?></h3>
-                <div class="sidebar-announcement__text"><?php the_content(); ?></div>
+                <div class="sidebar-announcement__text">
+                    <p>
+                        <?php
+                        $desc = get_the_content();
+                        echo mb_strimwidth($desc, 0, 105, '...');
+                        ?>
+                    </p>
+                </div>
                 <a href="<?php the_permalink() ?>" class="sidebar-announcement__btn">Подробнее</a>
             </div>
         <?php endwhile; ?>
