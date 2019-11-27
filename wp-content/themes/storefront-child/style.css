@@ -2251,7 +2251,7 @@ ul > .page-item:last-of-type .page-link {
     max-height: 346px;
     max-width: 235px;
     position: relative;
-    display: inline-block;
+    display: table;
     -webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     -ms-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
