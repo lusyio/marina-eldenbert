@@ -78,16 +78,16 @@ Template Post Type: post, page, product
     <div class="row">
         <div class="col-lg-5 offset-lg-1 offset-0 col-12">
             <div class="about-content"><strong>Нас называют:</strong>
-                <p class="mb-0">королевами ромфанта</p>
-                <p class="mb-0">самыми скандальными авторами рунета</p>
-                <p class="mb-0">авторами самых неоднозначных историй</p>
+                <p class="mb-0">Королевами ромфанта</p>
+                <p class="mb-0">Самыми скандальными авторами рунета</p>
+                <p class="mb-0">Авторами самых неоднозначных историй</p>
             </div>
         </div>
         <div class="col-lg-5 col-12">
             <div class="about-content"><strong>Читатели ценят наши книги за:</strong>
-                <p class="mb-0">остроту эмоций и чувственность</p>
-                <p class="mb-0">неожиданные сюжетные повороты</p>
-                <p class="mb-0">волшебные и красивые миры</p>
+                <p class="mb-0">Остроту эмоций и чувственность</p>
+                <p class="mb-0">Неожиданные сюжетные повороты</p>
+                <p class="mb-0">Волшебные и красивые миры</p>
             </div>
         </div>
     </div>

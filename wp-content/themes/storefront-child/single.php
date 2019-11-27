@@ -11,7 +11,7 @@ get_header(); ?>
         <div class="row">
             <div class="col-lg-7 col-12 order-lg-1 order-2 position-relative">
                 <div class="row">
-                    <div class="col-12"><h2 class="page-title"><?php the_title() ?></h2></div>
+                    <div class="col-12"><h1 class="page-title"><?php the_title() ?></h1></div>
                 </div>
                 <?php
 
