@@ -2614,9 +2614,9 @@ function addImageFilter()
         $nonEmptyTags[$tag->slug] = $tag->name;
     }
     ?>
-        <div>
+        <div class="imagesButtonBlock">
         <?php foreach ($subCats as   $subCat): ?>
-            <button class="button filter-btn d-inline-block"
+            <button class="button filter-btn mr-2 d-inline-block"
                     data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
         <?php endforeach; ?>
 
