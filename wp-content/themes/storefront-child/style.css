@@ -377,7 +377,7 @@ header#masthead {
     font-family: Roboto, sans-serif;
     padding: 0 1rem !important;
     color: #EEEEEE;
-    z-index: 9999;
+    z-index: 99999;
     position: relative;
     background: #FFFFFF;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
