@@ -53,7 +53,7 @@ Template Post Type: post, page, product
                                             <p class="popular-content">
                                                 <?php
                                                 $desc = $product->get_short_description();
-                                                echo  mb_strimwidth( $desc, 0, 550, '...'); ?>
+                                                echo mb_strimwidth($desc, 0, 550, '...'); ?>
                                             </p>
                                             <div class="row">
                                                 <div class="col-lg-5 col-12">
@@ -150,10 +150,12 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php
-                                    $desc = get_the_content();
-                                    echo  mb_strimwidth( $desc, 0, 100, '...');
-                                    ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 100, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>
@@ -175,10 +177,12 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php
-                                    $desc = get_the_content();
-                                    echo  mb_strimwidth( $desc, 0, 100, '...');
-                                    ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 100, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>
@@ -267,8 +271,8 @@ Template Post Type: post, page, product
                 <?php $portfolio_counter = 1; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                <?php if ($portfolio_counter < 3): ?>
-                <div class="col-lg-4 col-12 mb-lg-5 mb-2">
+                    <?php if ($portfolio_counter < 3): ?>
+                    <div class="col-lg-4 col-12 mb-lg-5 mb-2">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>

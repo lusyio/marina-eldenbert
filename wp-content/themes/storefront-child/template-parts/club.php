@@ -30,7 +30,7 @@ do_action('id_page_check');
 <div class="container club-content">
     <div class="row">
         <div class="col-lg-10 offset-lg-1 col-12 offset-0 p-lg-0 p-unset">
-            <p class="club-content__text mb-5">VIP-клуб – это территория наших читателей, где:
+            <p class="club-content__text mb-5">VIP-клуб – это территория наших читателей, где
                 выкладываются бонусные рассказы к любимым историям
                 и проводятся закрытые розыгрыши: книги на бумаге с автографами, абонементы на бесплатное чтение,
                 сувениры от авторов (закладки, открытки, календари)

@@ -3009,7 +3009,7 @@ h2.related-product {
 }
 
 .club-bg {
-    background: url(/wp-content/themes/storefront-child/svg/club-bg.svg);
+    background: url(/wp-content/themes/storefront-child/images/bg_color.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -4602,7 +4602,6 @@ and (max-width: 576px) {
 
     .announcement-content p {
         text-align: center;
-        min-height: 110px;
     }
 
     .announcement-btn {
