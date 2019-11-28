@@ -37,5 +37,5 @@ Template Post Type: post, page, product
     //        comments_template('/image-comments.php');
     //    endif; ?>
 </div>
-
+<script src="/wp-content/themes/storefront-child/inc/assets/js/fancybox-custom.js"></script>
 <?php get_footer(); ?>

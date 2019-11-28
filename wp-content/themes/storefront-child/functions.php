@@ -2464,7 +2464,6 @@ function add_cdn_images()
     wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
     wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
     wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
-    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/fancybox-custom.js', array(), '', true);
 }
 
 // Изменяем название Детали на Настройки, Консоль на Мой аккаунт, убираем из меню пункт Адреса
