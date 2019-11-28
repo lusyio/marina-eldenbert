@@ -13,7 +13,7 @@ Template Post Type: post, page, product
         <div class="col-lg-6 col-12 offset-lg-3 offset-0">
             <h1 class="page-title-about mt-0">Нас двое</h1>
             <p class="after-title-about">Мы пишем только вместе и только под
-                одним псевдонимом - Марина Эльденберт.</p>
+                одним псевдонимом - Марина Эльденберт</p>
         </div>
     </div>
     <div class="row">
@@ -79,7 +79,7 @@ Template Post Type: post, page, product
         <div class="col-lg-5 offset-lg-1 offset-0 col-12">
             <div class="about-content"><strong>Нас называют:</strong>
                 <p class="mb-0">Королевами ромфанта</p>
-                <p class="mb-0">Самыми скандальными авторами рунета</p>
+                <p class="mb-0">Самыми инстаграмными авторами рунета</p>
                 <p class="mb-0">Авторами самых неоднозначных историй</p>
             </div>
         </div>
@@ -102,7 +102,7 @@ Template Post Type: post, page, product
         </div>
         <div class="col-lg-5 col-12">
             <div class="about-content"><strong>Так же, как в этот сайт:</strong>
-                <p class="mb-0">Здесь пространство, созданное нами (и командой профессионалов-программистов) только для вас</p>
+                <p class="mb-0">Здесь пространство, с любовью созданное для наших читателей</p>
                 <p class="mb-0">Здесь на все комментарии мы отвечаем лично</p>
                 <p class="mb-0">Здесь мы делимся своим опытом</p>
             </div>
