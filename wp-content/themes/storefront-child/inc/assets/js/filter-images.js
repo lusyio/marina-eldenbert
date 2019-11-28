@@ -16,8 +16,8 @@ jQuery(function ($) {
     let loadFilter = getUrlParameter('filter');
     let filterClass = '';
     if (loadFilter !== undefined) {
-        if (loadFilter.match(/^series/) === null) {
-            filterClass = '.product_tag-' + loadFilter;
+        if (loadFilter.match(/^images/) === null) {
+            filterClass = '.images-' + loadFilter;
         } else {
             filterClass = '.' + loadFilter;
         }
