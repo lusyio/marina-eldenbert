@@ -1,14 +1,11 @@
 jQuery(function ($) {
-    $('.cir-image-link').fancybox(
+    $('.images-link').fancybox(
         {
             buttons: [
                 'download',
                 'thumbs',
                 'close'
             ],
-            caption: function () {
-                return $(this).parents('.grid-item').children('p').text();
-            },
         });
     var $grid = $('.grid').masonry({
         itemSelector: '.grid-item',

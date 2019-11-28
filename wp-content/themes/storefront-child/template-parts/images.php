@@ -30,10 +30,10 @@ Template Post Type: post, page, product
             }
             ?>
             <div class="grid-item<?php echo $categoryClass ?>">
-                <p><?php the_title(); ?></p>
-                <a class="cir-image-link image-id-<?php echo get_the_ID() ?>"
-                   href="<?php echo get_the_post_thumbnail_url(); ?>"><?php echo get_the_post_thumbnail(null, 'small'); ?></a>
-
+                <a data-fancybox class="images-link image-id-<?php echo get_the_ID() ?>"
+                   href="<?php echo get_the_post_thumbnail_url(); ?>" data-caption="<?php the_title(); ?>">
+                    <?php echo get_the_post_thumbnail(null, 'small'); ?>
+                </a>
             </div>
             <?php
         }
