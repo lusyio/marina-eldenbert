@@ -27,6 +27,9 @@ jQuery(function ($) {
     let params = {
         itemSelector: '.product',
         layoutMode: 'fitRows',
+        getSortData: {
+            bookOrder: '[data-book-order]',
+        },
     };
 
     if (loadFilter !== undefined && filterButton.length > 0) {
@@ -46,7 +49,10 @@ jQuery(function ($) {
     });
     $('.clear-filters').on('click', function () {
         let filterValue = $(this).attr('data-filter');
-        isoGrid.isotope({filter: filterValue});
+        isoGrid.isotope({
+            filter: filterValue,
+            sortBy: 'original-order'
+        });
         filters = {};
         $('.button-group').each(function (i, buttonGroup) {
             $(buttonGroup).find('.active').removeClass('active');
@@ -61,11 +67,16 @@ jQuery(function ($) {
         // get group key
         let $buttonGroup = $this.parents('.button-group');
         let filterGroup = $buttonGroup.attr('data-filter-group');
+        console.log(filterGroup);
         // set filter for group
         filters[filterGroup] = $this.attr('data-filter');
         // combine filters
         let filterValue = concatValues(filters);
-        isoGrid.isotope({filter: filterValue});
+        let filterData = {filter: filterValue};
+        if (filterGroup === 'series') {
+            filterData['sortBy'] = 'bookOrder';
+        }
+        isoGrid.isotope(filterData);
     });
 
     function concatValues(obj) {
@@ -75,37 +86,6 @@ jQuery(function ($) {
         }
         return value;
     }
-
-    var num = 0;
-
-    function loadProducts() {
-        num += 12;
-        var products = $("li.product:visible").slice(0, num);
-        $('.product').hide();
-        products.show();
-    }
-
-    function loadProductPage() {
-        num += 12;
-        var products = $("li.product").slice(0, num);
-        $.when($('.product').fadeOut(150)).done(function () {
-            $.when(products.fadeIn(300)).done(function () {
-                checkForEmptyHiddenProducts();
-            });
-        });
-    }
-
-    // loadProducts();
-    // checkForEmptyHiddenProducts();
-    function checkForEmptyHiddenProducts() {
-        if ($('li.product:hidden').length === 0) {
-            $(".load-more").hide();
-        }
-    }
-
-    $('.load-more').on('click', function () {
-        loadProductPage();
-    });
 
     // display message box if no filtered items
     $('.filter-btn, .clear-filters').on('click', function () {
