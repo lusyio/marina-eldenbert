@@ -3752,7 +3752,7 @@ a#nep_call_panel.nep_right_bottom {
 # COMMENTS
 --------------------------------------------------------------*/
 
-.clear-filters, .imagesButtonBlock .filter-btn {
+.clear-filters {
     background: #F9F8F7;
     border-radius: 20px;
     border: none;
@@ -3765,11 +3765,14 @@ a#nep_call_panel.nep_right_bottom {
     margin-bottom: 40px;
 }
 
-.clear-filters:hover, .imagesButtonBlock .filter-btn {
+.clear-filters:hover {
     border: none;
     background: #F9F8F7;
 }
 
+.imagesButtonBlock .filter-btn:hover {
+    font-size: 16px;
+}
 .clear-filters:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
