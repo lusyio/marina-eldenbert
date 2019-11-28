@@ -1223,7 +1223,9 @@ function addIsotopeScript()
     if (is_shop()) {
         wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array('jquery'));
         wp_enqueue_script('filter-script', get_stylesheet_directory_uri() . '/inc/assets/js/filter.js', array('jquery', 'isotope'));
-
+    } else if (get_the_ID() == 35) { // ID страницы Иллюстрации
+        wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array('jquery'));
+        wp_enqueue_script('filter-images-script', get_stylesheet_directory_uri() . '/inc/assets/js/filter-images.js', array('jquery', 'isotope'));
     }
 }
 
@@ -2590,3 +2592,33 @@ function imagesCommentCheck($approved, $commentdata) {
 }
 add_filter('pre_comment_approved', 'imagesCommentCheck', 20, 2);
 
+function addImageFilter()
+{
+    $otherFilters = [
+        'new',
+        'bestseller',
+        'pre-order'
+    ];
+    $subCatIds = get_term_children(get_category_by_slug('images')->term_id, 'category');
+    $subCats = [];
+    foreach ($subCatIds as $subCatId) {
+        $subCats[] = get_category($subCatId);
+    }
+    $tags = get_terms('product_tag');
+    $series = get_terms('pa_series-book');
+    $cycles = get_terms('pa_cycle-book');
+    $nonEmptyTags = [];
+    foreach ($tags as $tag) {
+        $nonEmptyTags[$tag->slug] = $tag->name;
+    }
+    ?>
+        <div>
+        <?php foreach ($subCats as   $subCat): ?>
+            <button class="button filter-btn d-inline-block"
+                    data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
+        <?php endforeach; ?>
+
+        <button class="button clear-filters d-inline-block" data-filter="*"><i class="fas fa-times mr-2"></i>Сбросить фильтры</button>
+        </div>
+    <?php
+}
