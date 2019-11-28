@@ -1236,9 +1236,10 @@ function addIsotopeScript()
 function addFilterBar()
 {
     $bookTypeFilters = [
-        'free-books',
+
     ];
     $otherFilters = [
+        'free-books',
         'new',
         'bestseller',
         'pre-order'
@@ -1261,6 +1262,7 @@ function addFilterBar()
             <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
             </button>
             <div class="filter-button-group">
+                <?php if (count($bookTypeFilters) > 0) : ?>
                 <div class="button-group mb-5" data-filter-group="type">
                     <?php foreach ($bookTypeFilters as $filter): ?>
                         <?php if (!key_exists($filter, $nonEmptyTags)) {
@@ -1270,6 +1272,7 @@ function addFilterBar()
                                 data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
                     <?php endforeach; ?>
                 </div>
+                <?php endif; ?>
                 <div class="button-group mb-5" data-filter-group="other">
                     <?php foreach ($otherFilters as $filter): ?>
                         <?php if (!key_exists($filter, $nonEmptyTags)) {
