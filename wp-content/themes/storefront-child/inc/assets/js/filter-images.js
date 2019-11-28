@@ -40,7 +40,6 @@ jQuery(function ($) {
         $('.filter-btn').removeClass('active');
         $(this).addClass('active');
         let filterValue = $(this).attr('data-filter');
-        console.log(filterValue);
         let filterData = {filter: filterValue};
         isoGrid.isotope(filterData);
     });

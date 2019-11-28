@@ -2590,6 +2590,10 @@ function imagesCommentCheck($approved, $commentdata)
 
 add_filter('pre_comment_approved', 'imagesCommentCheck', 20, 2);
 
+
+/**
+ * Выводит фильтр для иллюстраций
+ */
 function addImageFilter()
 {
     $otherFilters = [
