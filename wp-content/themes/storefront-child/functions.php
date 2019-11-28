@@ -2575,3 +2575,18 @@ add_action('init', function () {
 
 });
 // Конец удаления инлайн-скриптов из хедера
+
+/**
+ * Помечаем все новые комментарии на странице Иллюстрацци как требующие модерации
+ * @param $approved
+ * @param $commentdata
+ * @return int
+ */
+function imagesCommentCheck($approved, $commentdata) {
+    if ($commentdata['comment_post_ID'] == 35) { //id страницы "Иллюстрации"
+        $approved = 0;
+    }
+    return $approved;
+}
+add_filter('pre_comment_approved', 'imagesCommentCheck', 20, 2);
+
