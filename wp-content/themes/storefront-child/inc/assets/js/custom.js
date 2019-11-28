@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
     $('.checkbox-toggle').on('change', function () {
-        if ($('.checkbox-toggle:checked')) {
+        if ($('.checkbox-toggle').is(':checked')) {
             $('body').addClass('overflow-hidden');
         } else {
             $('body').removeClass('overflow-hidden');
