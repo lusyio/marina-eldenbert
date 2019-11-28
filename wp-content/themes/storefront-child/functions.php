@@ -642,7 +642,7 @@ function adultModal()
         $isBookForAdult = false;
     }
 
-    $isForAdult = has_term( 'adult-18', 'post_tag' ) || (is_product() && has_term('adult-18', 'product_tag')) || $isBookForAdult;
+    $isForAdult = has_term('adult-18', 'post_tag') || (is_product() && has_term('adult-18', 'product_tag')) || $isBookForAdult;
     if (!$isForAdult || is_user_logged_in() || (isset($_COOKIE['adult']) && $_COOKIE['adult'] == 1)) {
         return;
     }
@@ -1274,9 +1274,9 @@ function addFilterBar()
                     <?php endforeach; ?>
                 </div>
                 <div class="button-group" data-filter-group="series">
-                        <button class="button filter-btn"
-                                data-filter=".series-no-series">Книги вне серий
-                        </button>
+                    <button class="button filter-btn"
+                            data-filter=".series-no-series">Книги вне серий
+                    </button>
                     <?php foreach ($series as $ser): ?>
                         <button class="button filter-btn"
                                 data-filter=".series-<?php echo $ser->slug ?>"><?php echo $ser->name ?></button>
@@ -1688,7 +1688,6 @@ function addCycleToClass($args)
     $result = array_merge($args, $cycles);
     return $result;
 }
-
 
 
 //Заменя ссылок в комментах и в инпуте коммента
@@ -2462,13 +2461,10 @@ add_action('wp_enqueue_scripts', 'add_cdn_images');
 
 function add_cdn_images()
 {
-    global $post;
-    if ($post->ID == 35) {
-        wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
-        wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
-        wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
-        wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/fancybox-custom.js', array(), '', true);
-    }
+    wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
+    wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
+    wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
+    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/fancybox-custom.js', array(), '', true);
 }
 
 // Изменяем название Детали на Настройки, Консоль на Мой аккаунт, убираем из меню пункт Адреса
@@ -2558,15 +2554,15 @@ add_filter('storefront_customizer_css', '__return_false');
 add_filter('storefront_customizer_woocommerce_css', '__return_false');
 add_filter('storefront_gutenberg_block_editor_customizer_css', '__return_false');
 
-add_action( 'wp_print_styles', function () {
+add_action('wp_print_styles', function () {
     wp_styles()->add_data('woocommerce-inline', 'after', '');
-} );
+});
 
 add_action('init', function () {
     global $heateor_sss;
-    remove_action( 'wp_head', 'wc_gallery_noscript' );
-    remove_action( 'wp_enqueue_scripts', array( $heateor_sss->plugin_public, 'frontend_inline_style' ) );
-    add_action( 'wp_footer', function () {
+    remove_action('wp_head', 'wc_gallery_noscript');
+    remove_action('wp_enqueue_scripts', array($heateor_sss->plugin_public, 'frontend_inline_style'));
+    add_action('wp_footer', function () {
         global $heateor_sss;
         echo '<style type="text/css">';
         $heateor_sss->plugin_public->frontend_inline_style();
@@ -2582,11 +2578,13 @@ add_action('init', function () {
  * @param $commentdata
  * @return int
  */
-function imagesCommentCheck($approved, $commentdata) {
+function imagesCommentCheck($approved, $commentdata)
+{
     if ($commentdata['comment_post_ID'] == 35) { //id страницы "Иллюстрации"
         $approved = 0;
     }
     return $approved;
 }
+
 add_filter('pre_comment_approved', 'imagesCommentCheck', 20, 2);
 
