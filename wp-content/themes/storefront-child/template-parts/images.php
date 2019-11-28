@@ -40,10 +40,6 @@ Template Post Type: post, page, product
         wp_reset_postdata();
         ?>
     </div>
-
-    <!--    --><?php //if (comments_open() || get_comments_number()) :
-    //        comments_template('/image-comments.php');
-    //    endif; ?>
 </div>
 
 <?php get_footer(); ?>
