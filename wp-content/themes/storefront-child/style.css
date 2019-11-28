@@ -833,7 +833,7 @@ footer.site-footer {
     color: #FFFFFF;
 }
 
-.before-block .product-label.product-label__bestseller{
+.before-block .product-label.product-label__bestseller {
     background: #fd4848;
     color: #FFFFFF;
 }
@@ -2504,7 +2504,7 @@ h2.related-product {
     box-shadow: 4px 1px 10px rgba(0, 0, 0, .2);
 }
 
-.storefront-product-pagination a:{
+.storefront-product-pagination a {
     background: white;
 }
 
@@ -2921,7 +2921,7 @@ h2.related-product {
     color: #000000;
 }
 
-.club-ranks-row .mycred-my-rank{
+.club-ranks-row .mycred-my-rank {
     font-weight: 300;
     font-size: 1.125rem;
     line-height: 21px;
@@ -2929,7 +2929,7 @@ h2.related-product {
     text-align: left;
 }
 
-.club-ranks-row strong{
+.club-ranks-row strong {
     font-weight: normal;
 }
 
@@ -4415,7 +4415,7 @@ and (max-width: 768px) {
         font-weight: normal;
     }
 
-    .club-ranks-row p{
+    .club-ranks-row p {
         padding-bottom: 0;
     }
 
@@ -4428,7 +4428,7 @@ and (max-width: 576px) {
         padding: 8px 13px;
     }
 
-    .club-content__text{
+    .club-content__text {
         line-height: 24px;
     }
 
