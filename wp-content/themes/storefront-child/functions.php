@@ -1232,11 +1232,6 @@ function addIsotopeScript()
  */
 function addFilterBar()
 {
-    $bookTypeFilters = [
-        'free-books',
-        'paper-books',
-        'audio-books',
-    ];
     $otherFilters = [
         'new',
         'bestseller',
@@ -1245,6 +1240,7 @@ function addFilterBar()
 
     $tags = get_terms('product_tag');
     $series = get_terms('pa_series-book');
+    $cycles = get_terms('pa_cycle-book');
     $nonEmptyTags = [];
     foreach ($tags as $tag) {
         $nonEmptyTags[$tag->slug] = $tag->name;
@@ -1259,15 +1255,6 @@ function addFilterBar()
             <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
             </button>
             <div class="filter-button-group">
-                <div class="button-group mb-5" data-filter-group="type">
-                    <?php foreach ($bookTypeFilters as $filter): ?>
-                        <?php if (!key_exists($filter, $nonEmptyTags)) {
-                            continue;
-                        } ?>
-                        <button class="button filter-btn"
-                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                    <?php endforeach; ?>
-                </div>
                 <div class="button-group mb-5" data-filter-group="other">
                     <?php foreach ($otherFilters as $filter): ?>
                         <?php if (!key_exists($filter, $nonEmptyTags)) {
@@ -1277,13 +1264,22 @@ function addFilterBar()
                                 data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
                     <?php endforeach; ?>
                 </div>
-                <div class="button-group" data-filter-group="category">
+                <div class="button-group mb-5" data-filter-group="cycles">
                     <button class="button filter-btn"
-                            data-filter=".series-no-series">Книги вне циклов
+                            data-filter=".cycle-no-cycle">Книги вне циклов
                     </button>
+                    <?php foreach ($cycles as $cycle): ?>
+                        <button class="button filter-btn"
+                                data-filter=".cycle-<?php echo $cycle->slug ?>"><?php echo $cycle->name ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="button-group" data-filter-group="series">
                     <?php foreach ($series as $ser): ?>
                         <button class="button filter-btn"
                                 data-filter=".series-<?php echo $ser->slug ?>"><?php echo $ser->name ?></button>
+                        <button class="button filter-btn"
+                                data-filter=".series-no-series">Книги вне серий
+                        </button>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -1652,7 +1648,7 @@ function getBookPageIdByCategoryId($categoryId)
 /**
  * Добавляем в карточку товара класс "series-{слаг атрибута серия}", если серии нет, то добавляем "series-no-series"
  */
-add_filter('post_class', 'addSeriesToClass');
+add_filter('post_class', 'addSeriesToClass', 12);
 function addSeriesToClass($args)
 {
     if (!is_shop()) {
@@ -1661,7 +1657,7 @@ function addSeriesToClass($args)
     global $product;
     $seriesTerms = get_the_terms($product->get_id(), 'pa_series-book');
     if (!$seriesTerms) {
-        return ['series-no-series'];
+        return array_merge($args, ['series-no-series']);
     }
     $series = [];
     foreach ($seriesTerms as $seriesTerm) {
@@ -1671,7 +1667,28 @@ function addSeriesToClass($args)
     return $result;
 }
 
-;
+/**
+ * Добавляем в карточку товара цикл "cycle-{слаг атрибута серия}", если цикла нет, то добавляем "cycle-no-cycle"
+ */
+add_filter('post_class', 'addCycleToClass', 13);
+function addCycleToClass($args)
+{
+    if (!is_shop()) {
+        return $args;
+    }
+    global $product;
+    $cycleTerms = get_the_terms($product->get_id(), 'pa_cycle-book');
+    if (!$cycleTerms) {
+        return array_merge($args, ['cycle-no-cycle']);
+    }
+    $cycles = [];
+    foreach ($cycleTerms as $cycleTerm) {
+        $cycles[] = 'cycle-' . $cycleTerm->slug;
+    }
+    $result = array_merge($args, $cycles);
+    return $result;
+}
+
 
 
 //Заменя ссылок в комментах и в инпуте коммента
