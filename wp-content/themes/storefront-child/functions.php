@@ -363,7 +363,6 @@ function article_content($articleId)
 
     $query = new WP_Query('p=' . $articleId);
     $bookId = get_post_meta($post->ID, 'book_id', true);
-    $content = '';
     if ($query->have_posts()) {
 
         while ($query->have_posts()) {
@@ -1840,7 +1839,6 @@ add_filter('manage_users_columns', 'addVipStatusColumn');
  */
 function addVipStatusColumnValue($val, $column_name, $user_id)
 {
-    $status = '';
     $abonementUntil = hasAbonement($user_id);
     ob_start();
     if ($column_name == 'VIP') {
@@ -2554,8 +2552,4 @@ add_action('init', function () {
     add_action( 'wp_footer', array( $heateor_sss->plugin_public, 'frontend_inline_style' ) );
 
 });
-
-add_action( 'wp_footer', function () {
-    global $heateor_sss;
-} );
 // Конец удаления инлайн-скриптов из хедера
