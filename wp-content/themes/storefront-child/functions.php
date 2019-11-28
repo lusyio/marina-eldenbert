@@ -2551,5 +2551,11 @@ add_action('init', function () {
     global $heateor_sss;
     remove_action( 'wp_head', 'wc_gallery_noscript' );
     remove_action( 'wp_enqueue_scripts', array( $heateor_sss->plugin_public, 'frontend_inline_style' ) );
+    add_action( 'wp_footer', array( $heateor_sss->plugin_public, 'frontend_inline_style' ) );
+
 });
+
+add_action( 'wp_footer', function () {
+    global $heateor_sss;
+} );
 // Конец удаления инлайн-скриптов из хедера
