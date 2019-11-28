@@ -428,6 +428,7 @@ header#masthead {
 .storefront-sticky-add-to-cart {
     transition: transform .3s cubic-bezier(.4, 0, .2, 1) .3s, opacity 0s .3s;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+    background: white;
 }
 
 .content-search .popular-title {
@@ -829,6 +830,11 @@ footer.site-footer {
 
 .before-block .product-label.product-label__new {
     background: #318D10;
+    color: #FFFFFF;
+}
+
+.before-block .product-label.product-label__bestseller{
+    background: #fd4848;
     color: #FFFFFF;
 }
 
@@ -1386,7 +1392,6 @@ table.cart {
 
 table.cart .product-thumbnail img {
     max-width: 100px;
-    border: 1px solid #1C1919;
     box-shadow: 0px 0px 20px #797982;
 }
 
@@ -1978,11 +1983,9 @@ ul > .page-item:last-of-type .page-link {
 .popular-img-container img {
     position: relative;
     z-index: 2;
-    border: 1px solid #1C1919;
 }
 
 .related-img-container img {
-    border: 1px solid #1C1919;
     box-shadow: 0px 0px 20px #797982;
     position: relative;
     z-index: 2;
@@ -2046,7 +2049,6 @@ ul > .page-item:last-of-type .page-link {
 }
 
 .container-related .product img {
-    border: 1px solid #1C1919;
     box-shadow: 0px 0px 20px #797982;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -2502,6 +2504,10 @@ h2.related-product {
     box-shadow: 4px 1px 10px rgba(0, 0, 0, .2);
 }
 
+.storefront-product-pagination a:{
+    background: white;
+}
+
 .storefront-product-pagination__title {
     color: #F8AC53;
 }
@@ -2601,6 +2607,7 @@ h2.related-product {
     margin-right: 0;
     background: #F8AC53 !important;
     border: none;
+    color: #fff;
 }
 
 .storefront-sticky-add-to-cart__content-button:hover {
@@ -2610,6 +2617,7 @@ h2.related-product {
     box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
     cursor: pointer;
     border: none;
+    color: #fff;
 }
 
 .attr-label:last-of-type {
@@ -3791,6 +3799,7 @@ a#nep_call_panel.nep_right_bottom {
     -ms-transform: none;
     -o-transform: none;
     transform: none;
+    color: #1C1C1C;
 }
 
 .filter-btn.active {
@@ -3886,7 +3895,7 @@ a#nep_call_panel.nep_right_bottom {
     max-height: 239px;
     position: relative;
     z-index: 3;
-    border: 1px solid #1C1919;
+    border: none;
     box-shadow: 0px 0px 20px #797982;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
