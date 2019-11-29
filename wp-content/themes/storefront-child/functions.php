@@ -1242,7 +1242,7 @@ function addFilterBar()
         'free-books',
         'new',
         'bestseller',
-        'pre-order'
+        'subscription'
     ];
 
     $tags = get_terms('product_tag');
@@ -1340,9 +1340,9 @@ function my_theme_wrapper_start()
         echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__new">Новинка</span>';
         echo '</div>';
-    } elseif (in_array('pre-order', $tagSlugList)) {
+    } elseif (in_array('subscription', $tagSlugList)) {
         echo '<div class="product-label-container">';
-        echo '<span class="product-label product-label__pre-order">Предзаказ</span>';
+        echo '<span class="product-label product-label__subscription">Подписка</span>';
         echo '</div>';
     }
 }
@@ -2614,7 +2614,7 @@ function addImageFilter()
     $otherFilters = [
         'new',
         'bestseller',
-        'pre-order'
+        'subscription'
     ];
     $subCatIds = get_term_children(get_category_by_slug('images')->term_id, 'category');
     $subCats = [];
