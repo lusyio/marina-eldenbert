@@ -1,5 +1,13 @@
 jQuery(document).ready(function ($) {
 
+    $('.checkbox-toggle').on('change', function () {
+        if ($('.checkbox-toggle').is(':checked')) {
+            $('body').addClass('overflow-hidden');
+        } else {
+            $('body').removeClass('overflow-hidden');
+        }
+    });
+
     $('#searchBtn').on('click', function () {
         $('#searchForm').show();
         if ($('#searchForm').is(':visible')) {

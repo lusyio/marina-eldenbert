@@ -39,7 +39,12 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php the_content(); ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 100, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>
@@ -61,7 +66,12 @@ Template Post Type: post, page, product
                                     <?php the_title(); ?>
                                 </h3>
                                 <div class="announcement-content">
-                                    <?php the_content(); ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 100, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
                             </div>
