@@ -1920,6 +1920,8 @@ add_action('wp_dashboard_setup', 'VipStatusWidget');
 function vipStatusControl()
 {
     $doesNewUserGetVipStatus = get_option('vipForNewUsers', 0);
+    $text = get_option('freeAccessText', '');
+
     if ($doesNewUserGetVipStatus) {
         echo '<p><strong>Сейчас все новые пользователи получают статус Платиновая драконесса</strong></p>';
     } else {
@@ -1928,7 +1930,12 @@ function vipStatusControl()
     ?>
     <form method="post">
         <input type="hidden" name="vipForNewUsers" value="<?php echo ($doesNewUserGetVipStatus) ? 0 : 1 ?>">
-        <button class="button" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?>
+        <div><label for="textForClub">Текст на странице Клуба</label>
+            <textarea class="w-100" id="textForClub" name="textForClub" rows="5"><?php echo $text?></textarea>
+            <small class="form-text text-muted">Если поместить текст или его часть внутрь тройных скобок, то этот текст будет выделен <strong>жирным</strong></small>
+            <small class="form-text text-muted">Например, (((Внимание!))) превратится в <strong>Внимание!</strong></small>
+        </div>
+        <button class="button mt-3" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?>
             присвоение статуса
         </button>
     </form>
@@ -1941,10 +1948,13 @@ function vipStatusControl()
 function changeNewUserVipStatus()
 {
     if (is_admin() && isset($_POST['vipForNewUsers'])) {
+        $text = filter_var($_POST['textForClub'], FILTER_SANITIZE_STRING);
         if (intval($_POST['vipForNewUsers']) === 1) {
             update_option('vipForNewUsers', 1);
+            update_option('freeAccessText', $text);
         } elseif (intval($_POST['vipForNewUsers']) === 0) {
             update_option('vipForNewUsers', 0);
+            update_option('freeAccessText', $text);
         }
         header("Location:" . $_SERVER['PHP_SELF']);
     }

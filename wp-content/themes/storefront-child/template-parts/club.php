@@ -146,12 +146,15 @@ do_action('id_page_check');
         </div>
     <?php endif; ?>
 
-    <?php else: ?>
+    <?php elseif (get_option('vipForNewUsers', 0) == 1) :
+        $text = get_option('freeAccessText', '');
+        $formattedText = preg_replace('~\(\(\(~', '<strong>', $text);
+        $formattedText = preg_replace('~\)\)\)~', '</strong>', $formattedText);
+    ?>
         <div class="row club-footer">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
-                <p class="club-footer__text">Зарегистрируйся на сайте
-                    <strong>до 31 декабря 2019</strong>
-                    и получи моментальный доступ</p>
+
+                <p class="club-footer__text"><?php echo $formattedText ?></p>
                 <a class="club-footer__btn" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Вступить в
                     закрытый клуб</a>
             </div>
@@ -161,6 +164,5 @@ do_action('id_page_check');
 
 <div class="container">
     <div class="row">
-
-
+        
         <?php get_footer(); ?>
