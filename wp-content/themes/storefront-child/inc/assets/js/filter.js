@@ -73,7 +73,7 @@ jQuery(function ($) {
         // combine filters
         let filterValue = concatValues(filters);
         let filterData = {filter: filterValue};
-        if (filterGroup === 'series') {
+        if (filterGroup === 'cycles') {
             filterData['sortBy'] = 'bookOrder';
         }
         isoGrid.isotope(filterData);

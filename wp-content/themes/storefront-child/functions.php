@@ -1291,15 +1291,6 @@ function addFilterBar()
                                 data-filter=".cycle-<?php echo $cycle->slug ?>"><?php echo $cycle->name ?></button>
                     <?php endforeach; ?>
                 </div>
-                <div class="button-group" data-filter-group="series">
-                    <button class="button filter-btn"
-                            data-filter=".series-no-series">Книги вне серий
-                    </button>
-                    <?php foreach ($series as $ser): ?>
-                        <button class="button filter-btn"
-                                data-filter=".series-<?php echo $ser->slug ?>"><?php echo $ser->name ?></button>
-                    <?php endforeach; ?>
-                </div>
             </div>
         </div>
     </aside>
