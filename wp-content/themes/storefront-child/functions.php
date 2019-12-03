@@ -2640,3 +2640,27 @@ function addImageFilter()
         </div>
     <?php
 }
+
+function add_columns($columns) {
+    $num = 2; // после какой по счету колонки вставлять новые
+    $new_columns = array(
+        'id' => 'ID',
+    );
+    return array_slice( $columns, 0, $num ) + $new_columns + array_slice( $columns, $num );
+}
+
+add_filter("manage_edit-post_tag_columns", 'add_columns');
+
+
+function fill_columns($out, $column_name, $id) {
+    switch ($column_name) {
+        case 'id':
+            $out .= $id;
+            break;
+        default:
+            break;
+    }
+    return $out;
+}
+
+add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
