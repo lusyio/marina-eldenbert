@@ -99,7 +99,10 @@
                     лицами, не достигшими 18 лет
                 </p>
             </div>
-            <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
+            <div class="col-12 col-lg-4 text-center">
+                <a href="//showstreams.tv/"><img src="//www.free-kassa.ru/img/fk_btn/16.png" title="Бесплатный видеохостинг"></a>
+            </div>
+            <div class="col-12 col-lg-4 text-center text-lg-right ">
                 <p class="footer-name-p">
                     &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
                     , <?php echo date('Y'); ?></p>
