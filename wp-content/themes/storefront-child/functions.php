@@ -2664,3 +2664,8 @@ function fill_columns($out, $column_name, $id) {
 }
 
 add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
+
+function prefix_add_footer_styles() {
+    wp_enqueue_style( 'oa-socials', get_template_directory_uri() . '/inc/assets/css/oa-socials.css' );
+};
+add_action( 'get_footer', 'prefix_add_footer_styles' );
