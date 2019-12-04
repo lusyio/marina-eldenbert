@@ -16,9 +16,11 @@ Template Post Type: post, page, product
             </div>
             <div class="row news-n-events-row">
                 <?php $catquery = new WP_Query('cat=35&posts_per_page=999'); // portfolio  ?>
+                <?php $delay = 0; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
-                    <div class="col-lg-4 col-12 news-n-events-item">
+                    <div class="col-lg-4 col-12 news-n-events-item wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
@@ -33,9 +35,11 @@ Template Post Type: post, page, product
                             </div>
                         </div>
                     </div>
+                    <?php $delay = $delay + 0.2 ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
-                <div class="col-12 text-center">
+                <div class="col-12 text-center wow fadeInUp"
+                     data-wow-delay="<?php echo $delay ?>s">
                     <div class="load-more">Загрузить еще</div>
                 </div>
             </div>

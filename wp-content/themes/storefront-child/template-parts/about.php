@@ -10,20 +10,23 @@ Template Post Type: post, page, product
 
 <div class="container popular pt-0">
     <div class="row">
-        <div class="col-lg-6 col-12 offset-lg-3 offset-0">
+        <div class="col-lg-6 col-12 offset-lg-3 offset-0 wow fadeInUp"
+             data-wow-delay="0s">
             <h1 class="page-title-about mt-0">Нас двое</h1>
             <p class="after-title-about">Мы пишем только вместе и только под
                 одним псевдонимом - Марина Эльденберт</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-5 offset-lg-1 offset-0 col-12">
+        <div class="col-lg-5 offset-lg-1 offset-0 col-12 wow fadeInUp"
+             data-wow-delay="0s">
             <div class="about-image">
                 <img src="/wp-content/themes/storefront-child/images/marina-about.jpg" alt="">
                 <p class="about-image__text">Марина Кузина</p>
             </div>
         </div>
-        <div class="col-lg-5 col-12">
+        <div class="col-lg-5 col-12 wow fadeInUp"
+             data-wow-delay="0.2s">
             <div class="about-image">
                 <img src="/wp-content/themes/storefront-child/images/ksenia-about.jpg" alt="">
                 <p class="about-image__text">Ксения Литягина</p>
@@ -31,12 +34,14 @@ Template Post Type: post, page, product
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4 offset-lg-4 col-12-offset-0">
+        <div class="col-lg-4 offset-lg-4 col-12-offset-0 wow fadeInUp"
+             data-wow-delay="0s">
             <p class="about-image-after">За эти шесть лет мы прошли
                 действительно огромный путь</p>
         </div>
     </div>
-    <div class="row">
+    <div class="row wow fadeInUp"
+         data-wow-delay="0s">
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
             <p class="about-content">Написали <strong>26 романов</strong> <br>
                 ( + 2 в процессе написания)</p>
@@ -71,11 +76,13 @@ Template Post Type: post, page, product
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-10 offset-lg-1 offset-0 col-12">
+        <div class="col-lg-10 offset-lg-1 offset-0 col-12 wow fadeInUp"
+             data-wow-delay="0s">
             <img class="about-books" src="/wp-content/themes/storefront-child/images/books-about.jpg" alt="">
         </div>
     </div>
-    <div class="row">
+    <div class="row wow fadeInUp"
+         data-wow-delay="0s">
         <div class="col-lg-5 offset-lg-1 offset-0 col-12">
             <div class="about-content"><strong>Нас называют:</strong>
                 <p class="mb-0">Королевами ромфанта</p>
@@ -92,7 +99,8 @@ Template Post Type: post, page, product
         </div>
     </div>
 
-    <div class="row">
+    <div class="row wow fadeInUp"
+         data-wow-delay="0s">
         <div class="col-lg-5 offset-lg-1 offset-0 col-12">
             <div class="about-content"><strong>Писательство для нас – не только профессия!</strong>
                 <p class="mb-0">Мы кайфуем от того, что мы делаем</p>
@@ -110,7 +118,8 @@ Template Post Type: post, page, product
     </div>
 
     <img src="/wp-content/themes/storefront-child/images/marina-eldenbert-together.jpg" alt="Марина Эльденберт"
-         class="big-image-about"/>
+         class="big-image-about wow fadeInUp"
+         data-wow-delay="0s"/>
 
 </div>
 </div>
@@ -118,7 +127,8 @@ Template Post Type: post, page, product
 <div class="about-bg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 offset-lg-1 col-12 offset-0">
+            <div class="col-lg-10 offset-lg-1 col-12 offset-0 wow fadeInUp"
+                 data-wow-delay="0s">
                 <div class="about-card">
                     <div class="about-card-body">
                         <div class="about-card-body__text">

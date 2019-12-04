@@ -1259,9 +1259,11 @@ function addFilterBar()
             Фильтры
         </div>
         <div class="collapse d-lg-block" id="collapseFilter">
-            <button class="button clear-filters" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
+            <button class="button clear-filters wow fadeInUp animated"
+                    data-wow-delay="0.6s" data-filter="*"><i class="fas fa-times mr-2"></i> Сбросить фильтры
             </button>
-            <div class="filter-button-group">
+            <div class="filter-button-group wow fadeInUp animated"
+                 data-wow-delay="0s">
                 <?php if (count($bookTypeFilters) > 0) : ?>
                 <div class="button-group mb-5" data-filter-group="type">
                     <?php foreach ($bookTypeFilters as $filter): ?>
@@ -1273,7 +1275,8 @@ function addFilterBar()
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
-                <div class="button-group mb-5" data-filter-group="other">
+                <div class="button-group mb-5 wow fadeInUp animated"
+                     data-wow-delay="0.2s" data-filter-group="other">
                     <?php foreach ($otherFilters as $filter): ?>
                         <?php if (!key_exists($filter, $nonEmptyTags)) {
                             continue;
@@ -1282,7 +1285,8 @@ function addFilterBar()
                                 data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
                     <?php endforeach; ?>
                 </div>
-                <div class="button-group mb-5" data-filter-group="cycles">
+                <div class="button-group mb-5 wow fadeInUp animated"
+                     data-wow-delay="0.4s" data-filter-group="cycles">
                     <button class="button filter-btn"
                             data-filter=".cycle-no-cycle">Книги вне циклов
                     </button>
@@ -2664,3 +2668,6 @@ function fill_columns($out, $column_name, $id) {
 }
 
 add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
+
+wp_enqueue_style('animate', get_stylesheet_directory_uri() . '/inc/assets/css/animate.css');
+wp_enqueue_script('wow-js', get_stylesheet_directory_uri() . '/inc/assets/js/wow.min.js', array (), '', true);

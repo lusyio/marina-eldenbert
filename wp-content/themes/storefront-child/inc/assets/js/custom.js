@@ -1,3 +1,4 @@
+new WOW().init();
 jQuery(document).ready(function ($) {
 
     $('.checkbox-toggle').on('change', function () {

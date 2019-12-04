@@ -33,7 +33,8 @@ Template Post Type: post, page, product
                     foreach ($products as $product): ?>
                         <div class="swiper-slide">
                             <div class="row">
-                                <div class="col-12 col-lg-4 offset-lg-1 offset-0">
+                                <div class="col-12 col-lg-4 offset-lg-1 offset-0 wow fadeInUp"
+                                     data-wow-delay="0s">
                                     <p class="popular-header d-block d-lg-none text-center">Популярное</p>
                                     <div class="d-table m-auto">
                                         <a href="<?php echo $product->get_permalink(); ?>">
@@ -44,7 +45,8 @@ Template Post Type: post, page, product
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-7">
+                                <div class="col-12 col-lg-7 wow fadeInUp"
+                                     data-wow-delay="0.2s">
                                     <div class="row">
                                         <div class="col-lg-11 offset-lg-1 offset-0 col-12">
                                             <p class="popular-header d-lg-block d-none">Популярное</p>
@@ -90,6 +92,7 @@ Template Post Type: post, page, product
                 <div class="swiper-container-related">
                     <div class="swiper-wrapper">
                         <?php
+                        $delay = 0;
                         $query = new WC_Product_Query(array(
                             'status' => 'publish',
                             'orderby' => 'order_clause',
@@ -105,7 +108,7 @@ Template Post Type: post, page, product
                         $products = $query->get_products();
                         foreach ($products as $product):
                             ?>
-                            <div class="swiper-slide">
+                            <div class="swiper-slide wow fadeInUp" data-wow-delay="<?php echo $delay ?>s">
                                 <a href="<?php echo $product->get_permalink(); ?>">
                                     <div class="related-img-container">
                                         <?php echo $product->get_image('medium'); ?>
@@ -114,6 +117,7 @@ Template Post Type: post, page, product
                                     <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
                                 </a>
                             </div>
+                            <?php $delay = $delay + 0.2; ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -125,18 +129,20 @@ Template Post Type: post, page, product
 <div class="container">
     <div class="row">
         <div class="container announcement">
-            <div class="row announcement-hr-block">
+            <div class="row announcement-hr-block wow fadeInUp" data-wow-delay="0s">
                 <div class="col-12">
                     <p class="announcement-hr-block__text">Анонсы</p>
                 </div>
             </div>
             <div class="row">
                 <?php $catquery = new WP_Query('cat=33&posts_per_page=2'); // portfolio  ?>
-                <?php $portfolio_counter = 1; ?>
+                <?php
+                $delay = 0.2;
+                $portfolio_counter = 1; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
                     <?php if ($portfolio_counter == 1): ?>
-                    <div class="col-lg-6 col-12 mb-5">
+                    <div class="col-lg-6 col-12 mb-5 wow fadeInUp" data-wow-delay="<?php echo $delay ?>s">
                         <div class="row">
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
@@ -163,7 +169,8 @@ Template Post Type: post, page, product
                     </div>
                 <?php endif; ?>
                     <?php if ($portfolio_counter == 2): ?>
-                    <div class="col-lg-6 col-12 mb-5 d-lg-block d-none">
+                    <div class="col-lg-6 col-12 mb-5 d-lg-block d-none wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s">
                         <div class="row">
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
@@ -189,7 +196,8 @@ Template Post Type: post, page, product
                         </div>
                     </div>
 
-                    <div class="col-12 text-center"><a class="announcement__link"
+                    <div class="col-12 text-center wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s"><a class="announcement__link"
                                                        href="<?php echo get_permalink($post = 42) ?>">Смотреть все
                             анонсы</a>
                     </div>
@@ -197,12 +205,13 @@ Template Post Type: post, page, product
                     <?php break; ?>
                 <?php endif; ?>
                     <?php $portfolio_counter++; ?>
+                    <?php $delay = $delay + 0.2; ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
             </div>
         </div>
         <div class="container blog">
-            <div class="row blog-hr-block">
+            <div class="row blog-hr-block wow fadeInUp" data-wow-delay="0s">
                 <div class="col-12">
                     <p class="blog-hr-block__text">Авторский блог</p>
                 </div>
@@ -210,10 +219,11 @@ Template Post Type: post, page, product
             <div class="row">
                 <?php $catquery = new WP_Query('cat=34&posts_per_page=2'); // portfolio  ?>
                 <?php $portfolio_counter = 1; ?>
+                <?php $delay = 0.2; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
                     <?php if ($portfolio_counter == 1): ?>
-                    <div class="col-lg-6 col-12 mb-5">
+                    <div class="col-lg-6 col-12 mb-5 wow fadeInUp" data-wow-delay="<?php echo $delay ?>s">
                         <div class="blog-card">
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
@@ -232,7 +242,8 @@ Template Post Type: post, page, product
                     </div>
                 <?php endif; ?>
                     <?php if ($portfolio_counter == 2): ?>
-                    <div class="col-lg-6 col-12 mb-5 d-lg-block d-none">
+                    <div class="col-lg-6 col-12 mb-5 d-lg-block d-none wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s">
                         <div class="blog-card">
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
@@ -250,18 +261,20 @@ Template Post Type: post, page, product
                         </div>
                     </div>
 
-                    <div class="col-12 text-center"><a class="blog__link"
+                    <div class="col-12 text-center wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s"><a class="blog__link"
                                                        href="<?php echo get_permalink($post = 33) ?>">Смотреть все
                             посты</a></div>
                     <?php break; ?>
                 <?php endif; ?>
                     <?php $portfolio_counter++; ?>
+                    <?php $delay = $delay + 0.2; ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
             </div>
         </div>
         <div class="container news-n-events">
-            <div class="row news-n-events-hr-block">
+            <div class="row news-n-events-hr-block wow fadeInUp" data-wow-delay="0s">
                 <div class="col-12">
                     <p class="news-n-events-hr-block__text">Новости и события</p>
                 </div>
@@ -269,10 +282,11 @@ Template Post Type: post, page, product
             <div class="row">
                 <?php $catquery = new WP_Query('cat=35&posts_per_page=3'); // portfolio  ?>
                 <?php $portfolio_counter = 1; ?>
+                <?php $delay = 0.2; ?>
                 <?php while ($catquery->have_posts()) :
                     $catquery->the_post(); ?>
                     <?php if ($portfolio_counter < 3): ?>
-                    <div class="col-lg-4 col-12 mb-lg-5 mb-2">
+                    <div class="col-lg-4 col-12 mb-lg-5 mb-2 wow fadeInUp" data-wow-delay="<?php echo $delay ?>s">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
@@ -289,7 +303,8 @@ Template Post Type: post, page, product
                     </div>
                 <?php endif; ?>
                     <?php if ($portfolio_counter == 3): ?>
-                    <div class="col-lg-4 col-12 mb-lg-5 mb-2 d-lg-block d-none">
+                    <div class="col-lg-4 col-12 mb-lg-5 mb-2 d-lg-block d-none wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s">
                         <div class="news-n-events-card">
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
@@ -305,13 +320,15 @@ Template Post Type: post, page, product
                         </div>
                     </div>
 
-                    <div class="col-12 text-center"><a class="news-n-events__link"
+                    <div class="col-12 text-center wow fadeInUp"
+                         data-wow-delay="<?php echo $delay ?>s"><a class="news-n-events__link"
                                                        href="<?php echo get_permalink($post = 44) ?>">Смотреть все
                             новости</a>
                     </div>
                     <?php break; ?>
                 <?php endif; ?>
                     <?php $portfolio_counter++; ?>
+                    <?php $delay = $delay + 0.2; ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
             </div>

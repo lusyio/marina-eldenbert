@@ -15,7 +15,8 @@ do_action('id_page_check');
 <div class="club-container">
     <div class="container club-bg">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 col-12 offset-0">
+            <div class="col-lg-6 offset-lg-3 col-12 offset-0 wow fadeInUp"
+                 data-wow-delay="<?php echo $delay ?>s">
                 <div class="club-header">
                     <h1 class="club-header__title">VIP-клуб <br>
                         Марины Эльденберт</h1>
@@ -29,7 +30,8 @@ do_action('id_page_check');
 
 <div class="container club-content">
     <div class="row">
-        <div class="col-lg-10 offset-lg-1 col-12 offset-0 p-lg-0 p-unset">
+        <div class="col-lg-10 offset-lg-1 col-12 offset-0 p-lg-0 p-unset wow fadeInUp"
+             data-wow-delay="0s">
             <p class="club-content__text mb-5">VIP-клуб – это территория наших читателей, где
                 выкладываются бонусные рассказы к любимым историям
                 и проводятся закрытые розыгрыши: книги на бумаге с автографами, абонементы на бесплатное чтение,
@@ -40,7 +42,8 @@ do_action('id_page_check');
         </div>
     </div>
     <div class="row" id="howToJoin">
-        <div class="col-lg-8 offset-lg-1 col-12 offset-0">
+        <div class="col-lg-8 offset-lg-1 col-12 offset-0 wow fadeInUp"
+             data-wow-delay="0s">
             <h2 class="club-content__title text-left">Как стать участником?</h2>
             <p class="club-content__text text-left mb-5">Чтобы получить VIP-карточку, нужно достичь уровня «Платина».
                 После
@@ -50,18 +53,21 @@ do_action('id_page_check');
                 и героев, вы получаете различные бонусы:
             </p>
         </div>
-        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none">
+        <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none wow fadeInUp"
+             data-wow-delay="0.2s">
             <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
         </div>
         <div class="col-1"></div>
     </div>
     <div class="row">
         <div class="col-lg-10 offset-lg-1 col-12 offset-0">
-            <div class="club-ranks-row">
+            <div class="club-ranks-row wow fadeInUp"
+                 data-wow-delay="0s">
                 <div class="row">
                     <div class="col-2 d-md-block d-none"></div>
                     <div class="col-5 col-md"><p>Статус</p></div>
-                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-inline d-none">получения</span></p></div>
+                    <div class="col col-md-3 text-left text-md-center"><p>Условия <span class="d-md-inline d-none">получения</span>
+                        </p></div>
                     <div class="col text-center d-md-block d-none"><p>Доступ</p></div>
                     <div class="col text-right text-md-center"><p>Скидка</p></div>
                 </div>
@@ -69,14 +75,17 @@ do_action('id_page_check');
             <?php
             $allRanks = mycred_get_ranks();
             $ctype = MYCRED_DEFAULT_TYPE_KEY;
+            $delay = 0.2;
             ?>
             <?php foreach (array_reverse($allRanks, true) as $rank): ?>
-            <?php
+                <?php
                 $titles = explode(':', $rank->title);
                 ?>
-                <div class="club-ranks-row">
+                <div class="club-ranks-row wow fadeInUp"
+                     data-wow-delay="<?php echo $delay ?>s">
                     <div class="row">
-                        <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt=""></div>
+                        <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt="">
+                        </div>
                         <div class="col-5 col-md m-auto"><?php echo $titles[0]; ?></div>
                         <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
                         </div>
@@ -84,6 +93,7 @@ do_action('id_page_check');
                         <div class="col m-auto text-right text-md-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
                     </div>
                 </div>
+                <?php $delay = $delay + 0.2; ?>
             <?php endforeach; ?>
         </div>
     </div>
@@ -105,7 +115,8 @@ do_action('id_page_check');
         $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
         ?>
         <?php if (is_user_logged_in()): ?>
-        <div class="row">
+        <div class="row wow fadeInUp"
+             data-wow-delay="0s">
             <div class="col-lg-8 offset-lg-2 col-12 offset-0">
                 <p class="club-content__title">Ваш текущий статус</p>
                 <div class="row mb-4">
@@ -150,8 +161,9 @@ do_action('id_page_check');
         $text = get_option('freeAccessText', '');
         $formattedText = preg_replace('~\(\(\(~', '<strong>', $text);
         $formattedText = preg_replace('~\)\)\)~', '</strong>', $formattedText);
-    ?>
-        <div class="row club-footer">
+        ?>
+        <div class="row club-footer wow fadeInUp"
+             data-wow-delay="0s">
             <div class="col-lg-6 offset-lg-3 col-12 offset-0">
 
                 <p class="club-footer__text"><?php echo $formattedText ?></p>
@@ -164,5 +176,5 @@ do_action('id_page_check');
 
 <div class="container">
     <div class="row">
-        
+
         <?php get_footer(); ?>
