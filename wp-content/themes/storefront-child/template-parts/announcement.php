@@ -25,7 +25,7 @@ Template Post Type: post, page, product
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="announcement-img">
-                                        <?= get_the_post_thumbnail() ?>
+                                        <?= get_the_post_thumbnail('', 'large' ) ?>
                                     </div>
                                 </a>
                             </div>

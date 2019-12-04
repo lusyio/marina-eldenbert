@@ -41,7 +41,7 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                                     <div class="blog-card__header">
                                         <a href="<?php the_permalink() ?>">
                                             <div class="blog-card__img">
-                                                <?= get_the_post_thumbnail() ?>
+                                                <?= get_the_post_thumbnail('', 'large' ) ?>
                                             </div>
                                         </a>
                                     </div>

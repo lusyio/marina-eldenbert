@@ -803,17 +803,21 @@ footer.site-footer {
     background: #FCFBFB;
 }
 
-.oneall_social_login_label{
+.oneall_social_login_label {
     text-align: center;
 }
 
-.oneall_social_login{
+.oneall_social_login {
     margin-top: 30px;
 }
 
-.oneall_social_login_providers{
+.oneall_social_login_providers {
     width: 147px;
     margin: auto;
+}
+
+.wow {
+    visibility: hidden;
 }
 
 /*--------------------------------------------------------------
@@ -3790,6 +3794,7 @@ a#nep_call_panel.nep_right_bottom {
 .imagesButtonBlock .filter-btn:hover {
     font-size: 16px;
 }
+
 .clear-filters:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

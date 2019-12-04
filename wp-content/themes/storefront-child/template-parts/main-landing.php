@@ -39,7 +39,7 @@ Template Post Type: post, page, product
                                     <div class="d-table m-auto">
                                         <a href="<?php echo $product->get_permalink(); ?>">
                                             <div class="popular-img-container">
-                                                <?php echo $product->get_image(385); ?>
+                                                <?php echo $product->get_image('large'); ?>
                                                 <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
                                             </div>
                                         </a>
@@ -147,7 +147,7 @@ Template Post Type: post, page, product
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="announcement-img">
-                                        <?= get_the_post_thumbnail() ?>
+                                        <?= get_the_post_thumbnail('', 'large' ) ?>
                                     </div>
                                 </a>
                             </div>
@@ -175,7 +175,7 @@ Template Post Type: post, page, product
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="announcement-img">
-                                        <?= get_the_post_thumbnail() ?>
+                                        <?= get_the_post_thumbnail('', 'large' ) ?>
                                     </div>
                                 </a>
                             </div>
@@ -228,7 +228,7 @@ Template Post Type: post, page, product
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="blog-card__img">
-                                        <?= get_the_post_thumbnail() ?>
+                                        <?= get_the_post_thumbnail('', 'large' ) ?>
                                     </div>
                                 </a>
                             </div>
@@ -248,7 +248,7 @@ Template Post Type: post, page, product
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="blog-card__img">
-                                        <?= get_the_post_thumbnail() ?>
+                                        <?= get_the_post_thumbnail('', 'large' ) ?>
                                     </div>
                                 </a>
                             </div>
