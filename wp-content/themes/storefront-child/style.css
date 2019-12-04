@@ -803,6 +803,26 @@ footer.site-footer {
     background: #FCFBFB;
 }
 
+.plugin #providers{
+    float: unset !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.plugin .footer #branding a{
+    display: none !important;
+    visibility: hidden !important;
+    font-size: 0 !important;
+}
+
+.oneall_social_login_label{
+    text-align: center;
+}
+
+.oneall_social_login{
+    margin-top: 30px;
+}
+
 /*--------------------------------------------------------------
 # FOOTER
 --------------------------------------------------------------*/
