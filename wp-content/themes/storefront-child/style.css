@@ -803,6 +803,19 @@ footer.site-footer {
     background: #FCFBFB;
 }
 
+.oneall_social_login_label{
+    text-align: center;
+}
+
+.oneall_social_login{
+    margin-top: 30px;
+}
+
+.oneall_social_login_providers{
+    width: 147px;
+    margin: auto;
+}
+
 /*--------------------------------------------------------------
 # FOOTER
 --------------------------------------------------------------*/
