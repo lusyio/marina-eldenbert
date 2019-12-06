@@ -41,13 +41,20 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                                     <div class="blog-card__header">
                                         <a href="<?php the_permalink() ?>">
                                             <div class="blog-card__img">
-                                                <?= get_the_post_thumbnail('', 'large' ) ?>
+                                                <?= get_the_post_thumbnail('', 'large') ?>
                                             </div>
                                         </a>
                                     </div>
                                     <div class="blog-card__body">
                                         <p class="blog-card__date"><?= get_the_date() ?></p>
-                                        <div class="blog-card__text"><?php the_content(); ?></div>
+                                        <div class="blog-card__text">
+                                            <p>
+                                            <?php
+                                            $desc = get_the_content();
+                                            echo mb_strimwidth($desc, 0, 150, '...');
+                                            ?>
+                                            </p>
+                                        </div>
                                         <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
                                     </div>
                                 </div>
