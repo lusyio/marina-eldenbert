@@ -15,19 +15,35 @@ Template Post Type: post, page, product
             <div class="swiper-container-popular">
                 <div class="swiper-wrapper">
                     <?php
-                    $query = new WC_Product_Query(array(
+                    $args = [
                         'status' => 'publish',
                         'orderby' => 'date',
                         'order' => 'DESC',
                         'limit' => 5,
-                        'tax_query' => array(
-                            array(
+                        'tax_query' => [
+                            [
                                 'taxonomy' => 'product_tag',
                                 'field' => 'slug',
                                 'terms' => 'bestseller',
-                            )
-                        )
-                    ));
+                            ],
+                        ]
+                    ];
+                    $myRank = mycred_get_my_rank();
+                    if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+                        $hasVip = true;
+                    } else {
+                        $hasVip = false;
+                    }
+                    if(!$hasVip && !isAdmin()) {
+                        $args['tax_query']['relation'] = 'AND';
+                        $args['tax_query'][] = [
+                            'taxonomy' => 'product_tag',
+                            'terms' => ['vip'],
+                            'field' => 'slug',
+                            'operator' => 'NOT IN',
+                        ];
+                    }
+                    $query = new WC_Product_Query($args);
                     $terms = get_the_terms(get_the_ID(), 'product_cat');
                     $products = $query->get_products();
                     foreach ($products as $product): ?>

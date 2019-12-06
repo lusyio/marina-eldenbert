@@ -45,7 +45,8 @@ if ($related_products) : ?>
                             <div class="swiper-wrapper">
 
                                 <?php foreach ($related_products
-                                               as $related_product) : ?>
+                                               as $related_product) :
+                                ?>
                                     <div class="swiper-slide">
                                         <a href="<?php echo $related_product->get_permalink(); ?>">
                                             <div class="related-img-container">

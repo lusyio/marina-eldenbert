@@ -2681,3 +2681,86 @@ add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
 
 wp_enqueue_style('animate', get_stylesheet_directory_uri() . '/inc/assets/css/animate.css');
 wp_enqueue_script('wow-js', get_stylesheet_directory_uri() . '/inc/assets/js/wow.min.js', array (), '', true);
+
+// Скрываем товары для клуба от непопавших в клуб
+
+function excludeVipProductsFromProductsPage( $q ) {
+    $myRank = mycred_get_my_rank();
+    if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+        $hasVip = true;
+    } else {
+        $hasVip = false;
+    }
+
+    if(!$hasVip && !isAdmin()) {
+        $q->query_vars['tax_query'][] = [
+            'taxonomy' => 'product_tag',
+            'terms' => ['vip'],
+            'field' => 'slug',
+            'operator' => 'NOT IN',
+        ];
+    }
+}
+add_action( 'woocommerce_product_query', 'excludeVipProductsFromProductsPage' );
+
+// Скрываем товары для клуба от непопавших в клуб
+add_filter('woocommerce_related_products', function ($relatedBookIds) {
+    $myRank = mycred_get_my_rank();
+    if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+        $hasVip = true;
+    } else {
+        $hasVip = false;
+    }
+    if(!$hasVip && !isAdmin()) {
+        $args = array(
+            'tag' => array( 'vip' ),
+            'return' => 'ids',
+        );
+        $vipBooks = wc_get_products( $args );
+        $relatedBookIds = array_diff($relatedBookIds, $vipBooks);
+
+    }
+    return $relatedBookIds;
+});
+
+add_action('template_redirect', 'club_redirect');
+
+/**
+ * Редирект со страниц клуба, товаров и читалок для клуба на 404
+ */
+function club_redirect() {
+    global $post, $wp_query, $product, $page;
+    $myRank = mycred_get_my_rank();
+    if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+        $hasVip = true;
+    } else {
+        $hasVip = false;
+    }
+    if(!$hasVip && !isAdmin()) {
+        if (is_product()) {
+            $terms = wc_get_product_terms($post->ID, 'product_tag');
+            foreach ($terms as $term) {
+                if ($term->slug == 'vip') {
+                    $wp_query->set_404();
+                }
+            }
+        } elseif (is_single()) {
+            $categories = get_the_category();
+            foreach ($categories as $category) {
+                if ($category->slug == 'club') {
+                    $wp_query->set_404();
+                }
+            }
+        } elseif (is_page()) {
+            $bookId = get_post_meta($post->ID, 'book_id',true);
+            if ($bookId) {
+                $terms = wc_get_product_terms($bookId, 'product_tag');
+                foreach ($terms as $term) {
+                    if ($term->slug == 'vip') {
+                        $wp_query->set_404();
+                    }
+                }
+            }
+        }
+    }
+}

@@ -27,6 +27,20 @@ $args = array(
     'post__not_in' => $product_ids_in_cart,
     'orderby' => 'date',
     'order' => 'DESC');
+$myRank = mycred_get_my_rank();
+if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
+    $hasVip = true;
+} else {
+    $hasVip = false;
+}
+if(!$hasVip && !isAdmin()) {
+    $vipArgs = array(
+        'tag' => array( 'vip' ),
+        'return' => 'ids',
+    );
+    $vipBooks = wc_get_products( $vipArgs );
+    $args['post__not_in'] += $vipBooks;
+}
 $loop = new WP_Query($args);
 while ($loop->have_posts()) :
     $loop->the_post();
