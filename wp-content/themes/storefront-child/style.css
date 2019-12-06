@@ -829,6 +829,10 @@ footer.site-footer {
     margin-bottom: 30px;
 }
 
+.container-related.bg-white {
+    padding-bottom: 1.25rem;
+}
+
 /*--------------------------------------------------------------
 # FOOTER
 --------------------------------------------------------------*/
