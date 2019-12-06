@@ -29,7 +29,7 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                 }
                 if ($categoryId == 44):
                     ?>
-                    <div class="container-related bg-white">
+                    <div class="container-related bg-white pt-5">
                         <div class="container position-relative">
                             <div class="container-related__prev"><img
                                         src="/wp-content/themes/storefront-child/svg/related-next.svg" alt="">
@@ -38,7 +38,9 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                                         src="/wp-content/themes/storefront-child/svg/related-next.svg" alt="">
                             </div>
                             <div class="row">
-                                <p class="container-related__title">Эксклюзивные книги</p>
+                                <div class="col-12">
+                                    <p class="container-related__title">Эксклюзивные книги</p>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-10 offset-lg-1 col-12 offset-0 text-center">
