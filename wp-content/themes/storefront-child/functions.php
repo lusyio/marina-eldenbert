@@ -2741,14 +2741,14 @@ function club_redirect() {
             $terms = wc_get_product_terms($post->ID, 'product_tag');
             foreach ($terms as $term) {
                 if ($term->slug == 'vip') {
-                    $wp_query->set_404();
+                    wp_redirect(get_permalink(get_page_by_path('club')));
                 }
             }
         } elseif (is_single()) {
             $categories = get_the_category();
             foreach ($categories as $category) {
                 if ($category->slug == 'club') {
-                    $wp_query->set_404();
+                    wp_redirect(get_permalink(get_page_by_path('club')));
                 }
             }
         } elseif (is_page()) {
@@ -2757,7 +2757,7 @@ function club_redirect() {
                 $terms = wc_get_product_terms($bookId, 'product_tag');
                 foreach ($terms as $term) {
                     if ($term->slug == 'vip') {
-                        $wp_query->set_404();
+                        wp_redirect(get_permalink(get_page_by_path('club')));
                     }
                 }
             }
