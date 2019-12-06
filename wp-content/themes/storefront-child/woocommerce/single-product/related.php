@@ -40,7 +40,7 @@ if ($related_products) : ?>
                             echo the_title();
                             echo '"';
                             echo '<br/>';
-                            echo ' также покупают:' ?></h2>
+                            echo ' также читают:' ?></h2>
                         <div class="swiper-container-related">
                             <div class="swiper-wrapper">
 
