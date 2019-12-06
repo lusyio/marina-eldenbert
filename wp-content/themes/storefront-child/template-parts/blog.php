@@ -57,6 +57,7 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                                                         'type' => 'NUMERIC' // unless the field is not a number
                                                     )),
                                                 'limit' => 12,
+                                                'tag' => 'vip',
                                             ));
                                             $products = $query->get_products();
                                             foreach ($products as $product):
