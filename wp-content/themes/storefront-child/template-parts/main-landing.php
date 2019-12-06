@@ -109,7 +109,7 @@ Template Post Type: post, page, product
                     <div class="swiper-wrapper">
                         <?php
                         $delay = 0;
-                        $query = new WC_Product_Query(array(
+                        $args = array(
                             'status' => 'publish',
                             'orderby' => 'order_clause',
                             'order' => 'DESC',
@@ -120,7 +120,17 @@ Template Post Type: post, page, product
                                     'type' => 'NUMERIC' // unless the field is not a number
                                 )),
                             'limit' => 12,
-                        ));
+                        );
+                        if(!$hasVip && !isAdmin()) {
+                            $args['tax_query']['relation'] = 'AND';
+                            $args['tax_query'][] = [
+                                'taxonomy' => 'product_tag',
+                                'terms' => ['vip'],
+                                'field' => 'slug',
+                                'operator' => 'NOT IN',
+                            ];
+                        }
+                        $query = new WC_Product_Query($args);
                         $products = $query->get_products();
                         foreach ($products as $product):
                             ?>
