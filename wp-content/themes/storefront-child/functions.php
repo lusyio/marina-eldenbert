@@ -2649,7 +2649,10 @@ function addImageFilter()
     }
     ?>
         <div>
-        <?php foreach ($subCats as   $subCat): ?>
+        <?php foreach ($subCats as $subCat):
+            if ($subCat->category_count == 0) {
+                continue;
+            }; ?>
             <button class="button clear-filters mr-2 d-inline-block"
                     data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
         <?php endforeach; ?>
