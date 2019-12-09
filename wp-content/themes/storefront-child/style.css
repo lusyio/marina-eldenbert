@@ -2680,6 +2680,10 @@ h2.related-product {
     bottom: -30px;
 }
 
+.product-price.free{
+    left: 36%;
+}
+
 .storefront-sticky-add-to-cart__content-button {
     margin-right: 0;
     background: #F8AC53 !important;
