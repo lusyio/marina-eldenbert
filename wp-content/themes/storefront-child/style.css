@@ -2920,7 +2920,6 @@ h2.related-product {
 .grid-item,
 .grid-sizer {
     width: 30%;
-    max-height: 500px;
 }
 
 .grid-item img {
@@ -2934,7 +2933,7 @@ h2.related-product {
     background-repeat: no-repeat !important;
 }
 
-.grid {
+.grid-images {
     margin-top: 52px;
     margin-bottom: 52px;
 }

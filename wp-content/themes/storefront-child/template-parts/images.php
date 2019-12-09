@@ -17,7 +17,7 @@ Template Post Type: post, page, product
             </div>
         </div>
     </div>
-    <div class="grid">
+    <div class="grid grid-images">
         <div class="grid-sizer"></div>
         <?php
         $query = new WP_Query('category_name=images');

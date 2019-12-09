@@ -1233,9 +1233,11 @@ function addIsotopeScript()
     if (is_shop()) {
         wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array('jquery'));
         wp_enqueue_script('filter-script', get_stylesheet_directory_uri() . '/inc/assets/js/filter.js', array('jquery', 'isotope'));
+        wp_enqueue_script('imagesloaded', get_bloginfo('stylesheet_directory') . '/inc/assets/js/imagesloaded.pkgd.min.js', array('jquery'), false, true);
     } else if (get_the_ID() == 35) { // ID страницы Иллюстрации
         wp_enqueue_script('isotope', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array('jquery'));
         wp_enqueue_script('filter-images-script', get_stylesheet_directory_uri() . '/inc/assets/js/filter-images.js', array('jquery', 'isotope'));
+        wp_enqueue_script('imagesloaded', get_bloginfo('stylesheet_directory') . '/inc/assets/js/imagesloaded.pkgd.min.js', array('jquery'), false, true);
         wp_enqueue_script('fancybox', get_stylesheet_directory_uri() . '/inc/assets/js/fancybox-custom.js', array('jquery'));
     }
 }
