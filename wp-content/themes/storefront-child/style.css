@@ -3870,7 +3870,6 @@ button.button.filter-btn {
     background: transparent;
     font-weight: 300;
     font-size: 1.125rem;
-    line-height: 32px;
     color: #757575;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -3892,9 +3891,13 @@ button.button.filter-btn:hover {
     color: #1C1C1C;
 }
 
+button.button.filter-btn.filter-btn-images.active{
+    font-weight: 300;
+    color: #1C1C1C;
+}
+
 button.button.filter-btn.active {
     font-weight: normal;
-    line-height: 32px;
     color: #F8AC53;
 }
 
@@ -4249,14 +4252,19 @@ button.button.filter-btn:focus {
 }
 
 button.clear-filters.clear-filters-images {
-    margin: 0;
+    margin: 0 10px 10px 0;
     font-size: 1.125rem;
+    background: #fafafa;
 }
 
 button.filter-btn.filter-btn-images {
     margin-left: 0;
-    margin-right: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    background: #F9F8F5;
     font-size: 1.125rem;
+    line-height: 21px;
 }
 
 /*--------------------------------------------------------------
@@ -4526,17 +4534,13 @@ and (max-width: 768px) {
     }
 
     button.clear-filters.clear-filters-images {
-        margin: 0;
-        padding: 5px;
+        margin: 0 10px 10px 0;
+        padding: 5px 10px;
     }
 
     button.filter-btn.filter-btn-images {
-        margin: 0;
-        padding: 5px;
-    }
-
-    button.button.filter-btn.active {
-        font-size: 15px;
+        margin: 0 5px 10px 0;
+        padding: 5px 10px;
     }
 
     button.button.clear-filters {
