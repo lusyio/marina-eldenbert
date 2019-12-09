@@ -21,7 +21,9 @@ Template Post Type: post, page, product
         <div class="grid-sizer"></div>
         <?php
         $query = new WP_Query('category_name=images');
+        $hasImages = false;
         while ($query->have_posts()) {
+            $hasImages = true;
             $query->the_post();
             $categories = get_the_category();
             $categoryClass = '';
@@ -37,9 +39,13 @@ Template Post Type: post, page, product
             </div>
             <?php
         }
-        wp_reset_postdata();
-        ?>
+        wp_reset_postdata(); ?>
     </div>
+    <?php if (!$hasImages): ?>
+    <div class="isotope-empty" style="display: block">
+        <p>Нет иллюстраций</p>
+    </div>
+    <?php endif; ?>
 </div>
 
 <?php get_footer(); ?>
