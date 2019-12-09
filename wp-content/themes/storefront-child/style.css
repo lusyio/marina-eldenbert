@@ -4248,12 +4248,12 @@ button.button.filter-btn:focus {
     margin-top: 80px;
 }
 
-button.clear-filters.clear-filters-images{
+button.clear-filters.clear-filters-images {
     margin: 0;
     font-size: 1.125rem;
 }
 
-button.filter-btn.filter-btn-images{
+button.filter-btn.filter-btn-images {
     margin-left: 0;
     margin-right: 20px;
     font-size: 1.125rem;
@@ -4524,18 +4524,23 @@ and (max-width: 768px) {
     .club-ranks-row p {
         padding-bottom: 0;
     }
-    button.clear-filters.clear-filters-images{
+
+    button.clear-filters.clear-filters-images {
         margin: 0;
         padding: 5px;
     }
 
-    button.filter-btn.filter-btn-images{
+    button.filter-btn.filter-btn-images {
         margin: 0;
         padding: 5px;
     }
 
-    button.button.filter-btn.active{
+    button.button.filter-btn.active {
         font-size: 15px;
+    }
+
+    button.button.clear-filters {
+        margin-bottom: 10px;
     }
 
 }
