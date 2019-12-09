@@ -3,8 +3,7 @@ jQuery(function ($) {
         {
             buttons: [
                 'download',
-                'thumbs',
-                'close'
+                'close',
             ],
         });
 });
