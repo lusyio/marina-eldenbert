@@ -2680,7 +2680,7 @@ h2.related-product {
     bottom: -30px;
 }
 
-.product-price.free{
+.product-price.free {
     left: 36%;
 }
 
@@ -2917,7 +2917,7 @@ h2.related-product {
     margin-right: 30px;
 }
 
-.fancybox-button:hover{
+.fancybox-button:hover {
     border: none !important;
 }
 
@@ -3835,12 +3835,12 @@ a#nep_call_panel.nep_right_bottom {
 # COMMENTS
 --------------------------------------------------------------*/
 
-.clear-filters {
+button.button.clear-filters {
     background: #F9F8F7;
     border-radius: 20px;
     border: none;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #C4C4C4;
     padding: 10px 20px;
@@ -3848,7 +3848,7 @@ a#nep_call_panel.nep_right_bottom {
     margin-bottom: 40px;
 }
 
-.clear-filters:hover {
+button.button.clear-filters:hover {
     border: none;
     background: #F9F8F7;
 }
@@ -3857,19 +3857,19 @@ a#nep_call_panel.nep_right_bottom {
     font-size: 16px;
 }
 
-.clear-filters:focus {
+button.button.clear-filters:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     outline: none;
 }
 
-.filter-btn {
+button.button.filter-btn {
     padding: 0;
     border: none;
     background: transparent;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 32px;
     color: #757575;
     -webkit-border-radius: 0;
@@ -3882,7 +3882,7 @@ a#nep_call_panel.nep_right_bottom {
     margin-left: 20px;
 }
 
-.filter-btn:hover {
+button.button.filter-btn:hover {
     border: none;
     -webkit-transform: none;
     -moz-transform: none;
@@ -3892,14 +3892,14 @@ a#nep_call_panel.nep_right_bottom {
     color: #1C1C1C;
 }
 
-.filter-btn.active {
+button.button.filter-btn.active {
     font-weight: normal;
     font-size: 18px;
     line-height: 32px;
     color: #F8AC53;
 }
 
-.filter-btn:focus {
+button.button.filter-btn:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -4249,6 +4249,17 @@ a#nep_call_panel.nep_right_bottom {
     margin-top: 80px;
 }
 
+button.clear-filters.clear-filters-images{
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+button.filter-btn.filter-btn-images{
+    margin-left: 0;
+    margin-right: 20px;
+    font-size: 1.125rem;
+}
+
 /*--------------------------------------------------------------
 # ABOUT
 --------------------------------------------------------------*/
@@ -4514,6 +4525,15 @@ and (max-width: 768px) {
     .club-ranks-row p {
         padding-bottom: 0;
     }
+    button.clear-filters.clear-filters-images{
+        margin: 0;
+        padding: 5px;
+    }
+
+    button.filter-btn.filter-btn-images{
+        margin: 0;
+        padding: 5px;
+    }
 
 }
 
@@ -4625,7 +4645,7 @@ and (max-width: 576px) {
         bottom: -20px;
     }
 
-    .popular-img-container__free{
+    .popular-img-container__free {
         max-width: 130px;
         padding: 10px 16px;
         font-size: 18px;

@@ -37,12 +37,21 @@ jQuery(function ($) {
 
         isoGrid = $('.grid').isotope(params);
 
+        let $categoryName = [];
+
+        $('.images-link').each(function () {
+            $categoryName.push($(this).data('category'));
+        });
+
         $('.filter-btn').on('click', function () {
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
             let filterValue = $(this).attr('data-filter');
             let filterData = {filter: filterValue};
             isoGrid.isotope(filterData);
+            $('.images-link').each(function (index) {
+                $(this).attr('data-fancybox', $categoryName[index]);
+            })
         });
 
         $('.clear-filters').on('click', function () {
@@ -50,7 +59,7 @@ jQuery(function ($) {
             $('.filter-btn').removeClass('active');
             let filterData = {filter: filterValue};
             isoGrid.isotope(filterData);
-
+            $('.images-link').attr('data-fancybox', 'images-all');
         });
     })
 });
