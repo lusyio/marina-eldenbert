@@ -25,6 +25,9 @@ Template Post Type: post, page, product
         while ($query->have_posts()) {
             $hasImages = true;
             $query->the_post();
+            if (!has_post_thumbnail()) {
+                continue;
+            }
             $categories = get_the_category();
             $categoryClass = '';
             foreach ($categories as $category) {
