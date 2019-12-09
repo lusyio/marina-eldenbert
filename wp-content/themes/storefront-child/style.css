@@ -3894,7 +3894,6 @@ button.button.filter-btn:hover {
 
 button.button.filter-btn.active {
     font-weight: normal;
-    font-size: 18px;
     line-height: 32px;
     color: #F8AC53;
 }
