@@ -4625,6 +4625,14 @@ and (max-width: 576px) {
         bottom: -20px;
     }
 
+    .popular-img-container__free{
+        max-width: 130px;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 21px;
+        bottom: -20px;
+    }
+
     .announcement-header {
         text-align: center;
     }
