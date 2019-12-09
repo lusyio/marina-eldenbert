@@ -17,7 +17,7 @@ Template Post Type: post, page, product
             </div>
         </div>
     </div>
-    <div class="grid">
+    <div class="grid grid-images">
         <div class="grid-sizer"></div>
         <?php
         $query = new WP_Query('category_name=images');
@@ -30,7 +30,7 @@ Template Post Type: post, page, product
             }
             ?>
             <div class="grid-item<?php echo $categoryClass ?>">
-                <a data-fancybox class="images-link image-id-<?php echo get_the_ID() ?>"
+                <a data-fancybox="<?php echo $categoryClass ?>" class="images-link image-id-<?php echo get_the_ID() ?>"
                    href="<?php echo get_the_post_thumbnail_url(); ?>" data-caption="<?php the_title(); ?>">
                     <?php echo get_the_post_thumbnail(null, 'small'); ?>
                 </a>
