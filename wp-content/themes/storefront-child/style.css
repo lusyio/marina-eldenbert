@@ -4534,6 +4534,10 @@ and (max-width: 768px) {
         padding: 5px;
     }
 
+    button.button.filter-btn.active{
+        font-size: 15px;
+    }
+
 }
 
 @media screen
