@@ -3896,6 +3896,14 @@ button.button.filter-btn.filter-btn-images.active{
     color: #1C1C1C;
 }
 
+button.button.filter-btn.filter-btn-images:hover{
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px);
+}
+
 button.button.filter-btn.active {
     font-weight: normal;
     color: #F8AC53;
