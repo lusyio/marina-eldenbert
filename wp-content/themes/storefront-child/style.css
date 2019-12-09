@@ -4769,6 +4769,10 @@ and (max-width: 576px) {
         height: 130px;
     }
 
+    .grid-item{
+        margin-bottom: 15px;
+    }
+
     .grid-item,
     .grid-sizer {
         width: 100%;
