@@ -51,7 +51,7 @@ if ($related_products) : ?>
                                         <a href="<?php echo $related_product->get_permalink(); ?>">
                                             <div class="related-img-container">
                                                 <?php echo $related_product->get_image('medium'); ?>
-                                                <span class="related-img-container__price"><?php echo $related_product->get_price_html(); ?></span>
+                                                <span class="<?php echo ($related_product->price == 0) ? ' related-img-container__free': 'related-img-container__price' ?>"><?php echo ($related_product->price == 0) ? '<span class="woocommerce-Price-amount amount">Бесплатно</span>' : $related_product->get_price_html() ?></span>
                                             </div>
                                             <p class="related-img-container__header"><?php echo $related_product->get_name(); ?></p>
                                         </a>

@@ -68,8 +68,13 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                                                      data-wow-delay="<?php echo $delay ?>s">
                                                     <a href="<?php echo $product->get_permalink(); ?>">
                                                         <div class="related-img-container">
-                                                            <?php echo $product->get_image('medium'); ?>
+                                                            <?php echo $product->get_image('medium');
+                                                            if ($product->price == 0):
+                                                            ?>
+                                                            <span class="related-img-container__free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>
+                                                            <?php else: ?>
                                                             <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                                            <?php endif;?>
                                                         </div>
                                                         <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
                                                     </a>

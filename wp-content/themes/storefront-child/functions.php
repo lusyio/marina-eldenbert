@@ -1772,7 +1772,9 @@ function rank_discount_total(WC_Cart $cart)
         $rankName = getRankTitle($rank_object, true);
         // Текст, выводимый в корзине
         $feeText = $rankName . ' - скидка ' . $rankDiscount . '%';
-        $cart->add_fee($feeText, -$discount);
+        if ($discount != 0) {
+            $cart->add_fee($feeText, -$discount);
+        }
     }
 }
 

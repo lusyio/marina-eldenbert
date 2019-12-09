@@ -74,7 +74,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                     <td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
                         <?php
-                        echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+                        $priceHtml = ($_product->price == 0) ? preg_replace('~&#8381;~', '', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] )) : WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] );
+
+                        echo apply_filters( 'woocommerce_cart_item_subtotal', $priceHtml, $cart_item, $cart_item_key ); // PHPCS: XSS ok.
                         ?>
                     </td>
 
@@ -122,7 +124,11 @@ do_action( 'woocommerce_before_cart' ); ?>
                 Сумма к оплате
             </td>
             <td class="cart-total">
-                <?php echo WC()->cart->get_total() ?>
+                <?php
+                $totals = WC()->cart->get_totals();
+                $totalHtml = ($totals['total'] == 0) ? preg_replace('~&#8381;~', '', WC()->cart->get_total()) : WC()->cart->get_total();
+                ?>
+                <?php echo $totalHtml ?>
             </td>
             <td class="product-remove">
             </td>

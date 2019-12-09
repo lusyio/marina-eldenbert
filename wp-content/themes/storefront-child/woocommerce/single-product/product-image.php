@@ -47,7 +47,10 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		do_action( 'woocommerce_product_thumbnails' );
-		?>
-        <span class="product-price"><?php echo $product->get_price_html(); ?></span>
+		if ($product->price == 0): ?>
+        <span class="product-price free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>
+        <?php else: ?>
+        <span class="product-price"><?php echo $product->get_price_html() ?></span>
+        <?php endif; ?>
 	</figure>
 </div>
