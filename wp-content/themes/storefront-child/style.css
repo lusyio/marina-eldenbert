@@ -4291,6 +4291,7 @@ button.filter-btn.filter-btn-images {
 
 .wpua-edit #wpua-remove-existing {
     font-size: 3rem;
+    text-shadow: 0 0 6px #000000;
 }
 
 .wpua-title {
