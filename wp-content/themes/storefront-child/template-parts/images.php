@@ -35,7 +35,7 @@ Template Post Type: post, page, product
             }
             ?>
             <div class="grid-item<?php echo $categoryClass ?>">
-                <a data-fancybox="<?php echo $categoryClass ?>" class="images-link image-id-<?php echo get_the_ID() ?>"
+                <a data-category="<?php echo $categoryClass ?>" data-fancybox="images-all" class="images-link image-id-<?php echo get_the_ID() ?>"
                    href="<?php echo get_the_post_thumbnail_url(); ?>" data-caption="<?php the_title(); ?>">
                     <?php echo get_the_post_thumbnail(null, 'small'); ?>
                 </a>

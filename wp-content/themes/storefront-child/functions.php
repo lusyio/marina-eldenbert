@@ -2648,7 +2648,7 @@ function addImageFilter()
         $nonEmptyTags[$tag->slug] = $tag->name;
     }
     ?>
-        <div>
+        <div class="d-flex flex-wrap">
             <?php foreach ($subCats as $subCat):
                 $hasImages = false;
                 $catQuery = new WP_Query('cat=' . $subCat->term_id);
@@ -2661,14 +2661,14 @@ function addImageFilter()
                     }
                 }
                 if ($subCat->category_count > 0 && $hasImages) {?>
-                    <button class="button clear-filters mr-2 d-inline-block"
+                    <button class="button filter-btn filter-btn-images"
                             data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
                 <?php
                 };
                 wp_reset_postdata();
                 endforeach; ?>
 
-        <button class="button clear-filters d-inline-block" data-filter="*"><i class="fas fa-times mr-2"></i>Сбросить фильтры</button>
+        <button class="button clear-filters clear-filters-images" data-filter="*"><i class="fas fa-times mr-2"></i>Сбросить фильтры</button>
         </div>
     <?php
 }
