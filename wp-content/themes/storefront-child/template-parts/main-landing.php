@@ -193,7 +193,7 @@ Template Post Type: post, page, product
                                 <div class="announcement-content">
                                     <p>
                                         <?php
-                                        $desc = get_the_content();
+                                        $desc = strip_tags(get_the_content());
                                         echo mb_strimwidth($desc, 0, 100, '...');
                                         ?>
                                     </p>
