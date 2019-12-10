@@ -1380,7 +1380,7 @@ function storefront_comment($comment, $args, $depth)
     <div class="comment-meta commentmetadata">
         <div class="comment-author vcard">
             <div class="avatar-status-box position-relative">
-                <?php echo get_avatar($comment, 100); ?>
+                <?php echo get_avatar($comment, 300); ?>
                 <?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=0 show_logo=1 logo_size="rank"]'); ?>
             </div>
             <div class="text-center">
@@ -1458,7 +1458,7 @@ function woocommerce_comments($comment, $args, $depth)
     <div class="comment-meta commentmetadata">
         <div class="comment-author vcard">
             <div class="avatar-status-box position-relative">
-                <?php echo get_avatar($comment, 100); ?>
+                <?php echo get_avatar($comment, 300); ?>
                 <?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=0 show_logo=1 logo_size="rank"]'); ?>
             </div>
             <div class="text-center">
