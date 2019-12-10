@@ -4358,6 +4358,12 @@ button#wpua-upload-existing:hover:before {
     margin-bottom: 0;
 }
 
+.wpua-text {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
 #wpua-undo-button-existing {
     margin: 0;
 }
@@ -4664,12 +4670,16 @@ and (max-width: 768px) {
         text-align: center;
     }
 
-    #wpua-images-existing{
+    #wpua-images-existing {
         margin-bottom: 20px;
     }
-    
-    button#wpua-upload-existing{
+
+    button#wpua-upload-existing {
         margin: auto;
+    }
+
+    .wpua-text {
+        text-align: center;
     }
 
 }
