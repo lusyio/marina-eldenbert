@@ -34,7 +34,7 @@ Template Post Type: post, page, product
                     } else {
                         $hasVip = false;
                     }
-                    if(!$hasVip && !isAdmin()) {
+                    if (!$hasVip && !isAdmin()) {
                         $args['tax_query']['relation'] = 'AND';
                         $args['tax_query'][] = [
                             'taxonomy' => 'product_tag',
@@ -57,9 +57,11 @@ Template Post Type: post, page, product
                                             <div class="popular-img-container">
                                                 <?php echo $product->get_image('large');
                                                 if ($product->price == 0) : ?>
-                                                <span class="popular-img-container__free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>
+                                                    <span class="popular-img-container__free"><span
+                                                                class="woocommerce-Price-amount amount">Бесплатно<span
+                                                                    class="woocommerce-Price-currencySymbol"></span></span></span>
                                                 <?php else: ?>
-                                                <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                                    <span class="popular-img-container__price"><?php echo $product->get_price_html(); ?></span>
                                                 <?php endif; ?>
                                             </div>
                                         </a>
@@ -125,7 +127,7 @@ Template Post Type: post, page, product
                                 )),
                             'limit' => 12,
                         );
-                        if(!$hasVip && !isAdmin()) {
+                        if (!$hasVip && !isAdmin()) {
                             $args['tax_query']['relation'] = 'AND';
                             $args['tax_query'][] = [
                                 'taxonomy' => 'product_tag',
@@ -143,11 +145,13 @@ Template Post Type: post, page, product
                                     <div class="related-img-container">
                                         <?php echo $product->get_image('medium');
                                         if ($product->price == 0):
-                                        ?>
-                                        <span class="related-img-container__free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>
+                                            ?>
+                                            <span class="related-img-container__free"><span
+                                                        class="woocommerce-Price-amount amount">Бесплатно<span
+                                                            class="woocommerce-Price-currencySymbol"></span></span></span>
                                         <?php else: ?>
-                                        <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
-                                        <?php endif;?>
+                                            <span class="related-img-container__price"><?php echo $product->get_price_html(); ?></span>
+                                        <?php endif; ?>
                                     </div>
                                     <p class="related-img-container__header"><?php echo $product->get_name(); ?></p>
                                 </a>
@@ -182,7 +186,7 @@ Template Post Type: post, page, product
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="announcement-img">
-                                        <?= get_the_post_thumbnail('', 'large' ) ?>
+                                        <?= get_the_post_thumbnail('', 'large') ?>
                                     </div>
                                 </a>
                             </div>
@@ -210,7 +214,7 @@ Template Post Type: post, page, product
                             <div class="col-sm-6 col-12">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="announcement-img">
-                                        <?= get_the_post_thumbnail('', 'large' ) ?>
+                                        <?= get_the_post_thumbnail('', 'large') ?>
                                     </div>
                                 </a>
                             </div>
@@ -233,7 +237,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="announcement__link"
-                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 42) ?>">Смотреть
+                            все
                             анонсы</a>
                     </div>
 
@@ -263,7 +268,7 @@ Template Post Type: post, page, product
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="blog-card__img">
-                                        <?= get_the_post_thumbnail('', 'large' ) ?>
+                                        <?= get_the_post_thumbnail('', 'large') ?>
                                     </div>
                                 </a>
                             </div>
@@ -289,7 +294,7 @@ Template Post Type: post, page, product
                             <div class="blog-card__header">
                                 <a href="<?php the_permalink() ?>">
                                     <div class="blog-card__img">
-                                        <?= get_the_post_thumbnail('', 'large' ) ?>
+                                        <?= get_the_post_thumbnail('', 'large') ?>
                                     </div>
                                 </a>
                             </div>
@@ -310,7 +315,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="blog__link"
-                                                       href="<?php echo get_permalink($post = 33) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 33) ?>">Смотреть
+                            все
                             посты</a></div>
                     <?php break; ?>
                 <?php endif; ?>
@@ -338,10 +344,10 @@ Template Post Type: post, page, product
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
                                 <div class="news-n-events-card__text">
-                                    <?php
-                                    $desc = strip_tags(get_the_content());
-                                    echo mb_strimwidth($desc, 0, 150, '...');
-                                    ?>
+                                    <p><?php
+                                        $desc = strip_tags(get_the_content());
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?></p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
@@ -359,7 +365,10 @@ Template Post Type: post, page, product
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
                                 <div class="news-n-events-card__text">
-                                    <?php the_content(); ?>
+                                    <p><?php
+                                        $desc = strip_tags(get_the_content());
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?></p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
@@ -372,7 +381,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="news-n-events__link"
-                                                       href="<?php echo get_permalink($post = 44) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 44) ?>">Смотреть
+                            все
                             новости</a>
                     </div>
                     <?php break; ?>
