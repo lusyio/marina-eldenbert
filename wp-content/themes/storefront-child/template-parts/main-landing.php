@@ -338,7 +338,10 @@ Template Post Type: post, page, product
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
                                 <div class="news-n-events-card__text">
-                                    <?php the_content(); ?>
+                                    <?php
+                                    $desc = strip_tags(get_the_content());
+                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    ?>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
