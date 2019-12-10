@@ -26,7 +26,7 @@
                 <div class="sidebar-announcement__text">
                     <p>
                         <?php
-                        $desc = get_the_content();
+                        $desc = strip_tags(get_the_content());
                         echo mb_strimwidth($desc, 0, 105, '...');
                         ?>
                     </p>
@@ -51,7 +51,7 @@
                         <div class="sidebar-news__text">
                             <p>
                                 <?php
-                                $desc = get_the_content();
+                                $desc = strip_tags(get_the_content());
                                 echo mb_strimwidth($desc, 0, 105, '...');
                                 ?>
                             </p>
@@ -80,7 +80,7 @@
                         <div class="sidebar-blog-card__text">
                             <p>
                                 <?php
-                                $desc = get_the_content();
+                                $desc = strip_tags(get_the_content());
                                 echo mb_strimwidth($desc, 0, 140, '...');
                                 ?>
                             </p>

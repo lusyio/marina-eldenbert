@@ -221,7 +221,7 @@ Template Post Type: post, page, product
                                 <div class="announcement-content">
                                     <p>
                                         <?php
-                                        $desc = get_the_content();
+                                        $desc = strip_tags(get_the_content());
                                         echo mb_strimwidth($desc, 0, 100, '...');
                                         ?>
                                     </p>
@@ -272,7 +272,7 @@ Template Post Type: post, page, product
                                 <div class="blog-card__text">
                                     <p>
                                         <?php
-                                        $desc = get_the_content();
+                                        $desc = strip_tags(get_the_content());
                                         echo mb_strimwidth($desc, 0, 150, '...');
                                         ?>
                                     </p>
@@ -298,7 +298,7 @@ Template Post Type: post, page, product
                                 <div class="blog-card__text">
                                     <p>
                                         <?php
-                                        $desc = get_the_content();
+                                        $desc = strip_tags(get_the_content());
                                         echo mb_strimwidth($desc, 0, 150, '...');
                                         ?>
                                     </p>
