@@ -1463,7 +1463,7 @@ function woocommerce_comments($comment, $args, $depth)
             </div>
             <div class="text-center">
                 <?php printf(wp_kses_post('<cite class="comment-body__author fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
-                <cite><?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
+                <cite><?php echo do_shortcode('[custom_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
             </div>
         </div>
         <?php if ('0' === $comment->comment_approved) : ?>
