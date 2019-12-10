@@ -84,7 +84,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="announcement__link"
-                                                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 42) ?>">Смотреть
+                            все
                             анонсы</a></div>
 
                     <?php break; ?>
@@ -123,10 +124,12 @@ Template Post Type: post, page, product
                             <div class="blog-card__body">
                                 <p class="blog-card__date"><?= get_the_date() ?></p>
                                 <div class="blog-card__text">
-                                    <?php
-                                    $desc = get_the_content();
-                                    echo mb_strimwidth($desc, 0, 150, '...');
-                                    ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
                             </div>
@@ -147,10 +150,12 @@ Template Post Type: post, page, product
                             <div class="blog-card__body">
                                 <p class="blog-card__date"><?= get_the_date() ?></p>
                                 <div class="blog-card__text">
-                                    <?php
-                                    $desc = get_the_content();
-                                    echo mb_strimwidth($desc, 0, 150, '...');
-                                    ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
                             </div>
@@ -159,7 +164,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="blog__link"
-                                                       href="<?php echo get_permalink($post = 33) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 33) ?>">Смотреть
+                            все
                             посты</a></div>
                     <?php break; ?>
                 <?php endif; ?>
@@ -190,7 +196,12 @@ Template Post Type: post, page, product
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
                                 <div class="news-n-events-card__text">
-                                    <?php the_content(); ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
@@ -208,7 +219,12 @@ Template Post Type: post, page, product
                             <div class="news-n-events-card-body">
                                 <p class="news-n-events-card__date"><?= get_the_date() ?></p>
                                 <div class="news-n-events-card__text">
-                                    <?php the_content(); ?>
+                                    <p>
+                                        <?php
+                                        $desc = get_the_content();
+                                        echo mb_strimwidth($desc, 0, 150, '...');
+                                        ?>
+                                    </p>
                                 </div>
                                 <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
@@ -221,7 +237,8 @@ Template Post Type: post, page, product
 
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s"><a class="news-n-events__link"
-                                                       href="<?php echo get_permalink($post = 44) ?>">Смотреть все
+                                                                   href="<?php echo get_permalink($post = 44) ?>">Смотреть
+                            все
                             новости</a>
                     </div>
                     <?php break; ?>
