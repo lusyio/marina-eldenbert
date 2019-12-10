@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="sidebar-news__img">
-                            <?php echo get_avatar(get_the_author_meta($user_id)); ?>
+                            <?php echo get_avatar(get_the_author_meta('ID')); ?>
                         </div>
                     </div>
                     <div class="col">

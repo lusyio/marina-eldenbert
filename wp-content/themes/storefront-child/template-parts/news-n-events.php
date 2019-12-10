@@ -31,7 +31,7 @@ Template Post Type: post, page, product
                                 <p class="news-n-events-card__author"><?php the_author(); ?></p>
                             </div>
                             <div class="news-n-events-card__avatar">
-                                <?php echo get_avatar(get_the_author_meta($user_id)); ?>
+                                <?php echo get_avatar(get_the_author_meta('ID')); ?>
                             </div>
                         </div>
                     </div>
