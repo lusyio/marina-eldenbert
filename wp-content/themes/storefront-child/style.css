@@ -31,6 +31,14 @@ a {
     color: #F8AC53;
 }
 
+body a {
+    color: #F8AC53;
+}
+
+body a:hover {
+    color: #F8AC53;
+}
+
 img {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -2616,6 +2624,7 @@ h2.related-product {
     position: absolute;
     bottom: -25px;
     right: -25px;
+    max-width: 93px;
 }
 
 .news-n-events__link {

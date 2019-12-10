@@ -122,7 +122,11 @@ Template Post Type: post, page, product
                             </div>
                             <div class="blog-card__body">
                                 <p class="blog-card__date"><?= get_the_date() ?></p>
-                                <div class="blog-card__text"><?php the_content(); ?>
+                                <div class="blog-card__text">
+                                    <?php
+                                    $desc = get_the_content();
+                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    ?>
                                 </div>
                                 <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
                             </div>
@@ -142,7 +146,11 @@ Template Post Type: post, page, product
                             </div>
                             <div class="blog-card__body">
                                 <p class="blog-card__date"><?= get_the_date() ?></p>
-                                <div class="blog-card__text"><?php the_content(); ?>
+                                <div class="blog-card__text">
+                                    <?php
+                                    $desc = get_the_content();
+                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    ?>
                                 </div>
                                 <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
                             </div>
