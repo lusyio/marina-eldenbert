@@ -23,7 +23,9 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
 <div class="row">
     <div class="col">
-
+        <fieldset class="bg-white">
+            <?php echo do_shortcode('[avatar_upload]'); ?>
+        </fieldset>
         <form class="woocommerce-EditAccountForm edit-account" action=""
               method="post" <?php do_action('woocommerce_edit_account_form_tag'); ?> >
 
@@ -122,7 +124,6 @@ do_action('woocommerce_before_edit_account_form'); ?>
 
             <?php do_action('woocommerce_edit_account_form_end'); ?>
         </form>
-
     </div>
 </div>
 
