@@ -2786,3 +2786,7 @@ function club_redirect() {
 add_filter('wpua_profile_title', function ($title) {
     return '<label class="bg-white wpua-title">Аватар</label>';
 });
+
+add_filter('wpua_is_author_or_above', function ($title) {
+    return false;
+});
