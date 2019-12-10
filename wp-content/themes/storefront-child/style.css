@@ -3891,12 +3891,12 @@ button.button.filter-btn:hover {
     color: #1C1C1C;
 }
 
-button.button.filter-btn.filter-btn-images.active{
+button.button.filter-btn.filter-btn-images.active {
     font-weight: 300;
     color: #1C1C1C;
 }
 
-button.button.filter-btn.filter-btn-images:hover{
+button.button.filter-btn.filter-btn-images:hover {
     -webkit-transform: translateY(-5px);
     -moz-transform: translateY(-5px);
     -ms-transform: translateY(-5px);
@@ -4290,18 +4290,82 @@ button.filter-btn.filter-btn-images {
 }
 
 .wpua-edit #wpua-remove-existing {
-    font-size: 3rem;
-    text-shadow: 0 0 6px #000000;
+    font-size: 2rem;
+    background: #fafafa;
+    display: inline-block;
+    padding: 6px;
+    border-radius: 50%;
+}
+
+#wpua-remove-button-existing {
+    right: 0;
+    top: 0;
+    line-height: 1rem;
 }
 
 .wpua-title {
     padding-left: 40px;
-    margin-bottom: 12px;
     font-weight: normal;
     font-size: 1.125rem;
     line-height: 21px;
     color: #1C1C1C;
+    margin-bottom: 30px;
 }
+
+button#wpua-upload-existing {
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+button#wpua-upload-existing:hover {
+    transform: none;
+}
+
+button#wpua-upload-existing:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    height: 1px;
+    background: #000;
+    opacity: 0;
+    -webkit-transform: translateY(5px);
+    -moz-transform: translateY(5px);
+    transform: translateY(5px);
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
+}
+
+button#wpua-upload-existing:hover:before {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+}
+
+#wpua-upload-button-existing {
+    text-align: left;
+}
+
+#wpua-images-existing {
+    margin: auto;
+}
+
+#wpua-thumbnail-existing {
+    margin: auto;
+    display: table;
+}
+
+#wpua-thumbnail-existing img {
+    border-radius: 50%;
+    border: 3px solid #F6F5F2;
+}
+
 /*--------------------------------------------------------------
 # WP User Avatar
 --------------------------------------------------------------*/
@@ -4808,7 +4872,7 @@ and (max-width: 576px) {
         height: 130px;
     }
 
-    .grid-item{
+    .grid-item {
         margin-bottom: 15px;
     }
 
