@@ -4406,6 +4406,13 @@ button#wpua-upload-existing:hover:before {
     object-fit: cover;
 }
 
+.blog-card__text.empty-card p, .blog-card__text.empty-card p, .news-n-events-card__text.empty-card p{
+    margin: 0;
+    min-height: unset;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
 /*--------------------------------------------------------------
 # WP User Avatar
 --------------------------------------------------------------*/

@@ -2852,11 +2852,11 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
             endwhile;
             wp_reset_postdata();
         else:?>
-            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+            <div class="col-lg-6 offset-lg-3 mb-5 col-12 wow fadeInUp"
                  data-wow-delay="<?php echo $delay ?>s">
                 <div class="blog-card">
                     <div class="blog-card__body">
-                        <div class="blog-card__text text-center">
+                        <div class="blog-card__text empty-card text-center">
                             <p>
                                 Пока нет Блогов
                             </p>
@@ -2916,11 +2916,13 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
             endwhile;
             wp_reset_postdata();
         else: ?>
-            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+            <div class="col-lg-6 offset-lg-3 mb-5 col-12 wow fadeInUp"
                  data-wow-delay="<?php echo $delay ?>s">
                 <div class="blog-card">
                     <div class="blog-card__body">
-                        <div class="blog-card__text text-center">Пока нет Анонсов</div>
+                        <div class="blog-card__text empty-card text-center">
+                            <p>Пока нет Анонсов</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2970,11 +2972,11 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
             endwhile;
             wp_reset_postdata();
         else: ?>
-            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+            <div class="col-lg-6 offset-lg-3 mb-5 col-12 wow fadeInUp"
                  data-wow-delay="<?php echo $delay ?>s">
                 <div class="news-n-events-card">
                     <div class="news-n-events-card-body">
-                        <div class="news-n-events-card__text text-center">
+                        <div class="news-n-events-card__text empty-card text-center">
                             <p>
                                 Пока нет Новостей
                             </p>
