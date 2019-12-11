@@ -22,7 +22,7 @@ Template Post Type: post, page, product
             </div>
             <div class="row">
                 <?php
-                getBlockPart('announcement', 2, 0.2, 2, 'mb-5')
+                getBlockPart('announcement', 2, 0.2, 2, 'mb-5', '')
                 ?>
             </div>
         </div>
@@ -36,7 +36,7 @@ Template Post Type: post, page, product
             </div>
             <div class="row">
                 <?php
-                getBlockPart('blog', 2, 0.2, 2, 'mb-5')
+                getBlockPart('blog', 2, 0.2, 2, 'mb-5', 34)
                 ?>
             </div>
         </div>
@@ -50,7 +50,7 @@ Template Post Type: post, page, product
             </div>
             <div class="row">
                 <?php
-                getBlockPart('news-n-events', 3, 0.2, 3, 'mb-lg-5 mb-2')
+                getBlockPart('news-n-events', 3, 0.2, 3, 'mb-lg-5 mb-2', '')
                 ?>
             </div>
         </div>

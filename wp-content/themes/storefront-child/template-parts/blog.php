@@ -90,7 +90,7 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                 <?php endif; ?>
                 <div class="row blog-row">
                     <?php
-                    getBlockPart('blog', 999, 0, 999, 'blog-item')
+                    getBlockPart('blog', 999, 0, 999, 'blog-item', $categoryId)
                     ?>
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s">

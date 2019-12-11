@@ -2803,10 +2803,10 @@ add_filter('wpua_is_author_or_above', function ($title) {
     return false;
 });
 
-function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $customClass)
+function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $customClass, $catId)
 {
     if ($type === 'blog'):
-        $catquery = new WP_Query('cat=34&posts_per_page=' . $postQue . '');
+        $catquery = new WP_Query('cat=' . $catId . '&posts_per_page=' . $postQue . '');
         $portfolio_counter = 1;
         $delay = $startDelay;
         if ($catquery->have_posts()) :
