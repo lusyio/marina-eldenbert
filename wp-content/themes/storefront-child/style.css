@@ -3797,6 +3797,7 @@ a#nep_call_panel.nep_right_bottom {
     border: 2px solid #E9E9E9;
     width: 100px !important;
     height: 100px !important;
+    max-width: 100px;
 }
 
 #comments .comment-list .comment-meta a.comment-date {
@@ -4400,6 +4401,7 @@ button#wpua-upload-existing:hover:before {
     border: 3px solid #F6F5F2;
     width: 99px !important;
     height: 99px !important;
+    max-width: 99px !important;
 }
 
 /*--------------------------------------------------------------
