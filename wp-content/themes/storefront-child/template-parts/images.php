@@ -20,7 +20,7 @@ Template Post Type: post, page, product
     <div class="grid grid-images">
         <div class="grid-sizer"></div>
         <?php
-        $query = new WP_Query('category_name=images');
+        $query = new WP_Query('category_name=images&posts_per_page=9999');
         $hasImages = false;
         while ($query->have_posts()) {
             $hasImages = true;
