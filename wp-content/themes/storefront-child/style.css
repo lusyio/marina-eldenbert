@@ -2624,7 +2624,8 @@ h2.related-product {
     position: absolute;
     bottom: -25px;
     right: -25px;
-    max-width: 93px;
+    width: 93px;
+    height: 93px;
 }
 
 .news-n-events__link {
@@ -3786,8 +3787,6 @@ a#nep_call_panel.nep_right_bottom {
 }
 
 #comments .comment-list .comment-meta .avatar {
-    max-width: 100px;
-    height: auto;
     position: relative;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -3796,6 +3795,8 @@ a#nep_call_panel.nep_right_bottom {
     display: block;
     margin: auto;
     border: 2px solid #E9E9E9;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 #comments .comment-list .comment-meta a.comment-date {
@@ -4315,6 +4316,7 @@ button.filter-btn.filter-btn-images {
     right: 0;
     top: 0;
     line-height: 1rem;
+    display: none;
 }
 
 .wpua-title {
@@ -4396,6 +4398,8 @@ button#wpua-upload-existing:hover:before {
 #wpua-thumbnail-existing img {
     border-radius: 50%;
     border: 3px solid #F6F5F2;
+    width: 99px !important;
+    height: 99px !important;
 }
 
 /*--------------------------------------------------------------
