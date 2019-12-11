@@ -879,7 +879,7 @@ function readButton()
 add_filter('mce_buttons', 'my_add_next_page_button', 1, 2); // 1st row
 
 /**
- * Добавляем в визуальный редактор кнопку вставки тега nextpage - разрыв страницы
+ * Добавляем в визуальный редактор кнопки вставки тега nextpage - разрыв страницы, выравнивания по ширине и подчеркивания
  *
  */
 function my_add_next_page_button($buttons, $id)
@@ -891,6 +891,8 @@ function my_add_next_page_button($buttons, $id)
 
     /* add next page after more tag button */
     array_splice($buttons, 13, 0, 'wp_page');
+    array_splice($buttons, 9, 0, 'alignjustify');
+    array_splice($buttons, 2, 0, 'underline');
 
     return $buttons;
 }
