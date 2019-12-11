@@ -76,8 +76,11 @@ Template Post Type: post, page, product
                                             </h2>
                                             <p class="popular-content">
                                                 <?php
-                                                $desc = $product->get_short_description();
-                                                echo mb_strimwidth($desc, 0, 550, '...'); ?>
+                                                $desc = strip_tags($product->get_short_description());
+                                                $size = 550;
+                                                echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                                echo (strlen($desc) > $size) ? '...' : '';
+                                                ?>
                                             </p>
                                             <div class="row">
                                                 <div class="col-lg-5 col-12">

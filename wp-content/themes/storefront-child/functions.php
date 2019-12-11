@@ -2829,7 +2829,9 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                                 <p>
                                     <?php
                                     $desc = strip_tags(get_the_content());
-                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    $size = 150;
+                                    echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                    echo (strlen($desc) > $size) ? '...' : '';
                                     ?>
                                 </p>
                             </div>
@@ -2889,7 +2891,9 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                                 <p>
                                     <?php
                                     $desc = strip_tags(get_the_content());
-                                    echo mb_strimwidth($desc, 0, 100, '...');
+                                    $size = 100;
+                                    echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                    echo (strlen($desc) > $size) ? '...' : '';
                                     ?>
                                 </p>
                             </div>
@@ -2939,7 +2943,9 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                                 <p>
                                     <?php
                                     $desc = strip_tags(get_the_content());
-                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    $size = 150;
+                                    echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                    echo (strlen($desc) > $size) ? '...' : '';
                                     ?>
                                 </p>
                             </div>

@@ -27,7 +27,9 @@
                     <p>
                         <?php
                         $desc = strip_tags(get_the_content());
-                        echo mb_strimwidth($desc, 0, 105, '...');
+                        $size = 105;
+                        echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                        echo (strlen($desc) > $size) ? '...' : '';
                         ?>
                     </p>
                 </div>
@@ -52,7 +54,9 @@
                             <p>
                                 <?php
                                 $desc = strip_tags(get_the_content());
-                                echo mb_strimwidth($desc, 0, 105, '...');
+                                $size = 105;
+                                echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                echo (strlen($desc) > $size) ? '...' : '';
                                 ?>
                             </p>
                         </div>
@@ -81,7 +85,9 @@
                             <p>
                                 <?php
                                 $desc = strip_tags(get_the_content());
-                                echo mb_strimwidth($desc, 0, 140, '...');
+                                $size = 140;
+                                echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
+                                echo (strlen($desc) > $size) ? '...' : '';
                                 ?>
                             </p>
                         </div>
