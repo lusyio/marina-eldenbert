@@ -3798,6 +3798,7 @@ a#nep_call_panel.nep_right_bottom {
     width: 100px !important;
     height: 100px !important;
     max-width: 100px;
+    object-fit: cover;
 }
 
 #comments .comment-list .comment-meta a.comment-date {
@@ -4402,6 +4403,7 @@ button#wpua-upload-existing:hover:before {
     width: 99px !important;
     height: 99px !important;
     max-width: 99px !important;
+    object-fit: cover;
 }
 
 /*--------------------------------------------------------------
