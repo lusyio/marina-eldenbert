@@ -2803,7 +2803,7 @@ add_filter('wpua_is_author_or_above', function ($title) {
     return false;
 });
 
-function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $customClass, $catId)
+function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $customClass, $catId = '')
 {
     if ($type === 'blog'):
         $catquery = new WP_Query('cat=' . $catId . '&posts_per_page=' . $postQue . '');

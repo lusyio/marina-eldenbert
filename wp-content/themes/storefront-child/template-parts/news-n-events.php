@@ -16,7 +16,7 @@ Template Post Type: post, page, product
             </div>
             <div class="row news-n-events-row">
                 <?php
-                getBlockPart('news-n-events', 999, 0, 999, 'news-n-events-item', '')
+                getBlockPart('news-n-events', 999, 0, 999, 'news-n-events-item')
                 ?>
                 <div class="col-12 text-center wow fadeInUp"
                      data-wow-delay="<?php echo $delay ?>s">
