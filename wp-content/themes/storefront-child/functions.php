@@ -804,13 +804,14 @@ function bookCardInReader()
     <?php
 }
 
-if (! function_exists("array_key_last")) {
-    function array_key_last($array) {
+if (!function_exists("array_key_last")) {
+    function array_key_last($array)
+    {
         if (!is_array($array) || empty($array)) {
             return NULL;
         }
 
-        return array_keys($array)[count($array)-1];
+        return array_keys($array)[count($array) - 1];
     }
 }
 
@@ -1279,15 +1280,15 @@ function addFilterBar()
             <div class="filter-button-group wow fadeInUp animated"
                  data-wow-delay="0s">
                 <?php if (count($bookTypeFilters) > 0) : ?>
-                <div class="button-group mb-5" data-filter-group="type">
-                    <?php foreach ($bookTypeFilters as $filter): ?>
-                        <?php if (!key_exists($filter, $nonEmptyTags)) {
-                            continue;
-                        } ?>
-                        <button class="button filter-btn"
-                                data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
-                    <?php endforeach; ?>
-                </div>
+                    <div class="button-group mb-5" data-filter-group="type">
+                        <?php foreach ($bookTypeFilters as $filter): ?>
+                            <?php if (!key_exists($filter, $nonEmptyTags)) {
+                                continue;
+                            } ?>
+                            <button class="button filter-btn"
+                                    data-filter=".product_tag-<?php echo $filter ?>"><?php echo $nonEmptyTags[$filter] ?></button>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
                 <div class="button-group mb-5 wow fadeInUp animated"
                      data-wow-delay="0.2s" data-filter-group="other">
@@ -1951,9 +1952,11 @@ function vipStatusControl()
     <form method="post">
         <input type="hidden" name="vipForNewUsers" value="<?php echo ($doesNewUserGetVipStatus) ? 0 : 1 ?>">
         <div><label for="textForClub">Текст на странице Клуба</label>
-            <textarea class="w-100" id="textForClub" name="textForClub" rows="5"><?php echo $text?></textarea>
-            <small class="form-text text-muted">Если поместить текст или его часть внутрь тройных скобок, то этот текст будет выделен <strong>жирным</strong></small>
-            <small class="form-text text-muted">Например, (((Внимание!))) превратится в <strong>Внимание!</strong></small>
+            <textarea class="w-100" id="textForClub" name="textForClub" rows="5"><?php echo $text ?></textarea>
+            <small class="form-text text-muted">Если поместить текст или его часть внутрь тройных скобок, то этот текст
+                будет выделен <strong>жирным</strong></small>
+            <small class="form-text text-muted">Например, (((Внимание!))) превратится в
+                <strong>Внимание!</strong></small>
         </div>
         <button class="button mt-3" type="submit"><?php echo ($doesNewUserGetVipStatus) ? 'Выключить' : 'Включить' ?>
             присвоение статуса
@@ -2650,43 +2653,47 @@ function addImageFilter()
         $nonEmptyTags[$tag->slug] = $tag->name;
     }
     ?>
-        <div class="d-flex flex-wrap">
-            <?php foreach ($subCats as $subCat):
-                $hasImages = false;
-                $catQuery = new WP_Query('cat=' . $subCat->term_id);
-                if ($catQuery->have_posts()) {
-                    while ($catQuery->have_posts()) {
-                        $catQuery->the_post();
-                        if (has_post_thumbnail()) {
-                            $hasImages = true;
-                        }
+    <div class="d-flex flex-wrap">
+        <?php foreach ($subCats as $subCat):
+            $hasImages = false;
+            $catQuery = new WP_Query('cat=' . $subCat->term_id);
+            if ($catQuery->have_posts()) {
+                while ($catQuery->have_posts()) {
+                    $catQuery->the_post();
+                    if (has_post_thumbnail()) {
+                        $hasImages = true;
                     }
                 }
-                if ($subCat->category_count > 0 && $hasImages) {?>
-                    <button class="button filter-btn filter-btn-images"
-                            data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
+            }
+            if ($subCat->category_count > 0 && $hasImages) { ?>
+                <button class="button filter-btn filter-btn-images"
+                        data-filter=".images-<?php echo $subCat->slug ?>"><?php echo $subCat->name ?></button>
                 <?php
-                };
-                wp_reset_postdata();
-                endforeach; ?>
+            };
+            wp_reset_postdata();
+        endforeach; ?>
 
-        <button class="button clear-filters clear-filters-images" data-filter="*"><i class="fas fa-times mr-2"></i>Сбросить фильтры</button>
-        </div>
+        <button class="button clear-filters clear-filters-images" data-filter="*"><i class="fas fa-times mr-2"></i>Сбросить
+            фильтры
+        </button>
+    </div>
     <?php
 }
 
-function add_columns($columns) {
+function add_columns($columns)
+{
     $num = 2; // после какой по счету колонки вставлять новые
     $new_columns = array(
         'id' => 'ID',
     );
-    return array_slice( $columns, 0, $num ) + $new_columns + array_slice( $columns, $num );
+    return array_slice($columns, 0, $num) + $new_columns + array_slice($columns, $num);
 }
 
 add_filter("manage_edit-post_tag_columns", 'add_columns');
 
 
-function fill_columns($out, $column_name, $id) {
+function fill_columns($out, $column_name, $id)
+{
     switch ($column_name) {
         case 'id':
             $out .= $id;
@@ -2700,11 +2707,12 @@ function fill_columns($out, $column_name, $id) {
 add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
 
 wp_enqueue_style('animate', get_stylesheet_directory_uri() . '/inc/assets/css/animate.css');
-wp_enqueue_script('wow-js', get_stylesheet_directory_uri() . '/inc/assets/js/wow.min.js', array (), '', true);
+wp_enqueue_script('wow-js', get_stylesheet_directory_uri() . '/inc/assets/js/wow.min.js', array(), '', true);
 
 // Скрываем товары для клуба от непопавших в клуб
 
-function excludeVipProductsFromProductsPage( $q ) {
+function excludeVipProductsFromProductsPage($q)
+{
     $myRank = mycred_get_my_rank();
     if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
         $hasVip = true;
@@ -2712,7 +2720,7 @@ function excludeVipProductsFromProductsPage( $q ) {
         $hasVip = false;
     }
 
-    if(!$hasVip && !isAdmin()) {
+    if (!$hasVip && !isAdmin()) {
         $q->query_vars['tax_query'][] = [
             'taxonomy' => 'product_tag',
             'terms' => ['vip'],
@@ -2721,7 +2729,8 @@ function excludeVipProductsFromProductsPage( $q ) {
         ];
     }
 }
-add_action( 'woocommerce_product_query', 'excludeVipProductsFromProductsPage' );
+
+add_action('woocommerce_product_query', 'excludeVipProductsFromProductsPage');
 
 // Скрываем товары для клуба от непопавших в клуб
 add_filter('woocommerce_related_products', function ($relatedBookIds) {
@@ -2731,12 +2740,12 @@ add_filter('woocommerce_related_products', function ($relatedBookIds) {
     } else {
         $hasVip = false;
     }
-    if(!$hasVip && !isAdmin()) {
+    if (!$hasVip && !isAdmin()) {
         $args = array(
-            'tag' => array( 'vip' ),
+            'tag' => array('vip'),
             'return' => 'ids',
         );
-        $vipBooks = wc_get_products( $args );
+        $vipBooks = wc_get_products($args);
         $relatedBookIds = array_diff($relatedBookIds, $vipBooks);
 
     }
@@ -2748,7 +2757,8 @@ add_action('template_redirect', 'club_redirect');
 /**
  * Редирект со страниц клуба, товаров и читалок для клуба на 404
  */
-function club_redirect() {
+function club_redirect()
+{
     global $post, $wp_query, $product, $page;
     $myRank = mycred_get_my_rank();
     if (!is_null($myRank) && $myRank->post->post_name == 'platinum-dragon') {
@@ -2756,7 +2766,7 @@ function club_redirect() {
     } else {
         $hasVip = false;
     }
-    if(!$hasVip && !isAdmin()) {
+    if (!$hasVip && !isAdmin()) {
         if (is_product()) {
             $terms = wc_get_product_terms($post->ID, 'product_tag');
             foreach ($terms as $term) {
@@ -2772,7 +2782,7 @@ function club_redirect() {
                 }
             }
         } elseif (is_page()) {
-            $bookId = get_post_meta($post->ID, 'book_id',true);
+            $bookId = get_post_meta($post->ID, 'book_id', true);
             if ($bookId) {
                 $terms = wc_get_product_terms($bookId, 'product_tag');
                 foreach ($terms as $term) {
@@ -2792,3 +2802,180 @@ add_filter('wpua_profile_title', function ($title) {
 add_filter('wpua_is_author_or_above', function ($title) {
     return false;
 });
+
+function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $customClass)
+{
+    if ($type === 'blog'):
+        $catquery = new WP_Query('cat=34&posts_per_page=' . $postQue . '');
+        $portfolio_counter = 1;
+        $delay = $startDelay;
+        if ($catquery->have_posts()) :
+            while ($catquery->have_posts()) :
+                $catquery->the_post();
+                ?>
+                <div class="col-lg-6 col-12 <?= $customClass ?> mb-5 wow fadeInUp <?= ($portfolio_counter === $postNumberHideMobile) ? 'd-lg-block d-none' : ''; ?> "
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <div class="blog-card">
+                        <div class="blog-card__header">
+                            <a href="<?php the_permalink() ?>">
+                                <div class="blog-card__img">
+                                    <?= get_the_post_thumbnail('', 'large') ?>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="blog-card__body">
+                            <p class="blog-card__date"><?= get_the_date() ?></p>
+                            <div class="blog-card__text">
+                                <p>
+                                    <?php
+                                    $desc = strip_tags(get_the_content());
+                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    ?>
+                                </p>
+                            </div>
+                            <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($portfolio_counter == $postQue): ?>
+                <div class="col-12 text-center wow fadeInUp"
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <a class="blog__link"
+                       href="<?php echo get_permalink($post = 33) ?>">Смотреть все посты</a>
+                </div>
+                <?php break;
+            endif;
+                $portfolio_counter++;
+                $delay = $delay + 0.2;
+            endwhile;
+            wp_reset_postdata();
+        else:?>
+            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+                 data-wow-delay="<?php echo $delay ?>s">
+                <div class="blog-card">
+                    <div class="blog-card__body">
+                        <div class="blog-card__text text-center">
+                            <p>
+                                Пока нет Блогов
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif;
+    endif;
+    if ($type === 'announcement'):
+        $catquery = new WP_Query('cat=33&posts_per_page=' . $postQue . '');
+        $delay = $startDelay;
+        $portfolio_counter = 1;
+        if ($catquery->have_posts()) :
+            while ($catquery->have_posts()) :
+                $catquery->the_post(); ?>
+                <div class="col-lg-6 col-12 <?= $customClass ?> wow fadeInUp <?= ($portfolio_counter === $postNumberHideMobile) ? 'd-lg-block d-none' : ''; ?>"
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <a href="<?php the_permalink() ?>">
+                                <div class="announcement-img">
+                                    <?= get_the_post_thumbnail('', 'large') ?>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-12 mb-sm-0 mb-4 position-relative">
+                            <h3 class="announcement-header">
+                                <?php the_title(); ?>
+                            </h3>
+                            <div class="announcement-content">
+                                <p>
+                                    <?php
+                                    $desc = strip_tags(get_the_content());
+                                    echo mb_strimwidth($desc, 0, 100, '...');
+                                    ?>
+                                </p>
+                            </div>
+                            <a href="<?php the_permalink() ?>" class="announcement-btn">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($portfolio_counter == $postQue): ?>
+
+                <div class="col-12 text-center wow fadeInUp"
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <a class="announcement__link"
+                       href="<?php echo get_permalink($post = 42) ?>">Смотреть все анонсы</a>
+                </div>
+
+                <?php break;
+            endif;
+                $portfolio_counter++;
+                $delay = $delay + 0.2;
+            endwhile;
+            wp_reset_postdata();
+        else: ?>
+            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+                 data-wow-delay="<?php echo $delay ?>s">
+                <div class="blog-card">
+                    <div class="blog-card__body">
+                        <div class="blog-card__text text-center">Пока нет Анонсов</div>
+                    </div>
+                </div>
+            </div>
+        <?php endif;
+    endif;
+    if ($type === 'news-n-events'):
+        $catquery = new WP_Query('cat=35&posts_per_page=' . $postQue . '');
+        $portfolio_counter = 1;
+        $delay = $startDelay;
+        if ($catquery->have_posts()) :
+            while ($catquery->have_posts()) :
+                $catquery->the_post();
+                ?>
+                <div class="col-lg-4 col-12 <?= $customClass ?> wow fadeInUp <?= ($portfolio_counter === $postNumberHideMobile) ? 'd-lg-block d-none' : ''; ?>"
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <div class="news-n-events-card">
+                        <div class="news-n-events-card-body">
+                            <p class="news-n-events-card__date"><?= get_the_date() ?></p>
+                            <div class="news-n-events-card__text">
+                                <p>
+                                    <?php
+                                    $desc = strip_tags(get_the_content());
+                                    echo mb_strimwidth($desc, 0, 150, '...');
+                                    ?>
+                                </p>
+                            </div>
+                            <a href="<?php the_permalink() ?>" class="news-n-events-card__link">Подробнее</a>
+                            <p class="news-n-events-card__author"><?php the_author(); ?></p>
+                        </div>
+                        <div class="news-n-events-card__avatar">
+                            <?php echo get_avatar(get_the_author_meta('ID'), 300); ?>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($portfolio_counter == $postQue): ?>
+                <div class="col-12 text-center wow fadeInUp"
+                     data-wow-delay="<?php echo $delay ?>s">
+                    <a class="news-n-events__link"
+                       href="<?php echo get_permalink($post = 44) ?>">Смотреть все новости</a>
+                </div>
+                <?php break;
+            endif;
+                $portfolio_counter++;
+                $delay = $delay + 0.2;
+            endwhile;
+            wp_reset_postdata();
+        else: ?>
+            <div class="col-lg-6 offset-lg-3 col-12 wow fadeInUp"
+                 data-wow-delay="<?php echo $delay ?>s">
+                <div class="news-n-events-card">
+                    <div class="news-n-events-card-body">
+                        <div class="news-n-events-card__text text-center">
+                            <p>
+                                Пока нет Новостей
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif;
+    endif;
+}
