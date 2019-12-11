@@ -2974,7 +2974,7 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
         else: ?>
             <div class="col-lg-6 offset-lg-3 mb-5 col-12 wow fadeInUp"
                  data-wow-delay="<?php echo $delay ?>s">
-                <div class="news-n-events-card">
+                <div class="news-n-events-card mr-0">
                     <div class="news-n-events-card-body">
                         <div class="news-n-events-card__text empty-card text-center">
                             <p>
