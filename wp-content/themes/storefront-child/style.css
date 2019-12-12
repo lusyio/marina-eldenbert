@@ -2968,7 +2968,7 @@ h2.related-product {
     margin-bottom: 30px;
 }
 
-.entry-content > p {
+.entry-content > p, .entry-content > ul > li, .entry-content > span, .entry-content > ol > li {
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
