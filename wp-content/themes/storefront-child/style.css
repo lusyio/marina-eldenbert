@@ -4287,6 +4287,10 @@ button.filter-btn.filter-btn-images {
     line-height: 21px;
 }
 
+.entry-content strong{
+    font-weight: bold !important;
+}
+
 /*--------------------------------------------------------------
 # ABOUT
 --------------------------------------------------------------*/
