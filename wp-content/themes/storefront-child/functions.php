@@ -1303,13 +1303,13 @@ function addFilterBar()
                 </div>
                 <div class="button-group mb-5 wow fadeInUp animated"
                      data-wow-delay="0.4s" data-filter-group="cycles">
-                    <button class="button filter-btn"
-                            data-filter=".cycle-no-cycle">Книги вне циклов
-                    </button>
                     <?php foreach ($cycles as $cycle): ?>
                         <button class="button filter-btn"
                                 data-filter=".cycle-<?php echo $cycle->slug ?>"><?php echo $cycle->name ?></button>
                     <?php endforeach; ?>
+                    <button class="button filter-btn"
+                            data-filter=".cycle-no-cycle">Книги вне циклов
+                    </button>
                 </div>
             </div>
         </div>
