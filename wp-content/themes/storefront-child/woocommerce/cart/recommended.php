@@ -39,7 +39,11 @@ if(!$hasVip && !isAdmin()) {
         'return' => 'ids',
     );
     $vipBooks = wc_get_products( $vipArgs );
-    $args['post__not_in'] += $vipBooks;
+    if (isset($args['post__not_in'])) {
+        $args['post__not_in'] += $vipBooks;
+    } else {
+        $args['post__not_in'] = $vipBooks;
+    }
 }
 $loop = new WP_Query($args);
 while ($loop->have_posts()) :

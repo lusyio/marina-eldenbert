@@ -90,52 +90,11 @@ if ($post->post_name == 'club' && !$hasVip && !isAdmin()) {
                 <?php endif; ?>
                 <div class="row blog-row">
                     <?php
-                    $catquery = new WP_Query('cat=' . $categoryId . '&posts_per_page=999');
-                    $delay = 0;
+                    getBlockPart('blog', 999, 0, 999, 'blog-item', $categoryId)
                     ?>
-                    <?php if ($catquery->have_posts()) : ?>
-                        <?php while ($catquery->have_posts()) :
-                            $catquery->the_post(); ?>
-                            <div class="col-lg-6 col-12 blog-item wow fadeInUp"
-                                 data-wow-delay="<?php echo $delay ?>s">
-                                <div class="blog-card">
-                                    <div class="blog-card__header">
-                                        <a href="<?php the_permalink() ?>">
-                                            <div class="blog-card__img">
-                                                <?= get_the_post_thumbnail('', 'large') ?>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="blog-card__body">
-                                        <p class="blog-card__date"><?= get_the_date() ?></p>
-                                        <div class="blog-card__text">
-                                            <p>
-                                                <?php
-                                                $desc = get_the_content();
-                                                echo mb_strimwidth($desc, 0, 150, '...');
-                                                ?>
-                                            </p>
-                                        </div>
-                                        <a class="blog-card__link" href="<?php the_permalink() ?>">Подробнее</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php $delay = $delay + 0.2 ?>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <div class="col-lg-6 offset-lg-3 col-12 blog-item wow fadeInUp"
-                             data-wow-delay="<?php echo $delay ?>s">
-                            <div class="blog-card">
-                                <div class="blog-card__body">
-                                    <div class="blog-card__text text-center">Пока нет новостей</div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                    <?php wp_reset_postdata(); ?>
                     <div class="col-12 text-center wow fadeInUp"
                          data-wow-delay="<?php echo $delay ?>s">
-                        <div class="load-more" style="display: none">Загрузить еще</div>
+                        <div class="load-more">Загрузить еще</div>
                     </div>
                 </div>
             </div>

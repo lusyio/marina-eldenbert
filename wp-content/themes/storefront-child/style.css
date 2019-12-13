@@ -2632,7 +2632,8 @@ h2.related-product {
     position: absolute;
     bottom: -25px;
     right: -25px;
-    max-width: 93px;
+    width: 93px;
+    height: 93px;
 }
 
 .news-n-events__link {
@@ -2975,7 +2976,7 @@ h2.related-product {
     margin-bottom: 30px;
 }
 
-.entry-content > p {
+.entry-content > p, .entry-content > ul > li, .entry-content > span, .entry-content > ol > li {
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
@@ -3794,8 +3795,6 @@ a#nep_call_panel.nep_right_bottom {
 }
 
 #comments .comment-list .comment-meta .avatar {
-    max-width: 100px;
-    height: auto;
     position: relative;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -3804,6 +3803,10 @@ a#nep_call_panel.nep_right_bottom {
     display: block;
     margin: auto;
     border: 2px solid #E9E9E9;
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px;
+    object-fit: cover;
 }
 
 #comments .comment-list .comment-meta a.comment-date {
@@ -4292,6 +4295,10 @@ button.filter-btn.filter-btn-images {
     line-height: 21px;
 }
 
+.entry-content strong{
+    font-weight: bold !important;
+}
+
 /*--------------------------------------------------------------
 # ABOUT
 --------------------------------------------------------------*/
@@ -4323,6 +4330,7 @@ button.filter-btn.filter-btn-images {
     right: 0;
     top: 0;
     line-height: 1rem;
+    display: none;
 }
 
 .wpua-title {
@@ -4404,6 +4412,19 @@ button#wpua-upload-existing:hover:before {
 #wpua-thumbnail-existing img {
     border-radius: 50%;
     border: 3px solid #F6F5F2;
+    width: 99px !important;
+    height: 99px !important;
+    max-width: 99px !important;
+    object-fit: cover;
+}
+
+.blog-card__text.empty-card p, .blog-card__text.empty-card p, .news-n-events-card__text.empty-card p{
+    margin: 0;
+    min-height: unset;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 /*--------------------------------------------------------------

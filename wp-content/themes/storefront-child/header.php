@@ -13,6 +13,8 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="yandex-verification" content="9e80d18053519ed4" />
+    <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc" />
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
