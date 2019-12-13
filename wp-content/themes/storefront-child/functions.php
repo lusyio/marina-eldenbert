@@ -2945,7 +2945,7 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                                 <p>
                                     <?php
                                     $desc = strip_tags(get_the_content());
-                                    $size = 150;
+                                    $size = 80;
                                     echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
                                     echo (strlen($desc) > $size) ? '...' : '';
                                     ?>
