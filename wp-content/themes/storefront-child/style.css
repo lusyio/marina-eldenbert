@@ -1819,7 +1819,11 @@ ul > .page-item:last-of-type .page-link {
     margin-bottom: 20px;
 }
 
-#articleText{
+.comment-form-comment-subscribe {
+    display: none !important;
+}
+
+#articleText {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -4295,7 +4299,7 @@ button.filter-btn.filter-btn-images {
     line-height: 21px;
 }
 
-.entry-content strong{
+.entry-content strong {
     font-weight: bold !important;
 }
 
@@ -4418,7 +4422,7 @@ button#wpua-upload-existing:hover:before {
     object-fit: cover;
 }
 
-.blog-card__text.empty-card p, .blog-card__text.empty-card p, .news-n-events-card__text.empty-card p{
+.blog-card__text.empty-card p, .blog-card__text.empty-card p, .news-n-events-card__text.empty-card p {
     margin: 0;
     min-height: unset;
     padding-top: 40px;
