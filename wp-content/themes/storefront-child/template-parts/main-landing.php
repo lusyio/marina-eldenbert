@@ -24,7 +24,7 @@ Template Post Type: post, page, product
                             [
                                 'taxonomy' => 'product_tag',
                                 'field' => 'slug',
-                                'terms' => 'bestseller',
+                                'terms' => 'popular',
                             ],
                         ]
                     ];
