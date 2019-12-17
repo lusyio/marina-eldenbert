@@ -1833,7 +1833,7 @@ ul > .page-item:last-of-type .page-link {
 
 .popular {
     padding-top: 3.75rem;
-    padding-bottom: 8.125rem;
+    padding-bottom: 4.125rem;
 }
 
 .popular-header {
@@ -2173,8 +2173,8 @@ ul > .page-item:last-of-type .page-link {
 
 .container-related {
     background: #FBFAF9;
-    padding-top: 6.25rem;
-    padding-bottom: 6.25rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
 }
 
 .related .container-related__prev, .related .container-related__next {
