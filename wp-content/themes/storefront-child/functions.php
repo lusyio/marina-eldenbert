@@ -2992,3 +2992,275 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
         <?php endif;
     endif;
 }
+
+/**
+ * Если запись $post_ID - глава книги , то отправляет письмо всем пользователям купившим эту книгу,
+ * @param $post_ID
+ * @return mixed
+ */
+function sendNotificationAboutNewArticle($post_ID)  {
+    // берем категории поста
+    $categories = wp_get_post_categories( $post_ID );
+    // для каждой категории проверяем есть ли страница с мета-полем cat_id = id категории
+    foreach ($categories as $category_id) {
+        $bookPageId = getBookPageIdByCategoryId($category_id);
+        if (!$bookPageId) {
+            continue;
+        }
+        // берем ссылку на страницу, добавляем id записи - получается ссылка на чтение новой главы
+        $bookLink = get_permalink($bookPageId) . '?a=' . $post_ID;
+        // проверяем по book_id есть ли товар
+        $bookId = get_post_meta($bookPageId, 'book_id', true);
+        $product = wc_get_product($bookId);
+        if (!$product) {
+            continue;
+        }
+        // Берем с товара название и ссылку на картинку
+        $bookName = $product->get_name();
+        $imgLink = wp_get_attachment_url($product->get_image_id());
+
+        // Выбираем пользователей, купивших эту книгу
+        $user_emails = implode(",", getCustomersWhoBoughtBook($bookId));
+        ob_start();
+        ?>
+        <html lang="en" style="margin:0;padding:0">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="format-detection" content="telephone=no"/>
+            <title>Новая глава в книге <?= $bookName ?></title>
+            <style type="text/css"> @media screen and (max-width: 480px) {
+                    .mailpoet_button {
+                        width: 100% !important;
+                    }
+                }
+
+                @media screen and (max-width: 599px) {
+                    .mailpoet_header {
+                        padding: 10px 20px;
+                    }
+
+                    .mailpoet_button {
+                        width: 100% !important;
+                        padding: 5px 0 !important;
+                        box-sizing: border-box !important;
+                    }
+
+                    div, .mailpoet_cols-two, .mailpoet_cols-three {
+                        max-width: 100% !important;
+                    }
+                }
+            </style>
+
+        </head>
+        <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
+              style="margin:0;padding:0;background-color:#eeeeee">
+        <table class="mailpoet_template" border="0" width="100%" cellpadding="0" cellspacing="0"
+               style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0">
+            <tbody>
+            <tr>
+                <td class="mailpoet_preheader"
+                    style="border-collapse:collapse;display:none;visibility:hidden;mso-hide:all;font-size:1px;color:#333333;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;-webkit-text-size-adjust:none"
+                    height="1">
+
+                </td>
+            </tr>
+            <tr>
+                <td align="center" class="mailpoet-wrapper" valign="top"
+                    style="border-collapse:collapse;background-color:#eeeeee"><!--[if mso]>
+                    <table align="center" border="0" cellspacing="0" cellpadding="0"
+                           width="660">
+                        <tr>
+                            <td class="mailpoet_content-wrapper" align="center" valign="top" width="660">
+                    <![endif]-->
+                    <table class="mailpoet_content-wrapper" border="0" width="660" cellpadding="0" cellspacing="0"
+                           style="border-collapse:collapse;background-color:#ffffff;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;max-width:660px;width:100%">
+                        <tbody>
+
+                        <tr>
+                            <td class="mailpoet_content" align="center"
+                                style="border-collapse:collapse;background-color:#ffffff!important" bgcolor="#ffffff">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0">
+                                    <tbody>
+                                    <tr>
+                                        <td style="border-collapse:collapse;padding-left:0;padding-right:0">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                                                   class="mailpoet_cols-one"
+                                                   style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="mailpoet_spacer" height="30" valign="top"
+                                                        style="border-collapse:collapse"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="mailpoet_image mailpoet_padded_vertical mailpoet_padded_side"
+                                                        align="center" valign="top"
+                                                        style="border-collapse:collapse;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px">
+                                                        <img src="http://marina-eldenbert.ru/wp-content/uploads/2019/11/logo.png"
+                                                             width="165" alt="logo"
+                                                             style="height:auto;max-width:100%;-ms-interpolation-mode:bicubic;border:0;display:block;outline:none;text-align:center"/>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mailpoet_content-cols-two" align="left" style="border-collapse:collapse">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0">
+                                    <tbody>
+                                    <tr>
+                                        <td align="center" style="border-collapse:collapse;font-size:0"><!--[if mso]>
+                                            <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td width="220" valign="top">
+                                            <![endif]-->
+                                            <div style="display:inline-block; max-width:220px; vertical-align:top; width:100%;">
+                                                <table width="220" class="mailpoet_cols-two" border="0" cellpadding="0"
+                                                       cellspacing="0" align="left"
+                                                       style="border-collapse:collapse;width:100%;max-width:220px;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="mailpoet_image mailpoet_padded_vertical mailpoet_padded_side"
+                                                            align="center" valign="top"
+                                                            style="border-collapse:collapse;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px">
+                                                            <img src="<?= $imgLink ?>" width="180"
+                                                                 alt="<?= $bookName ?>"
+                                                                 style="height:auto;max-width:100%;-ms-interpolation-mode:bicubic;border:0;display:block;outline:none;text-align:center"/>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!--[if mso]>
+                                            </td>
+                                            <td width="440" valign="top">
+                                            <![endif]-->
+                                            <div style="display:inline-block; max-width:440px; vertical-align:top; width:100%;">
+                                                <table width="440" class="mailpoet_cols-two" border="0" cellpadding="0"
+                                                       cellspacing="0" align="left"
+                                                       style="border-collapse:collapse;width:100%;max-width:440px;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="mailpoet_text mailpoet_padded_vertical mailpoet_padded_side"
+                                                            valign="top"
+                                                            style="border-collapse:collapse;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+                                                            <h1 style="margin:0 0 9px;color:#111111;font-family:'Trebuchet MS','Lucida Grande','Lucida Sans Unicode','Lucida Sans',Tahoma,sans-serif;font-size:30px;line-height:48px;margin-bottom:0;text-align:center;padding:0;font-style:normal;font-weight:normal">
+                                                                <strong>В книге "<?= $bookName ?>" появилась новая
+                                                                    глава</strong></h1>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="mailpoet_text mailpoet_padded_vertical mailpoet_padded_side"
+                                                            valign="top"
+                                                            style="border-collapse:collapse;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;word-break:break-word;word-wrap:break-word">
+                                                            <table style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0"
+                                                                   width="100%" cellpadding="0">
+                                                                <tr>
+                                                                    <td class="mailpoet_paragraph"
+                                                                        style="border-collapse:collapse;color:#000000;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px;line-height:25.6px;word-break:break-word;word-wrap:break-word;text-align:left">
+                                                                        Чтобы скорее прочесть новую главу переходите по
+                                                                        ссылке <a
+                                                                                href="<?= $bookLink ?>"><?= $bookLink ?></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!--[if mso]>
+                                            </td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                            <![endif]--></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mailpoet_content" align="center" style="border-collapse:collapse">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                                       style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0">
+                                    <tbody>
+                                    <tr>
+                                        <td style="border-collapse:collapse;padding-left:0;padding-right:0">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                                                   class="mailpoet_cols-one"
+                                                   style="border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;margin-left:auto;margin-right:auto;padding-left:0;padding-right:0">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="mailpoet_header_footer_padded mailpoet_footer"
+                                                        style="border-collapse:collapse;padding:10px 20px;line-height:19.2px;text-align:center;color:#222222;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:12px">
+                                                        <a href="https://marina-eldenbert.ru">marina-eldenbert.ru</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--[if mso]>
+                    </td>
+                    </tr>
+                    </table>
+                    <![endif]--></td>
+            </tr>
+            </tbody>
+        </table>
+        </body>
+        </html>
+        <?php
+        $message = ob_get_clean();
+        $subject = "Доступна новая глава книги " . $bookName; // тема
+        $headers = "Content-type: text/html; charset=utf-8 \r\n";
+        $headers .= "From: " . get_bloginfo('name') . " <info@marina-eldenbert.ru>\r\n";
+        mail($user_emails, $subject, $message, $headers);
+    }
+    return $post_ID;
+}
+// Добавляем отправку уведомления о новой главе книги при добавлении записи
+add_action('publish_post', 'sendNotificationAboutNewArticle');
+
+/**
+ * Получаем массив e-mail'ов пользователей, купивших товар
+ * @param $product_id
+ * @return array
+ */
+
+function getCustomersWhoBoughtBook($product_id)
+{
+// Access WordPress database
+global $wpdb;
+
+// Find billing emails in the DB order table
+$statuses = array_map('esc_sql', wc_get_is_paid_statuses());
+$customer_emails = $wpdb->get_col("
+   SELECT DISTINCT pm.meta_value FROM {$wpdb->posts} AS p
+   INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id
+   INNER JOIN {$wpdb->prefix}woocommerce_order_items AS i ON p.ID = i.order_id
+   INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS im ON i.order_item_id = im.order_item_id
+   WHERE p.post_status IN ( 'wc-" . implode("','wc-", $statuses) . "' )
+   AND pm.meta_key IN ( '_billing_email' )
+   AND im.meta_key IN ( '_product_id', '_variation_id' )
+   AND im.meta_value = $product_id
+");
+
+return $customer_emails;
+}
