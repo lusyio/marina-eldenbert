@@ -890,8 +890,14 @@ footer.site-footer {
 
 .submit-field-comments {
     margin-top: 3rem;
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
+}
+
+.submit-field-comments .load-more {
+    margin-bottom: 0;
+}
+
+#comments {
+    margin-bottom: 6rem;
 }
 
 .comment-body #respond {
@@ -3519,9 +3525,9 @@ h2.related-product {
 }
 
 #comments .comments-title {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    padding-bottom: 0.5407911001em;
-    margin-bottom: 1.618em;
+    border-bottom: none;
+    margin-bottom: 30px;
+    padding-bottom: 0;
 }
 
 #comments .comment-list {
