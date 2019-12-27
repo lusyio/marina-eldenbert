@@ -2115,6 +2115,10 @@ add_action('admin_enqueue_scripts', function () {
  */
 function abonementModal()
 {
+    global $pagenow;
+    if ($pagenow != 'users.php') {
+        return;
+    }
     ?>
     <div class="modal fade" id="abonementModal" tabindex="-1" role="dialog" aria-labelledby="abonementModalLabel"
          aria-hidden="true">
