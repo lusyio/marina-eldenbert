@@ -3004,6 +3004,10 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
  * @return mixed
  */
 function sendNotificationAboutNewArticle($post_ID)  {
+    $emailNotificationStatus = get_option('newArticleMailNotification', 0);
+    if (!$emailNotificationStatus) {
+        return;
+    }
     // берем категории поста
     $categories = wp_get_post_categories( $post_ID );
     // для каждой категории проверяем есть ли страница с мета-полем cat_id = id категории
@@ -3269,3 +3273,60 @@ $customer_emails = $wpdb->get_col("
 
 return $customer_emails;
 }
+
+
+/**
+ * Регистрирует виджет управления рассылкой о новых главах в консоли админки
+ */
+function newArticleMailWidget()
+{
+    global $wp_meta_boxes;
+
+    wp_add_dashboard_widget(
+        'newArticleMailWidget', //Слаг виджета
+        'Управление рассылкой о новых главах', //Заголовок виджета
+        'newArticleMail' //Функция вывода
+    );
+}
+
+add_action('wp_dashboard_setup', 'newArticleMailWidget');
+
+
+/**
+ * Виджет управления рассылкой о новых главах
+ */
+function newArticleMail()
+{
+    $doesNotificationsEnabled = get_option('newArticleMailNotification', 0);
+
+    if ($doesNotificationsEnabled) {
+        echo '<p><strong>Сейчас рассылка работает - все пользователи, купившие книгу, получат письмо при публикации новой главы в книге</strong></p>';
+    } else {
+        echo '<p>Включить уведомления читателей при публикации новых глав книги?</p>';
+    }
+    ?>
+    <form method="post">
+        <input type="hidden" name="newArticleMail" value="<?php echo ($doesNotificationsEnabled) ? 0 : 1 ?>">
+        <button class="button mt-3" type="submit"><?php echo ($doesNotificationsEnabled) ? 'Выключить' : 'Включить' ?>
+            уведомления о новых главах
+        </button>
+    </form>
+    <?php
+}
+
+/**
+ * Изменяет настройку рассылки уведомления о новых главах
+ */
+function changeArticleMailStatus()
+{
+    if (is_admin() && isset($_POST['newArticleMail'])) {
+        if (intval($_POST['newArticleMail']) === 1) {
+            update_option('newArticleMailNotification', 1);
+        } elseif (intval($_POST['newArticleMail']) === 0) {
+            update_option('newArticleMailNotification', 0);
+        }
+        header("Location:" . $_SERVER['PHP_SELF']);
+    }
+}
+
+add_action('init', 'changeArticleMailStatus', 10);
