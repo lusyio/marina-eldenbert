@@ -995,7 +995,7 @@ function productSeries()
 {
     global $product;
 // Получаем элементы таксономии атрибута
-    $attribute_names = get_the_terms($product->get_id(), 'pa_series-book');
+    $attribute_names = get_the_terms($product->get_id(), 'pa_cycle-book');
     $attribute_name = "Цикл: ";
     if ($attribute_names) {
 // Вывод имени атрибута
