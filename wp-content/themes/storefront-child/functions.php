@@ -994,7 +994,7 @@ add_action('woocommerce_single_product_summary', 'productAuthor', 15);
 function productSeries()
 {
     global $product;
-// Получаем элементы таксономии атрибута
+// Получаем элементы таксономии атрибута цикл
     $attribute_names = get_the_terms($product->get_id(), 'pa_cycle-book');
     $attribute_name = "Цикл: ";
     if ($attribute_names) {
@@ -1008,6 +1008,22 @@ function productSeries()
             echo '<a href="/shop/?filter=series-' . $attribute_name->slug . '">';
             echo $attribute_name->name;
             echo '</a>';
+            echo '</p>';
+            break;
+        endforeach;
+    }
+    // Получаем элементы таксономии атрибута серия
+    $attribute_names = get_the_terms($product->get_id(), 'pa_series-book');
+    $attribute_name = "Серия: ";
+    if ($attribute_names) {
+// Вывод имени атрибута
+        echo '<p class="attr-label">';
+        echo wc_attribute_label($attribute_name);
+
+// Выборка значения заданного атрибута
+        foreach ($attribute_names as $attribute_name):
+// Вывод значений атрибута
+            echo $attribute_name->name;
             echo '</p>';
             break;
         endforeach;
