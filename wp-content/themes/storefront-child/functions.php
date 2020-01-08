@@ -963,9 +963,13 @@ add_filter('woocommerce_is_sold_individually', 'custom_remove_all_quantity_field
 function productAuthor()
 {
     global $product;
-// Получаем элементы таксономии атрибута
+    // Получаем атрибуты товара
+    $attributes = $product->get_attributes();
+    // Если атрибута Автор нет, или он не должен выводиться на странице товара, то выходим
+    if (!key_exists('pa_author-book', $attributes) || !$attributes['pa_author-book']->get_visible()) {
+        return;
+    }
     $attribute_names = get_the_terms($product->get_id(), 'pa_author-book');
-
     if ($attribute_names) {
         if (count($attribute_names) > 1) {
             $attribute_name = "Авторы: ";
