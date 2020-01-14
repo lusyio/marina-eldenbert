@@ -2995,7 +2995,7 @@ h2.related-product {
 }
 
 .post-thumbnail img {
-    /*max-height: 350px;*/
+    max-height: 350px;
     width: auto;
 }
 
