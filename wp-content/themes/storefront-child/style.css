@@ -4236,7 +4236,7 @@ button.button.filter-btn:focus {
 }
 
 .entry-content img {
-    max-height: 400px;
+    /*max-height: 400px;*/
     width: auto;
 }
 
