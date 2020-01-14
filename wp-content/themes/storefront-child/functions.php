@@ -3567,9 +3567,14 @@ function getNotificationCard($notification)
         $isValid = true;
     } elseif ($type == 'reply_comment' || $type == 'like_comment') {
         $comment = WP_Comment::get_instance($notification->comment_id);
-        $user = get_userdata($comment->user_id);
+        if ($type == 'reply_comment') {
+            $replyUserId = $comment->user_id;
+        } else {
+            $replyUserId = $notification->reply_user_id;
+        }
+        $user = get_userdata($replyUserId);
         $replyUser = $user->display_name;
-        $userSex = get_user_meta($comment->user_id, 'sex', true);
+        $userSex = get_user_meta($replyUserId, 'sex', true);
         $link = get_comment_link($comment);
         if ($type == 'reply_comment') {
             $feminitive = ($userSex === '1' || $userSex === '') ? 'а' : '';
