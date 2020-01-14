@@ -3482,9 +3482,9 @@ function commentReplyNotificationAdd($comment)
     $commentId = $comment->comment_ID;
     $parentComment = WP_Comment::get_instance($comment->comment_parent);
     $userId = $parentComment->user_id;
-//    if ($userId == $replyUserId) {
-//        return;
-//    }
+    if ($userId == $replyUserId) {
+        return;
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, page_id, reply_user_id, comment_id, notification_date) VALUES (%d, %s, %d, %d, %d, NOW());", $userId, "reply_comment", $pageId, $replyUserId, $commentId));
@@ -3501,9 +3501,9 @@ function commentLikeNotificationAdd($commentId)
     $comment = WP_Comment::get_instance($commentId);
     $userId = $comment->user_id;
     $pageId = $comment->comment_post_ID;
-//    if ($userId == $replyUserId) {
-//        return;
-//    }
+    if ($userId == $replyUserId) {
+        return;
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
 
