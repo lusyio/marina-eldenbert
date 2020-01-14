@@ -1,6 +1,5 @@
 <?php
 $notifications = getNotifications();
-//var_dump($notifications);
 if (countNewNotifications() > 0):
 ?>
 <div class="col-12 read-notification">
@@ -10,9 +9,16 @@ if (countNewNotifications() > 0):
 </form>
 </div>
 <?php endif; ?>
-<?php foreach ($notifications as $notification): ?>
-<?php echo getNotificationCard($notification); ?>
-<?php endforeach; ?>
+<?php if (count($notifications) > 0):?>
+    <?php foreach ($notifications as $notification): ?>
+        <?php echo getNotificationCard($notification); ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="col-md-8 offset-md-2 p-5 text-center">
+        <p>Здесь будут появляться уведомления о новых главах, ответах и лайках к вашим комментариям</p>
+    </div>
+<?php endif; ?>
+
 <button id="more" class="woocommerce-Button m-auto" style="display: none">Загрузить еще</button>
 
 <script>
