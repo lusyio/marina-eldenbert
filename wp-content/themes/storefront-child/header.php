@@ -50,7 +50,7 @@
                         'theme_location' => 'primary',
                         'container' => 'div',
                         'container_id' => '',
-                        'container_class' => 'collapse navbar-collapse justify-content-end mr-5',
+                        'container_class' => 'collapse navbar-collapse justify-content-end mr-3',
                         'menu_id' => false,
                         'menu_class' => 'navbar-nav',
                         'depth' => 3,
@@ -59,6 +59,17 @@
                     ));
                     ?>
                     <?php get_search_form() ?>
+                    <?php if (is_user_logged_in()): ?>
+                    <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto position-relative">
+                        <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . 'notifications/' ?>"
+                           class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
+                                <span class="basket-btn__label"><img
+                                            src="/wp-content/themes/storefront-child/svg/bell.svg"
+                                            alt=""></span>
+                            <span id="notificationCounter" class="notification-btn__counter"<?=(sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                        </a>
+                    </div>
+                    <?php endif; ?>
                     <?php if (class_exists('WooCommerce')): ?>
                         <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
                             <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">

@@ -573,7 +573,26 @@ function wp_custom_link_pages($args = '')
     }
     return $html;
 }
-
+/**
+ * Добавляем скрипт счетчика уведомлений
+ */
+if (is_user_logged_in()) {
+    wp_enqueue_script('notification-script', get_stylesheet_directory_uri() . '/inc/assets/js/notifications.js', array('jquery'));
+}
+/**
+ * Добавляем ajax-обработчик счетчика уведомлений
+ */
+if (is_user_logged_in()) {
+    add_action('wp_ajax_update_notification', 'notificationAjax');
+}
+/**
+ * ajax-обработчик вывода страниц главы
+ */
+function notificationAjax()
+{
+    echo countNewNotifications();
+    wp_die();
+}
 
 /**
  * Добавляем скрипт пагинации
@@ -799,7 +818,7 @@ function bookCardInReader()
             $buyButtonText = 'Купить';
             if ($product->get_price() == 0) {
                 $buyButtonText = 'Подробнее';
-            }?>
+            } ?>
             <a href="<?php echo $product->get_permalink(); ?>"><?php echo $buyButtonText; ?></a>
             <?php
         } elseif (!$hasDownloads && $product->get_status() == 'pending') { ?>
@@ -3023,13 +3042,15 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
  * @param $post_ID
  * @return mixed
  */
-function sendNotificationAboutNewArticle($post_ID)  {
+function sendNotificationAboutNewArticle($post_ID)
+{
     $emailNotificationStatus = get_option('newArticleMailNotification', 0);
     if (!$emailNotificationStatus) {
         return;
     }
+
     // берем категории поста
-    $categories = wp_get_post_categories( $post_ID );
+    $categories = wp_get_post_categories($post_ID);
     // для каждой категории проверяем есть ли страница с мета-полем cat_id = id категории
     foreach ($categories as $category_id) {
         $bookPageId = getBookPageIdByCategoryId($category_id);
@@ -3264,6 +3285,7 @@ function sendNotificationAboutNewArticle($post_ID)  {
     }
     return $post_ID;
 }
+
 // Добавляем отправку уведомления о новой главе книги при добавлении записи
 add_action('publish_post', 'sendNotificationAboutNewArticle');
 
@@ -3276,11 +3298,11 @@ add_action('publish_post', 'sendNotificationAboutNewArticle');
 function getCustomersWhoBoughtBook($product_id)
 {
 // Access WordPress database
-global $wpdb;
+    global $wpdb;
 
 // Find billing emails in the DB order table
-$statuses = array_map('esc_sql', wc_get_is_paid_statuses());
-$customer_emails = $wpdb->get_col("
+    $statuses = array_map('esc_sql', wc_get_is_paid_statuses());
+    $customer_emails = $wpdb->get_col("
    SELECT DISTINCT pm.meta_value FROM {$wpdb->posts} AS p
    INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id
    INNER JOIN {$wpdb->prefix}woocommerce_order_items AS i ON p.ID = i.order_id
@@ -3291,7 +3313,28 @@ $customer_emails = $wpdb->get_col("
    AND im.meta_value = $product_id
 ");
 
-return $customer_emails;
+    return $customer_emails;
+}
+
+function getCustomerIdsWhoBoughtBook($product_id)
+{
+// Access WordPress database
+    global $wpdb;
+
+// Find user ids in the DB order table
+    $statuses = array_map('esc_sql', wc_get_is_paid_statuses());
+    $customer_ids = $wpdb->get_col("
+   SELECT DISTINCT pm.meta_value FROM {$wpdb->posts} AS p
+   INNER JOIN {$wpdb->postmeta} AS pm ON p.ID = pm.post_id
+   INNER JOIN {$wpdb->prefix}woocommerce_order_items AS i ON p.ID = i.order_id
+   INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS im ON i.order_item_id = im.order_item_id
+   WHERE p.post_status IN ( 'wc-" . implode("','wc-", $statuses) . "' )
+   AND pm.meta_key IN ( '_customer_user' )
+   AND im.meta_key IN ( '_product_id', '_variation_id' )
+   AND im.meta_value = $product_id
+");
+
+    return $customer_ids;
 }
 
 
@@ -3350,3 +3393,363 @@ function changeArticleMailStatus()
 }
 
 add_action('init', 'changeArticleMailStatus', 10);
+
+// ФУНКЦИИ УВЕДОМЛЕНИЙ
+
+// Создание таблицы
+add_action('init', 'createNotificationTable');
+add_action('init', 'getNotifications');
+
+function createNotificationTable()
+{
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications'; //me - аббревиатура Марина Эльденберт
+    $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate}";
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    $sql = "CREATE TABLE {$table_name} (
+    id int auto_increment,
+	user_id int not null,
+	notification_type varchar(255) not null,
+	page_id int null,
+	article_page_id int null,
+	reply_user_id int null,
+	comment_id int null,
+    notification_date datetime,
+    view_status int not null default 0,
+    PRIMARY KEY (id)
+) {$charset_collate};";
+
+// Создать таблицу.
+    dbDelta($sql);
+}
+
+
+/**
+ * Отправка уведомлений при публикации поста
+ */
+function article_send_notification( $new_status, $old_status, $post ) {
+    if ($new_status === 'publish' && $post->post_type === 'post') {
+        if ($old_status === $new_status) {
+            //обновление
+            updateArticleNotificationAdd($post->ID);
+        } else {
+            // создание
+            newArticleNotificationAdd($post->ID);
+        }
+    }
+}
+add_action( 'transition_post_status', 'article_send_notification', 10, 3 );
+
+function newArticleNotificationAdd($articlePageId = 78)
+{
+    $bookData = getBookInfoByArticleId($articlePageId);
+    if (!is_array($bookData) || count($bookData) == 0) {
+        return;
+    }
+    $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    foreach ($userIds as $userId) {
+        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $userId, "new_article", $articlePageId));
+    }
+}
+
+// Запись уведомления об обновлении главы (userId, bookId, articleId)
+
+function updateArticleNotificationAdd($articlePageId = 78)
+{
+    $bookData = getBookInfoByArticleId($articlePageId);
+    if (!is_array($bookData) || count($bookData) == 0) {
+        return;
+    }
+    $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    foreach ($userIds as $userId) {
+        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $userId, "update_article", $articlePageId));
+    }
+}
+
+// Запись уведомления об ответе на комментарий (userId, replyUserId, pageId, commentId)
+
+function commentReplyNotificationAdd($comment)
+{
+    if (is_null($comment->comment_parent) || $comment->comment_parent == '' || $comment->comment_parent == 0) {
+        return;
+    }
+    $replyUserId = $comment->user_id;
+    $pageId = $comment->comment_post_ID;
+    $commentId = $comment->comment_ID;
+    $parentComment = WP_Comment::get_instance($comment->comment_parent);
+    $userId = $parentComment->user_id;
+//    if ($userId == $replyUserId) {
+//        return;
+//    }
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, page_id, reply_user_id, comment_id, notification_date) VALUES (%d, %s, %d, %d, %d, NOW());", $userId, "reply_comment", $pageId, $replyUserId, $commentId));
+}
+
+// Запись уведомления о лайке комментария (userId, replyUserId, pageId, commentId)
+
+function commentLikeNotificationAdd($commentId)
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $replyUserId = get_current_user_id();
+    $comment = WP_Comment::get_instance($commentId);
+    $userId = $comment->user_id;
+    $pageId = $comment->comment_post_ID;
+//    if ($userId == $replyUserId) {
+//        return;
+//    }
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+
+    $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, page_id, reply_user_id, comment_id, notification_date) VALUES (%d, %s, %d, %d, %d, NOW());", $userId, "like_comment", $pageId, $replyUserId, $commentId));
+}
+
+
+// Вывод всех уведомлений в личном кабинете
+
+function getNotifications()
+{
+    if (!is_user_logged_in()) {
+        return [];
+    }
+    $userId = get_current_user_id();
+
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC;", $userId));
+    return $notifications;
+}
+
+function countNewNotifications()
+{
+    if (!is_user_logged_in()) {
+        return 0;
+    }
+    global $wp_query;
+    $is_endpoint = isset($wp_query->query_vars['notifications']);
+    if ($is_endpoint && !is_admin() && is_main_query() && is_account_page() && isset($_POST['readNotifications']) && $_POST['readNotifications'] == '1') {
+        markAllNotificationsAsRead();
+    }
+
+    global $wpdb;
+    $userId = get_current_user_id();
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $notifications = $wpdb->get_results($wpdb->prepare("SELECT COUNT(*) as `count` FROM {$table_name} WHERE user_id = %d AND view_status = 0;", $userId));
+    return $notifications[0]->count;
+}
+
+function getNotificationCard($notification)
+{
+    $htmlOutput = '';
+    $icon = '';
+    $isValid = false;
+    $type = $notification->notification_type;
+    if ($type == 'new_article' || $type == 'update_article') {
+        $bookData = getBookInfoByArticleId($notification->article_page_id);
+        if (count($bookData) == 0) {
+            return '';
+        }
+        $link = $bookData['bookLink'];
+        $bookName = $bookData['product']->get_name();
+        if ($type == 'new_article') {
+            $content = 'Новая глава в книге "' . $bookName . '"';
+            $icon = 'book.svg';
+        } else {
+            $content = 'Обновление главы в книге "' . $bookName . '"';
+            $icon = 'book-update.svg';
+        }
+        $isValid = true;
+    } elseif ($type == 'reply_comment' || $type == 'like_comment') {
+        $comment = WP_Comment::get_instance($notification->comment_id);
+        $user = get_userdata($comment->user_id);
+        $replyUser = $user->display_name;
+        $userSex = get_user_meta($comment->user_id, 'sex', true);
+        $link = get_comment_link($comment);
+        if ($type == 'reply_comment') {
+            $feminitive = ($userSex === '1' || $userSex === '') ? 'а' : '';
+            $content = $replyUser . ' ответил' . $feminitive . ' на ваш комментарий';
+            $icon = 'reply.svg';
+            $isValid = true;
+        } else {
+            $feminitive = ($userSex === '1' || $userSex === '') ? 'а' : '';
+            $content = $replyUser . ' оценил' . $feminitive . ' ваш комментарий';
+            $icon = 'like-notification.svg';
+            $isValid = true;
+        }
+    }
+    if ($isValid):
+        ob_start();?>
+        <a href="<?= $link ?>">
+            <div class="row notification-card mb-3 p-3<?= ($notification->view_status == 0) ? ' new-notification' : '';?>" style="display: none">
+                <div class="col-1 notification-card__text"><span><img
+                                src="/wp-content/themes/storefront-child/svg/<?=$icon?>"
+                                alt=""></span></div>
+                <div class="col-8 notification-card__text"><p><?= $content ?></p></div>
+                <div class="col-3 notification-card__date text-right"><p><?= date('d.m.Y H:i', strtotime($notification->notification_date)); ?></p></div>
+            </div>
+        </a>
+        <?php
+        $htmlOutput = ob_get_clean();
+    endif;
+    return $htmlOutput;
+}
+
+// Пометка уведомления прочитанным для главы
+
+function markArticleNotificationAsRead($articleId)
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $userId = get_current_user_id();
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND article_page_id = %d AND view_status = 0;", $userId, $articleId));
+}
+
+// Пометка уведомления прочитанным для комментария
+function markCommentNotificationAsRead($pageId)
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $userId = get_current_user_id();
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND page_id = %d AND view_status = 0;", $userId, $pageId));
+}
+
+// Пометка всех уведомлений прочитанными (ajax)
+
+function markAllNotificationsAsRead()
+{
+    if (!is_user_logged_in()) {
+        return;
+    }
+    $userId = get_current_user_id();
+
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND view_status = 0;", $userId));
+}
+
+// Удаление старых уведомлений
+
+// Добавление страницы в личном кабинете
+
+add_action('init', 'my_account_new_endpoints');
+
+function my_account_new_endpoints()
+{
+    add_rewrite_endpoint('notifications', EP_ROOT | EP_PAGES);
+}
+
+add_action('woocommerce_account_notifications_endpoint', 'notifications_endpoint_content');
+function notifications_endpoint_content()
+{
+    get_template_part('notifications');
+}
+
+add_filter('woocommerce_account_menu_items', 'addNotificationsPage', 10, 2);
+
+function notificationPageAddQueryVar($vars)
+{
+    $vars[] = 'notifications';
+    return $vars;
+}
+
+add_filter('query_vars', 'notificationPageAddQueryVar', 0);
+
+add_filter('woocommerce_get_breadcrumb', function ($args) {
+    global $wp_query;
+    $is_endpoint = isset($wp_query->query_vars['notifications']);
+    if ($is_endpoint && !is_admin() && is_main_query() && is_account_page()) {
+        $args[] = ['Уведомления', get_page_link() . 'notifications/'];
+    }
+    return $args;
+});
+
+add_filter('the_title', 'notificationsEndpointTitle');
+function notificationsEndpointTitle($title)
+{
+    global $wp_query;
+    $is_endpoint = isset($wp_query->query_vars['notifications']);
+    if ($is_endpoint && !is_admin() && is_main_query() && in_the_loop() && is_account_page()) {                // New page title.				'
+        $title = "Уведомления";
+        remove_filter( 'the_title', 'notificationsEndpointTitle');
+    }
+    return $title;
+}
+
+function addNotificationsPage($args, $endpoints)
+    {
+        $notifications = ['notifications' => 'Уведомления'];
+        array_splice_assoc($args, 2, 0, $notifications);
+        $endpoints['notifications'] = 'notifications';
+        return $args;
+    }
+
+function array_splice_assoc(&$input, $offset, $length, $replacement = array())
+    {
+        $replacement = (array)$replacement;
+        $key_indices = array_flip(array_keys($input));
+        if (isset($input[$offset]) && is_string($offset)) {
+            $offset = $key_indices[$offset];
+        }
+        if (isset($input[$length]) && is_string($length)) {
+            $length = $key_indices[$length] - $offset;
+        }
+
+        $input = array_slice($input, 0, $offset, TRUE)
+            + $replacement
+            + array_slice($input, $offset + $length, NULL, TRUE);
+    }
+
+function getBookInfoByArticleId($post_ID)
+{
+    $result = [];
+    $categories = wp_get_post_categories($post_ID);
+    // для каждой категории проверяем есть ли страница с мета-полем cat_id = id категории
+    foreach ($categories as $category_id) {
+        $bookPageId = getBookPageIdByCategoryId($category_id);
+        if (!$bookPageId) {
+            continue;
+        }
+        // берем ссылку на страницу, добавляем id записи - получается ссылка на чтение новой главы
+        $result['bookLink'] = get_permalink($bookPageId) . '?a=' . $post_ID;
+        // проверяем по book_id есть ли товар
+        $bookId = get_post_meta($bookPageId, 'book_id', true);
+        $result['bookId'] = $bookId;
+        $product = wc_get_product($bookId);
+        if (!$product) {
+            continue;
+        }
+        // Берем с товара название и ссылку на картинку
+        $bookName = $product->get_name();
+        $result['product'] = $product;
+
+    }
+    return $result;
+}
+
+function commentNotification($location, $comment)
+{
+    commentReplyNotificationAdd($comment);
+    return $location;
+}
+
+add_filter('comment_post_redirect', 'commentNotification', 20, 2);
+
+function likeNotification($ulike, $post_ID)
+{
+    commentLikeNotificationAdd($post_ID);
+    return $ulike;
+}
+
+add_filter('wp_ulike_respond_for_liked_data', 'likeNotification', 20, 2);
