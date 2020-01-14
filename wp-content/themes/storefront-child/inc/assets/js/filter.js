@@ -17,7 +17,7 @@ jQuery(function ($) {
         let loadFilter = getUrlParameter('filter');
         let filterClass = '';
         if (loadFilter !== undefined) {
-            if (loadFilter.match(/^series/) === null) {
+            if (loadFilter.match(/^cycle/) === null) {
                 filterClass = '.product_tag-' + loadFilter;
             } else {
                 filterClass = '.' + loadFilter;
@@ -68,7 +68,6 @@ jQuery(function ($) {
             // get group key
             let $buttonGroup = $this.parents('.button-group');
             let filterGroup = $buttonGroup.attr('data-filter-group');
-            console.log(filterGroup);
             // set filter for group
             filters[filterGroup] = $this.attr('data-filter');
             // combine filters
