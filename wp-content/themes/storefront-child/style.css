@@ -2995,7 +2995,7 @@ h2.related-product {
 }
 
 .post-thumbnail img {
-    max-height: 350px;
+    /*max-height: 350px;*/
     width: auto;
 }
 
@@ -4182,7 +4182,7 @@ button.button.filter-btn:focus {
 }
 
 .entry-content img {
-    max-height: 400px;
+    /*max-height: 400px;*/
     width: auto;
 }
 
