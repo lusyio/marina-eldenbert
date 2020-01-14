@@ -1,6 +1,6 @@
 jQuery(function ($) {
 
-    let updater = setInterval(() => update(), 3000);
+    let updater = setInterval(() => update(), 60000);
     function update() {
         $.ajax({
             url: myajax.url,
