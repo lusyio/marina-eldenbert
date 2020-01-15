@@ -19,7 +19,6 @@ Template Post Type: post, page, product
         $bookCategoryId = get_post_meta($post->ID, 'cat_id', true);
         $bookId = get_post_meta($post->ID, 'book_id', true);
         $book = wc_get_product($bookId);
-        markCommentNotificationAsRead($post->ID);
         if (isset($_GET['a'])) {
             $articleId = intval($_GET['a']);//This is page id or post id
             $content_post = get_post($articleId);

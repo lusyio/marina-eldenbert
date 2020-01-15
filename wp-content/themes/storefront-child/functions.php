@@ -1415,80 +1415,7 @@ function my_theme_wrapper_end()
  */
 function storefront_comment($comment, $args, $depth)
 {
-    if ('div' === $args['style']) {
-        $tag = 'div';
-        $add_below = 'comment';
-    } else {
-        $tag = 'li ';
-        $add_below = 'div-comment';
-    }
-    ?>
-    <<?php echo esc_attr($tag); ?><?php comment_class(empty($args['has_children']) ? '' : 'parent'); ?> id="comment-<?php comment_ID(); ?>">
-    <div class="comment-body">
-    <div class="comment-meta commentmetadata">
-        <div class="comment-author vcard">
-            <div class="avatar-status-box position-relative">
-                <?php echo get_avatar($comment, 300); ?>
-                <?php echo do_shortcode('[mycred_my_rank user_id=' . $comment->user_id . ' show_title=0 show_logo=1 logo_size="rank"]'); ?>
-            </div>
-            <div class="text-center">
-                <?php printf(wp_kses_post('<cite class="comment-body__author fn">%s</cite>', 'storefront'), get_comment_author_link()); ?>
-                <cite><?php echo do_shortcode('[custom_my_rank user_id=' . $comment->user_id . ' show_title=1 show_logo=0]'); ?></cite>
-            </div>
-        </div>
-        <?php if ('0' === $comment->comment_approved) : ?>
-            <em class="comment-awaiting-moderation"><?php esc_attr_e('Your comment is awaiting moderation.', 'storefront'); ?></em>
-            <br/>
-        <?php endif; ?>
-
-        <a href="<?php echo esc_url(htmlspecialchars(get_comment_link($comment->comment_ID))); ?>"
-           class="comment-date">
-
-        </a>
-    </div>
-    <?php if ('div' !== $args['style']) : ?>
-    <div id="div-comment-<?php comment_ID(); ?>" class="comment-content">
-<?php endif; ?>
-    <div class="comment-text">
-        <div class="comment-container">
-            <?php if ($comment->comment_parent != 0):
-                $comment = get_comment($comment->comment_parent);
-                $comment_text = get_comment_text($comment);
-                ?>
-                <div class="quote-comment">
-                    <?php echo $comment_text; ?>
-                </div>
-            <?php endif; ?>
-            <?php comment_text(); ?>
-        </div>
-        <div class="d-flex justify-content-between">
-            <div class="d-sm-block d-flex">
-                <?php wp_ulike_comments(); ?>
-                <?php
-                comment_reply_link(
-                    array_merge(
-                        $args, array(
-                            'add_below' => $add_below,
-                            'depth' => $depth,
-                            'max_depth' => $args['max_depth'],
-                        )
-                    )
-                );
-                ?>
-            </div>
-            <time datetime="<?php echo get_comment_date('c'); ?> "><?php echo renameMonth(get_comment_date()); ?></time>
-        </div>
-    </div>
-    <div class="reply">
-
-        <?php edit_comment_link(__('Edit', 'storefront'), '  ', ''); ?>
-
-    </div>
-    </div>
-    <?php if ('div' !== $args['style']) : ?>
-    </div>
-<?php endif; ?>
-    <?php
+    woocommerce_comments($comment, $args, $depth);
 }
 
 function woocommerce_comments($comment, $args, $depth)
@@ -3423,7 +3350,6 @@ function createNotificationTable()
     dbDelta($sql);
 }
 
-
 /**
  * Отправка уведомлений при публикации поста
  */
@@ -3440,7 +3366,8 @@ function article_send_notification( $new_status, $old_status, $post ) {
 }
 add_action( 'transition_post_status', 'article_send_notification', 10, 3 );
 
-function newArticleNotificationAdd($articlePageId = 78)
+//Запись уведомления о добавлении главы
+function newArticleNotificationAdd($articlePageId)
 {
     $bookData = getBookInfoByArticleId($articlePageId);
     if (!is_array($bookData) || count($bookData) == 0) {
@@ -3454,9 +3381,8 @@ function newArticleNotificationAdd($articlePageId = 78)
     }
 }
 
-// Запись уведомления об обновлении главы (userId, bookId, articleId)
-
-function updateArticleNotificationAdd($articlePageId = 78)
+// Запись уведомления об обновлении главы
+function updateArticleNotificationAdd($articlePageId)
 {
     $bookData = getBookInfoByArticleId($articlePageId);
     if (!is_array($bookData) || count($bookData) == 0) {
@@ -3471,7 +3397,6 @@ function updateArticleNotificationAdd($articlePageId = 78)
 }
 
 // Запись уведомления об ответе на комментарий (userId, replyUserId, pageId, commentId)
-
 function commentReplyNotificationAdd($comment)
 {
     if (is_null($comment->comment_parent) || $comment->comment_parent == '' || $comment->comment_parent == 0) {
@@ -3491,7 +3416,6 @@ function commentReplyNotificationAdd($comment)
 }
 
 // Запись уведомления о лайке комментария (userId, replyUserId, pageId, commentId)
-
 function commentLikeNotificationAdd($commentId)
 {
     if (!is_user_logged_in()) {
@@ -3511,8 +3435,7 @@ function commentLikeNotificationAdd($commentId)
 }
 
 
-// Вывод всех уведомлений в личном кабинете
-
+// Возвращает все уведомления
 function getNotifications()
 {
     if (!is_user_logged_in()) {
@@ -3526,6 +3449,7 @@ function getNotifications()
     return $notifications;
 }
 
+// Считает количество непрочитанных уведомлений
 function countNewNotifications()
 {
     if (!is_user_logged_in()) {
@@ -3544,6 +3468,7 @@ function countNewNotifications()
     return $notifications[0]->count;
 }
 
+//Возвращает html-код карточки уведомления
 function getNotificationCard($notification)
 {
     $htmlOutput = '';
@@ -3605,7 +3530,7 @@ function getNotificationCard($notification)
     return $htmlOutput;
 }
 
-// Пометка уведомления прочитанным для главы
+// Пометка уведомления прочитанным для добавления и изменения главы
 
 function markArticleNotificationAsRead($articleId)
 {
@@ -3618,7 +3543,7 @@ function markArticleNotificationAsRead($articleId)
     $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND article_page_id = %d AND view_status = 0;", $userId, $articleId));
 }
 
-// Пометка уведомления прочитанным для комментария
+// Пометка уведомления прочитанным для ответов и лайков к комментариям
 function markCommentNotificationAsRead($pageId)
 {
     if (!is_user_logged_in()) {
@@ -3630,8 +3555,7 @@ function markCommentNotificationAsRead($pageId)
     $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND page_id = %d AND view_status = 0;", $userId, $pageId));
 }
 
-// Пометка всех уведомлений прочитанными (ajax)
-
+// Пометка всех уведомлений прочитанными
 function markAllNotificationsAsRead()
 {
     if (!is_user_logged_in()) {
@@ -3644,10 +3568,8 @@ function markAllNotificationsAsRead()
     $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND view_status = 0;", $userId));
 }
 
-// Удаление старых уведомлений
 
-// Добавление страницы в личном кабинете
-
+// Добавляем эндпоинт страницы уведомлений
 add_action('init', 'my_account_new_endpoints');
 
 function my_account_new_endpoints()
@@ -3655,12 +3577,14 @@ function my_account_new_endpoints()
     add_rewrite_endpoint('notifications', EP_ROOT | EP_PAGES);
 }
 
+// Определяем шаблон страницы уведомлений для эндпоинта страницы уведомлений
 add_action('woocommerce_account_notifications_endpoint', 'notifications_endpoint_content');
 function notifications_endpoint_content()
 {
     get_template_part('notifications');
 }
 
+// Добавляем в меню личного кабинета пункт "Уведомления"
 add_filter('woocommerce_account_menu_items', 'addNotificationsPage', 10, 2);
 
 function notificationPageAddQueryVar($vars)
@@ -3669,8 +3593,10 @@ function notificationPageAddQueryVar($vars)
     return $vars;
 }
 
+// Добавляем переменную запроса для страницы уведомлений
 add_filter('query_vars', 'notificationPageAddQueryVar', 0);
 
+// Добавляем хлебную крошку для страницы уведомлений
 add_filter('woocommerce_get_breadcrumb', function ($args) {
     global $wp_query;
     $is_endpoint = isset($wp_query->query_vars['notifications']);
@@ -3680,7 +3606,9 @@ add_filter('woocommerce_get_breadcrumb', function ($args) {
     return $args;
 });
 
+// Изменяем заголовок для страницы уведомлений
 add_filter('the_title', 'notificationsEndpointTitle');
+
 function notificationsEndpointTitle($title)
 {
     global $wp_query;
@@ -3692,6 +3620,12 @@ function notificationsEndpointTitle($title)
     return $title;
 }
 
+/**
+ * Добавляем эндпоинт страницы уведомлений
+ * @param $args
+ * @param $endpoints
+ * @return mixed
+ */
 function addNotificationsPage($args, $endpoints)
     {
         $notifications = ['notifications' => 'Уведомления'];
@@ -3700,6 +3634,13 @@ function addNotificationsPage($args, $endpoints)
         return $args;
     }
 
+/**
+ * Аналог php-функции array_splice, доработанный для ассоциативных массивов
+ * @param $input
+ * @param $offset
+ * @param $length
+ * @param array $replacement
+ */
 function array_splice_assoc(&$input, $offset, $length, $replacement = array())
     {
         $replacement = (array)$replacement;
@@ -3716,6 +3657,11 @@ function array_splice_assoc(&$input, $offset, $length, $replacement = array())
             + array_slice($input, $offset + $length, NULL, TRUE);
     }
 
+
+/** Возвращает массив с данными о книге по id записи с главой книги
+ * @param $post_ID
+ * @return array данные о книге, пустой массив, если запись не относится к книге
+ */
 function getBookInfoByArticleId($post_ID)
 {
     $result = [];
@@ -3748,7 +3694,7 @@ function commentNotification($location, $comment)
     commentReplyNotificationAdd($comment);
     return $location;
 }
-
+// Добавляем уведомление об ответе на комментарий
 add_filter('comment_post_redirect', 'commentNotification', 20, 2);
 
 function likeNotification($ulike, $post_ID)
@@ -3757,4 +3703,16 @@ function likeNotification($ulike, $post_ID)
     return $ulike;
 }
 
+// Добавляем уведомление о лайке комментария
 add_filter('wp_ulike_respond_for_liked_data', 'likeNotification', 20, 2);
+
+// Помечаем прочитанными уведомления о лайках и ответах на открываемой странице
+add_action('wp', function () {
+    global  $post;
+    if (isset($post->ID)) {
+        markCommentNotificationAsRead($post->ID);
+    }
+});
+
+// Добавляем скрипт коллапса комментариев
+wp_enqueue_script('comments-collapse-script', get_stylesheet_directory_uri() . '/inc/assets/js/comments-collapse.js', array('jquery'));

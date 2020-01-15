@@ -2240,6 +2240,11 @@ ul > .page-item:last-of-type .page-link {
     transition: 400ms cubic-bezier(0.785, 0.135, 0.150, 0.860);
 }
 
+.pagination .page-numbers li .page-numbers.current, .woocommerce-pagination .page-numbers li .page-numbers.current {
+    background-color: #f8ac53;
+    border-color: #2c2d33;
+}
+
 /*--------------------------------------------------------------
 # ARTICLES
 --------------------------------------------------------------*/
@@ -3707,7 +3712,7 @@ h2.related-product {
     width: 78.3333333%;
 }
 
-.comment.depth-2 {
+.comment.depth-2, .comments-toggle {
     width: 91%;
     margin-left: auto;
 }
@@ -3913,6 +3918,23 @@ a#nep_call_panel.nep_right_bottom {
 
 .comment-content a {
     word-wrap: break-word;
+}
+
+.comments-toggle {
+    margin-top: -1.3rem;
+}
+
+.comments-show {
+    margin-bottom: 2.6rem;
+}
+
+.comments-hide {
+    margin-bottom: 1.2rem;
+}
+
+.comments-toggle button {
+    transition: all ease-in-out 150ms;
+    border: 1px solid #000000;
 }
 
 /*--------------------------------------------------------------
@@ -4519,6 +4541,17 @@ and (min-width: 768px) {
         margin: 0 0 0.706326em;
     }
 }
+
+    .woocommerce-pagination {
+        float: none;
+        padding: 1em 0;
+        border: solid rgba(0, 0, 0, 0.05);
+        border-width: 1px 0;
+        text-align: center;
+        clear: both;
+    }
+
+
 
 @media screen
 and (max-width: 1199px) {

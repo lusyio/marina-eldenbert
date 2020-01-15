@@ -29,11 +29,11 @@ if (!comments_open()) {
 <div id="reviews" class="woocommerce-Reviews">
 
     <h2 class="woocommerce-Reviews-title"><?php
-        if (get_option('woocommerce_enable_review_rating') === 'yes' && ($count = $product->get_review_count())) {
+        if (get_option('woocommerce_enable_review_rating') === 'yes' && ($count = get_comments_number())) {
             /* translators: 1: reviews count 2: product name */
             printf('Комментарии' . ' (' . esc_html($count) . ')');
         } else {
-            _e('Reviews', 'woocommerce');
+            printf('Комментарии');
         }
         ?></h2>
 
@@ -103,7 +103,7 @@ if (!comments_open()) {
 
         <?php else : ?>
 
-            <p class="woocommerce-noreviews"><?php _e('There are no reviews yet.', 'woocommerce'); ?></p>
+            <p class="woocommerce-noreviews"><?php printf('Комментариев пока нет'); ?></p>
 
         <?php endif; ?>
     </div>
