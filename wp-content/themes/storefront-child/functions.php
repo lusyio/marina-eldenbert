@@ -3723,4 +3723,4 @@ add_action('wp', function () {
 });
 
 // Добавляем скрипт коллапса комментариев
-wp_enqueue_script('comments-collapse-script', get_stylesheet_directory_uri() . '/inc/assets/js/comments-collapse.js', array('jquery'));
+wp_enqueue_script('comments-collapse-script', get_stylesheet_directory_uri() . '/inc/assets/js/comments-collapse.js', array('jquery'), '1.0.1');

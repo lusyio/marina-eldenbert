@@ -21,10 +21,11 @@ jQuery(function ($) {
                 }
             });
         }
+        let hiddenChildrenCount = childrenCount - defaultVisibleChildren;
         for (let j = 0; j < childrenCount; j++) {
             if (!hasHiddenCommentToScroll) {
                 if (j === defaultVisibleChildren - 1 && childrenCount > defaultVisibleChildren) {
-                    $(childrenCommments[j]).after('<div class="comments-toggle comments-show text-center"><button class="btn expand-comments">Показать все ответы</button></div>');
+                    $(childrenCommments[j]).after('<div class="comments-toggle comments-show text-center"><button class="btn expand-comments">Показать все ответы (ещё ' + hiddenChildrenCount + ')</button></div>');
                 }
                 if (j > defaultVisibleChildren - 1) {
                     $(childrenCommments[j]).hide()
@@ -34,7 +35,7 @@ jQuery(function ($) {
                 }
             } else {
                 if (j === defaultVisibleChildren - 1 && childrenCount > defaultVisibleChildren) {
-                    $(childrenCommments[j]).after('<div class="comments-toggle comments-show text-center"><button class="btn expand-comments" style="display: none">Показать все ответы</button></div>');
+                    $(childrenCommments[j]).after('<div class="comments-toggle comments-show text-center"><button class="btn expand-comments" style="display: none">Показать все ответы (ещё ' + hiddenChildrenCount + ')</button></div>');
                 }
                 if (j === childrenCount - 1) {
                     $(childrenCommments[j]).after('<div class="comments-toggle comments-hide text-center"><button class="btn collapse-comments">Скрыть ответы</button></div>');
