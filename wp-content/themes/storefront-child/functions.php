@@ -3374,6 +3374,10 @@ function newArticleNotificationAdd($articlePageId)
         return;
     }
     $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    if (is_user_logged_in()) {
+        $userIds[] = get_current_user_id();
+        $userIds = array_unique($userIds);
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($userIds as $userId) {
@@ -3389,6 +3393,10 @@ function updateArticleNotificationAdd($articlePageId)
         return;
     }
     $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    if (is_user_logged_in()) {
+        $userIds[] = get_current_user_id();
+        $userIds = array_unique($userIds);
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($userIds as $userId) {
