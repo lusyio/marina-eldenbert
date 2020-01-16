@@ -8,7 +8,7 @@ jQuery(function ($) {
         adminBarHeight = 0;
     }
     let rootComments = $('.comment-list > li.parent');
-    const defaultVisibleChildren = 5;
+    const defaultVisibleChildren = 3;
     let scrollToComment =  window.location.hash.substr(1);
     $(rootComments).each(function (i, rootComment) {
         let childrenCommments = $(rootComment).find('.comment');
