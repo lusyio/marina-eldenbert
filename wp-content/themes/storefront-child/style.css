@@ -4543,6 +4543,7 @@ and (min-width: 768px) {
 }
 
     .woocommerce-pagination {
+        margin-bottom: 3.2rem;
         float: none;
         padding: 1em 0;
         border: solid rgba(0, 0, 0, 0.05);

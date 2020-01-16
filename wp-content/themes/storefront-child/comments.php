@@ -18,7 +18,7 @@ if (post_password_required()) {
 }
 ?>
 
-<section id="comments" class="comments-area" aria-label="<?php esc_html_e('Post Comments', 'storefront'); ?>">
+<div id="comments" class="comments-area" aria-label="<?php esc_html_e('Post Comments', 'storefront'); ?>">
     <?php if (is_page(35) || get_current_template() == 'book-reader.php') {
         echo do_shortcode('[Sassy_Social_Share]');
     }
@@ -52,14 +52,15 @@ if (post_password_required()) {
     if (have_comments()) :
 
         if (get_comment_pages_count() > 1 && get_option('page_comments')) : // Are there comments to navigate through.
-            ?>
-            <nav id="comment-nav-above" class="comment-navigation" role="navigation"
-                 aria-label="<?php esc_html_e('Comment Navigation Above', 'storefront'); ?>">
-                <span class="screen-reader-text"><?php esc_html_e('Comment navigation', 'storefront'); ?></span>
-                <div class="nav-previous"><?php previous_comments_link(__('&larr; Older Comments', 'storefront')); ?></div>
-                <div class="nav-next"><?php next_comments_link(__('Newer Comments &rarr;', 'storefront')); ?></div>
-            </nav><!-- #comment-nav-above -->
-        <?php endif; // Check for comment navigation.
+
+            echo '<nav class="woocommerce-pagination">';
+            paginate_comments_links(apply_filters('woocommerce_comment_pagination_args', array(
+            'prev_text' => '&larr;',
+            'next_text' => '&rarr;',
+            'type' => 'list',
+            )));
+            echo '</nav>';
+         endif; // Check for comment navigation.
         ?>
 
         <ol class="comment-list">
@@ -74,14 +75,14 @@ if (post_password_required()) {
             ?>
         </ol><!-- .comment-list -->
 
-        <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : // Are there comments to navigate through. ?>
-        <nav id="comment-nav-below" class="comment-navigation" role="navigation"
-             aria-label="<?php esc_html_e('Comment Navigation Below', 'storefront'); ?>">
-            <span class="screen-reader-text"><?php esc_html_e('Comment navigation', 'storefront'); ?></span>
-            <div class="nav-previous"><?php previous_comments_link(__('&larr; Older Comments', 'storefront')); ?></div>
-            <div class="nav-next"><?php next_comments_link(__('Newer Comments &rarr;', 'storefront')); ?></div>
-        </nav><!-- #comment-nav-below -->
-    <?php
+        <?php if (get_comment_pages_count() > 1 && get_option('page_comments')) : // Are there comments to navigate through.
+        echo '<nav class="woocommerce-pagination">';
+            paginate_comments_links(apply_filters('woocommerce_comment_pagination_args', array(
+            'prev_text' => '&larr;',
+            'next_text' => '&rarr;',
+            'type' => 'list',
+            )));
+            echo '</nav>';
     endif; // Check for comment navigation.
 
     endif;
@@ -92,4 +93,4 @@ if (post_password_required()) {
     <?php endif; ?>
 
 
-</section><!-- #comments -->
+</div><!-- #comments -->
