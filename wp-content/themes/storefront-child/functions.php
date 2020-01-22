@@ -3524,12 +3524,23 @@ function getNotificationCard($notification)
     if ($isValid):
         ob_start();?>
         <a href="<?= $link ?>">
-            <div class="row notification-card mb-3 p-3<?= ($notification->view_status == 0) ? ' new-notification' : '';?>" style="display: none">
-                <div class="col-1 notification-card__text"><span><img
-                                src="/wp-content/themes/storefront-child/svg/<?=$icon?>"
+            <div class="notification-card mb-3 p-3 <?= ($notification->view_status == 0) ? ' new-notification' : ''; ?>"
+                 style="display: none">
+                <div class="row">
+                    <div class="col-lg-1 col-2 notification-card__text"><span><img
+                                src="/wp-content/themes/storefront-child/svg/<?= $icon ?>"
                                 alt=""></span></div>
-                <div class="col-8 notification-card__text"><p><?= $content ?></p></div>
-                <div class="col-3 notification-card__date text-right"><p><?= date('d.m.Y H:i', strtotime($notification->notification_date)); ?></p></div>
+                    <div class="col-lg-11 col-10 pl-lg-3 pl-0">
+                        <div class="row">
+                            <div class="col-lg-8 col-12 notification-card__text">
+                                <p><?= $content ?></p>
+                            </div>
+                            <div class="col-lg-4 col-12 notification-card__date text-left text-lg-right">
+                                <p><?= date('d.m.Y H:i', strtotime($notification->notification_date)); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </a>
         <?php
