@@ -3737,7 +3737,7 @@ add_action('wp', function () {
 wp_enqueue_script('comments-collapse-script', get_stylesheet_directory_uri() . '/inc/assets/js/comments-collapse.js', array('jquery'), '1.0.1');
 
 /**
- * Меняет сслыку в крошках на цикл на странице продукта
+ * Меняет сслыку на блог/клуб в хлебных крошках записи блога/клуба
  * @param $crumbs
  * @return mixed
  */
@@ -3746,7 +3746,11 @@ function changeBreadcrumbLinkProduct($crumbs)
     if (is_product()) {
         foreach (wp_get_post_terms(get_the_id(), 'product_cat') as $term) {
             if ($term) {
-                $crumbs[1][1] = '<a href="/shop/?filter=cycle-' . $term->slug . '">';
+                $slug = $term->slug;
+                if ($slug === 'knigi-vne-cziklov'){
+                    $slug = 'no-cycle';
+                }
+                $crumbs[1][1] = '/shop/?filter=cycle-' . $slug . '">';
                 $crumbs[1][0] = $term->name;
             }
         }
