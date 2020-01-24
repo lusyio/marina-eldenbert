@@ -17,12 +17,18 @@ get_header(); ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="page-title"><?php if (is_product()) {
-                        echo get_the_title();
-                    } else {
-                        woocommerce_page_title();
-                    } ?>
-                </h2>
+                <?php if (is_shop()): ?>
+                    <span class="page-title h2">
+                            <?php woocommerce_page_title(); ?>
+                    </span>
+                <?php else: ?>
+                    <h2 class="page-title"><?php if (is_product()) {
+                            echo get_the_title();
+                        } else {
+                            woocommerce_page_title();
+                        } ?>
+                    </h2>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -46,11 +52,23 @@ get_header(); ?>
             <div class="isotope-empty">
                 <p>По заданным параметрам не найдено ни одной книги</p>
             </div>
-            <div class="row pb-5 mb-5">
-                <div class="col text-center">
-                    <div class="load-more" style="display: none">Загрузить еще</div>
+            <?php if (is_shop()): ?>
+                <div class="row">
+                    <div class="col">
+                        <h1 class="page-title">Марина Эльденберт: читать все книги онлайн бесплатно</h1>
+                        <p class="after-shop">Всем привет! Я - Марина Эльденберт, а это мой авторский сайт, на котором я
+                            размещаю свои старые и
+                            новые книги. Больше всего на свете мы любим писать книги, поэтому не расстаемся с героями
+                            наших
+                            историй ни на минуту.</p>
+                        <p class="after-shop">Вы можете скачать и купить любую книгу, которая есть на это странице, а
+                            так же читать их онлайн.
+                            Книги разбиты на циклы, такие как: Огненное сердце Аронгары, Леди Энгерии, Глубина,
+                            МежМировая
+                            няня, Маги нашего времени.</p>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </main><!-- #main -->
     </section><!-- #primary -->
 <?php endif; ?>

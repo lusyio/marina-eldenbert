@@ -2087,6 +2087,7 @@ function abonementModal()
         return;
     }
     ?>
+    <!--noindex-->
     <div class="modal fade" id="abonementModal" tabindex="-1" role="dialog" aria-labelledby="abonementModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -2111,6 +2112,7 @@ function abonementModal()
             </div>
         </div>
     </div>
+    <!--/noindex-->
     <script>
         jQuery(function ($) {
             let abonementUntil = 0;
