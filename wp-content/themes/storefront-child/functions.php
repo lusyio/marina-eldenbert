@@ -667,6 +667,7 @@ function adultModal()
         return;
     }
     ?>
+    <!--noindex-->
     <div class="modal fade" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel"
          data-keyboard="false" data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -695,7 +696,7 @@ function adultModal()
             </div>
         </div>
     </div>
-
+    <!--/noindex-->
     <script>jQuery(function ($) {
             $('#disclaimerModal').modal('show');
             $('#adultYes').on('click', function () {
