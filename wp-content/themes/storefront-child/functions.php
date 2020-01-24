@@ -3763,3 +3763,9 @@ function changeBreadcrumbLinkProduct($crumbs)
 }
 
 add_filter('woocommerce_get_breadcrumb', 'changeBreadcrumbLinkProduct');
+
+// Меняем порядок вывода комментариев - от новых к старым
+add_filter( 'comments_template_query_args', function ($comment_args) {
+    $comment_args['order'] = 'desc';
+    return $comment_args;
+} );
