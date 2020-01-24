@@ -18,7 +18,7 @@ get_header(); ?>
         <div class="row">
             <div class="col-12">
                 <?php if (is_shop()): ?>
-                    <span class="page-title h2">
+                    <span class="page-title">
                             <?php woocommerce_page_title(); ?>
                     </span>
                 <?php else: ?>
