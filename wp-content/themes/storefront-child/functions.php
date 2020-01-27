@@ -3769,3 +3769,29 @@ add_filter( 'comments_template_query_args', function ($comment_args) {
     $comment_args['order'] = 'desc';
     return $comment_args;
 } );
+
+// Сортируем дочерние комментарии в порядке обратном порядку родительских комментариев
+// (если родительские отсортированы по убыванию времени, то дочерние будут отсортированы по возрастанию)
+add_filter( 'comments_array', function( $comments_flat ){
+    $result = [];
+    $commentsCount = count($comments_flat);
+    for ($i = 0; $i < $commentsCount; $i++) {
+        $parentId = $comments_flat[$i]->comment_parent;
+        if ($parentId == 0) {
+            $result[] = $comments_flat[$i];
+        } else {
+            $childComments = [$comments_flat[$i]];
+            for ($j = $i + 1; $j < $commentsCount; $j++) {
+                if ($comments_flat[$j]->comment_parent == $parentId) {
+                    $childComments[] = $comments_flat[$j];
+                    $i++;
+                } else {
+                    break;
+                }
+            }
+            $result = array_merge($result, array_reverse($childComments));
+        }
+    }
+    return($result);
+
+});
