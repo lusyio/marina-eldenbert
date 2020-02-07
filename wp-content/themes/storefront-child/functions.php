@@ -3795,3 +3795,38 @@ add_filter( 'comments_array', function( $comments_flat ){
     return($result);
 
 });
+
+/*
+ *  Исправляем номер страницы на которой отображен комментарий
+ */
+add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comment_ID ) {
+    global $wpdb;
+    $comment = get_comment( $comment_ID );
+    $comment_args = array(
+        'type'       => $args['type'],
+        'post_id'    => $comment->comment_post_ID,
+        'fields'     => 'ids',
+        'count'      => true,
+        'status'     => 'approve',
+        'parent'     => 0,
+        'date_query' => array(
+            array(
+                'column' => "$wpdb->comments.comment_date_gmt",
+                'after' => $comment->comment_date_gmt,
+            ),
+        ),
+    );
+
+    $comment_query       = new WP_Comment_Query();
+    $newer_comment_count = $comment_query->query( $comment_args );
+
+    // No newer comments? Then it's page #1.
+    if ( 0 == $newer_comment_count ) {
+        $page = 1;
+
+        // Divide comments newer than this one by comments per page to get this comment's page number
+    } else {
+        $page = ceil( ( $newer_comment_count + 1 ) / $args['per_page'] );
+    }
+    return $page;
+}, 20, 4);
