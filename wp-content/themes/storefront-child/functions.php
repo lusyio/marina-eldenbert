@@ -3830,13 +3830,3 @@ add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comm
     }
     return $page;
 }, 20, 4);
-
-function wpb_image_editor_default_to_gd($editors)
-{
-    $gd_editor = 'WP_Image_Editor_GD';
-    $editors = array_diff($editors, array($gd_editor));
-    array_unshift($editors, $gd_editor);
-    return $editors;
-}
-
-add_filter('wp_image_editors', 'wpb_image_editor_default_to_gd');
