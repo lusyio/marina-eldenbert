@@ -3830,3 +3830,32 @@ add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comm
     }
     return $page;
 }, 20, 4);
+
+
+// Добавляем в комментариях <br> после </div> и </p>, удаляем все теги кроме <br>
+function me_comment_post( $incoming_comment ) {
+    $incoming_comment['comment_content'] = preg_replace('~</p>~', "</p><br>", $incoming_comment['comment_content']);
+    $incoming_comment['comment_content'] = preg_replace('~</div>~', "</div><br>", $incoming_comment['comment_content']);
+
+    $incoming_comment['comment_content'] = strip_tags($incoming_comment['comment_content'], '<br>');
+
+    // the one exception is single quotes, which cannot be #039; because WordPress marks it as spam
+    $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
+    return( $incoming_comment );
+}
+
+function me_comment_display( $comment_to_display ) {
+    $comment_to_display = preg_replace('~</p>~', "</p><br>", $comment_to_display);
+    $comment_to_display = preg_replace('~</div>~', "</div><br>", $comment_to_display);
+
+    $comment_to_display = strip_tags($comment_to_display, '<br>');
+    // Put the single quotes back in
+    $comment_to_display = str_replace( '&apos;', "'", $comment_to_display );
+
+    return $comment_to_display;
+}
+
+add_filter( 'preprocess_comment', 'me_comment_post', '', 1);
+add_filter( 'comment_text', 'me_comment_display', '', 1);
+add_filter( 'comment_text_rss', 'me_comment_display', '', 1);
+add_filter( 'comment_excerpt', 'me_comment_display', '', 1);
