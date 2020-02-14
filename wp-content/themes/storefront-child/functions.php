@@ -3836,6 +3836,7 @@ add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comm
 function me_comment_post( $incoming_comment ) {
     $incoming_comment['comment_content'] = preg_replace('~</p>~', "</p><br>", $incoming_comment['comment_content']);
     $incoming_comment['comment_content'] = preg_replace('~</div>~', "</div><br>", $incoming_comment['comment_content']);
+    $incoming_comment['comment_content'] = preg_replace('~</span>~', "</span><br>", $incoming_comment['comment_content']);
 
     $incoming_comment['comment_content'] = strip_tags($incoming_comment['comment_content'], '<br>');
 
@@ -3847,6 +3848,7 @@ function me_comment_post( $incoming_comment ) {
 function me_comment_display( $comment_to_display ) {
     $comment_to_display = preg_replace('~</p>~', "</p><br>", $comment_to_display);
     $comment_to_display = preg_replace('~</div>~', "</div><br>", $comment_to_display);
+    $comment_to_display = preg_replace('~</span>~', "</span><br>", $comment_to_display);
 
     $comment_to_display = strip_tags($comment_to_display, '<br>');
     // Put the single quotes back in
