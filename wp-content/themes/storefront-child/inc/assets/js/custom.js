@@ -79,6 +79,17 @@ jQuery(document).ready(function ($) {
         loadMore('.news-n-events-item', '.load-more', 9);
     }
 
+    $('#nep_fake_textarea').addEventListener("paste", function(e) {
+        // cancel paste
+        e.preventDefault();
+
+        // get text representation of clipboard
+        var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+        // insert text manually
+        document.execCommand("insertHTML", false, text);
+    });
+
 });
 
 var swiperPopular = new Swiper('.swiper-container-popular', {
