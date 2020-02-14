@@ -33,4 +33,9 @@ if ($attribute_names) {
     endforeach;
 }
 
-the_title( '<h1 class="product_title entry-title">Скачать книгу ' . $authors . ' "', '"</h1>' );
+if ($product->is_downloadable('yes')) {
+    $customTitle = "Скачать книгу ";
+} else {
+    $customTitle = "Читать книгу ";
+}
+the_title( '<h1 class="product_title entry-title">' . $customTitle . $authors . ' "', '"</h1>' );
