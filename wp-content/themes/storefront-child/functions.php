@@ -2558,7 +2558,7 @@ add_action('wp_enqueue_scripts', 'add_custom_js');
 function add_custom_js()
 {
     wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
-    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), '1402', true);
+    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), '1702', true);
 }
 
 // Удаление инлайн-скриптов из хедера
