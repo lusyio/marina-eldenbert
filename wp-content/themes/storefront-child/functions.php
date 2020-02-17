@@ -1457,14 +1457,6 @@ function woocommerce_comments($comment, $args, $depth)
 <?php endif; ?>
     <div class="comment-text">
         <div class="comment-container">
-            <?php if ($comment->comment_parent != 0):
-                $comment = get_comment($comment->comment_parent);
-                $comment_text = get_comment_text($comment);
-                ?>
-                <div class="quote-comment">
-                    <?php echo $comment_text; ?>
-                </div>
-            <?php endif; ?>
             <?php comment_text(); ?>
         </div>
         <div class="d-flex justify-content-between">
@@ -3859,3 +3851,13 @@ add_filter( 'preprocess_comment', 'me_comment_post', '', 1);
 add_filter( 'comment_text', 'me_comment_display', '', 1);
 add_filter( 'comment_text_rss', 'me_comment_display', '', 1);
 add_filter( 'comment_excerpt', 'me_comment_display', '', 1);
+
+add_filter('comment_text', function ($comment_text, $comment, $args) {
+    $replyTo = '';
+    if ($comment->comment_parent != 0) {
+        $comment = get_comment($comment->comment_parent);
+        $replyTo = get_comment_author($comment) . ', ';
+    }
+    return $replyTo . $comment_text;
+
+}, 10, 3);
