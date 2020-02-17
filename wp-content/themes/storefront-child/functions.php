@@ -3856,7 +3856,7 @@ add_filter('comment_text', function ($comment_text, $comment, $args) {
     $replyTo = '';
     if ($comment->comment_parent != 0) {
         $comment = get_comment($comment->comment_parent);
-        $replyTo = get_comment_author($comment) . ', ';
+        $replyTo = '<b>' . get_comment_author($comment) . '</b>, ';
     }
     return $replyTo . $comment_text;
 
