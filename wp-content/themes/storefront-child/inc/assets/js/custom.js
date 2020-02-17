@@ -79,7 +79,7 @@ jQuery(document).ready(function ($) {
         loadMore('.news-n-events-item', '.load-more', 9);
     }
 
-    $('#nep_fake_textarea').addEventListener("paste", function(e) {
+    $('#nep_fake_textarea').on('paste', function(e) {
         // cancel paste
         e.preventDefault();
 
