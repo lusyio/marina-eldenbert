@@ -4032,3 +4032,28 @@ function kama_pagenavi( $args = array(), $wp_query = null ){
     if( $rg->echo ) echo $out;
     else return $out;
 }
+
+// Добавляем в редактор записей кнопку "Расставить разрывы страниц"
+function autoPageBreakButton() {
+    if ( !current_user_can( 'edit_posts' ) &&  !current_user_can( 'edit_pages' ) ) {
+        return;
+    }
+    if ( 'true' == get_user_option( 'rich_editing' ) ) {
+        add_filter( 'mce_external_plugins', 'apb_add_tinymce_plugin', 100 );
+        add_filter( 'mce_buttons', 'apb_register_mce_button' , 100);
+    }
+}
+add_action('admin_head', 'autoPageBreakButton');
+
+// Регистрируем кнопку на панели форматирования
+function apb_register_mce_button( $buttons ) {
+    array_push( $buttons, 'apb_mce_button' );
+    return $buttons;
+}
+
+// Объявляем событие для нажатия кнопки
+function apb_add_tinymce_plugin( $plugin_array )
+{
+    $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js';
+    return $plugin_array;
+}
