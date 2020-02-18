@@ -2484,6 +2484,8 @@ function add_cdn_images()
 {
     wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
     wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
+    wp_enqueue_script('maconry-custom', '/wp-content/themes/storefront-child/inc/assets/js/masonryLayout.js', array('jquery'), array(), '', true);
+    wp_enqueue_script('image-loaded', '/wp-content/themes/storefront-child/inc/assets/js/imagesloaded.pkgd.min.js', array('jquery'), array(), '', true);
     wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
 }
 
