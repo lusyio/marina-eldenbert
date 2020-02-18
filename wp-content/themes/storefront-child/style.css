@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.2
+Version:      	1.0.3
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -2409,6 +2409,38 @@ ul > .page-item:last-of-type .page-link {
 }
 
 .announcement-img:hover {
+    cursor: pointer;
+    -webkit-transform: translate(0.9375rem, 0.9375rem);
+    -moz-transform: translate(0.9375rem, 0.9375rem);
+    -ms-transform: translate(0.9375rem, 0.9375rem);
+    -o-transform: translate(0.9375rem, 0.9375rem);
+    transform: translate(0.9375rem, 0.9375rem);
+}
+
+.album-img img {
+    display: block;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    width: auto;
+}
+
+.album-img {
+    /*max-height: 346px;*/
+    /*max-width: 235px;*/
+    position: relative;
+    display: table;
+    -webkit-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -ms-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.album-img span {
+    color: #5A5A5A;
+}
+
+.album-img:hover {
     cursor: pointer;
     -webkit-transform: translate(0.9375rem, 0.9375rem);
     -moz-transform: translate(0.9375rem, 0.9375rem);
