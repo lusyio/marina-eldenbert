@@ -26,7 +26,7 @@ get_header(); ?>
                     foreach ($subCategories as $subCategory):
                         if ($elCount % 3 == 1):?>
                         <div class="row">
-                            <?php endif; ?>
+                        <?php endif; ?>
                             <div class="col-lg-4 col-md-6 col-12 text-center mb-4">
                                 <a class="album-img images-link" href="<?php echo get_category_link($subCategory) ?>">
                                 <div class="album-card">
@@ -35,13 +35,13 @@ get_header(); ?>
                         $images = get_option('taxonomy_image_plugin');
                         echo '<img src="' . wp_get_attachment_image_url($images[$tax_term_id], 'full') . '" class="attachment-medium size-medium mb-3">';
                         ?>
-                                <div class="album-name">
-                                    <div class="album-title"><?php echo $subCategory->name?></div>
-                                    <div><?php echo $subCategory->category_count?></div>
+                                    <div class="album-name">
+                                        <div class="album-title"><?php echo $subCategory->name?></div>
+                                        <div><?php echo $subCategory->category_count?></div>
+                                    </div>
                                 </div>
                                 </a>
                             </div>
-                        </div>
                         <?php if ($elCount % 3 == 0 || $elCount == $catCount):?>
                     </div>
                     <?php endif; ?>
