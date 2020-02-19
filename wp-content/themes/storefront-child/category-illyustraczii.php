@@ -28,6 +28,7 @@ get_header(); ?>
                         <div class="row">
                             <?php endif; ?>
                             <div class="col-lg-4 col-md-6 col-12 text-center mb-4">
+                                <a class="album-img images-link" href="<?php echo get_category_link($subCategory) ?>">
                                 <div class="album-card">
                         <?php
                         $tax_term_id = $subCategory->term_taxonomy_id;
@@ -38,6 +39,7 @@ get_header(); ?>
                                     <div class="album-title"><?php echo $subCategory->name?></div>
                                     <div><?php echo $subCategory->category_count?></div>
                                 </div>
+                                </a>
                             </div>
                         </div>
                         <?php if ($elCount % 3 == 0 || $elCount == $catCount):?>
