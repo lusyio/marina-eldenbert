@@ -4054,6 +4054,6 @@ function apb_register_mce_button( $buttons ) {
 // Объявляем событие для нажатия кнопки
 function apb_add_tinymce_plugin( $plugin_array )
 {
-    $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js';
+    $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js?1';
     return $plugin_array;
 }
