@@ -29,7 +29,7 @@ get_header(); ?>
                                 <?php
                                 $tax_term_id = $subCategory->term_taxonomy_id;
                                 $images = get_option('taxonomy_image_plugin');
-                                echo '<img src="' . wp_get_attachment_image_url($images[$tax_term_id], 'medium') . '" class="attachment-medium size-medium mb-3">';
+                                echo '<img src="' . wp_get_attachment_image_url($images[$tax_term_id], 'full') . '" class="attachment-medium size-medium mb-3">';
                                 ?>
                                 <span><?php echo $subCategory->name?></span>
                             </a>
