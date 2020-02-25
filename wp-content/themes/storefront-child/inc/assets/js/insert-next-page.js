@@ -1,5 +1,5 @@
 (function () {
-    const PAGE_LIMIT = 5000;
+    const PAGE_LIMIT = 4500;
     const REMAINING_WITHOUT_BREAK = 500;
     tinymce.PluginManager.add('apb_mce_button', function (editor, url) {
         editor.addButton('apb_mce_button', {
