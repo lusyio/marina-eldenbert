@@ -573,6 +573,7 @@ function wp_custom_link_pages($args = '')
     }
     return $html;
 }
+
 /**
  * Добавляем скрипт счетчика уведомлений
  */
@@ -2472,12 +2473,14 @@ add_action('wp_enqueue_scripts', 'cir_js_file', 999);
  */
 add_action('wp_enqueue_scripts', 'add_cdn_images');
 
+
 function add_cdn_images()
 {
-    wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), array(), '', true);
-    wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), array(), '', true);
-    wp_enqueue_script('maconry-custom', '/wp-content/themes/storefront-child/inc/assets/js/masonryLayout.js', array('jquery'), array(), '', true);
-    wp_enqueue_script('image-loaded', '/wp-content/themes/storefront-child/inc/assets/js/imagesloaded.pkgd.min.js', array('jquery'), array(), '', true);
+    $masonryLayout_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . 'js/masonryLayout.js'));
+    wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), '', true);
+    wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), '', true);
+    wp_enqueue_script('maconry-custom', '/wp-content/themes/storefront-child/inc/assets/js/masonryLayout.js', array('jquery'), $masonryLayout_js_ver, true);
+    wp_enqueue_script('image-loaded', '/wp-content/themes/storefront-child/inc/assets/js/imagesloaded.pkgd.min.js', array('jquery'), '', true);
     wp_enqueue_style('fancybox-style', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css');
 }
 
@@ -2559,8 +2562,9 @@ add_filter('request', 'true_expanded_request_post_tags');
 add_action('wp_enqueue_scripts', 'add_custom_js');
 function add_custom_js()
 {
+    $custom_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . 'js/custom.js'));
     wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
-    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), '1702', true);
+    wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), $custom_js_ver, true);
 }
 
 // Удаление инлайн-скриптов из хедера
@@ -3350,7 +3354,8 @@ function createNotificationTable()
 /**
  * Отправка уведомлений при публикации поста
  */
-function article_send_notification( $new_status, $old_status, $post ) {
+function article_send_notification($new_status, $old_status, $post)
+{
     if ($new_status === 'publish' && $post->post_type === 'post') {
         if ($old_status === $new_status) {
             //обновление
@@ -3361,7 +3366,8 @@ function article_send_notification( $new_status, $old_status, $post ) {
         }
     }
 }
-add_action( 'transition_post_status', 'article_send_notification', 10, 3 );
+
+add_action('transition_post_status', 'article_send_notification', 10, 3);
 
 //Запись уведомления о добавлении главы
 function newArticleNotificationAdd($articlePageId)
@@ -3519,14 +3525,14 @@ function getNotificationCard($notification)
         }
     }
     if ($isValid):
-        ob_start();?>
+        ob_start(); ?>
         <a href="<?= $link ?>">
             <div class="notification-card mb-3 p-3 <?= ($notification->view_status == 0) ? ' new-notification' : ''; ?>"
                  style="display: none">
                 <div class="row">
                     <div class="col-lg-1 col-2 notification-card__text"><span><img
-                                src="/wp-content/themes/storefront-child/svg/<?= $icon ?>"
-                                alt=""></span></div>
+                                    src="/wp-content/themes/storefront-child/svg/<?= $icon ?>"
+                                    alt=""></span></div>
                     <div class="col-lg-11 col-10 pl-lg-3 pl-0">
                         <div class="row">
                             <div class="col-lg-8 col-12 notification-card__text">
@@ -3631,7 +3637,7 @@ function notificationsEndpointTitle($title)
     $is_endpoint = isset($wp_query->query_vars['notifications']);
     if ($is_endpoint && !is_admin() && is_main_query() && in_the_loop() && is_account_page()) {                // New page title.				'
         $title = "Уведомления";
-        remove_filter( 'the_title', 'notificationsEndpointTitle');
+        remove_filter('the_title', 'notificationsEndpointTitle');
     }
     return $title;
 }
@@ -3643,12 +3649,12 @@ function notificationsEndpointTitle($title)
  * @return mixed
  */
 function addNotificationsPage($args, $endpoints)
-    {
-        $notifications = ['notifications' => 'Уведомления'];
-        array_splice_assoc($args, 2, 0, $notifications);
-        $endpoints['notifications'] = 'notifications';
-        return $args;
-    }
+{
+    $notifications = ['notifications' => 'Уведомления'];
+    array_splice_assoc($args, 2, 0, $notifications);
+    $endpoints['notifications'] = 'notifications';
+    return $args;
+}
 
 /**
  * Аналог php-функции array_splice, доработанный для ассоциативных массивов
@@ -3658,20 +3664,20 @@ function addNotificationsPage($args, $endpoints)
  * @param array $replacement
  */
 function array_splice_assoc(&$input, $offset, $length, $replacement = array())
-    {
-        $replacement = (array)$replacement;
-        $key_indices = array_flip(array_keys($input));
-        if (isset($input[$offset]) && is_string($offset)) {
-            $offset = $key_indices[$offset];
-        }
-        if (isset($input[$length]) && is_string($length)) {
-            $length = $key_indices[$length] - $offset;
-        }
-
-        $input = array_slice($input, 0, $offset, TRUE)
-            + $replacement
-            + array_slice($input, $offset + $length, NULL, TRUE);
+{
+    $replacement = (array)$replacement;
+    $key_indices = array_flip(array_keys($input));
+    if (isset($input[$offset]) && is_string($offset)) {
+        $offset = $key_indices[$offset];
     }
+    if (isset($input[$length]) && is_string($length)) {
+        $length = $key_indices[$length] - $offset;
+    }
+
+    $input = array_slice($input, 0, $offset, TRUE)
+        + $replacement
+        + array_slice($input, $offset + $length, NULL, TRUE);
+}
 
 
 /** Возвращает массив с данными о книге по id записи с главой книги
@@ -3710,6 +3716,7 @@ function commentNotification($location, $comment)
     commentReplyNotificationAdd($comment);
     return $location;
 }
+
 // Добавляем уведомление об ответе на комментарий
 add_filter('comment_post_redirect', 'commentNotification', 20, 2);
 
@@ -3724,7 +3731,7 @@ add_filter('wp_ulike_respond_for_liked_data', 'likeNotification', 20, 2);
 
 // Помечаем прочитанными уведомления о лайках и ответах на открываемой странице
 add_action('wp', function () {
-    global  $post;
+    global $post;
     if (isset($post->ID)) {
         markCommentNotificationAsRead($post->ID);
     }
@@ -3744,7 +3751,7 @@ function changeBreadcrumbLinkProduct($crumbs)
         foreach (wp_get_post_terms(get_the_id(), 'product_cat') as $term) {
             if ($term) {
                 $slug = $term->slug;
-                if ($slug === 'knigi-vne-cziklov'){
+                if ($slug === 'knigi-vne-cziklov') {
                     $slug = 'no-cycle';
                 }
                 $crumbs[1][1] = '/shop/?filter=cycle-' . $slug . '">';
@@ -3759,14 +3766,14 @@ function changeBreadcrumbLinkProduct($crumbs)
 add_filter('woocommerce_get_breadcrumb', 'changeBreadcrumbLinkProduct');
 
 // Меняем порядок вывода комментариев - от новых к старым
-add_filter( 'comments_template_query_args', function ($comment_args) {
+add_filter('comments_template_query_args', function ($comment_args) {
     $comment_args['order'] = 'desc';
     return $comment_args;
-} );
+});
 
 // Сортируем дочерние комментарии в порядке обратном порядку родительских комментариев
 // (если родительские отсортированы по убыванию времени, то дочерние будут отсортированы по возрастанию)
-add_filter( 'comments_array', function( $comments_flat ){
+add_filter('comments_array', function ($comments_flat) {
     $result = [];
     $commentsCount = count($comments_flat);
     for ($i = 0; $i < $commentsCount; $i++) {
@@ -3786,23 +3793,23 @@ add_filter( 'comments_array', function( $comments_flat ){
             $result = array_merge($result, array_reverse($childComments));
         }
     }
-    return($result);
+    return ($result);
 
 });
 
 /*
  *  Исправляем номер страницы на которой отображен комментарий
  */
-add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comment_ID ) {
+add_filter('get_page_of_comment', function ($page, $args, $original_args, $comment_ID) {
     global $wpdb;
-    $comment = get_comment( $comment_ID );
+    $comment = get_comment($comment_ID);
     $comment_args = array(
-        'type'       => $args['type'],
-        'post_id'    => $comment->comment_post_ID,
-        'fields'     => 'ids',
-        'count'      => true,
-        'status'     => 'approve',
-        'parent'     => 0,
+        'type' => $args['type'],
+        'post_id' => $comment->comment_post_ID,
+        'fields' => 'ids',
+        'count' => true,
+        'status' => 'approve',
+        'parent' => 0,
         'date_query' => array(
             array(
                 'column' => "$wpdb->comments.comment_date_gmt",
@@ -3811,48 +3818,50 @@ add_filter( 'get_page_of_comment', function ($page, $args, $original_args, $comm
         ),
     );
 
-    $comment_query       = new WP_Comment_Query();
-    $newer_comment_count = $comment_query->query( $comment_args );
+    $comment_query = new WP_Comment_Query();
+    $newer_comment_count = $comment_query->query($comment_args);
 
     // No newer comments? Then it's page #1.
-    if ( 0 == $newer_comment_count ) {
+    if (0 == $newer_comment_count) {
         $page = 1;
 
         // Divide comments newer than this one by comments per page to get this comment's page number
     } else {
-        $page = ceil( ( $newer_comment_count + 1 ) / $args['per_page'] );
+        $page = ceil(($newer_comment_count + 1) / $args['per_page']);
     }
     return $page;
 }, 20, 4);
 
 
 // Добавляем в комментариях <br> после </div> и </p>, удаляем все теги кроме <br>
-function me_comment_post( $incoming_comment ) {
+function me_comment_post($incoming_comment)
+{
     $incoming_comment['comment_content'] = preg_replace('~<p~', "<br><p", $incoming_comment['comment_content']);
     $incoming_comment['comment_content'] = preg_replace('~<div~', "<br><div", $incoming_comment['comment_content']);
 
     $incoming_comment['comment_content'] = strip_tags($incoming_comment['comment_content'], '<br>');
 
     // the one exception is single quotes, which cannot be #039; because WordPress marks it as spam
-    $incoming_comment['comment_content'] = str_replace( "'", '&apos;', $incoming_comment['comment_content'] );
-    return( $incoming_comment );
+    $incoming_comment['comment_content'] = str_replace("'", '&apos;', $incoming_comment['comment_content']);
+    return ($incoming_comment);
 }
 
-function me_comment_display( $comment_to_display ) {
+function me_comment_display($comment_to_display)
+{
     $comment_to_display = preg_replace('~<p~', "<br><p", $comment_to_display);
     $comment_to_display = preg_replace('~<div~', "<br><div", $comment_to_display);
 
     $comment_to_display = strip_tags($comment_to_display, '<br>');
     // Put the single quotes back in
-    $comment_to_display = str_replace( '&apos;', "'", $comment_to_display );
+    $comment_to_display = str_replace('&apos;', "'", $comment_to_display);
 
     return $comment_to_display;
 }
 
-add_filter( 'preprocess_comment', 'me_comment_post', '', 1);
-add_filter( 'comment_text', 'me_comment_display', '', 1);
-add_filter( 'comment_text_rss', 'me_comment_display', '', 1);
-add_filter( 'comment_excerpt', 'me_comment_display', '', 1);
+add_filter('preprocess_comment', 'me_comment_post', '', 1);
+add_filter('comment_text', 'me_comment_display', '', 1);
+add_filter('comment_text_rss', 'me_comment_display', '', 1);
+add_filter('comment_excerpt', 'me_comment_display', '', 1);
 
 add_filter('comment_text', function ($comment_text, $comment, $args) {
     $replyTo = '';
@@ -3866,17 +3875,18 @@ add_filter('comment_text', function ($comment_text, $comment, $args) {
 
 // Определяем шаблоны подкатегорий
 add_action('category_template', 'load_cat_parent_template');
-function load_cat_parent_template($template) {
-    $cat_ID = absint( get_query_var('cat') );
-    $category = get_category( $cat_ID );
-    if($category->category_parent > 0) {
+function load_cat_parent_template($template)
+{
+    $cat_ID = absint(get_query_var('cat'));
+    $category = get_category($cat_ID);
+    if ($category->category_parent > 0) {
         $templates = array();
-        if(!is_wp_error($category)) {
+        if (!is_wp_error($category)) {
             $templates[] = "category-{$category->slug}.php";
         }
         $templates[] = "category-$cat_ID.php";
         $parentCategory = get_category($category->category_parent);
-        if(!is_wp_error($parentCategory)) {
+        if (!is_wp_error($parentCategory)) {
             $templates[] = "subcategory-{$parentCategory->slug}.php";
             $templates[] = "subcategory-{$parentCategory->term_id}.php";
         }
@@ -3889,170 +3899,174 @@ function load_cat_parent_template($template) {
 /**
  * Альтернатива wp_pagenavi. Создает ссылки пагинации на страницах архивов.
  *
- * @param array  $args      Аргументы функции
- * @param object $wp_query  Объект WP_Query на основе которого строится пагинация. По умолчанию глобальная переменная $wp_query
+ * @param array $args Аргументы функции
+ * @param object $wp_query Объект WP_Query на основе которого строится пагинация. По умолчанию глобальная переменная $wp_query
  *
  */
-function kama_pagenavi( $args = array(), $wp_query = null ){
+function kama_pagenavi($args = array(), $wp_query = null)
+{
 
     // параметры по умолчанию
     $default = array(
-        'before'          => '',   // Текст до навигации.
-        'after'           => '',   // Текст после навигации.
-        'echo'            => true, // Возвращать или выводить результат.
+        'before' => '',   // Текст до навигации.
+        'after' => '',   // Текст после навигации.
+        'echo' => true, // Возвращать или выводить результат.
 
-        'text_num_page'   => '',           // Текст перед пагинацией.
+        'text_num_page' => '',           // Текст перед пагинацией.
         // {current} - текущая.
         // {last} - последняя (пр: 'Страница {current} из {last}' получим: "Страница 4 из 60").
-        'num_pages'       => 10,           // Сколько ссылок показывать.
-        'step_link'       => 10,           // Ссылки с шагом (если 10, то: 1,2,3...10,20,30. Ставим 0, если такие ссылки не нужны.
-        'dotright_text'   => '…',          // Промежуточный текст "до".
-        'dotright_text2'  => '…',          // Промежуточный текст "после".
-        'back_text'       => '« назад',    // Текст "перейти на предыдущую страницу". Ставим 0, если эта ссылка не нужна.
-        'next_text'       => 'вперед »',   // Текст "перейти на следующую страницу".  Ставим 0, если эта ссылка не нужна.
+        'num_pages' => 10,           // Сколько ссылок показывать.
+        'step_link' => 10,           // Ссылки с шагом (если 10, то: 1,2,3...10,20,30. Ставим 0, если такие ссылки не нужны.
+        'dotright_text' => '…',          // Промежуточный текст "до".
+        'dotright_text2' => '…',          // Промежуточный текст "после".
+        'back_text' => '« назад',    // Текст "перейти на предыдущую страницу". Ставим 0, если эта ссылка не нужна.
+        'next_text' => 'вперед »',   // Текст "перейти на следующую страницу".  Ставим 0, если эта ссылка не нужна.
         'first_page_text' => '« к началу', // Текст "к первой странице".    Ставим 0, если вместо текста нужно показать номер страницы.
-        'last_page_text'  => 'в конец »',  // Текст "к последней странице". Ставим 0, если вместо текста нужно показать номер страницы.
+        'last_page_text' => 'в конец »',  // Текст "к последней странице". Ставим 0, если вместо текста нужно показать номер страницы.
     );
 
     // Cовместимость с v2.5: kama_pagenavi( $before = '', $after = '', $echo = true, $args = array() )
-    if( ($fargs = func_get_args()) && is_string( $fargs[0] ) ){
+    if (($fargs = func_get_args()) && is_string($fargs[0])) {
         $default['before'] = isset($fargs[0]) ? $fargs[0] : '';
-        $default['after']  = isset($fargs[1]) ? $fargs[1] : '';
-        $default['echo']   = isset($fargs[2]) ? $fargs[2] : true;
-        $args              = isset($fargs[3]) ? $fargs[3] : array();
+        $default['after'] = isset($fargs[1]) ? $fargs[1] : '';
+        $default['echo'] = isset($fargs[2]) ? $fargs[2] : true;
+        $args = isset($fargs[3]) ? $fargs[3] : array();
         $wp_query = $GLOBALS['wp_query']; // после определения $default!
     }
 
-    if( ! $wp_query ){
+    if (!$wp_query) {
         wp_reset_query();
         global $wp_query;
     }
 
-    if( ! $args ) $args = array();
-    if( $args instanceof WP_Query ){
+    if (!$args) $args = array();
+    if ($args instanceof WP_Query) {
         $wp_query = $args;
-        $args     = array();
+        $args = array();
     }
 
-    $default = apply_filters( 'kama_pagenavi_args', $default ); // чтобы можно было установить свои значения по умолчанию
+    $default = apply_filters('kama_pagenavi_args', $default); // чтобы можно было установить свои значения по умолчанию
 
-    $rg = (object) array_merge( $default, $args );
+    $rg = (object)array_merge($default, $args);
 
     //$posts_per_page = (int) $wp_query->get('posts_per_page');
-    $paged          = (int) $wp_query->get('paged');
-    $max_page       = $wp_query->max_num_pages;
+    $paged = (int)$wp_query->get('paged');
+    $max_page = $wp_query->max_num_pages;
 
     // проверка на надобность в навигации
-    if( $max_page <= 1 )
+    if ($max_page <= 1)
         return false;
 
-    if( empty( $paged ) || $paged == 0 )
+    if (empty($paged) || $paged == 0)
         $paged = 1;
 
-    $pages_to_show = intval( $rg->num_pages );
-    $pages_to_show_minus_1 = $pages_to_show-1;
+    $pages_to_show = intval($rg->num_pages);
+    $pages_to_show_minus_1 = $pages_to_show - 1;
 
-    $half_page_start = floor( $pages_to_show_minus_1/2 ); // сколько ссылок до текущей страницы
-    $half_page_end   = ceil(  $pages_to_show_minus_1/2 ); // сколько ссылок после текущей страницы
+    $half_page_start = floor($pages_to_show_minus_1 / 2); // сколько ссылок до текущей страницы
+    $half_page_end = ceil($pages_to_show_minus_1 / 2); // сколько ссылок после текущей страницы
 
     $start_page = $paged - $half_page_start; // первая страница
-    $end_page   = $paged + $half_page_end;   // последняя страница (условно)
+    $end_page = $paged + $half_page_end;   // последняя страница (условно)
 
-    if( $start_page <= 0 )
+    if ($start_page <= 0)
         $start_page = 1;
-    if( ($end_page - $start_page) != $pages_to_show_minus_1 )
+    if (($end_page - $start_page) != $pages_to_show_minus_1)
         $end_page = $start_page + $pages_to_show_minus_1;
-    if( $end_page > $max_page ) {
+    if ($end_page > $max_page) {
         $start_page = $max_page - $pages_to_show_minus_1;
-        $end_page = (int) $max_page;
+        $end_page = (int)$max_page;
     }
 
-    if( $start_page <= 0 )
+    if ($start_page <= 0)
         $start_page = 1;
 
     // создаем базу чтобы вызвать get_pagenum_link один раз
-    $link_base = str_replace( 99999999, '___', get_pagenum_link( 99999999 ) );
-    $first_url = get_pagenum_link( 1 );
-    if( false === strpos( $first_url, '?') )
-        $first_url = user_trailingslashit( $first_url );
+    $link_base = str_replace(99999999, '___', get_pagenum_link(99999999));
+    $first_url = get_pagenum_link(1);
+    if (false === strpos($first_url, '?'))
+        $first_url = user_trailingslashit($first_url);
 
     // собираем елементы
     $els = array();
 
-    if( $rg->text_num_page ){
-        $rg->text_num_page = preg_replace( '!{current}|{last}!', '%s', $rg->text_num_page );
-        $els['pages'] = sprintf( '<li><span class="pages">'. $rg->text_num_page .'</span></li>', $paged, $max_page );
+    if ($rg->text_num_page) {
+        $rg->text_num_page = preg_replace('!{current}|{last}!', '%s', $rg->text_num_page);
+        $els['pages'] = sprintf('<li><span class="pages">' . $rg->text_num_page . '</span></li>', $paged, $max_page);
     }
     // назад
-    if ( $rg->back_text && $paged != 1 )
-        $els['prev'] = '<li><a class="prev page-numbers" href="'. ( ($paged-1)==1 ? $first_url : str_replace( '___', ($paged-1), $link_base ) ) .'">'. $rg->back_text .'</a></li>';
+    if ($rg->back_text && $paged != 1)
+        $els['prev'] = '<li><a class="prev page-numbers" href="' . (($paged - 1) == 1 ? $first_url : str_replace('___', ($paged - 1), $link_base)) . '">' . $rg->back_text . '</a></li>';
     // в начало
-    if ( $start_page >= 2 && $pages_to_show < $max_page ) {
-        $els['first'] = '<li><a class="first page-numbers" href="'. $first_url .'">'. ( $rg->first_page_text ?: 1 ) .'</a></li>';
-        if( $rg->dotright_text && $start_page != 2 )
-            $els[] = '<li><span class="extend">'. $rg->dotright_text .'</span></li>';
+    if ($start_page >= 2 && $pages_to_show < $max_page) {
+        $els['first'] = '<li><a class="first page-numbers" href="' . $first_url . '">' . ($rg->first_page_text ?: 1) . '</a></li>';
+        if ($rg->dotright_text && $start_page != 2)
+            $els[] = '<li><span class="extend">' . $rg->dotright_text . '</span></li>';
     }
     // пагинация
-    for( $i = $start_page; $i <= $end_page; $i++ ) {
-        if( $i == $paged )
-            $els['current'] = '<li><span aria-current="page" class="page-numbers current">'. $i .'</span></li>';
-        elseif( $i == 1 )
-            $els[] = '<li><a class="page-numbers" href="'. $first_url .'">1</a></li>';
+    for ($i = $start_page; $i <= $end_page; $i++) {
+        if ($i == $paged)
+            $els['current'] = '<li><span aria-current="page" class="page-numbers current">' . $i . '</span></li>';
+        elseif ($i == 1)
+            $els[] = '<li><a class="page-numbers" href="' . $first_url . '">1</a></li>';
         else
-            $els[] = '<li><a class="page-numbers" href="'. str_replace( '___', $i, $link_base ) .'">'. $i .'</a></li>';
+            $els[] = '<li><a class="page-numbers" href="' . str_replace('___', $i, $link_base) . '">' . $i . '</a></li>';
     }
 
     // ссылки с шагом
     $dd = 0;
-    if ( $rg->step_link && $end_page < $max_page ){
-        for( $i = $end_page + 1; $i <= $max_page; $i++ ){
-            if( $i % $rg->step_link == 0 && $i !== $rg->num_pages ) {
-                if ( ++$dd == 1 )
-                    $els[] = '<li><span class="extend">'. $rg->dotright_text2 .'</span></li>';
-                $els[] = '<li><a class="page-numbers" href="'. str_replace( '___', $i, $link_base ) .'">'. $i .'</a></li>';
+    if ($rg->step_link && $end_page < $max_page) {
+        for ($i = $end_page + 1; $i <= $max_page; $i++) {
+            if ($i % $rg->step_link == 0 && $i !== $rg->num_pages) {
+                if (++$dd == 1)
+                    $els[] = '<li><span class="extend">' . $rg->dotright_text2 . '</span></li>';
+                $els[] = '<li><a class="page-numbers" href="' . str_replace('___', $i, $link_base) . '">' . $i . '</a></li>';
             }
         }
     }
     // в конец
-    if ( $end_page < $max_page ) {
-        if( $rg->dotright_text && $end_page != ($max_page-1) )
-            $els[] = '<span class="extend">'. $rg->dotright_text2 .'</span>';
-        $els['last'] = '<li><a class="last page-numbers" href="'. str_replace( '___', $max_page, $link_base ) .'">'. ( $rg->last_page_text ?: $max_page ) .'</a></li>';
+    if ($end_page < $max_page) {
+        if ($rg->dotright_text && $end_page != ($max_page - 1))
+            $els[] = '<span class="extend">' . $rg->dotright_text2 . '</span>';
+        $els['last'] = '<li><a class="last page-numbers" href="' . str_replace('___', $max_page, $link_base) . '">' . ($rg->last_page_text ?: $max_page) . '</a></li>';
     }
     // вперед
-    if ( $rg->next_text && $paged != $end_page )
-        $els['next'] = '<li><a class="next page-numbers" href="'. str_replace( '___', ($paged+1), $link_base ) .'">'. $rg->next_text .'</a></li>';
+    if ($rg->next_text && $paged != $end_page)
+        $els['next'] = '<li><a class="next page-numbers" href="' . str_replace('___', ($paged + 1), $link_base) . '">' . $rg->next_text . '</a></li>';
 
-    $els = apply_filters( 'kama_pagenavi_elements', $els );
+    $els = apply_filters('kama_pagenavi_elements', $els);
 
-    $out = $rg->before . '<nav class="woocommerce-pagination"><ul class="page-numbers"><li>'. implode( ' ', $els ) .'</ul></nav>'. $rg->after;
+    $out = $rg->before . '<nav class="woocommerce-pagination"><ul class="page-numbers"><li>' . implode(' ', $els) . '</ul></nav>' . $rg->after;
 
-    $out = apply_filters( 'kama_pagenavi', $out );
+    $out = apply_filters('kama_pagenavi', $out);
 
-    if( $rg->echo ) echo $out;
+    if ($rg->echo) echo $out;
     else return $out;
 }
 
 // Добавляем в редактор записей кнопку "Расставить разрывы страниц"
-function autoPageBreakButton() {
-    if ( !current_user_can( 'edit_posts' ) &&  !current_user_can( 'edit_pages' ) ) {
+function autoPageBreakButton()
+{
+    if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
         return;
     }
-    if ( 'true' == get_user_option( 'rich_editing' ) ) {
-        add_filter( 'mce_external_plugins', 'apb_add_tinymce_plugin', 100 );
-        add_filter( 'mce_buttons', 'apb_register_mce_button' , 100);
+    if ('true' == get_user_option('rich_editing')) {
+        add_filter('mce_external_plugins', 'apb_add_tinymce_plugin', 100);
+        add_filter('mce_buttons', 'apb_register_mce_button', 100);
     }
 }
+
 add_action('admin_head', 'autoPageBreakButton');
 
 // Регистрируем кнопку на панели форматирования
-function apb_register_mce_button( $buttons ) {
-    array_push( $buttons, 'apb_mce_button' );
+function apb_register_mce_button($buttons)
+{
+    array_push($buttons, 'apb_mce_button');
     return $buttons;
 }
 
 // Объявляем событие для нажатия кнопки
-function apb_add_tinymce_plugin( $plugin_array )
+function apb_add_tinymce_plugin($plugin_array)
 {
     $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js?2';
     return $plugin_array;
