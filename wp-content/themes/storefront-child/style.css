@@ -3092,6 +3092,12 @@ span.page-title {
     float: left;
     height: auto;
     margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 135ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
 }
 
 .fancybox-button:hover {
