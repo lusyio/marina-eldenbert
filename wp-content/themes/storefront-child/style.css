@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.6
+Version:      	1.0.7
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -3101,12 +3101,15 @@ span.page-title {
 
 .grid-item,
 .grid-sizer {
-    width: 30%;
+    width: 350px;
 }
 
 .grid-item img {
     display: block;
     max-width: 100%;
+    height: 500px;
+    -o-object-fit: cover;
+    object-fit: cover;
 }
 
 .img-bg {
