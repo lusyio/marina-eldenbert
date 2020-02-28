@@ -3093,7 +3093,6 @@ span.page-title {
     height: auto;
     margin-bottom: 30px;
     overflow: hidden;
-    transition: all 135ms cubic-bezier(.4, 0, .2, 1);
 }
 
 .grid-item:hover img {
@@ -3115,6 +3114,7 @@ span.page-title {
     height: 500px;
     -o-object-fit: cover;
     object-fit: cover;
+    transition: all 135ms cubic-bezier(.4, 0, .2, 1);
 }
 
 .img-bg {
