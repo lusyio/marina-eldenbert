@@ -1469,7 +1469,7 @@ function woocommerce_comments($comment, $args, $depth)
                         $args, array(
                             'add_below' => $add_below,
                             'depth' => $depth,
-                            'max_depth' => $args['max_depth'],
+                            'max_depth' => 9999,
                         )
                     )
                 );
