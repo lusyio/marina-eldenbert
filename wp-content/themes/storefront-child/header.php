@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="yandex-verification" content="9e80d18053519ed4" />
+    <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b" />
     <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc" />
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
