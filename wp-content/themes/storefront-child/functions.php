@@ -1469,7 +1469,7 @@ function woocommerce_comments($comment, $args, $depth)
                         $args, array(
                             'add_below' => $add_below,
                             'depth' => $depth,
-                            'max_depth' => $args['max_depth'],
+                            'max_depth' => 9999,
                         )
                     )
                 );
@@ -2476,7 +2476,7 @@ add_action('wp_enqueue_scripts', 'add_cdn_images');
 
 function add_cdn_images()
 {
-    $masonryLayout_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . 'js/masonryLayout.js'));
+    $masonryLayout_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . '/inc/assets/js/masonryLayout.js'));
     wp_enqueue_script('fancybox-script', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('jquery'), '', true);
     wp_enqueue_script('maconry-script', '/wp-content/themes/storefront-child/inc/assets/js/masonry.pkgd.min.js', array('jquery'), '', true);
     wp_enqueue_script('maconry-custom', '/wp-content/themes/storefront-child/inc/assets/js/masonryLayout.js', array('jquery'), $masonryLayout_js_ver, true);
@@ -2562,7 +2562,7 @@ add_filter('request', 'true_expanded_request_post_tags');
 add_action('wp_enqueue_scripts', 'add_custom_js');
 function add_custom_js()
 {
-    $custom_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . 'js/custom.js'));
+    $custom_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . '/inc/assets/js/custom.js'));
     wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
     wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), $custom_js_ver, true);
 }
@@ -3362,12 +3362,41 @@ function article_send_notification($new_status, $old_status, $post)
             updateArticleNotificationAdd($post->ID);
         } else {
             // создание
+            $categories = wp_get_post_categories( $post->ID, array('fields' => 'all'));
+            foreach ($categories as $category) {
+                if ($category->slug == 'news-n-events') {
+                    //Новости и события
+                    newPostNotificationAdd($post->ID, 'news');
+                    break;
+                } elseif ($category->slug == 'announcement') {
+                    // Анонсы
+                    newPostNotificationAdd($post->ID,'announcement');
+                    break;
+                }
+            }
             newArticleNotificationAdd($post->ID);
         }
+    }
+    if ($post->post_type == 'product' && $old_status !== $new_status && $new_status === 'publish') {
+        newPostNotificationAdd($post->ID, 'new_book');
     }
 }
 
 add_action('transition_post_status', 'article_send_notification', 10, 3);
+
+function newPostNotificationAdd($postId, $type)
+{
+    $possibleTypes = ['news', 'announcement','new_book'];
+    if (!in_array($type, $possibleTypes)) {
+        return;
+    }
+    $users = get_users(['fields' => ['ID']]);
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    foreach ($users as $user) {
+        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user->ID, $type, $postId));
+    }
+}
 
 //Запись уведомления о добавлении главы
 function newArticleNotificationAdd($articlePageId)
@@ -3486,7 +3515,24 @@ function getNotificationCard($notification)
     $icon = '';
     $isValid = false;
     $type = $notification->notification_type;
-    if ($type == 'new_article' || $type == 'update_article') {
+    if ($type == 'new_book') {
+        $link = get_permalink($notification->article_page_id);
+        $post = get_post($notification->article_page_id);
+        $content = 'Новая книга - ' . $post->post_title;
+        $icon = 'book-new.svg';
+        $isValid = true;
+    } elseif ($type == 'news' || $type == 'announcement') {
+        $link = get_permalink($notification->article_page_id);
+        $post = get_post($notification->article_page_id);
+        if ($type == 'news') {
+            $content = 'Добавлена новость - ' . $post->post_title;
+            $icon = 'newspaper.svg';
+        } else {
+            $content = 'Новый анонс - ' . $post->post_title;
+            $icon = 'guide.svg';
+        }
+        $isValid = true;
+    }elseif ($type == 'new_article' || $type == 'update_article') {
         $bookData = getBookInfoByArticleId($notification->article_page_id);
         if (count($bookData) == 0) {
             return '';
@@ -4071,3 +4117,118 @@ function apb_add_tinymce_plugin($plugin_array)
     $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js?2';
     return $plugin_array;
 }
+
+add_filter('wpseo_twitter_image', 'changeTwitterImage');
+add_filter('wpseo_og_og_image', 'changeOGImage');
+add_filter('wpseo_og_og_image_secure_url', 'changeOGImageSecure');
+
+function changeOGImageSecure($img)
+{
+    return changeOGImage($img, 'autodetect', true);
+}
+
+function changeTwitterImage($img)
+{
+    return changeOGImage($img, 'twitter');
+}
+
+function changeOGImage($img, $size = 'autodetect', $secure = false)
+{
+    global $post;
+    if (isset($post->ID)) {
+        $bookId = get_post_meta($post->ID, 'book_id', true);
+    } else {
+        $bookId = false;
+    }
+    if (!is_product() && !$bookId) {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
+    }
+    if (!extension_loaded('imagick')) {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
+    }
+
+    if ($bookId) {
+        $book = wc_get_product($bookId);
+        $ogTitle = $book->get_name();
+        $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($book->get_id()));
+
+    } else {
+        global $product;
+        $ogTitle = get_the_title();
+        $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($post->ID));
+    }
+
+    $uploads = wp_upload_dir();
+    $file_path = str_replace($uploads['baseurl'], $uploads['basedir'], $originalImageUrl);
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgTextGenerator.php';
+    $authorGenerator = new imgTextGenerator();
+    $social = 'vk';
+    if ($size == "autodetect") {
+        $social = imgGenerator::getSocial();
+    }
+    $authorTextPadding = ["15%", "0%", "0%", "45%"];
+    $titleTextPadding = ["30%", "5%", "0%", "45%"];
+    if ($social == 'vk') {
+        $authorTextPadding = ["15%", "0%", "0%", "37%"];
+        $titleTextPadding = ["30%", "5%", "0%", "37%"];
+    }
+
+    $author = $authorGenerator
+        ->setCaptionPosition(imgGenerator::position_left_center)
+        ->seTextShadow('#000000', 75, 1, 2, 2)
+        ->setText('Марина Эльденберт', "#ffffff", imgGenerator::position_left_top, "1/15", $authorTextPadding)
+        ->setFont($_SERVER["DOCUMENT_ROOT"] . '/wp-content/themes/storefront-child/inc/assets/fonts/Robotoslabregular.ttf');
+    $titleGenerator = new imgTextGenerator();
+    $title = $titleGenerator
+        ->setCaptionPosition(imgGenerator::position_left_center)
+        ->seTextShadow('#000000', 70, 1, 2, 2)
+        ->setText($ogTitle, "#ffffff", imgGenerator::position_left_top, "1/8", $titleTextPadding)
+        ->setLinesBeforeTrim(3)
+        ->setFont($_SERVER["DOCUMENT_ROOT"] . '/wp-content/themes/storefront-child/inc/assets/fonts/Robotoslabregular.ttf');
+    $generator = new imgGenerator();
+    $path = $generator
+        ->enableCache($uploads['basedir'])
+        ->addText($author)
+        ->addText($title)
+        ->addOverlay(0.3, '#000000')
+        ->setLogo($file_path, imgGenerator::position_left_bottom, ["10%", "0%", "10%", "5%",], 'auto')
+        ->fromImg($file_path)
+        ->resizeFor($size)
+        ->getPath();
+    $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
+    if ($secure) {
+        $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+    }
+    return $finalUrl;
+}
+
+add_filter('wpseo_og_og_image_width', function ($width) {
+    if (!is_product()) {
+        return $width;
+    }
+    if (!extension_loaded('imagick')) {
+        return $width;
+    }
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    return imgGenerator::getWidth();
+});
+
+add_filter('wpseo_og_og_image_height', function ($height) {
+    if (!is_product()) {
+        return $height;
+    }
+    if (!extension_loaded('imagick')) {
+        return $height;
+    }
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    return imgGenerator::getHeight();
+});
