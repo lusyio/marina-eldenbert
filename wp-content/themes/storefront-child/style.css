@@ -4879,7 +4879,7 @@ and (max-width: 768px) {
     }
 
     .reader-sidebar__image img {
-        display: none;
+        /*display: none;*/
     }
 
     .reader-sidebar__menu hr:last-of-type {
