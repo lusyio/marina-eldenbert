@@ -4071,3 +4071,118 @@ function apb_add_tinymce_plugin($plugin_array)
     $plugin_array['apb_mce_button'] = get_stylesheet_directory_uri() . '/inc/assets/js/insert-next-page.js?2';
     return $plugin_array;
 }
+
+add_filter('wpseo_twitter_image', 'changeTwitterImage');
+add_filter('wpseo_og_og_image', 'changeOGImage');
+add_filter('wpseo_og_og_image_secure_url', 'changeOGImageSecure');
+
+function changeOGImageSecure($img)
+{
+    return changeOGImage($img, 'autodetect', true);
+}
+
+function changeTwitterImage($img)
+{
+    return changeOGImage($img, 'twitter');
+}
+
+function changeOGImage($img, $size = 'autodetect', $secure = false)
+{
+    global $post;
+    if (isset($post->ID)) {
+        $bookId = get_post_meta($post->ID, 'book_id', true);
+    } else {
+        $bookId = false;
+    }
+    if (!is_product() && !$bookId) {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
+    }
+    if (!extension_loaded('imagick')) {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
+    }
+
+    if ($bookId) {
+        $book = wc_get_product($bookId);
+        $ogTitle = $book->get_name();
+        $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($book->get_id()));
+
+    } else {
+        global $product;
+        $ogTitle = get_the_title();
+        $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($post->ID));
+    }
+
+    $uploads = wp_upload_dir();
+    $file_path = str_replace($uploads['baseurl'], $uploads['basedir'], $originalImageUrl);
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgTextGenerator.php';
+    $authorGenerator = new imgTextGenerator();
+    $social = 'vk';
+    if ($size == "autodetect") {
+        $social = imgGenerator::getSocial();
+    }
+    $authorTextPadding = ["15%", "0%", "0%", "45%"];
+    $titleTextPadding = ["30%", "5%", "0%", "45%"];
+    if ($social == 'vk') {
+        $authorTextPadding = ["15%", "0%", "0%", "37%"];
+        $titleTextPadding = ["30%", "5%", "0%", "37%"];
+    }
+
+    $author = $authorGenerator
+        ->setCaptionPosition(imgGenerator::position_left_center)
+        ->seTextShadow('#000000', 75, 1, 2, 2)
+        ->setText('Марина Эльденберт', "#ffffff", imgGenerator::position_left_top, "1/15", $authorTextPadding)
+        ->setFont($_SERVER["DOCUMENT_ROOT"] . '/wp-content/themes/storefront-child/inc/assets/fonts/Robotoslabregular.ttf');
+    $titleGenerator = new imgTextGenerator();
+    $title = $titleGenerator
+        ->setCaptionPosition(imgGenerator::position_left_center)
+        ->seTextShadow('#000000', 70, 1, 2, 2)
+        ->setText($ogTitle, "#ffffff", imgGenerator::position_left_top, "1/8", $titleTextPadding)
+        ->setLinesBeforeTrim(3)
+        ->setFont($_SERVER["DOCUMENT_ROOT"] . '/wp-content/themes/storefront-child/inc/assets/fonts/Robotoslabregular.ttf');
+    $generator = new imgGenerator();
+    $path = $generator
+        ->enableCache($uploads['basedir'])
+        ->addText($author)
+        ->addText($title)
+        ->addOverlay(0.3, '#000000')
+        ->setLogo($file_path, imgGenerator::position_left_bottom, ["10%", "0%", "10%", "5%",], 'auto')
+        ->fromImg($file_path)
+        ->resizeFor($size)
+        ->getPath();
+    $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
+    if ($secure) {
+        $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+    }
+    return $finalUrl;
+}
+
+add_filter('wpseo_og_og_image_width', function ($width) {
+    if (!is_product()) {
+        return $width;
+    }
+    if (!extension_loaded('imagick')) {
+        return $width;
+    }
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    return imgGenerator::getWidth();
+});
+
+add_filter('wpseo_og_og_image_height', function ($height) {
+    if (!is_product()) {
+        return $height;
+    }
+    if (!extension_loaded('imagick')) {
+        return $height;
+    }
+    require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
+    return imgGenerator::getHeight();
+});
