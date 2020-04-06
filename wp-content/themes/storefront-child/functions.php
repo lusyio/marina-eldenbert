@@ -3362,12 +3362,41 @@ function article_send_notification($new_status, $old_status, $post)
             updateArticleNotificationAdd($post->ID);
         } else {
             // создание
+            $categories = wp_get_post_categories( $post->ID, array('fields' => 'all'));
+            foreach ($categories as $category) {
+                if ($category->slug == 'news-n-events') {
+                    //Новости и события
+                    newPostNotificationAdd($post->ID, 'news');
+                    break;
+                } elseif ($category->slug == 'announcement') {
+                    // Анонсы
+                    newPostNotificationAdd($post->ID,'announcement');
+                    break;
+                }
+            }
             newArticleNotificationAdd($post->ID);
         }
+    }
+    if ($post->post_type == 'product' && $old_status !== $new_status && $new_status === 'publish') {
+        newPostNotificationAdd($post->ID, 'new_book');
     }
 }
 
 add_action('transition_post_status', 'article_send_notification', 10, 3);
+
+function newPostNotificationAdd($postId, $type)
+{
+    $possibleTypes = ['news', 'announcement','new_book'];
+    if (!in_array($type, $possibleTypes)) {
+        return;
+    }
+    $users = get_users(['fields' => ['ID']]);
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    foreach ($users as $user) {
+        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user->ID, $type, $postId));
+    }
+}
 
 //Запись уведомления о добавлении главы
 function newArticleNotificationAdd($articlePageId)
@@ -3486,7 +3515,24 @@ function getNotificationCard($notification)
     $icon = '';
     $isValid = false;
     $type = $notification->notification_type;
-    if ($type == 'new_article' || $type == 'update_article') {
+    if ($type == 'new_book') {
+        $link = get_permalink($notification->article_page_id);
+        $post = get_post($notification->article_page_id);
+        $content = 'Новая книга - ' . $post->post_title;
+        $icon = 'book-new.svg';
+        $isValid = true;
+    } elseif ($type == 'news' || $type == 'announcement') {
+        $link = get_permalink($notification->article_page_id);
+        $post = get_post($notification->article_page_id);
+        if ($type == 'news') {
+            $content = 'Добавлена новость - ' . $post->post_title;
+            $icon = 'newspaper.svg';
+        } else {
+            $content = 'Новый анонс - ' . $post->post_title;
+            $icon = 'guide.svg';
+        }
+        $isValid = true;
+    }elseif ($type == 'new_article' || $type == 'update_article') {
         $bookData = getBookInfoByArticleId($notification->article_page_id);
         if (count($bookData) == 0) {
             return '';
