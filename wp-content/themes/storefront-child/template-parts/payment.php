@@ -23,6 +23,7 @@ Template Post Type: post, page, product
             <p>ИП Литягина Ксения Федоровна</p>
             <p>ОГРНИП: 319631300175537</p>
             <p>ИНН: 631941515859</p>
+            <p><a href="https://marina-eldenbert.ru/return/">Политика возврата денежных средств</a></p>
         </div>
     </div>
 </div>
