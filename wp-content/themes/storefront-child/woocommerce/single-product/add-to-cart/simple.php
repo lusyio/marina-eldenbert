@@ -62,6 +62,13 @@ if ($product->is_in_stock()) : ?>
             $user_id = get_current_user_id();
             $downloads = wc_get_customer_available_downloads($user_id);
             $hasDownloads = false;
+            $tags = get_terms('product_tag');
+            $tagsArray = array();
+            if (!empty($tags) && !is_wp_error($tags)){
+                foreach ($tags as $tag) {
+                    $tagsArray[] = $tag->slug;
+                }
+            }
             if (!empty($downloads)) {
                 foreach ($downloads as $download) {
                     if ($download['product_id'] == $product->get_id()) { ?>
@@ -74,7 +81,7 @@ if ($product->is_in_stock()) : ?>
                     }
                 }
             }
-            if (!isBookBought($product->get_id())):
+            if (!isBookBought($product->get_id()) && !in_array('draft', $tagsArray)):
                 ?>
                 <button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>"
                         class="single_add_to_cart_button button alt"><?php echo esc_html($product->single_add_to_cart_text()); ?></button>
