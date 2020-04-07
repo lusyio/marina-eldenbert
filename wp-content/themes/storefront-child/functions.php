@@ -4232,3 +4232,10 @@ add_filter('wpseo_og_og_image_height', function ($height) {
     require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
     return imgGenerator::getHeight();
 });
+
+add_action('get_header', function () {
+    global $post;
+    if (is_user_logged_in() && !is_null($post->ID)) {
+        markArticleNotificationAsRead($post->ID);
+    }
+});
