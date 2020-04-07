@@ -3354,12 +3354,17 @@ function createNotificationTable()
 /**
  * Отправка уведомлений при публикации поста
  */
-function article_send_notification($new_status, $old_status, $post)
+function article_send_notification($new_status, $old_status, WP_Post $post)
 {
     if ($new_status === 'publish' && $post->post_type === 'post') {
         if ($old_status === $new_status) {
-            //обновление
-            updateArticleNotificationAdd($post->ID);
+            if (isset($GLOBALS['beforeEdit'])) {
+                $beforeWithoutTags = preg_replace('~<.+>~U', '', $GLOBALS['beforeEdit']);
+                $afterWithoutTags = preg_replace('~<.+>~U', '', $post->post_content);
+                if (abs(mb_strlen($beforeWithoutTags) - mb_strlen($afterWithoutTags)) >= 1000) {
+                    updateArticleNotificationAdd($post->ID);
+                }
+            }
         } else {
             // создание
             $categories = wp_get_post_categories( $post->ID, array('fields' => 'all'));
@@ -4239,3 +4244,11 @@ add_action('get_header', function () {
         markArticleNotificationAsRead($post->ID);
     }
 });
+
+add_filter( 'wp_insert_post_data' , 'filter_post_data' , '99', 2 );
+
+function filter_post_data( $data , $postarr ) {
+    $oldPost = get_post($postarr['ID']);
+    $GLOBALS['beforeEdit'] = $oldPost->post_content;
+    return $data;
+}
