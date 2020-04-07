@@ -31,7 +31,15 @@ if ($product->is_in_stock()) : ?>
     <form class="cart"
           action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
           method="post" enctype='multipart/form-data'>
+
         <?php if (is_product_in_cart()): ?>
+            <?php
+            //выводим ссылку на чтение книги
+            $bookPageId = getBookPageIdByBookId($product->get_id());
+            if ($bookPageId):
+                $link = get_permalink($bookPageId); ?>
+                <a class="product-read" href="<?php echo $link ?>">Читать</a>
+            <?php endif; ?>
             <a href="<?php echo get_permalink(wc_get_page_id('cart')); ?>"
                class="single_add_to_cart_button button alt">Товар
                 в корзине</a>
