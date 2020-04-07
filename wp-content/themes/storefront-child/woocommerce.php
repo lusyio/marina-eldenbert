@@ -14,6 +14,8 @@
 
 get_header(); ?>
 
+
+<?php if (!is_product()): ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -21,20 +23,14 @@ get_header(); ?>
                     <span class="page-title">
                             <?php woocommerce_page_title(); ?>
                     </span>
-                <?php else: ?>
-                    <h2 class="page-title"><?php if (is_product()) {
-                            echo get_the_title();
-                        } else {
-                            woocommerce_page_title();
-                        } ?>
-                    </h2>
                 <?php endif; ?>
             </div>
         </div>
     </div>
+<?php endif; ?>
 
 <?php if (is_product() || is_cart() || is_checkout()): ?>
-    <section id="primary" class="content-area col-sm-12 mt-5">
+    <section id="primary" class="content-area col-sm-12 <?= is_product() ? '' : 'mt-5' ?>">
         <main id="main" class="site-main" role="main">
 
             <?php woocommerce_content(); ?>

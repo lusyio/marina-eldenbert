@@ -28,6 +28,8 @@ $columns           = apply_filters( 'woocommerce_product_thumbnails_columns', 4 
 $post_thumbnail_id = $product->get_image_id();
 $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_classes', array(
 	'woocommerce-product-gallery',
+    'col-lg-4',
+    'col-12',
 	'woocommerce-product-gallery--' . ( $product->get_image_id() ? 'with-images' : 'without-images' ),
 	'woocommerce-product-gallery--columns-' . absint( $columns ),
 	'images',
@@ -47,10 +49,10 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		do_action( 'woocommerce_product_thumbnails' );
-		if ($product->price == 0): ?>
-        <span class="product-price free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>
-        <?php else: ?>
-        <span class="product-price"><?php echo $product->get_price_html() ?></span>
-        <?php endif; ?>
+//		if ($product->price == 0): ?>
+<!--        <span class="product-price free"><span class="woocommerce-Price-amount amount">Бесплатно<span class="woocommerce-Price-currencySymbol"></span></span></span>-->
+<!--        --><?php //else: ?>
+<!--        <span class="product-price">--><?php //echo $product->get_price_html() ?><!--</span>-->
+<!--        --><?php //endif; ?>
 	</figure>
 </div>

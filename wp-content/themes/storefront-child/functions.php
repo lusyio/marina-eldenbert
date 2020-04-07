@@ -1013,7 +1013,7 @@ function productAuthor()
 }
 
 // Определяем место вывода атрибута
-add_action('woocommerce_single_product_summary', 'productAuthor', 15);
+//add_action('woocommerce_single_product_summary', 'productAuthor', 15);
 
 // Функция вывода атрибута
 function productSeries()
@@ -1056,7 +1056,7 @@ function productSeries()
 }
 
 // Определяем место вывода атрибута
-add_action('woocommerce_single_product_summary', 'productSeries', 15);
+//add_action('woocommerce_single_product_summary', 'productSeries', 15);
 
 //Удаляем цену
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
