@@ -2976,6 +2976,14 @@ span.page-title {
     height: 50px;
 }
 
+.add-to-cart-block .add-to-cart-block__target {
+    display: none;
+}
+
+.add-to-cart-block .add-to-cart-block__target.active {
+    display: block;
+}
+
 .add-to-cart-block .add-to-cart-block__type {
     border-left: 1px solid #DFDDD7;
     padding-left: 53px;
@@ -2993,6 +3001,35 @@ span.page-title {
 
 .add-to-cart-block .add-to-cart-block__type > div:last-of-type {
     margin-bottom: 0;
+}
+
+.heateor_sss_sharing_container{
+    display: table;
+    margin: auto;
+}
+
+.card-payment.disabled {
+    opacity: 0.4;
+}
+
+.card-payment.disabled:hover {
+    cursor: not-allowed;
+}
+
+.card-payment:not(.disabled):hover {
+    cursor: pointer;
+}
+
+.card-payment.active:before{
+    content: '';
+    position: absolute;
+    left: -1px;
+    height: 36px;
+    border-right: 1px solid #2E2E2E;
+}
+
+.card-payment input {
+    display: none;
 }
 
 .add-to-cart-block .add-to-cart-block__type > div > svg {

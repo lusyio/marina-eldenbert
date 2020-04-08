@@ -22,6 +22,20 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $('.card-payment:not(".disabled")').on('click', function () {
+        let input = $(this).find('input');
+        let target = input.data('target');
+        $('input[name="variation_id"]').attr('checked', false)
+        input.attr('checked', true);
+        if (input.is(':checked')) {
+            $('.card-payment').removeClass('active');
+            $.when($('.add-to-cart-block__target').fadeOut(50)).done(() => {
+                $(`#${target}`).fadeIn(150);
+            });
+            $(this).addClass('active')
+        }
+    })
+
     var $page = $('html, body');
     $('a.scrollTop').on('click', function () {
         $page.animate({

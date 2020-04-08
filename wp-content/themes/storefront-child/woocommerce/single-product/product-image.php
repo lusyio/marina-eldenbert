@@ -55,4 +55,7 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 <!--        <span class="product-price">--><?php //echo $product->get_price_html() ?><!--</span>-->
 <!--        --><?php //endif; ?>
 	</figure>
+    <?= do_shortcode('[Sassy_Social_Share]'); ?>
+
 </div>
+

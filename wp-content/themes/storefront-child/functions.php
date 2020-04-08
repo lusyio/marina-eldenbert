@@ -2510,11 +2510,12 @@ add_filter('woocommerce_account_downloads_columns', function ($args) {
 });
 
 //перенос поделиться под кнопку в корзину
-add_action('woocommerce_after_add_to_cart_form', 'add_sassy', 1);
-function add_sassy()
-{
-    echo do_shortcode('[Sassy_Social_Share]');
-}
+//add_action('woocommerce_after_add_to_cart_form', 'add_sassy', 1);
+//function add_sassy()
+//{
+//    echo do_shortcode('[Sassy_Social_Share]');
+//}
+
 
 // функция проверки используемого шаблона внутри цикла
 function filter_template_include($t)
