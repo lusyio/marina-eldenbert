@@ -82,29 +82,56 @@
                     ));
                     ?>
                     <?php get_search_form() ?>
-                    <?php if (is_user_logged_in()): ?>
+                    <?php if (!is_user_logged_in()): ?>
                         <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto position-relative">
                             <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . 'notifications/' ?>"
                                class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
                                 <span class="basket-btn__label"><img
                                             src="/wp-content/themes/storefront-child/svg/bell.svg"
                                             alt=""></span>
-                                <span id="notificationCounter"
-                                      class="notification-btn__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
                             </a>
                         </div>
                     <?php endif; ?>
                     <?php if (class_exists('WooCommerce')): ?>
 
-                        <?php if (is_user_logged_in()): ?>
-                            <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
-                                <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">
-                                    <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">
-                                </a>
+                        <?php if (is_user_logged_in()):
+                            $user = wp_get_current_user();
+                            $userName = $user->user_firstname . ' ' . $user->user_lastname
+                            ?>
+                            <div class="menu-profile">
+                                <div class="menu-profile__body menu-profile-trigger" data-trigger="dropdown">
+                                    <div>
+                                        <img class="menu-profile__avatar"
+                                             src="<?= esc_url(get_avatar_url($user->ID)); ?>"
+                                             alt="<?= $userName ?>">
+                                        <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span></span>
+                                    </div>
+
+                                    <p><?= $userName ?></p>
+                                    <img src="/wp-content/themes/storefront-child/svg/svg-menuProfile.svg" alt="">
+                                </div>
+                                <div class="menu-profile-submenu">
+                                    <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
+                                        <?php if ($endpoint === 'notifications'): ?>
+                                            <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
+                                                <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span></span>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
+                            <!--                            <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">-->
+                            <!--                                <a href="--><?php //echo get_permalink(wc_get_page_id('myaccount'))
+                            ?><!--">-->
+                            <!--                                    <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">-->
+                            <!--                                </a>-->
+                            <!--                            </div>-->
                         <?php else: ?>
                             <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
-                                <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
+                                <a class="header-login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти
+                                    в аккаунт</a>
                             </div>
                         <?php endif; ?>
 

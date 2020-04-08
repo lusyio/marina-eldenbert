@@ -2803,12 +2803,130 @@ h2.related-product {
     position: relative;
 }
 
-.add-to-cart-block__partners-links a:not(:last-of-type):after{
+.add-to-cart-block__partners-links a:not(:last-of-type):after {
     position: relative;
     content: '|';
     margin-left: 15px;
     margin-right: 15px;
     color: #000000 !important;
+}
+
+.header-login {
+    background: #F8AC53;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 8px 25px;
+    border-radius: 0;
+    height: 40px;
+    display: block;
+}
+
+.menu-profile {
+    height: 100px;
+    border-left: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+    position: relative;
+}
+
+.menu-profile:hover {
+    cursor: pointer;
+}
+
+.menu-profile__body {
+    display: flex;
+    height: 100%;
+    padding: 30px 15px 30px 10px;
+}
+
+.menu-profile-trigger div {
+    position: relative;
+}
+
+.menu-profile-trigger .menu-profile__counter, .menu-profile-submenu .menu-profile__counter {
+    font-weight: bold;
+    font-size: 8px;
+    line-height: 9px;
+    color: #FFFFFF;
+    padding: 4px;
+    border-radius: 50%;
+    background: #F8AC53;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+}
+
+.menu-profile-submenu .menu-profile__counter{
+    position: absolute;
+    margin-left: 15px;
+}
+
+.menu-profile-trigger .menu-profile__counter {
+    position: absolute;
+    top: -2px;
+    right: 7px;
+}
+
+.menu-profile__body .menu-profile__avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    margin-right: 10px;
+}
+
+.menu-profile__body img {
+    width: 12px;
+    height: 12px;
+    align-self: center;
+}
+
+.menu-profile__body p {
+    align-self: center;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    margin-bottom: 0;
+    max-width: 76px;
+    margin-right: 20px;
+}
+
+.menu-profile-submenu {
+    padding: 0;
+    background: #fff;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    top: 100px;
+    width: 100%;
+    display: none;
+}
+
+
+.menu-profile-submenu a:first-of-type {
+    padding-top: 20px;
+}
+
+.menu-profile-submenu a:last-of-type {
+    padding-bottom: 20px;
+}
+
+.menu-profile-submenu a {
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.header-login:hover {
+    color: #FFFFFF;
 }
 
 .add-to-cart-block__partners-links a:hover {

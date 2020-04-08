@@ -10,7 +10,7 @@ jQuery(function ($) {
             type: 'POST',
             success: function (data) {
                 data = +data;
-                    let counter = $('#notificationCounter');
+                    let counter = $('.menu-profile__counter');
                     if (data > 0) {
                         console.log(data);
                         counter.show();
