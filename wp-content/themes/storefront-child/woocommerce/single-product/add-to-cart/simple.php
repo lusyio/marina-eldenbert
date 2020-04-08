@@ -32,7 +32,7 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
 ?>
 <div class="add-to-cart-block">
     <div class="row">
-        <div class="col-lg-8 pr-lg-0 pr-unset col-12 br">
+        <div class="col-lg-8 pr-lg-0 pr-unset col-12 br m-auto">
             <div class="add-to-cart-block__body">
                 <div id="ebookTarget" class="add-to-cart-block__target active">
                     <?php if ($product->is_in_stock()) : ?>
@@ -141,10 +141,12 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
                     <p class="add-to-cart-block__ref">Так же ознакомьтесь с подробной справкой для пользователей</p>
                 </div>
                 <div id="paperBookTarget" class="add-to-cart-block__target">
-                    <p>Бумажная книга</p>
+                    <p class="add-to-cart-block__partners">Бумажные издания книги можно приобрести только в магазинах-партнерах. Данную книгу вы можете найти в следующих интернет-магазинах:</p>
+                    <p class="add-to-cart-block__partners-links"><a href="#">Ozon</a><a href="#">Лабиринт</a><a href="#">My-Shop</a></p>
                 </div>
                 <div id="audioBookTarget" class="add-to-cart-block__target">
-                    <p>АудиоКнига</p>
+                    <p class="add-to-cart-block__partners">Аудиокниги можно приобрести только в магазинах-партнерах. Данную книгу вы можете найти в следующих интернет-магазинах:</p>
+                    <p class="add-to-cart-block__partners-links"><a href="#">Ozon</a><a href="#">Лабиринт</a><a href="#">My-Shop</a></p>
                 </div>
             </div>
         </div>

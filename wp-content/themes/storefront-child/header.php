@@ -13,19 +13,27 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="yandex-verification" content="9e80d18053519ed4" />
-    <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b" />
-    <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc" />
+    <meta name="yandex-verification" content="9e80d18053519ed4"/>
+    <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b"/>
+    <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc"/>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
     <?php wp_head(); ?>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-N4TVJG5');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-N4TVJG5');</script>
     <!-- End Google Tag Manager -->
 
 </head>
@@ -34,8 +42,10 @@
 
 <?php do_action('storefront_before_site'); ?>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4TVJG5"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4TVJG5"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div id="page" class="hfeed site">
@@ -73,35 +83,31 @@
                     ?>
                     <?php get_search_form() ?>
                     <?php if (is_user_logged_in()): ?>
-                    <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto position-relative">
-                        <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . 'notifications/' ?>"
-                           class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
+                        <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto position-relative">
+                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . 'notifications/' ?>"
+                               class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
                                 <span class="basket-btn__label"><img
                                             src="/wp-content/themes/storefront-child/svg/bell.svg"
                                             alt=""></span>
-                            <span id="notificationCounter" class="notification-btn__counter"<?=(sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
-                        </a>
-                    </div>
+                                <span id="notificationCounter"
+                                      class="notification-btn__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                            </a>
+                        </div>
                     <?php endif; ?>
                     <?php if (class_exists('WooCommerce')): ?>
-                        <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
-                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">
-                                <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">
-                            </a>
-                        </div>
-                        <div class="s-header__basket-wr woocommerce mr-3 mr-sm-3 mr-xl-0 mt-auto mb-auto z-5 position-relative">
-                            <?php
-                            global $woocommerce; ?>
-                            <a href="<?php echo $woocommerce->cart->get_cart_url() ?>"
-                               class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
-                                <span class="basket-btn__label"><img
-                                            src="/wp-content/themes/storefront-child/svg/cart-black.svg"
-                                            alt=""></span>
-                                <?php if (sprintf($woocommerce->cart->cart_contents_count) != 0): ?>
-                                    <span class="basket-btn__counter"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></span>
-                                <?php endif; ?>
-                            </a>
-                        </div>
+
+                        <?php if (is_user_logged_in()): ?>
+                            <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
+                                <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">
+                                    <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
+                                <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
+                            </div>
+                        <?php endif; ?>
+
 
                     <?php endif; ?>
 

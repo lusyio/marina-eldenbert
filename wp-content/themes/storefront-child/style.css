@@ -2787,6 +2787,34 @@ h2.related-product {
     position: relative;
 }
 
+.add-to-cart-block__partners {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.add-to-cart-block__partners-links a {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    position: relative;
+}
+
+.add-to-cart-block__partners-links a:not(:last-of-type):after{
+    position: relative;
+    content: '|';
+    margin-left: 15px;
+    margin-right: 15px;
+    color: #000000 !important;
+}
+
+.add-to-cart-block__partners-links a:hover {
+    color: #F8AC53;
+}
+
 .news-n-events__link:hover {
     color: #F8AC53;
 }
@@ -3003,7 +3031,7 @@ span.page-title {
     margin-bottom: 0;
 }
 
-.heateor_sss_sharing_container{
+.heateor_sss_sharing_container {
     display: table;
     margin: auto;
 }
@@ -3020,7 +3048,7 @@ span.page-title {
     cursor: pointer;
 }
 
-.card-payment.active:before{
+.card-payment.active:before {
     content: '';
     position: absolute;
     left: -1px;
