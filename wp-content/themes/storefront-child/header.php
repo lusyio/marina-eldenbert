@@ -82,18 +82,7 @@
                     ));
                     ?>
                     <?php get_search_form() ?>
-                    <?php if (!is_user_logged_in()): ?>
-                        <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto position-relative">
-                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . 'notifications/' ?>"
-                               class="basket-btn basket-btn_fixed-xs text-decoration-none position-relative">
-                                <span class="basket-btn__label"><img
-                                            src="/wp-content/themes/storefront-child/svg/bell.svg"
-                                            alt=""></span>
-                            </a>
-                        </div>
-                    <?php endif; ?>
                     <?php if (class_exists('WooCommerce')): ?>
-
                         <?php if (is_user_logged_in()):
                             $user = wp_get_current_user();
                             $userName = $user->user_firstname . ' ' . $user->user_lastname
@@ -122,19 +111,12 @@
                                     <?php endforeach; ?>
                                 </div>
                             </div>
-                            <!--                            <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">-->
-                            <!--                                <a href="--><?php //echo get_permalink(wc_get_page_id('myaccount'))
-                            ?><!--">-->
-                            <!--                                    <img src="/wp-content/themes/storefront-child/svg/avatar.svg" alt="">-->
-                            <!--                                </a>-->
-                            <!--                            </div>-->
                         <?php else: ?>
                             <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
                                 <a class="header-login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти
                                     в аккаунт</a>
                             </div>
                         <?php endif; ?>
-
 
                     <?php endif; ?>
 
