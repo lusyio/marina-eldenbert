@@ -4282,3 +4282,82 @@ function tt_hidetitle_class($classes) {
 }
 
 add_filter('post_class', 'tt_hidetitle_class');
+
+add_action('woocommerce_order_status_completed', function ($order) {
+    $order = wc_get_order($order);
+    $userId = $order->get_user_id();
+    $inLibraryIds = getLibraryBookIds($userId);
+    $items = $order->get_items();
+    foreach ($items as $item) {
+        $bookId = $item->get_product_id();
+        if (!in_array($bookId, $inLibraryIds)) {
+            add_user_meta($userId, 'library', $bookId);
+        }
+    }
+});
+
+function getLastArticleDate($productId)
+{
+    global $post;
+    // Ищем страницу книги по мета-полю book_id
+    $bookPageArgs = [
+        'numberposts' => 1,
+        'orderby'     => 'date',
+        'order'       => 'DESC',
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'meta_key'    => 'book_id',
+        'meta_value'  => $productId,
+    ];
+    $bookPage = get_posts($bookPageArgs);
+    if (!is_array($bookPage) || count($bookPage) == 0) {
+        return '';
+    }
+    // Берем из мета-полей страницы категорию глав этой книги
+    $categoryId = get_post_meta($bookPage[0]->ID, 'cat_id', true);
+    if (!$categoryId) {
+        return '';
+    }
+    // ищем последнюю запись из этой категории
+    $args = [
+        'numberposts' => 1,
+        'orderby'     => 'date',
+	    'order'       => 'DESC',
+        'cat' => $categoryId,
+        'post_type' => 'post',
+        'post_status' => 'publish',
+    ];
+    $articles = get_posts($args);
+    if (!is_array($articles) || count($articles) == 0) {
+        return '';
+    }
+    // Берем дату модификации записи и возвращаем её в формате "1 января"
+    $day = date('d', strtotime($articles[0]->post_modified));
+    $monthNumber = date('m', strtotime($articles[0]->post_modified));
+    $months = [
+        '01' => 'января',
+        '02' => 'февраля',
+        '03' => 'марта',
+        '04' => 'апреля',
+        '05' => 'мая',
+        '06' => 'июня',
+        '07' => 'июля',
+        '08' => 'августа',
+        '09' => 'сентября',
+        '10' => 'октября',
+        '11' => 'ноября',
+        '12' => 'декабря',
+    ];
+    return 'Обновление - ' . $day . ' ' . $months[$monthNumber];
+}
+
+function getLibraryBookIds($userId)
+{
+    return get_user_meta($userId, 'library', false);
+}
+
+function isBookInLibrary($userId, $bookId)
+{
+    $library = getLibraryBookIds($userId);
+    return in_array($bookId, $library);
+}
