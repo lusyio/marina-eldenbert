@@ -932,6 +932,17 @@ add_filter('woocommerce_breadcrumb_defaults', 'jk_woocommerce_breadcrumbs', 20);
 function jk_woocommerce_breadcrumbs()
 {
     global $post;
+    if  (is_account_page()){
+        return array(
+            'delimiter' => ' / ',
+            'wrap_before' => '<nav class="woocommerce-breadcrumb d-none container text-center breadcrumb-container" itemprop="breadcrumb">',
+            'wrap_after' => '</nav>',
+            'before' => '',
+            'after' => '',
+            'home' => _x('Home', 'breadcrumb', 'woocommerce'),
+        );
+    }
+
     if ($post->ID == 39) {
         return array(
             'delimiter' => ' / ',
@@ -3656,6 +3667,21 @@ function notifications_endpoint_content()
 // Добавляем в меню личного кабинета пункт "Уведомления"
 add_filter('woocommerce_account_menu_items', 'addNotificationsPage', 10, 2);
 
+function wpb_woo_my_account_order()
+{
+    $myorder = array(
+        'dashboard' => 'Мой аккаунт',
+        'notifications' => 'Мои уведомления',
+        'downloads' => 'Моя библиотека',
+        'orders' => 'Мои покупки',
+        'edit-account' => 'Настройки',
+        'customer-logout' => __('Logout', 'woocommerce'),
+    );
+    return $myorder;
+}
+
+add_filter('woocommerce_account_menu_items', 'wpb_woo_my_account_order');
+
 function notificationPageAddQueryVar($vars)
 {
     $vars[] = 'notifications';
@@ -4240,3 +4266,19 @@ add_action('get_header', function () {
         markArticleNotificationAsRead($post->ID);
     }
 });
+
+function tt_hidetitle_class($classes) {
+
+    if ( is_account_page() ):
+
+        $classes[] = 'hide-title';
+
+        return $classes;
+
+    endif;
+
+    return $classes;
+
+}
+
+add_filter('post_class', 'tt_hidetitle_class');
