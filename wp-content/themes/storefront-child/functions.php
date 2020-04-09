@@ -1035,7 +1035,7 @@ function productSeries()
     $attribute_name = "Цикл: ";
     if ($attribute_names) {
 // Вывод имени атрибута
-        echo '<p class="attr-label">';
+        echo '<p class="info-card__meta-cycle">';
         echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
@@ -1053,7 +1053,7 @@ function productSeries()
     $attribute_name = "Серия: ";
     if ($attribute_names) {
 // Вывод имени атрибута
-        echo '<p class="attr-label">';
+        echo '<p class="info-card__meta-series">';
         echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
