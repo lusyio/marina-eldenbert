@@ -3672,7 +3672,7 @@ function wpb_woo_my_account_order()
     $myorder = array(
         'dashboard' => 'Мой аккаунт',
         'notifications' => 'Мои уведомления',
-        'library' => 'Моя библиотека',
+        'downloads' => 'Моя библиотека',
         'orders' => 'Мои покупки',
         'edit-account' => 'Настройки',
         'customer-logout' => __('Logout', 'woocommerce'),
