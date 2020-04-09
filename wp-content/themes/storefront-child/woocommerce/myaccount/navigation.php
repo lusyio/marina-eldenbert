@@ -22,15 +22,23 @@ if (!defined('ABSPATH')) {
 do_action('woocommerce_before_account_navigation');
 ?>
 <div class="row">
-    <nav class="col-lg-3 col-12">
+    <nav class="col-lg-3 col-12 navigation-my-account-br">
         <div class="filter-collapse-btn d-lg-none d-block" data-toggle="collapse" data-target="#collapseMyaccount" aria-expanded="false" aria-controls="collapseMyaccount">
             Сайдбар
         </div>
         <ul class="navigation-my-account collapse d-lg-block" id="collapseMyaccount">
             <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
-                <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
-                    <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
-                </li>
+                <?php if ($endpoint === 'notifications'): ?>
+                    <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
+                        <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
+                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span></span>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
+                        <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
+                    </li>
+                <?php endif; ?>
             <?php endforeach; ?>
         </ul>
     </nav>

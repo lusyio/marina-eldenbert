@@ -1055,16 +1055,46 @@ ul.products li.product {
 
 .navigation-my-account li a {
     position: relative;
-    color: #000;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+    transition: all 135ms ease-in-out;
 }
 
-.navigation-my-account li.is-active a:before {
-    content: '';
-    display: block;
-    width: 100%;
-    border-bottom: 1px solid #000;
+.navigation-my-account li a:hover {
+    /*font-weight: normal;*/
+}
+
+.navigation-my-account li.is-active a {
+    font-weight: normal;
+}
+
+.navigation-my-account-br {
+    border-right: 1px solid #EEEEEE;
+}
+
+.navigation-my-account li a .menu-profile__counter {
     position: absolute;
-    bottom: -3px;
+    margin-left: 40px;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FFFFFF;
+    padding: 6px;
+    border-radius: 50%;
+    background: #F8AC53;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+
+.hide-title {
+    padding-top: 60px;
+}
+
+.hide-title .entry-header {
+    display: none;
 }
 
 .read-notification {
@@ -2857,7 +2887,7 @@ h2.related-product {
     text-align: center;
 }
 
-.menu-profile-submenu .menu-profile__counter{
+.menu-profile-submenu .menu-profile__counter {
     position: absolute;
     margin-left: 15px;
 }
@@ -2909,6 +2939,11 @@ h2.related-product {
 
 .menu-profile-submenu a:first-of-type {
     padding-top: 20px;
+}
+
+.menu-profile-submenu a:hover {
+    color: #000000;
+    background: #F9F9F9;
 }
 
 .menu-profile-submenu a:last-of-type {
