@@ -76,8 +76,9 @@ $has_downloads = (bool)$downloads;
 
 <?php
 foreach ($libraryBooks as $libraryBook): ?>
-
-    <?php $imgsrc = wp_get_attachment_url($libraryBook->get_image_id());
+    <?php
+    $imgsrc = wp_get_attachment_url($libraryBook->get_image_id());
+    $libraryId = $libraryBook->get_id();
     if (empty($imgsrc)) :
         $imgsrc = '/wp-content/uploads/woocommerce-placeholder.png';
     endif; ?>
@@ -110,7 +111,7 @@ foreach ($libraryBooks as $libraryBook): ?>
                             </div>
                         </div>
                     <?php endif; ?>
-                    <a href="#" class="library-card-info__status">
+                    <a href="/my-account/downloads?remove=<?= $libraryId ?>" class="library-card-info__status">
                         <img src="/wp-content/themes/storefront-child/svg/svg-addToLibrary.svg"
                              alt="add-to-library">
                         <div>
@@ -128,7 +129,7 @@ foreach ($libraryBooks as $libraryBook): ?>
                     ?>
                 </p>
                 <div class="library-card-group">
-                    <a class="library-card-group__read" href="#">Читать</a>
+                    <a class="library-card-group__read" href="/<?= $libraryBook->slug ?>">Читать</a>
                     <a class="library-card-group__buy" href="#">Купить
                         <p>(только чтение на сайте)</p>
                     </a>

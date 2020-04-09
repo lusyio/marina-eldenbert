@@ -1121,6 +1121,10 @@ ul.products li.product {
     color: #FFFFFF;
 }
 
+.library-card .library-card-group a:hover {
+    color: #FFFFFF;
+}
+
 .library-card .library-card-group a:not(:last-of-type) {
     margin-right: 15px;
 }

@@ -20,9 +20,11 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 global $product;
+
+$productId = $product->get_id();
 $authors = '';
 // Получаем элементы таксономии атрибута
-$attribute_names = get_the_terms($product->get_id(), 'pa_author-book');
+$attribute_names = get_the_terms($productId, 'pa_author-book');
 $attribute_name = "Автор: ";
 if ($attribute_names) {
     foreach ($attribute_names as $attribute_name):
@@ -79,7 +81,7 @@ the_title('<h1 class="product_title entry-title">' . $customTitle . $authors . '
             <p class="info-card__meta-series">Серия: <a href="#">Поющая для дракона</a></p>
         </div>
         <div class="col-4">
-            <a class="add-to-library" href="#">
+            <a class="add-to-library" href="/my-account/downloads?add=<?= $productId ?>">
                 <img src="/wp-content/themes/storefront-child/svg/svg-addToLibrary.svg" alt="add-to-library">
                 <span>Добавить в библиотеку</span>
             </a>
