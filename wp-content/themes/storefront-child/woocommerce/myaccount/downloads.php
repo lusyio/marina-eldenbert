@@ -47,6 +47,7 @@ while ($libraryQuery->have_posts()) :
     global $product;
     $libraryBooks[] = $product;
 endwhile;
+wp_reset_query();
 
 $downloads     = WC()->customer->get_downloadable_products();
 $has_downloads = (bool) $downloads;
