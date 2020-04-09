@@ -21,6 +21,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if (is_user_logged_in()) {
+    if (isset($_GET['add'])) {
+        $inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
+        $product = wc_get_product(intval($_GET['add']));
+        if ($product && !in_array(intval($_GET['add']), $inLibraryIds)) {
+            add_user_meta(get_current_user_id(), 'library', intval($_GET['add']));
+        }
+    }
+    if (isset($_GET['remove'])) {
+        delete_user_meta(get_current_user_id(), 'library', intval($_GET['remove']));
+    }
+}
+
+$inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => -1,
+    'post__in' => $inLibraryIds,
+);
+$libraryQuery = new WP_Query($args);
+$libraryBooks = [];
+while ($libraryQuery->have_posts()) :
+    $libraryQuery->the_post();
+    global $product;
+    $libraryBooks[] = $product;
+endwhile;
+
 $downloads     = WC()->customer->get_downloadable_products();
 $has_downloads = (bool) $downloads;
 

@@ -33,6 +33,18 @@ if ($attribute_names) {
     endforeach;
 }
 
+$tags = get_terms('product_tag');
+$tagsArray = array();
+if (!empty($tags) && !is_wp_error($tags)) {
+    foreach ($tags as $tag) {
+        $tagsArray[] = $tag->slug;
+    }
+}
+
+$isDraft = in_array('draft', $tagsArray);
+if ($isDraft) {
+    // получить дату последней записи к этой книге
+}
 if ($product->is_downloadable('yes')) {
     $customTitle = "Скачать книгу ";
 } else {
