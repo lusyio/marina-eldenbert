@@ -3392,13 +3392,21 @@ function article_send_notification($new_status, $old_status, $post)
     if ($post->post_type == 'product' && $old_status !== $new_status && $new_status === 'publish') {
         newPostNotificationAdd($post->ID, 'new_book');
     }
+
+    if (isset($_POST['notificationEnabled']) && $_POST['notificationEnabled'] === 'on') {
+        if (isset($_POST['notificationType'])) {
+            if (in_array($_POST['notificationType'], ['subscribe_open', 'book_finish', 'sale_open'])) {
+                newPostNotificationAdd($post->ID, $_POST['notificationType']);
+            }
+        }
+    }
 }
 
 add_action('transition_post_status', 'article_send_notification', 10, 3);
 
 function newPostNotificationAdd($postId, $type)
 {
-    $possibleTypes = ['news', 'announcement','new_book'];
+    $possibleTypes = ['news', 'announcement','new_book', 'subscribe_open', 'book_finish', 'sale_open'];
     if (!in_array($type, $possibleTypes)) {
         return;
     }
@@ -3544,7 +3552,7 @@ function getNotificationCard($notification)
             $icon = 'guide.svg';
         }
         $isValid = true;
-    }elseif ($type == 'new_article' || $type == 'update_article') {
+    } elseif ($type == 'new_article' || $type == 'update_article') {
         $bookData = getBookInfoByArticleId($notification->article_page_id);
         if (count($bookData) == 0) {
             return '';
@@ -3557,6 +3565,21 @@ function getNotificationCard($notification)
         } else {
             $content = 'Обновление главы в книге "' . $bookName . '"';
             $icon = 'book-update.svg';
+        }
+        $isValid = true;
+    } elseif ($type == 'subscribe_open' || $type == 'sale_open' || $type == 'book_finish') {
+        $post = get_post($notification->article_page_id);
+        $link = get_permalink($notification->article_page_id);
+        $bookName = $post->post_title;
+        if ($type == 'subscribe_open') {
+            $content = 'Открылась подписка на книгу "' . $bookName . '"';
+            $icon = 'book-sell.svg';
+        } elseif ($type == 'sale_open') {
+            $content = 'Открылась продажа книги "' . $bookName . '"';
+            $icon = 'book-sell.svg';
+        } else {
+            $content = 'Книга "' . $bookName . '" завершена';
+            $icon = 'book-finish.svg';
         }
         $isValid = true;
     } elseif ($type == 'reply_comment' || $type == 'like_comment') {
@@ -4361,3 +4384,39 @@ function isBookInLibrary($userId, $bookId)
     $library = getLibraryBookIds($userId);
     return in_array($bookId, $library);
 }
+
+add_action( 'post_submitbox_misc_actions', function ($post) {
+    global $post;
+    if ($post->post_type !== 'product') {
+        return;
+    }
+    ?>
+    <div class="misc-pub-section" id="catalog-visibility">
+        <label>
+            Разослать уведомления:
+            <input type="checkbox" name="notificationEnabled" id="notificationEnabled" class="ml-1">
+        </label>
+        <select name="notificationType" class="w-100" id="notificationType" disabled>
+            <option disabled selected></option>
+            <option value="subscribe_open">Открытие подписки</option>
+            <option value="book_finish">Завершение книги</option>
+            <option value="sale_open">Открытие продаж</option>
+        </select>
+    </div>
+    <script>
+        jQuery(function ($) {
+            $('#notificationEnabled').on('click', function () {
+                if ($('#notificationEnabled').attr('checked'))
+                {
+                    $('#notificationType').attr('disabled', false);
+                } else {
+                    $('#notificationType').attr('disabled', true);
+
+                }
+            })
+        })
+    </script>
+<?php
+
+},1, 1);
+
