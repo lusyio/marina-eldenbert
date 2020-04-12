@@ -3410,7 +3410,17 @@ function newPostNotificationAdd($postId, $type)
     if (!in_array($type, $possibleTypes)) {
         return;
     }
-    $users = get_users(['fields' => ['ID']]);
+    if (in_array($type, ['news', 'announcement','new_book'])) {
+        $users = get_users(['fields' => ['ID']]); // Отправляем всем
+    } elseif ($type == 'subscribe_open') {
+        $users = getUserIdsWithBookInLibrary($postId); // Отправляем тем у кого в библиотеке
+    } elseif ($type == 'book_finish') {
+        $users = array_merge(getUserIdsWithBookInLibrary($postId), getCustomerIdsWhoBoughtBook($postId)); // у кого в библиотеке или куплена
+        $users = array_unique($users);
+    } elseif ($type == 'sale_open') {
+        $users = array_diff(getUserIdsWithBookInLibrary($postId), getCustomerIdsWhoBoughtBook($postId)); // у кого в библиотеке, кроме тех у кого куплена
+        $users = array_unique($users);
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
@@ -4420,3 +4430,17 @@ add_action( 'post_submitbox_misc_actions', function ($post) {
 
 },1, 1);
 
+function getUserIdsWithBookInLibrary($bookId) {
+    $args = [
+        'fields' => ['ID'],
+        'meta_key' => 'library',
+        'meta_value' => $bookId,
+    ];
+    $users = get_users($args);
+    $result = [];
+    foreach ($users as $user) {
+        $result[] = $user->ID;
+    }
+    return $result;
+
+}
