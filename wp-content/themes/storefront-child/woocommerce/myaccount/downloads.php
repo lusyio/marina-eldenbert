@@ -85,7 +85,9 @@ foreach ($libraryBooks as $libraryBook): ?>
     <div class="library-card">
         <div class="row">
             <div class="col-3">
+                <a href="<?= $libraryBook->get_permalink() ?>">
                 <img class="library-card__img" src="<?= $imgsrc ?>" alt="<?= $libraryBook->name ?>">
+                </a>
             </div>
             <div class="col-9">
                 <p class="library-card__header"><?= $libraryBook->name ?></p>
