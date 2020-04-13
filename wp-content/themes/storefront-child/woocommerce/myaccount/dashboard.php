@@ -112,15 +112,26 @@ foreach ($allRanks as $rank) {
             <div class="col-lg-6 col-12">
                 <div class="my-account-noty">
                     <p class="my-account-card__header">Уведомления</p>
-                    <p>10 новый уведомлений</p>
+                    <?php if (sprintf(countNewNotifications()) != 0): ?>
+                        <p>
+                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                        </p>
+                    <?php else: ?>
+                        <p>Новых уведомлений нет</p>
+                    <?php endif; ?>
                     <a href="/my-account/notifications">Посмотреть уведомления</a>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
                 <div class="my-account-library">
                     <p class="my-account-card__header">Библиотека</p>
-                    <p>Вы добавили в свою</p>
-                    <p>библиотеку 34 книги</p>
+                    <?php if (true): ?>
+                        <p>Вы добавили в свою</p>
+                        <p>библиотеку 34 книги</p>
+                    <?php else: ?>
+                        <p>Вы еще не добавили</p>
+                        <p>книги в библиотеку</p>
+                    <?php endif; ?>
                     <a href="/my-account/downloads">Перейти в библиотеку</a>
                 </div>
             </div>
