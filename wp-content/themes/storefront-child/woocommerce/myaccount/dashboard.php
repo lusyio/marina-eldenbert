@@ -58,12 +58,14 @@ foreach ($allRanks as $rank) {
                         </div>
                     </div>
                     <div class="col-7 m-auto">
-                        <p class="my-account-status__discount progressbar">Ваша скидка: <span>место для скидки</span></p>
+                        <p class="my-account-status__discount progressbar">Ваша скидка: <span>место для скидки</span>
+                        </p>
                         <div class="progress progress-status">
                             <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%"
                                  aria-valuenow="0" aria-valuemin="0"
                                  aria-valuemax="100"></div>
-                            <p>До получения следующего статуса:<span><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span></p>
+                            <p>До получения следующего
+                                статуса:<span><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span></p>
                         </div>
                     </div>
                 </div>
@@ -85,6 +87,16 @@ foreach ($allRanks as $rank) {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="my-account-vip">
+                        <p class="my-account-card__header">VIP-клуб</p>
+                        <p>Поздравляем! Теперь вам предоставлен</p>
+                        <p>доступ к закрытым разделам сайта</p>
+                        <a href="/club">Перейти в клуб</a>
+                    </div>
+                </div>
+            </div>
         <?php endif;
 
         $abonement = hasAbonement($user_id);
@@ -96,15 +108,6 @@ foreach ($allRanks as $rank) {
                     любую понравившуюся книгу и нажмите кнопку "Читать"</p>
             </div>
         <?php endif; ?>
-        <div class="row">
-            <div class="col-12">
-                <div class="my-account-vip">
-                    <p class="my-account-card__header">VIP-клуб</p>
-                    <p>Поздравляем! Теперь вам предоставлен доступ к закрытым разделам сайта</p>
-                    <a href="/club">Перейти в клуб</a>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-6 col-12">
                 <div class="my-account-noty">
