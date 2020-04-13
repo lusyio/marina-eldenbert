@@ -71,7 +71,7 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
                                 $user_id = get_current_user_id();
                                 $downloads = wc_get_customer_available_downloads($user_id);
                                 $hasDownloads = false;
-                                $tags = get_terms('product_tag');
+                                $tags = get_the_terms($product->get_id(), 'product_tag');
                                 $tagsArray = array();
                                 if (!empty($tags) && !is_wp_error($tags)) {
                                     foreach ($tags as $tag) {

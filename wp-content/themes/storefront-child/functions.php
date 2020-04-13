@@ -1035,7 +1035,7 @@ function productSeries()
     $attribute_name = "Цикл: ";
     if ($attribute_names) {
 // Вывод имени атрибута
-        echo '<p class="attr-label">';
+        echo '<p class="info-card__meta-cycle">';
         echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
@@ -1053,7 +1053,7 @@ function productSeries()
     $attribute_name = "Серия: ";
     if ($attribute_names) {
 // Вывод имени атрибута
-        echo '<p class="attr-label">';
+        echo '<p class="info-card__meta-series">';
         echo wc_attribute_label($attribute_name);
 
 // Выборка значения заданного атрибута
@@ -3374,7 +3374,7 @@ function article_send_notification($new_status, $old_status, $post)
             updateArticleNotificationAdd($post->ID);
         } else {
             // создание
-            $categories = wp_get_post_categories($post->ID, array('fields' => 'all'));
+            $categories = wp_get_post_categories( $post->ID, array('fields' => 'all'));
             foreach ($categories as $category) {
                 if ($category->slug == 'news-n-events') {
                     //Новости и события
@@ -3382,7 +3382,7 @@ function article_send_notification($new_status, $old_status, $post)
                     break;
                 } elseif ($category->slug == 'announcement') {
                     // Анонсы
-                    newPostNotificationAdd($post->ID, 'announcement');
+                    newPostNotificationAdd($post->ID,'announcement');
                     break;
                 }
             }
@@ -3392,17 +3392,35 @@ function article_send_notification($new_status, $old_status, $post)
     if ($post->post_type == 'product' && $old_status !== $new_status && $new_status === 'publish') {
         newPostNotificationAdd($post->ID, 'new_book');
     }
+
+    if (isset($_POST['notificationEnabled']) && $_POST['notificationEnabled'] === 'on') {
+        if (isset($_POST['notificationType'])) {
+            if (in_array($_POST['notificationType'], ['subscribe_open', 'book_finish', 'sale_open'])) {
+                newPostNotificationAdd($post->ID, $_POST['notificationType']);
+            }
+        }
+    }
 }
 
 add_action('transition_post_status', 'article_send_notification', 10, 3);
 
 function newPostNotificationAdd($postId, $type)
 {
-    $possibleTypes = ['news', 'announcement', 'new_book'];
+    $possibleTypes = ['news', 'announcement','new_book', 'subscribe_open', 'book_finish', 'sale_open'];
     if (!in_array($type, $possibleTypes)) {
         return;
     }
-    $users = get_users(['fields' => ['ID']]);
+    if (in_array($type, ['news', 'announcement','new_book'])) {
+        $users = get_users(['fields' => ['ID']]); // Отправляем всем
+    } elseif ($type == 'subscribe_open') {
+        $users = getUserIdsWithBookInLibrary($postId); // Отправляем тем у кого в библиотеке
+    } elseif ($type == 'book_finish') {
+        $users = array_merge(getUserIdsWithBookInLibrary($postId), getCustomerIdsWhoBoughtBook($postId)); // у кого в библиотеке или куплена
+        $users = array_unique($users);
+    } elseif ($type == 'sale_open') {
+        $users = array_diff(getUserIdsWithBookInLibrary($postId), getCustomerIdsWhoBoughtBook($postId)); // у кого в библиотеке, кроме тех у кого куплена
+        $users = array_unique($users);
+    }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
@@ -3619,6 +3637,21 @@ function getNotificationCard($notification)
                         </clipPath>
                         </defs>
                     </svg>';
+        }
+        $isValid = true;
+    } elseif ($type == 'subscribe_open' || $type == 'sale_open' || $type == 'book_finish') {
+        $post = get_post($notification->article_page_id);
+        $link = get_permalink($notification->article_page_id);
+        $bookName = $post->post_title;
+        if ($type == 'subscribe_open') {
+            $content = 'Открылась подписка на книгу "' . $bookName . '"';
+            $icon = 'book-sell.svg';
+        } elseif ($type == 'sale_open') {
+            $content = 'Открылась продажа книги "' . $bookName . '"';
+            $icon = 'book-sell.svg';
+        } else {
+            $content = 'Книга "' . $bookName . '" завершена';
+            $icon = 'book-finish.svg';
         }
         $isValid = true;
     } elseif ($type == 'reply_comment' || $type == 'like_comment') {
@@ -4357,3 +4390,132 @@ function tt_hidetitle_class($classes)
 }
 
 add_filter('post_class', 'tt_hidetitle_class');
+
+add_action('woocommerce_order_status_completed', function ($order) {
+    $order = wc_get_order($order);
+    $userId = $order->get_user_id();
+    $inLibraryIds = getLibraryBookIds($userId);
+    $items = $order->get_items();
+    foreach ($items as $item) {
+        $bookId = $item->get_product_id();
+        if (!in_array($bookId, $inLibraryIds)) {
+            add_user_meta($userId, 'library', $bookId);
+        }
+    }
+});
+
+function getLastArticleDate($productId)
+{
+    global $post;
+    // Ищем страницу книги по мета-полю book_id
+    $bookPageArgs = [
+        'numberposts' => 1,
+        'orderby'     => 'date',
+        'order'       => 'DESC',
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'meta_key'    => 'book_id',
+        'meta_value'  => $productId,
+    ];
+    $bookPage = get_posts($bookPageArgs);
+    if (!is_array($bookPage) || count($bookPage) == 0) {
+        return '';
+    }
+    // Берем из мета-полей страницы категорию глав этой книги
+    $categoryId = get_post_meta($bookPage[0]->ID, 'cat_id', true);
+    if (!$categoryId) {
+        return '';
+    }
+    // ищем последнюю запись из этой категории
+    $args = [
+        'numberposts' => 1,
+        'orderby'     => 'date',
+	    'order'       => 'DESC',
+        'cat' => $categoryId,
+        'post_type' => 'post',
+        'post_status' => 'publish',
+    ];
+    $articles = get_posts($args);
+    if (!is_array($articles) || count($articles) == 0) {
+        return '';
+    }
+    // Берем дату модификации записи и возвращаем её в формате "1 января"
+    $day = date('d', strtotime($articles[0]->post_modified));
+    $monthNumber = date('m', strtotime($articles[0]->post_modified));
+    $months = [
+        '01' => 'января',
+        '02' => 'февраля',
+        '03' => 'марта',
+        '04' => 'апреля',
+        '05' => 'мая',
+        '06' => 'июня',
+        '07' => 'июля',
+        '08' => 'августа',
+        '09' => 'сентября',
+        '10' => 'октября',
+        '11' => 'ноября',
+        '12' => 'декабря',
+    ];
+    return 'Обновление - ' . $day . ' ' . $months[$monthNumber];
+}
+
+function getLibraryBookIds($userId)
+{
+    return get_user_meta($userId, 'library', false);
+}
+
+function isBookInLibrary($userId, $bookId)
+{
+    $library = getLibraryBookIds($userId);
+    return in_array($bookId, $library);
+}
+
+add_action( 'post_submitbox_misc_actions', function ($post) {
+    global $post;
+    if ($post->post_type !== 'product') {
+        return;
+    }
+    ?>
+    <div class="misc-pub-section" id="catalog-visibility">
+        <label>
+            Разослать уведомления:
+            <input type="checkbox" name="notificationEnabled" id="notificationEnabled" class="ml-1">
+        </label>
+        <select name="notificationType" class="w-100" id="notificationType" disabled>
+            <option disabled selected></option>
+            <option value="subscribe_open">Открытие подписки</option>
+            <option value="book_finish">Завершение книги</option>
+            <option value="sale_open">Открытие продаж</option>
+        </select>
+    </div>
+    <script>
+        jQuery(function ($) {
+            $('#notificationEnabled').on('click', function () {
+                if ($('#notificationEnabled').attr('checked'))
+                {
+                    $('#notificationType').attr('disabled', false);
+                } else {
+                    $('#notificationType').attr('disabled', true);
+
+                }
+            })
+        })
+    </script>
+<?php
+
+},1, 1);
+
+function getUserIdsWithBookInLibrary($bookId) {
+    $args = [
+        'fields' => ['ID'],
+        'meta_key' => 'library',
+        'meta_value' => $bookId,
+    ];
+    $users = get_users($args);
+    $result = [];
+    foreach ($users as $user) {
+        $result[] = $user->ID;
+    }
+    return $result;
+
+}
