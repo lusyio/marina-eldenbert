@@ -2712,33 +2712,11 @@ ul > .page-item:last-of-type .page-link {
     color: #F8AC53;
 }
 
-.notification-card__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.notification-card__text p {
-    margin-bottom: 0;
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 39px;
-    color: #000000 !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
 .notification-card__date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     font-weight: 300;
-    font-size: 0.875rem;
-    line-height: 16px;
-    color: #757575;
+    font-size: 14px;
+    line-height: 24px;
+    color: #666666;
     margin-bottom: 0;
 }
 
@@ -2755,12 +2733,7 @@ ul > .page-item:last-of-type .page-link {
 
 }
 
-.notification-card.new-notification .notification-card__text p {
-    font-weight: bold;
-
-}
-
-.blog-card, .news-n-events-card, .notification-card {
+.blog-card, .news-n-events-card {
     webkit-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     -ms-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2769,8 +2742,45 @@ ul > .page-item:last-of-type .page-link {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.blog-card:hover, .news-n-events-card:hover, .notification-card:hover {
+.notification-card {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.notification-card .notification-card__new {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #F8AC53;
+    margin-bottom: 2px;
+    padding-left: 30px;
+}
+
+.notification-card .notification-card__text {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 0;
+    padding-left: 30px;
+}
+
+.blog-card:hover, .news-n-events-card:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.notification-card svg path {
+    webkit-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -ms-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification-card:hover svg path {
+    fill: #F8AC53;
 }
 
 .blog-card__img img {

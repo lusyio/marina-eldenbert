@@ -1,15 +1,20 @@
 <?php
 $notifications = getNotifications();
 if (countNewNotifications() > 0):
-?>
-<div class="col-12 read-notification">
-<form method="POST">
-    <input type="hidden" name="readNotifications" value="1">
-    <button type="submit" class="woocommerce-Button m-auto">Пометить все, как прочитанные</button>
-</form>
-</div>
+    ?>
+    <div class="col-12 read-notification">
+        <form method="POST">
+            <input type="hidden" name="readNotifications" value="1">
+            <button type="submit" class="woocommerce-Button m-auto">Пометить все, как прочитанные</button>
+        </form>
+    </div>
 <?php endif; ?>
-<?php if (count($notifications) > 0):?>
+<?php if (count($notifications) > 0): ?>
+    <?php uasort($notifications, function ($a, $b) {
+        if ($a->view_status == 0) {
+            return -1;
+        }
+    }); ?>
     <?php foreach ($notifications as $notification): ?>
         <?php echo getNotificationCard($notification); ?>
     <?php endforeach; ?>
@@ -30,19 +35,19 @@ if (countNewNotifications() > 0):
         let moreButton = $('#more');
 
         cards.each(function (i, card) {
-           if (i < perPage) {
-               $(card).show();
-               visible++;
-               console.log('visible ' + visible);
-               console.log('count ' + count);
-               if (visible < count) {
-                   $(moreButton).show();
-               } else {
-                   $(moreButton).hide();
-               }
-           } else {
-               return false;
-           }
+            if (i < perPage) {
+                $(card).show();
+                visible++;
+                console.log('visible ' + visible);
+                console.log('count ' + count);
+                if (visible < count) {
+                    $(moreButton).show();
+                } else {
+                    $(moreButton).hide();
+                }
+            } else {
+                return false;
+            }
         });
         $('#more').on('click', function () {
             let limit = visible + perPage;
