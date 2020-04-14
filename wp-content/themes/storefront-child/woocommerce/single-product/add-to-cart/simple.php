@@ -41,13 +41,13 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
                         <form class="cart"
                               action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
                               method="post" enctype='multipart/form-data'>
-                            <?php if (is_product_in_cart()): ?>
-                                <a href="<?php echo get_permalink(wc_get_page_id('cart')); ?>"
-                                   class="single_add_to_cart_button button alt">Товар в корзине</a>
-                                <?php do_action('woocommerce_before_add_to_cart_button'); ?>
+<!--                            --><?php //if (is_product_in_cart()): ?>
+<!--                                <a href="--><?php //echo get_permalink(wc_get_page_id('cart')); ?><!--"-->
+<!--                                   class="single_add_to_cart_button button alt">Товар в корзине</a>-->
+<!--                                --><?php //do_action('woocommerce_before_add_to_cart_button'); ?>
 
                             <?php
-                            else:
+//                            else:
                                 do_action('woocommerce_before_add_to_cart_quantity');
 
                                 woocommerce_quantity_input(array(
@@ -128,7 +128,8 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
                                     </button>
                                 <?php endif;
                                 do_action('woocommerce_after_add_to_cart_button');
-                            endif; ?>
+//                            endif;
+                            ?>
                         </form>
 
                         <?php do_action('woocommerce_after_add_to_cart_form'); ?>
