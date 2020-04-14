@@ -35,10 +35,13 @@ if (is_user_logged_in()) {
 }
 
 $inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
+$inLibraryIds = array_reverse($inLibraryIds);
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => -1,
     'post__in' => $inLibraryIds,
+    'orderby' => 'post__in',
+    'order' => 'ASC'
 );
 $libraryQuery = new WP_Query($args);
 $libraryBooks = [];

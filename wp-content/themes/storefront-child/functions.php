@@ -4444,3 +4444,39 @@ function getUserIdsWithBookInLibrary($bookId) {
     return $result;
 
 }
+
+// в корзине всегда не больше одного товара
+add_filter( 'woocommerce_add_to_cart_validation', 'remove_cart_item_before_add_to_cart', 20, 3 );
+function remove_cart_item_before_add_to_cart($passed, $product_id, $quantity    ) {
+    if(!WC()->cart->is_empty()) {
+        WC()->cart->empty_cart();
+    }
+    return $passed;
+}
+
+// Покупка бесплатной книги в 1 клик
+add_action('template_redirect', function () {
+    if (!is_checkout()) {
+        return;
+    }
+    $cart = WC()->cart;
+    $cartContents = $cart->get_cart_contents_count();
+    if (is_user_logged_in() && $cartContents > 0) {
+        if (intval($cart->get_total(false)) === 0) {
+            $current_user = wp_get_current_user();
+            $cart = WC()->cart;
+            $checkout = WC()->checkout();
+            $data = [
+                'billing_email' => $current_user->user_email,
+                'billing_first_name' => $current_user->user_firstname,
+            ];
+            $order_id = $checkout->create_order($data);
+            $order = wc_get_order($order_id);
+            update_post_meta($order_id, '_customer_user', get_current_user_id());
+            $order->calculate_totals();
+            $order->payment_complete();
+            $cart->empty_cart();
+            exit(wp_redirect(home_url('/my-account/downloads')));
+        }
+    }
+});
