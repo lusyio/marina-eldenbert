@@ -31,7 +31,7 @@ do_action('woocommerce_before_account_navigation');
                 <?php if ($endpoint === 'notifications'): ?>
                     <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
                         <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
-                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span></span>
+                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
                         </a>
                     </li>
                 <?php else: ?>

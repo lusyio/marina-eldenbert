@@ -34,98 +34,109 @@ foreach ($allRanks as $rank) {
         $nextRank = $rank;
     }
 }
-if (!is_null($nextRank)):
-    $rankRelativeProgress = $balance - $myRank->minimum;
-    if ($rankRelativeProgress == 0) {
-        $rankRelativeProgress = 1;
-    }
-    $pointsForNextRank = $myRank->maximum + 1 - $balance;
-    $currentRankTotalProgress = $myRank->maximum + 1 - $myRank->minimum;
-    $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
-    ?>
-    <div class="row">
-        <div class="col-12">
-            <p class="club-content__title">Ваш текущий статус</p>
-            <div class="row mb-4">
-                <div class="col-5 m-auto text-left">
-                    <div class="row">
-                        <div class="col-5 m-auto d-lg-block d-none">
-                            <?php echo getRankLogo($myRank, '100'); ?>
-                        </div>
-                        <div class="col-lg-7 col-12 m-auto pl-lg-0 pl-unset">
-                            <?php echo getRankTitle($myRank); ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-auto text-center p-lg-unset p-0">
-                    <span class="status-count"><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span>
-                </div>
-                <div class="col-5 m-auto text-right">
-                    <div class="row">
-                        <div class="col-lg-7 col-12 m-auto pr-lg-unset pr-unset">
-                            <?php echo getRankTitle($nextRank); ?>
-                        </div>
-                        <div class="col-5 m-auto d-lg-block d-none">
-                            <?php echo getRankLogo($nextRank, '100'); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="progress progress-status">
-                        <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%"
-                             aria-valuenow="0" aria-valuemin="0"
-                             aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php else: ?>
-    <div class="row mb-5">
-        <div class="col-12">
-            <p class="club-content__title">Поздравляем! Вам предоставлен доступ в закрытый клуб</p>
-        </div>
-        <div class="col-12 m-auto text-left">
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <?php echo getRankLogo($myRank, '100'); ?>
-                </div>
-                <div class="col-12">
-                    <?php echo getRankTitle($myRank); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endif;
-$abonement = hasAbonement($user_id);
-if ($abonement):
 ?>
-<div class="text-center mb-3"><p>У вас есть абонемент на чтение книг до <?php echo date('d.m.Y', strtotime($abonement)) ?>. Перейдите в <a href="<?php echo get_permalink( wc_get_page_id( 'shop' ) ); ?>">магазин</a>, откройте любую понравившуюся книгу и нажмите кнопку "Читать"</p></div>
-<?php endif; ?>
-    <p><?php
-        /* translators: 1: user display name 2: logout url */
-        printf(
-            __('Hello %1$s (not %1$s? <a href="%2$s">Log out</a>)', 'woocommerce'),
-            '<strong>' . esc_html($current_user->display_name) . '</strong>',
-            esc_url(wc_logout_url(wc_get_page_permalink('myaccount')))
-        );
-        ?></p>
+    <div class="my-account-card">
+        <?php
+        if (!is_null($nextRank)):
+            $rankRelativeProgress = $balance - $myRank->minimum;
+            if ($rankRelativeProgress == 0) {
+                $rankRelativeProgress = 1;
+            }
+            $pointsForNextRank = $myRank->maximum + 1 - $balance;
+            $currentRankTotalProgress = $myRank->maximum + 1 - $myRank->minimum;
+            $progress = round(($rankRelativeProgress / $currentRankTotalProgress) * 100);
+            ?>
+            <div class="my-account-status">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="d-flex">
+                            <?php echo getRankLogo($myRank, '70'); ?>
+                            <div class="mt-auto mb-auto">
+                                <p>Ваш текущий статус:</p>
+                                <?php echo getRankTitle($myRank); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7 m-auto">
+                        <p class="my-account-status__discount progressbar">Ваша скидка: <span>место для скидки</span>
+                        </p>
+                        <div class="progress progress-status">
+                            <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%"
+                                 aria-valuenow="0" aria-valuemin="0"
+                                 aria-valuemax="100"></div>
+                            <p>До получения следующего
+                                статуса:<span><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="my-account-status">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="d-flex">
+                            <?php echo getRankLogo($myRank, '70'); ?>
+                            <div class="mt-auto mb-auto">
+                                <p>Ваш текущий статус:</p>
+                                <?php echo getRankTitle($myRank); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7 m-auto text-right">
+                        <p class="my-account-status__discount">Ваша скидка: <span> место для скидки</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="my-account-vip">
+                        <p class="my-account-card__header">VIP-клуб</p>
+                        <p>Поздравляем! Теперь вам предоставлен</p>
+                        <p>доступ к закрытым разделам сайта</p>
+                        <a href="/club">Перейти в клуб</a>
+                    </div>
+                </div>
+            </div>
+        <?php endif;
 
-    <p><?php
-        ob_start();
-        printf(
-            __('From your account dashboard you can view your <a href="%1$s">recent orders</a>, manage your <a href="%2$s">shipping and billing addresses</a>, and <a href="%3$s">edit your password and account details</a>.', 'woocommerce'),
-            esc_url(wc_get_endpoint_url('orders')),
-            esc_url(wc_get_endpoint_url('edit-address')),
-            esc_url(wc_get_endpoint_url('edit-account'))
-        );
-        $noticeHtml = ob_get_clean();
-        $noticeHtml = preg_replace('~Из главной страницы аккаунта~', 'На главной странице аккаунта', $noticeHtml);
-        echo $noticeHtml;
-        ?></p>
-
+        $abonement = hasAbonement($user_id);
+        if ($abonement):
+            ?>
+            <div class="my-account-subscription">
+                <p>У вас есть абонемент на чтение книг до <?php echo date('d.m.Y', strtotime($abonement)) ?>.
+                    Перейдите в <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">магазин</a>, откройте
+                    любую понравившуюся книгу и нажмите кнопку "Читать"</p>
+            </div>
+        <?php endif; ?>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="my-account-noty">
+                    <p class="my-account-card__header">Уведомления</p>
+                    <?php if (sprintf(countNewNotifications()) != 0): ?>
+                        <p>
+                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                        </p>
+                    <?php else: ?>
+                        <p>Новых уведомлений нет</p>
+                    <?php endif; ?>
+                    <a href="/my-account/notifications">Посмотреть уведомления</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="my-account-library">
+                    <p class="my-account-card__header">Библиотека</p>
+                    <?php if (true): ?>
+                        <p>Вы добавили в свою</p>
+                        <p>библиотеку 34 книги</p>
+                    <?php else: ?>
+                        <p>Вы еще не добавили</p>
+                        <p>книги в библиотеку</p>
+                    <?php endif; ?>
+                    <a href="/my-account/downloads">Перейти в библиотеку</a>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
 /**
  * My Account dashboard.

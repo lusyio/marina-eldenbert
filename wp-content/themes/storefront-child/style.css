@@ -1121,6 +1121,10 @@ ul.products li.product {
     color: #FFFFFF;
 }
 
+.library-card .library-card-group a:hover {
+    color: #FFFFFF;
+}
+
 .library-card .library-card-group a:not(:last-of-type) {
     margin-right: 15px;
 }
@@ -2708,33 +2712,11 @@ ul > .page-item:last-of-type .page-link {
     color: #F8AC53;
 }
 
-.notification-card__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.notification-card__text p {
-    margin-bottom: 0;
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 39px;
-    color: #000000 !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
 .notification-card__date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     font-weight: 300;
-    font-size: 0.875rem;
-    line-height: 16px;
-    color: #757575;
+    font-size: 14px;
+    line-height: 24px;
+    color: #666666;
     margin-bottom: 0;
 }
 
@@ -2751,12 +2733,7 @@ ul > .page-item:last-of-type .page-link {
 
 }
 
-.notification-card.new-notification .notification-card__text p {
-    font-weight: bold;
-
-}
-
-.blog-card, .news-n-events-card, .notification-card {
+.blog-card, .news-n-events-card {
     webkit-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     -ms-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2765,8 +2742,155 @@ ul > .page-item:last-of-type .page-link {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.blog-card:hover, .news-n-events-card:hover, .notification-card:hover {
+.my-account-vip, .my-account-noty, .my-account-library {
+    padding: 50px 60px;
+    border: 1px solid #F1F1F1;
+    border-radius: 0;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.my-account-vip {
+    height: 300px;
+}
+
+.my-account-vip p {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-bottom: 0;
+}
+
+.my-account-vip a {
+    position: absolute;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #F8AC53;
+    bottom: 50px;
+}
+
+.my-account-noty {
+    background: #FFFCF8;
+    height: 260px;
+}
+
+.my-account-noty p, .my-account-library p {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    margin-bottom: 0;
+}
+
+.my-account-noty a, .my-account-library a {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+    text-decoration: dashed #000000;
+    position: absolute;
+    bottom: 50px;
+}
+
+.my-account-subscription p {
+    margin-bottom: 0;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #000000;
+}
+
+.my-account-subscription {
+    padding: 32px 95px;
+    border: 1px solid #F1F1F1;
+    margin-bottom: 30px;
+}
+
+.my-account-status .mycred-my-rank {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.my-account-status {
+    margin-bottom: 30px;
+}
+
+.my-account-status p {
+    margin-bottom: 0;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.my-account-status .mycred-my-rank img {
+    margin-right: 20px;
+}
+
+.my-account-library {
+    background: #F9FDFF;
+    height: 260px;
+}
+
+.my-account-vip a:hover {
+    color: #F8AC53;
+}
+
+.my-account-card .my-account-card__header {
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 32px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.my-account-card {
+    padding-left: 30px;
+}
+
+.notification-card {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.notification-card .notification-card__new {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #F8AC53;
+    margin-bottom: 2px;
+    padding-left: 30px;
+}
+
+.notification-card .notification-card__text {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 0;
+    padding-left: 30px;
+}
+
+.blog-card:hover, .news-n-events-card:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.notification-card svg path {
+    webkit-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -ms-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    -o-transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification-card:hover svg path {
+    fill: #F8AC53;
 }
 
 .blog-card__img img {
@@ -4164,16 +4288,41 @@ span.page-title {
     bottom: 0;
 }
 
-.progress-status .progress-bar {
+.my-account-status .progress-status .progress-bar {
     background: #F8AC53;
-    border-radius: 25px !important;
+    border-radius: 10px;
 }
 
-.progress-status {
-    height: 3.125rem !important;
-    border-radius: 25px !important;
-    background-color: #EEEBE6 !important;
-    margin-bottom: 100px;
+.my-account-status .progress-status {
+    height: 20px;
+    border-radius: 10px;
+    background: #C4C4C4;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.my-account-status .my-account-status__discount.progressbar{
+    margin-bottom: 4px;
+    padding-left: 15px;
+}
+
+.my-account-status .my-account-status__discount span{
+    font-weight: normal;
+}
+
+.my-account-status .progress-status p {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-bottom: 0;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 13px;
+    width: 100%;
+    position: absolute;
+    color: #000000;
+    align-items: center;
+    top: 22%;
 }
 
 .comment .mycred-my-rank {
