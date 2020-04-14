@@ -4480,3 +4480,22 @@ add_action('template_redirect', function () {
         }
     }
 });
+
+add_filter('mycred_parse_tags_general', function ($content) {
+   if ($content == 'Reward with %plural%') {
+       return '%plural% за покупку';
+   }
+   return $content;
+});
+
+function mycred_woo_add_product_metabox() {
+
+    add_meta_box(
+        'mycred_woo_sales_setup',
+        'Баллы',
+        'mycred_woo_product_metabox',
+        'product',
+        'side',
+        'high'
+    );
+}
