@@ -19,7 +19,8 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
+$user = wp_get_current_user();
+$inLibraryIds = getLibraryBookIds($user->ID);
 
 $hasVipStatus = get_user_meta(get_current_user_id(), 'vipStatus', true);
 
@@ -126,9 +127,9 @@ foreach ($allRanks as $rank) {
             <div class="col-lg-6 col-12">
                 <div class="my-account-library">
                     <p class="my-account-card__header">Библиотека</p>
-                    <?php if (count($libraryBooks) !== 0): ?>
+                    <?php if (count($inLibraryIds) !== 0): ?>
                         <p>Вы добавили в свою</p>
-                        <p>библиотеку <?= count($libraryBooks) ?> книги</p>
+                        <p>библиотеку <?= count($inLibraryIds) ?> книги</p>
                     <?php else: ?>
                         <p>Вы еще не добавили</p>
                         <p>книги в библиотеку</p>
