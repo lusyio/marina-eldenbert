@@ -20,6 +20,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+
 $hasVipStatus = get_user_meta(get_current_user_id(), 'vipStatus', true);
 
 $ctype = MYCRED_DEFAULT_TYPE_KEY;
@@ -125,9 +126,9 @@ foreach ($allRanks as $rank) {
             <div class="col-lg-6 col-12">
                 <div class="my-account-library">
                     <p class="my-account-card__header">Библиотека</p>
-                    <?php if (true): ?>
+                    <?php if (count($libraryBooks) !== 0): ?>
                         <p>Вы добавили в свою</p>
-                        <p>библиотеку 34 книги</p>
+                        <p>библиотеку <?= count($libraryBooks) ?> книги</p>
                     <?php else: ?>
                         <p>Вы еще не добавили</p>
                         <p>книги в библиотеку</p>

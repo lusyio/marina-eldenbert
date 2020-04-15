@@ -1073,42 +1073,6 @@ function productSeries()
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 
 /**
- * Добавляем ссылки на магазины с бумажными книгами
- */
-add_action('woocommerce_after_add_to_cart_form', 'add_links_to_book_stores');
-
-function add_links_to_book_stores()
-{
-    global $product;
-    $links = get_post_custom_values('buy_paper_book', $product->get_id());
-    if (!is_array($links)) {
-        return;
-    }
-    foreach ($links as $link) {
-        $link_parts = preg_split('~\(:\)~', $link, 2);
-        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить бумажную версию ' . $link_parts[0] . '</a></p>';
-    }
-}
-
-/**
- * Добавляем ссылки на аудио
- */
-add_action('woocommerce_after_add_to_cart_form', 'add_links_to_audiobook_stores');
-
-function add_links_to_audiobook_stores()
-{
-    global $product;
-    $links = get_post_custom_values('buy_audio_book', $product->get_id());
-    if (!is_array($links)) {
-        return;
-    }
-    foreach ($links as $link) {
-        $link_parts = preg_split('~\(:\)~', $link, 2);
-        echo '<p class="book-store-link"><a href="' . $link_parts[1] . '" target="_blank">Купить аудиокнигу ' . $link_parts[0] . '</a></p>';
-    }
-}
-
-/**
  * Удаляем uncategorized из хлебных крошек
  *
  * @param Array $crumbs Breadcrumb crumbs for WooCommerce breadcrumb.

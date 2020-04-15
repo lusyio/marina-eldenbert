@@ -89,7 +89,7 @@ foreach ($libraryBooks as $libraryBook): ?>
         <div class="row">
             <div class="col-3">
                 <a href="<?= $libraryBook->get_permalink() ?>">
-                <img class="library-card__img" src="<?= $imgsrc ?>" alt="<?= $libraryBook->name ?>">
+                    <img class="library-card__img" src="<?= $imgsrc ?>" alt="<?= $libraryBook->name ?>">
                 </a>
             </div>
             <div class="col-9">
@@ -135,9 +135,32 @@ foreach ($libraryBooks as $libraryBook): ?>
                 </p>
                 <div class="library-card-group">
                     <a class="library-card-group__read" href="/<?= $libraryBook->slug ?>">Читать</a>
-                    <a class="library-card-group__buy" href="#">Купить
-                        <p>(только чтение на сайте)</p>
-                    </a>
+                    <?php
+                    if ($libraryBook->is_downloadable('yes') && $libraryBook->has_file()) {
+                        $eBookDownloads = $libraryBook->get_downloads();
+                        $eBookPriceHtml = $libraryBook->get_price_html();
+                    }
+                    
+                    if (!isBookBought($libraryBook->get_id()) && !in_array('draft', $tagsArray)):?>
+                        <button type="submit" name="add-to-cart"
+                                value="<?php echo esc_attr($libraryBook->get_id()); ?>"
+                                class="library-card-group__buy">Купить книгу
+                            за <?php echo $libraryBook->get_price_html(); ?>
+                            <?php if ($eBookDownloads): ?>
+                                <p>(чтение на сайте +
+                                    <?php foreach ($eBookDownloads as $key => $eBookDownload) {
+                                        echo $eBookDownload->get_name();
+                                        if ($key === array_key_last($eBookDownloads)) {
+                                            echo '';
+                                        } else {
+                                            echo ', ';
+                                        }
+                                    } ?>)</p>
+                            <?php else: ?>
+                                <p>(только чтение на сайте)</p>
+                            <?php endif; ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

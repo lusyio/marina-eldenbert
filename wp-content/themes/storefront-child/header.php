@@ -87,7 +87,6 @@
                             $user = wp_get_current_user();
                             $userName = $user->user_firstname . ' ' . $user->user_lastname;
                             $size = 15;
-
                             ?>
                             <div class="menu-profile">
                                 <div class="menu-profile__body menu-profile-trigger" data-trigger="dropdown">
@@ -98,9 +97,15 @@
                                         <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
                                     </div>
 
-                                    <p><?php
-                                        echo mb_substr($userName, 0, $size, 'utf-8');
-                                        echo (strlen($userName) > $size) ? '...' : '';
+                                    <p>
+                                        <?php
+                                        if (trim($userName) !== '') {
+                                            echo mb_substr($userName, 0, $size, 'utf-8');
+                                            echo (strlen($userName) > $size) ? '...' : '';
+                                        } else {
+                                            echo mb_substr($user->display_name, 0, $size, 'utf-8');
+                                            echo (strlen($user->display_name) > $size) ? '...' : '';
+                                        }
                                         ?>
                                     </p>
                                     <img src="/wp-content/themes/storefront-child/svg/svg-menuProfile.svg" alt="">

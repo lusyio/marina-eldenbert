@@ -56,7 +56,7 @@ if ($product->is_downloadable('yes')) {
 } else {
     $customTitle = "Читать книгу ";
 }
-the_title('<h1 class="product_title entry-title">' . $customTitle . $authors . ' "', '"</h1>');
+the_title('<h1 class="product_title entry-title">', '</h1>');
 
 ?>
 

@@ -1111,10 +1111,11 @@ ul.products li.product {
     display: flex;
 }
 
-.library-card .library-card-group a {
+.library-card .library-card-group a, .library-card .library-card-group button {
     height: 50px;
     min-width: 200px;
-    border-radius: 0;
+    border-radius: 0 !important;
+    border: none;
     font-size: 14px;
     line-height: 24px;
     text-align: center;
@@ -1125,7 +1126,7 @@ ul.products li.product {
     color: #FFFFFF;
 }
 
-.library-card .library-card-group a:not(:last-of-type) {
+.library-card .library-card-group a {
     margin-right: 15px;
 }
 
@@ -3095,6 +3096,8 @@ h2.related-product {
 }
 
 .menu-profile {
+    max-width: 188px;
+    width: 188px;
     height: 100px;
     border-left: 1px solid #EEEEEE;
     border-right: 1px solid #EEEEEE;
