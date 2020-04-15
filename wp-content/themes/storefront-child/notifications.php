@@ -19,9 +19,7 @@ if (countNewNotifications() > 0):
         <?php echo getNotificationCard($notification); ?>
     <?php endforeach; ?>
 <?php else: ?>
-    <div class="col-md-8 offset-md-2 p-5 text-center">
-        <p>Здесь будут появляться уведомления о новых главах, ответах и лайках к вашим комментариям</p>
-    </div>
+        <p class="library-empty">Новый уведомлений нет</p>
 <?php endif; ?>
 
 <button id="more" class="woocommerce-Button m-auto" style="display: none">Загрузить еще</button>

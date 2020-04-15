@@ -2814,6 +2814,15 @@ ul > .page-item:last-of-type .page-link {
     font-size: 18px;
     line-height: 24px;
     color: #000000;
+    text-align: left;
+}
+
+.library-empty{
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    padding: 100px 0;
 }
 
 .my-account-status {

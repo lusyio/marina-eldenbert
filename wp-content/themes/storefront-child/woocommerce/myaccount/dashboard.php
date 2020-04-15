@@ -36,6 +36,7 @@ foreach ($allRanks as $rank) {
         $nextRank = $rank;
     }
 }
+
 ?>
     <div class="my-account-card">
         <?php
@@ -50,7 +51,7 @@ foreach ($allRanks as $rank) {
             ?>
             <div class="my-account-status">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-lg-6 col-12">
                         <div class="d-flex">
                             <?php echo getRankLogo($myRank, '70'); ?>
                             <div class="mt-auto mb-auto">
@@ -59,9 +60,9 @@ foreach ($allRanks as $rank) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-7 m-auto">
-                        <p class="my-account-status__discount progressbar">Ваша скидка: <span>место для скидки</span>
-                        </p>
+                    <div class="col-lg-6 col-12 m-auto">
+                        <p class="my-account-status__discount progressbar">Ваша скидка:
+                            <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
                         <div class="progress progress-status">
                             <div class="progress-bar" role="progressbar" style="width: <?php echo $progress ?>%"
                                  aria-valuenow="0" aria-valuemin="0"
@@ -75,7 +76,7 @@ foreach ($allRanks as $rank) {
         <?php else: ?>
             <div class="my-account-status">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-lg-6 col-12">
                         <div class="d-flex">
                             <?php echo getRankLogo($myRank, '70'); ?>
                             <div class="mt-auto mb-auto">
@@ -84,8 +85,8 @@ foreach ($allRanks as $rank) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-7 m-auto text-right">
-                        <p class="my-account-status__discount">Ваша скидка: <span> место для скидки</span></p>
+                    <div class="col-lg-6 col-12 m-auto text-right">
+                        <p class="my-account-status__discount">Ваша скидка: <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
                     </div>
                 </div>
             </div>
