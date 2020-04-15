@@ -86,7 +86,8 @@ foreach ($allRanks as $rank) {
                         </div>
                     </div>
                     <div class="col-lg-6 col-12 m-auto text-right">
-                        <p class="my-account-status__discount">Ваша скидка: <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
+                        <p class="my-account-status__discount">Ваша скидка:
+                            <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
                     </div>
                 </div>
             </div>
@@ -130,7 +131,13 @@ foreach ($allRanks as $rank) {
                     <p class="my-account-card__header">Библиотека</p>
                     <?php if (count($inLibraryIds) !== 0): ?>
                         <p>Вы добавили в свою</p>
-                        <p>библиотеку <?= count($inLibraryIds) ?> книги</p>
+                        <p>библиотеку <?php
+                            plural_form(
+                                count($inLibraryIds),
+                                /* варианты написания для количества 1, 2 и 5 */
+                                array('книгу', 'книги', 'книг')
+                            );
+                            ?></p>
                     <?php else: ?>
                         <p>Вы еще не добавили</p>
                         <p>книги в библиотеку</p>
