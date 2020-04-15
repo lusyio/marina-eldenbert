@@ -111,9 +111,12 @@ if (count($libraryBooks) !== 0):
                             </div>
                         <?php endif; ?>
                         <a href="/my-account/downloads?remove=<?= $libraryId ?>" class="library-card-info__status">
-                            <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z" stroke="#415996"/>
-                                <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z" fill="#FAFAFA" stroke="#415996"/>
+                            <svg width="20" height="32" viewBox="0 0 20 32" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
+                                      stroke="#415996"/>
+                                <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
+                                      fill="#FAFAFA" stroke="#415996"/>
                             </svg>
                             <div>
                                 <p>В вашей библиотеке</p>
@@ -123,10 +126,10 @@ if (count($libraryBooks) !== 0):
                     </div>
                     <p class="library-card__desc">
                         <?php $desc = strip_tags($libraryBook->get_short_description());
-                        $size = 395;
+                        $size = 300;
 
                         echo mb_substr($desc, 0, mb_strrpos(mb_substr($desc, 0, $size, 'utf-8'), ' ', 'utf-8'), 'utf-8');
-                        echo (strlen($desc) > $size) ? '...' : '';
+                        echo (mb_strlen($desc) > $size) ? '...' : '';
                         ?>
                     </p>
                     <div class="library-card-group">
@@ -163,28 +166,28 @@ if (count($libraryBooks) !== 0):
                             </form>
                         <?php endif; ?>
                         <?php if (!empty($downloads) && isBookBought($libraryBook->get_id())) : ?>
-                        <div class="library-card-group__download">
-                            <span>Вам доступны файлы:</span>
-                            <p>
-                                <?php
-                                foreach ($downloads as $key => $download) {
-                                    if ($download['product_id'] == $libraryBook->get_id()) { ?>
-                                        <a href="<?php echo $download['download_url'] ?>">
-                                            <?php echo $download['file']['name']; ?><?php
-                                            if ($key === array_key_last($downloads)) {
-                                                echo '';
-                                            } else {
-                                                echo ', ';
-                                            }
-                                            ?>
-                                        </a>
-                                        <?php
-                                        $hasDownloads = true;
+                            <div class="library-card-group__download">
+                                <span>Вам доступны файлы:</span>
+                                <p>
+                                    <?php
+                                    foreach ($downloads as $key => $download) {
+                                        if ($download['product_id'] == $libraryBook->get_id()) { ?>
+                                            <a href="<?php echo $download['download_url'] ?>">
+                                                <?php echo $download['file']['name']; ?><?php
+                                                if ($key === array_key_last($downloads)) {
+                                                    echo '';
+                                                } else {
+                                                    echo ', ';
+                                                }
+                                                ?>
+                                            </a>
+                                            <?php
+                                            $hasDownloads = true;
+                                        }
                                     }
-                                }
-                                ?>
-                            </p>
-                        </div>
+                                    ?>
+                                </p>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
