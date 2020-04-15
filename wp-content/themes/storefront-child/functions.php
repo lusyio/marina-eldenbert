@@ -2306,16 +2306,16 @@ function storefront_sticky_single_add_to_cart()
                     <span class="storefront-sticky-add-to-cart__content-price"><?php echo wp_kses_post($product->get_price_html()); ?></span>
                     <?php echo wp_kses_post(wc_get_rating_html($product->get_average_rating())); ?>
                 </div>
-                <?php if (is_product_in_cart()): ?>
-                    <a href="<?php echo get_permalink(wc_get_page_id('cart')); ?>"
-                       class="single_add_to_cart_button button alt">Товар в корзине</a>
-                <?php
-                else: ?>
+<!--                --><?php //if (is_product_in_cart()): ?>
+<!--                    <a href="--><?php //echo get_permalink(wc_get_page_id('cart')); ?><!--"-->
+<!--                       class="single_add_to_cart_button button alt">Товар в корзине</a>-->
+<!--                --><?php
+//                else: ?>
                     <a href="<?php echo esc_url($product->add_to_cart_url()); ?>"
                        class="storefront-sticky-add-to-cart__content-button button alt">
                         <?php echo esc_attr($product->add_to_cart_text()); ?>
                     </a>
-                <?php endif; ?>
+<!--                --><?php //endif; ?>
             </div>
         </div>
     </section><!--1 .storefront-sticky-add-to-cart -->
@@ -4538,3 +4538,8 @@ function mycred_woo_add_product_metabox() {
         'high'
     );
 }
+
+
+add_filter('wc_add_to_cart_message_html', function ($message) {
+    return '';
+});
