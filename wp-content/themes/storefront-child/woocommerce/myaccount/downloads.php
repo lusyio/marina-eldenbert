@@ -59,9 +59,19 @@ $downloads = WC()->customer->get_downloadable_products();
 $has_downloads = (bool)$downloads;
 
 if (count($libraryBooks) !== 0):
-    foreach ($libraryBooks as $libraryBook): ?>
-        <?php
-        $tags = get_the_terms($libraryBook->ID, 'product_tag');
+    foreach ($libraryBooks as $libraryBook):
+        $articles = getArticlesList($libraryBook->get_id());
+        $bookMark = getBookmarkMeta($libraryBook->get_id());
+        $currentArticle = 0;
+        if ($bookMark) {
+            foreach ($articles as $key => $article) {
+                if ($article->ID == $bookMark) {
+                    $currentArticle = $key + 1;
+                    break;
+                }
+            }
+        }
+        $tags = get_the_terms($libraryBook->get_id(), 'product_tag');
         $tagsArray = array();
         if (!empty($tags) && !is_wp_error($tags)) {
             foreach ($tags as $tag) {
@@ -72,7 +82,7 @@ if (count($libraryBooks) !== 0):
         if ($isDraft) {
             $lastUpdate = getLastArticleDate($libraryBook->get_id());
         }
-
+        $totalText = count($articles) . ' ' . getNumeral(count($articles), 'глава', 'главы', 'глав');
         $imgsrc = wp_get_attachment_url($libraryBook->get_image_id());
         $libraryId = $libraryBook->get_id();
         if (empty($imgsrc)) :
@@ -95,18 +105,20 @@ if (count($libraryBooks) !== 0):
                                      alt="complete-book">
                                 <div>
                                     <p>Книга завершена</p>
-                                    <p>25 глав | 87200 символов</p>
+                                    <p><?php echo $totalText; ?> | <?php echo $currentArticle . ' ' . getNumeral($currentArticle, 'глава', 'главы', 'глав'); ?></p>
                                 </div>
                             </div>
                             <!-- книга завершена-->
-                        <?php else: ?>
+                        <?php else:
+                            $newCount = count($articles) - $currentArticle;
+                            ?>
                             <!-- книга в процессе-->
                             <div class="library-card-info__status">
                                 <img src="/wp-content/themes/storefront-child/svg/svg-process-book.svg"
                                      alt="process-book">
                                 <div>
                                     <p>Книга в процессе: <?= $lastUpdate ?></p>
-                                    <p>25 глав <span>+2 новые</span></p>
+                                    <p><?php echo $totalText; ?> <?php echo ($newCount > 0) ? '<span>+' . $newCount . ' ' . getNumeral($newCount, 'новая', 'новые', 'новых') . '</span>' : '' ?></p>
                                 </div>
                             </div>
                         <?php endif; ?>

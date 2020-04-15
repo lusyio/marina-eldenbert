@@ -62,12 +62,15 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
 
 <div class="info-card">
 
-    <?php if (!$isDraft): ?>
+    <?php if (!$isDraft):
+        $articles = getArticlesList($product->get_id());
+        $totalText = count($articles) . ' ' . getNumeral(count($articles), 'глава', 'главы', 'глав');
+        ?>
         <!-- книга завершена-->
         <div class="info-card__status">
             <img src="/wp-content/themes/storefront-child/svg/svg-complete-book.svg"
                  alt="complete-book">
-            <p>Книга завершена <span>322 стр</span></p>
+            <p>Книга завершена <span><?php echo $totalText?></span></p>
         </div>
         <!-- книга завершена-->
     <?php else: ?>

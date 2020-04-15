@@ -3388,7 +3388,7 @@ function newPostNotificationAdd($postId, $type)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
-        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user->ID, $type, $postId));
+        $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user, $type, $postId));
     }
 }
 
@@ -4543,3 +4543,46 @@ function mycred_woo_add_product_metabox() {
 add_filter('wc_add_to_cart_message_html', function ($message) {
     return '';
 });
+
+function getArticlesList($bookId)
+{
+    $bookPageArgs = [
+        'numberposts' => 1,
+        'orderby'     => 'date',
+        'order'       => 'DESC',
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'meta_key'    => 'book_id',
+        'meta_value'  => $bookId,
+    ];
+    $bookPage = get_posts($bookPageArgs);
+    if (!is_array($bookPage) || count($bookPage) == 0) {
+        return [];
+    }
+    // Берем из мета-полей страницы категорию глав этой книги
+    $categoryId = get_post_meta($bookPage[0]->ID, 'cat_id', true);
+    if (!$categoryId) {
+        return [];
+    }
+    $args = [
+        'numberposts' => -1,
+        'orderby'     => 'date',
+        'order'       => 'ASC',
+        'cat' => $categoryId,
+        'post_type' => 'post',
+        'post_status' => 'publish',
+    ];
+    $articles = get_posts($args);
+    return $articles;
+}
+
+function getNumeral($number, $_1, $_2, $_5)
+{
+    if ($number % 10 == 1) {
+        return $_1;
+    } else if($number % 10 > 1 && $number % 10 < 5) {
+        return $_2;
+    } else {
+        return $_5;
+    }
+}
