@@ -1081,7 +1081,7 @@ ul.products li.product {
     padding-bottom: 40px;
 }
 
-.library-card:last-of-type{
+.library-card:last-of-type {
     padding-bottom: 0;
 }
 
@@ -2853,14 +2853,40 @@ ul > .page-item:last-of-type .page-link {
     margin-bottom: 0;
 }
 
+.notification-card__text button {
+    border: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 18px;
+    border-radius: 0 !important;
+    line-height: 24px;
+    color: #000000;
+    border-bottom: 1px dashed #000000;
+}
+
+.notification-card__text button:hover {
+    border-bottom: 1px dashed #F8AC53;
+    color: #F8AC53;
+    transform: none;
+}
+
+.notification-card form {
+    margin-bottom: 0;
+}
+
+.my-account-noty a:hover, .my-account-library a:hover {
+    border-bottom: 1px dashed #F8AC53;
+}
+
 .my-account-noty a, .my-account-library a {
     font-weight: normal;
     font-size: 18px;
     line-height: 21px;
     color: #000000;
-    text-decoration: dashed #000000;
+    border-bottom: 1px dashed #000;
     position: absolute;
     bottom: 50px;
+    display: block;
 }
 
 .my-account-subscription p {

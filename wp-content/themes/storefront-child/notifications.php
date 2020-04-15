@@ -2,11 +2,26 @@
 $notifications = getNotifications();
 if (countNewNotifications() > 0):
     ?>
-    <div class="col-12 read-notification">
-        <form method="POST">
-            <input type="hidden" name="readNotifications" value="1">
-            <button type="submit" class="woocommerce-Button m-auto">Пометить все, как прочитанные</button>
-        </form>
+    <div class="notification-card" style="">
+        <div class="row">
+            <div class="col-lg-1 col-2">
+            </div>
+            <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
+                <div class="row">
+                    <div class="col-lg-8 col-12">
+                        <div class="notification-card__text">
+                            <form method="POST">
+                                <input type="hidden" name="readNotifications" value="1">
+                                <button type="submit" class="woocommerce-Button">Пометить все, как прочитанные
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 <?php endif; ?>
 <?php if (count($notifications) > 0): ?>
@@ -19,7 +34,7 @@ if (countNewNotifications() > 0):
         <?php echo getNotificationCard($notification); ?>
     <?php endforeach; ?>
 <?php else: ?>
-        <p class="library-empty">Новый уведомлений нет</p>
+    <p class="library-empty">Новый уведомлений нет</p>
 <?php endif; ?>
 
 <button id="more" class="woocommerce-Button m-auto" style="display: none">Загрузить еще</button>

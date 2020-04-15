@@ -4544,6 +4544,11 @@ add_filter('wc_add_to_cart_message_html', function ($message) {
     return '';
 });
 
+function plural_form($number, $after) {
+    $cases = array (2, 0, 1, 1, 1, 2);
+    echo $number.' '.$after[ ($number%100>4 && $number%100<20)? 2: $cases[min($number%10, 5)] ];
+}
+
 function getArticlesList($bookId)
 {
     $bookPageArgs = [
