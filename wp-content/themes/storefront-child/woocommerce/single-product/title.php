@@ -61,49 +61,50 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
 ?>
 
 <div class="info-card">
-    <div class="row">
-        <div class="col-4">
-            <?php if (!$isDraft): ?>
-                <!-- книга завершена-->
-                <div class="info-card__status">
-                    <img src="/wp-content/themes/storefront-child/svg/svg-complete-book.svg"
-                         alt="complete-book">
-                    <p>Книга завершена <span>322 стр</span></p>
-                </div>
-                <!-- книга завершена-->
-            <?php else: ?>
-                <!-- книга в процессе-->
-                <div class="info-card__status">
-                    <img src="/wp-content/themes/storefront-child/svg/svg-process-book.svg" alt="process-book">
-                    <p>Книга в процессе <span><?= $lastUpdate ?></span></p>
-                    <!-- книга в процессе-->
-                </div>
-            <?php endif; ?>
+
+    <?php if (!$isDraft): ?>
+        <!-- книга завершена-->
+        <div class="info-card__status">
+            <img src="/wp-content/themes/storefront-child/svg/svg-complete-book.svg"
+                 alt="complete-book">
+            <p>Книга завершена <span>322 стр</span></p>
         </div>
-        <div class="col-4">
-            <?php productSeries(); ?>
+        <!-- книга завершена-->
+    <?php else: ?>
+        <!-- книга в процессе-->
+        <div class="info-card__status">
+            <img src="/wp-content/themes/storefront-child/svg/svg-process-book.svg" alt="process-book">
+            <p>Книга в процессе <span><?= $lastUpdate ?></span></p>
+            <!-- книга в процессе-->
         </div>
-        <div class="col-4">
-            <?php if ($isBookInLibrary): ?>
+    <?php endif; ?>
+    <div>
+        <?php productSeries(); ?>
+    </div>
+    <div>
+        <?php if ($isBookInLibrary): ?>
             <a class="add-to-library bookInLibrary" href="/my-account/downloads/">
                 <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z" stroke="#415996"/>
-                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z" fill="#FAFAFA" stroke="#415996"/>
+                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
+                          stroke="#415996"/>
+                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
+                          fill="#FAFAFA" stroke="#415996"/>
                 </svg>
 
                 <span>В вашей библиотеке</span>
             </a>
-            <?php else: ?>
-            <a class="add-to-library" href="/my-account/downloads?add=<?=$product->get_id()?>">
+        <?php else: ?>
+            <a class="add-to-library" href="/my-account/downloads?add=<?= $product->get_id() ?>">
                 <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z" stroke="#415996"/>
-                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z" fill="#FAFAFA" stroke="#415996"/>
+                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
+                          stroke="#415996"/>
+                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
+                          fill="#FAFAFA" stroke="#415996"/>
                 </svg>
 
                 <span>Добавить в библиотеку</span>
             </a>
-            <?php endif; ?>
-        </div>
+        <?php endif; ?>
     </div>
 </div>
 

@@ -79,59 +79,73 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                     }
                                 }
                                 ?>
-                                <?php
-                                if (!empty($downloads) && isBookBought($product->get_id())) : ?>
-                                    <div class="add-to-cart-block__download">
-                                        <span>Вам доступны файлы:</span>
-                                        <p>
-                                            <?php
-                                            foreach ($downloads as $key => $download) {
-                                                if ($download['product_id'] == $product->get_id()) { ?>
-                                                    <a href="<?php echo $download['download_url'] ?>">
-                                                        <?php echo $download['file']['name']; ?><?php
-                                                        if ($key === array_key_last($downloads)) {
+
+                                <?php if ($product->get_price() !== '0' && $product->get_price() !== 0): ?>
+                                    <?php
+                                    if (!empty($downloads) && isBookBought($product->get_id())) : ?>
+                                        <div class="add-to-cart-block__download">
+                                            <span>Вам доступны файлы:</span>
+                                            <p>
+                                                <?php
+                                                foreach ($downloads as $key => $download) {
+                                                    if ($download['product_id'] == $product->get_id()) { ?>
+                                                        <a href="<?php echo $download['download_url'] ?>">
+                                                            <?php echo $download['file']['name']; ?><?php
+                                                            if ($key === array_key_last($downloads)) {
+                                                                echo '';
+                                                            } else {
+                                                                echo ', ';
+                                                            }
+                                                            ?>
+                                                        </a>
+                                                        <?php
+                                                        $hasDownloads = true;
+                                                    }
+                                                }
+                                                ?>
+                                            </p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php
+                                    if (!isBookBought($product->get_id()) && !in_array('draft', $tagsArray)):
+                                        ?>
+
+                                        <button type="submit" name="add-to-cart"
+                                                value="<?php echo esc_attr($product->get_id()); ?>"
+                                                class="single_add_to_cart_button button alt">Купить книгу
+                                            за <?php echo $product->get_price_html(); ?>
+                                            <?php if ($eBookDownloads): ?>
+                                                <p>(чтение на сайте +
+                                                    <?php foreach ($eBookDownloads as $key => $eBookDownload) {
+                                                        echo $eBookDownload->get_name();
+                                                        if ($key === array_key_last($eBookDownloads)) {
                                                             echo '';
                                                         } else {
                                                             echo ', ';
                                                         }
-                                                        ?>
-                                                    </a>
-                                                    <?php
-                                                    $hasDownloads = true;
-                                                }
-                                            }
-                                            ?>
-                                        </p>
-                                    </div>
-                                <?php endif; ?>
-                                <?php
-                                if (!isBookBought($product->get_id()) && !in_array('draft', $tagsArray)):
+                                                    } ?>)</p>
+                                            <?php else: ?>
+                                                <p>(только чтение на сайте)</p>
+                                            <?php endif; ?>
+                                        </button>
+                                    <?php endif;
+                                    do_action('woocommerce_after_add_to_cart_button');
                                     ?>
-
-                                    <button type="submit" name="add-to-cart"
-                                            value="<?php echo esc_attr($product->get_id()); ?>"
-                                            class="single_add_to_cart_button button alt">Купить книгу
-                                        за <?php echo $product->get_price_html(); ?>
-                                        <?php if ($eBookDownloads): ?>
-                                            <p>(чтение на сайте +
-                                                <?php foreach ($eBookDownloads as $key => $eBookDownload) {
-                                                    echo $eBookDownload->get_name();
-                                                    if ($key === array_key_last($eBookDownloads)) {
-                                                        echo '';
-                                                    } else {
-                                                        echo ', ';
-                                                    }
-                                                } ?>)</p>
-                                        <?php else: ?>
-                                            <p>(только чтение на сайте)</p>
-                                        <?php endif; ?>
-                                    </button>
-                                <?php endif;
-                                do_action('woocommerce_after_add_to_cart_button');
-                                ?>
+                                <?php else: ?>
+                                    <?php if ($eBookDownloads): ?>
+                                        <div class="add-to-cart-block__download">
+                                            <span>Вам доступны файлы:</span>
+                                            <p>
+                                                <?php foreach ($eBookDownloads as $key => $eBookDownload): ?>
+                                                    <a href="<?= $eBookDownload->get_file() ?>"><?= $eBookDownload->get_name() ?> <?= $key === array_key_last($eBookDownloads) ? '' : ', ' ?></a>
+                                                <?php endforeach; ?>
+                                            </p>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </form>
                         <?php else: ?>
-                            <a class="add-to-cart-block__login" href="">Войти в аккаунт</a>
+                            <a class="add-to-cart-block__login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
                         <?php endif; ?>
 
                     <?php endif; ?>

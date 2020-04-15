@@ -2188,7 +2188,7 @@ ul > .page-item:last-of-type .page-link {
 .woocommerce-product-gallery__image > a {
     position: relative;
     display: inline-block;
-    margin-top: 2.5rem;
+    margin-top: 2.1rem;
     margin-left: 2.5rem;
 }
 
@@ -3364,6 +3364,8 @@ span.page-title {
 }
 
 .info-card {
+    display: flex;
+    justify-content: space-between;
     padding: 20px 0;
     border-top: 1px solid #EEEEEE;
     border-bottom: 1px solid #EEEEEE;
@@ -3541,6 +3543,7 @@ span.page-title {
 }
 
 .heateor_sss_sharing_container {
+    padding-left: 35px;
     display: table;
     margin: auto;
 }
