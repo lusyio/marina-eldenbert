@@ -384,7 +384,16 @@ function article_content($articleId)
                 return;
             }
             setBookmarkMeta($bookId, $articleId);
-
+            $inOnePage = false;
+            if (isset($_GET['op']) && $_GET['op'] == 0) {
+                $inOnePage = false;
+                setcookie('op', 0, strtotime('+1 year'), '/');
+            } elseif (isset($_COOKIE['op']) && $_COOKIE['op'] == 1) {
+                $inOnePage = true;
+            }elseif (isset($_GET['op']) && $_GET['op'] == 1) {
+                $inOnePage = true;
+                setcookie('op', 1, strtotime('+1 year'), '/');
+            }
             global $numpages;
             $pageToLoad = 1;
             $lastPage = getBookmarkPageMeta($articleId);
@@ -406,21 +415,48 @@ function article_content($articleId)
             $GLOBALS['page'] = $pageToLoad;
             ?>
             <p class="h3 reader-h3"><?php the_title(); ?></p>
+
             <?php
-            echo '<ul class="article-btns pagination mb-3 mt-3 pb-0">';
-            echo '</ul>';
-            wp_custom_link_pages(array(
-                'before' => '<nav><ul class="pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
+            $paginationArgs = array(
+                'before' => '<nav><ul class="reader-pagination pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
                 'after' => '</ul></nav>',
                 'link_before' => '<span>',
                 'link_after' => '</span>',
                 'prev_article_id' => $prevArticleId,
                 'next_article_id' => $nextArticleId,
                 'base_url' => $baseUrl,
-            ));
+            );
+            echo '<ul class="article-btns pagination mb-3 mt-3 pb-0">';
+            echo '</ul>';
+            if ($inOnePage) {
+                if (isset($GLOBALS['numpages']) && $GLOBALS['numpages'] > 1) { ?>
+                    <a id="reader-display-option" href="<?php echo addOrUpdateUrlParam('op', 0); ?>">
+                        <span aria-hidden="true">Читать главу постранично</span>
+                    </a>
+                    <?php
+                }
+                wp_custom_link_articles($paginationArgs);
+            } else {
+                if (isset($GLOBALS['numpages']) && $GLOBALS['numpages'] > 1) {
+                    ?>
+                    <a id="reader-display-option" href="<?php echo addOrUpdateUrlParam('op', 1); ?>">
+                        <span aria-hidden="true">Читать главу целиком</span>
+                    </a>
+                    <?php
+                }
+                wp_custom_link_pages($paginationArgs);
+            }
             ?>
             <div id="articleText">
-                <?php the_content(); ?>
+                <?php if ($inOnePage) {
+                    $pages = get_pages();
+                    for ($i = 1; $i <= $numpages; $i++) {
+                        $GLOBALS['page'] = $i;
+                        the_content();
+                    }
+                } else {
+                    the_content();
+                } ?>
             </div>
             <div id="articleSpinner">
                 <div class="spinner-border" role="status">
@@ -428,19 +464,13 @@ function article_content($articleId)
                 </div>
             </div>
             <?php
-            wp_custom_link_pages(array(
-                'before' => '<nav><ul class="pagination mb-3 mt-4 pb-0" data-pages="' . $numpages . '">',
-                'after' => '</ul></nav>',
-                'link_before' => '<span>',
-                'link_after' => '</span>',
-                'prev_article_id' => $prevArticleId,
-                'next_article_id' => $nextArticleId,
-                'base_url' => $baseUrl,
-            ));
+            if ($inOnePage) {
+                wp_custom_link_articles($paginationArgs);
+            } else {
+                wp_custom_link_pages($paginationArgs);
+            }
             echo '<ul class="article-btns pagination mt-3 pb-0">';
             echo '</ul>';
-            ?>
-            <?php
         }
     }
     wp_reset_query();
@@ -514,8 +544,8 @@ function wp_custom_link_pages($args = '')
 
                 $firstDots = '';
                 $lastDots = '';
-                $firstDotsClass = ($page < 3) ? ' d-none' : '';
-                $lastDotsClass = ($page > $numpages - 2) ? ' d-none' : '';
+                $firstDotsClass = ($page <= 3) ? ' d-none' : '';
+                $lastDotsClass = ($page >= $numpages - 2) ? ' d-none' : '';
                 if ($i == 1) {
                     $firstDots = '<li><div class="dots first-dots' . $firstDotsClass . '">...</div></li>';
                 }
@@ -574,6 +604,96 @@ function wp_custom_link_pages($args = '')
     return $html;
 }
 
+function wp_custom_link_articles($args = '')
+{
+    global $page, $numpages, $multipage, $more;
+
+    $defaults = array(
+        'before' => '<p class="post-nav-links">' . __('Pages:'),
+        'after' => '</p>',
+        'link_before' => '',
+        'link_after' => '',
+        'aria_current' => 'page',
+        'next_or_number' => 'number',
+        'separator' => ' ',
+        'nextpagelink' => __('Next page'),
+        'previouspagelink' => __('Previous page'),
+        'pagelink' => '%',
+        'echo' => 1,
+    );
+
+    $params = wp_parse_args($args, $defaults);
+
+    /**
+     * Filters the arguments used in retrieving page links for paginated posts.
+     *
+     * @param array $params An array of arguments for page links for paginated posts.
+     * @since 3.0.0
+     *
+     */
+    $r = apply_filters('wp_link_pages_args', $params);
+
+    $output = '';
+    $prevPageText = '&laquo;';
+    $nextPageText = '&raquo;';
+    $prevArticleText = 'Пред. часть';
+    $nextArticleText = 'След. часть';
+    $multipage = 1; // Считаем все записи мультистраничными для отображения сслыок на соседние главы
+    if ($multipage) {
+        if ('number' == $r['next_or_number']) {
+            $output .= $r['before'];
+            if ($params['prev_article_id']) {
+                $prevArticleId = $params['prev_article_id'];
+            } else {
+                $prevArticleId = 0;
+            }
+            $prevPageClass = '';
+                $prevText = $prevArticleText;
+                if ($prevArticleId == 0) {
+                    $prevPageClass .= ' d-none';
+                }
+
+            $output .= '<li class="page-item' . $prevPageClass . '">
+                    <a href="' . $params['base_url'] . '?a=' . $prevArticleId . '" data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn" aria-label="Previous">
+                        <span aria-hidden="true">' . $prevText . '</span>
+                    </a>
+                </li>';
+
+            if ($params['next_article_id']) {
+                $nextArticleId = $params['next_article_id'];
+            } else {
+                $nextArticleId = 0;
+            }
+            $nextPageClass = '';
+                $nextText = $nextArticleText;
+                if ($nextArticleId == 0) {
+                    $nextPageClass .= ' d-none';
+                }
+            $output .= '<li class="page-item' . $nextPageClass . '">
+                <a href="' . $params['base_url'] . '?a=' . $nextArticleId . '" data-article-id="' . $nextArticleId . '" data-for-page="' . $nextPageText . '" data-for-article="' . $nextArticleText . '" class="page-link next-page-btn" aria-label="Next">
+                    <span aria-hidden="true">' . $nextText . '</span>
+                </a>
+            </li>';
+
+            $output .= $r['after'];
+        }
+    }
+
+    /**
+     * Filters the HTML output of page links for paginated posts.
+     *
+     * @param string $output HTML output of paginated posts' page links.
+     * @param array $args An array of arguments.
+     * @since 3.6.0
+     *
+     */
+    $html = apply_filters('wp_link_pages', $output, $args);
+
+    if ($r['echo']) {
+        echo $html;
+    }
+    return $html;
+}
 /**
  * Добавляем скрипт счетчика уведомлений
  */
@@ -4251,4 +4371,13 @@ function filter_post_data( $data , $postarr ) {
     $oldPost = get_post($postarr['ID']);
     $GLOBALS['beforeEdit'] = $oldPost->post_content;
     return $data;
+}
+
+function addOrUpdateUrlParam($name, $value)
+{
+    $params = $_GET;
+    unset($params[$name]);
+    $params[$name] = $value;
+    return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']
+            . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . '?' . http_build_query($params);
 }
