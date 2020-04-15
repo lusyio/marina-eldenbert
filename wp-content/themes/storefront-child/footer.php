@@ -94,9 +94,9 @@
             <div class="col-12 col-lg-4">
                 <p class="mb-4 mb-lg-0 footer-disclaimer text-lg-left text-center">
                     <img src="/wp-content/themes/storefront-child/svg/18.svg" alt="">
-                    Сайт содержит материалы,
-                    не предназначенные для просмотра
-                    лицами, не достигшими 18 лет
+                    Сайт может содержать материалы,
+                    не предназначенные для просмотра лицами,
+                    не достигшими 18 лет!
                 </p>
             </div>
             <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
