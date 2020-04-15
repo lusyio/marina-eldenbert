@@ -1111,7 +1111,7 @@ ul.products li.product {
     display: flex;
 }
 
-.library-card .library-card-group a, .library-card .library-card-group button {
+.library-card .library-card-group .btnNewBlue, .library-card .library-card-group button {
     height: 50px;
     min-width: 200px;
     border-radius: 0 !important;
@@ -1122,11 +1122,11 @@ ul.products li.product {
     color: #FFFFFF;
 }
 
-.library-card .library-card-group a:hover {
+.library-card .library-card-group .btnNewBlue:hover {
     color: #FFFFFF;
 }
 
-.library-card .library-card-group a {
+.library-card .library-card-group .btnNewBlue {
     margin-right: 15px;
 }
 
@@ -1160,12 +1160,20 @@ ul.products li.product {
     display: flex;
 }
 
-.library-card-info .library-card-info__status img {
+.library-card-info .library-card-info__status svg, .library-card-info .library-card-info__status img {
     margin-right: 15px;
     width: 32px;
     height: 32px;
     max-width: 32px;
     max-height: 32px;
+}
+
+.library-card-info .library-card-info__status svg path:first-of-type {
+    fill: #415996;
+}
+
+.library-card-info .library-card-info__status svg path:last-of-type {
+    stroke: #fafafa;
 }
 
 .library-card-info .library-card-info__status p {
@@ -1285,6 +1293,61 @@ button, input[type='button'], input[type='reset'], input[type='submit'], .button
     margin-left: auto;
     margin-right: auto;
     background: transparent;
+}
+
+.btnNewBlue, .btnNewOrange {
+    display: block;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+}
+
+.bookInLibrary svg path:first-of-type {
+    fill: #415996;
+}
+
+.bookInLibrary svg path:last-of-type {
+    stroke: #FAFAFA;
+}
+
+.add-to-library svg path {
+    transition: 200ms ease-in-out;
+}
+
+.add-to-library:hover svg path:first-of-type {
+    fill: #415996;
+}
+
+.add-to-library:hover svg path:last-of-type {
+    stroke: #FAFAFA;
+}
+
+.btnNewBlue:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px);
+    -webkit-box-shadow: 0px 10px 15px rgba(65, 89, 150, 0.27);
+    -moz-box-shadow: 0px 10px 15px rgba(65, 89, 150, 0.27);
+    box-shadow: 0px 10px 15px rgba(65, 89, 150, 0.27);
+    cursor: pointer;
+    color: #fff;
+}
+
+.btnNewOrange:hover {
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px);
+    -webkit-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    -moz-box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    box-shadow: 0px 10px 15px rgba(248, 172, 83, 0.27);
+    cursor: pointer;
+    color: #fff;
 }
 
 button:hover, input[type='button']:hover, input[type='reset']:hover, input[type='submit']:hover, .button:hover, .wc-block-grid__products:hover .wc-block-grid__product:hover .wp-block-button__link:hover, .added_to_cart:hover {
@@ -2817,7 +2880,7 @@ ul > .page-item:last-of-type .page-link {
     text-align: left;
 }
 
-.library-empty{
+.library-empty {
     font-weight: normal;
     font-size: 18px;
     line-height: 24px;
@@ -3278,7 +3341,7 @@ span.page-title {
     color: #000000;
 }
 
-.add-to-library img {
+.add-to-library svg {
     width: 20px;
     height: 32px;
     margin-right: 15px;
@@ -3340,7 +3403,7 @@ span.page-title {
     display: flex;
 }
 
-.add-to-cart-block__download span {
+.add-to-cart-block__download span, .library-card-group__download span {
     font-weight: 300;
     font-size: 14px;
     line-height: 18px;
@@ -3367,11 +3430,11 @@ span.page-title {
     color: #000000;
 }
 
-.add-to-cart-block__download p > a {
+.add-to-cart-block__download p > a, .library-card .library-card-group .library-card-group__download p > a {
     color: #000000;
 }
 
-.add-to-cart-block__download p {
+.add-to-cart-block__download p, .library-card .library-card-group .library-card-group__download p {
     margin-bottom: 0;
     font-weight: normal;
     font-size: 14px;
@@ -4313,12 +4376,12 @@ span.page-title {
     position: relative;
 }
 
-.my-account-status .my-account-status__discount.progressbar{
+.my-account-status .my-account-status__discount.progressbar {
     margin-bottom: 4px;
     padding-left: 15px;
 }
 
-.my-account-status .my-account-status__discount span{
+.my-account-status .my-account-status__discount span {
     font-weight: normal;
 }
 
