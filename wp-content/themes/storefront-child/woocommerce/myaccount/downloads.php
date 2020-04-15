@@ -36,21 +36,24 @@ if (is_user_logged_in()) {
 
 $inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
 $inLibraryIds = array_reverse($inLibraryIds);
-$args = array(
-    'post_type' => 'product',
-    'posts_per_page' => -1,
-    'post__in' => $inLibraryIds,
-    'orderby' => 'post__in',
-    'order' => 'ASC'
-);
-$libraryQuery = new WP_Query($args);
 $libraryBooks = [];
-while ($libraryQuery->have_posts()) :
-    $libraryQuery->the_post();
-    global $product;
-    $libraryBooks[] = $product;
-endwhile;
-wp_reset_query();
+
+if (count($inLibraryIds) > 0) {
+    $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'post__in' => $inLibraryIds,
+        'orderby' => 'post__in',
+        'order' => 'ASC'
+    );
+    $libraryQuery = new WP_Query($args);
+    while ($libraryQuery->have_posts()) :
+        $libraryQuery->the_post();
+        global $product;
+        $libraryBooks[] = $product;
+    endwhile;
+    wp_reset_query();
+}
 
 $downloads = WC()->customer->get_downloadable_products();
 $has_downloads = (bool)$downloads;
