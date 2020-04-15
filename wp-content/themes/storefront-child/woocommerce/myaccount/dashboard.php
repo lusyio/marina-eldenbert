@@ -118,7 +118,13 @@ foreach ($allRanks as $rank) {
                     <p class="my-account-card__header">Уведомления</p>
                     <?php if (sprintf(countNewNotifications()) != 0): ?>
                         <p>
-                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                            <?php
+                            plural_form(
+                                sprintf(countNewNotifications()),
+                                /* варианты написания для количества 1, 2 и 5 */
+                                array('новое уведомление', 'новых уведомления', 'новых уведомлений')
+                            );
+                            ?>
                         </p>
                     <?php else: ?>
                         <p>Новых уведомлений нет</p>
