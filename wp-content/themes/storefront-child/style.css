@@ -2870,6 +2870,11 @@ ul > .page-item:last-of-type .page-link {
     transform: none;
 }
 
+.notification-card svg{
+    max-width: 48px;
+    max-height: 48px;
+}
+
 .notification-card form {
     margin-bottom: 0;
 }
