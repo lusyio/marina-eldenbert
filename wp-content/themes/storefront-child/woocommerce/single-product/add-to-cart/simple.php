@@ -161,7 +161,7 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                         <?php
                         foreach ($linksPaper as $link) {
                             $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">Купить бумажную книгу ' . $link_parts[0] . '</a>';
+                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
                         }
                         ?>
                     </p>
@@ -173,7 +173,7 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                         <?php
                         foreach ($linksAudio as $link) {
                             $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">Купить аудиокнигу ' . $link_parts[0] . '</a>';
+                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
                         }
                         ?>
                     </p>
