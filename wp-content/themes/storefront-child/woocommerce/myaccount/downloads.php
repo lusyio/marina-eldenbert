@@ -145,7 +145,9 @@ if (count($libraryBooks) !== 0):
                         ?>
                     </p>
                     <div class="library-card-group">
-                        <a class="btnNewBlue library-card-group__read" href="/<?= $libraryBook->slug ?>">Читать</a>
+                        <?php
+                        readButton(get_permalink(getBookPageIdByBookId($libraryBook->get_id())), $libraryBook->get_id(), 'btnNewBlue library-card-group__read');
+                        ?>
 
                         <?php
                         if ($libraryBook->is_downloadable('yes') && $libraryBook->has_file()) {

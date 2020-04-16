@@ -3210,6 +3210,7 @@ h2.related-product {
     border-left: 1px solid #EEEEEE;
     border-right: 1px solid #EEEEEE;
     position: relative;
+    z-index: 5;
 }
 
 .menu-profile:hover {
@@ -5541,6 +5542,15 @@ and (max-width: 991px) {
         width: fit-content;
     }
 
+    .menu-profile__body{
+        padding: 30px 15px 30px 13px;
+    }
+
+    .outer-menu{
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
     .menu-profile-submenu{
         width: 170px;
     }
@@ -5859,6 +5869,14 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .library-card-info div.library-card-info__status{
+        margin-right: 0;
+    }
+
+    .library-card-info{
+        justify-content: space-between;
+    }
 
     .my-account-status .mycred-my-rank, .my-account-noty p, .my-account-library p, .my-account-status p, .my-account-noty a, .my-account-library a, .my-account-vip p, .my-account-vip a{
         font-size: 16px;

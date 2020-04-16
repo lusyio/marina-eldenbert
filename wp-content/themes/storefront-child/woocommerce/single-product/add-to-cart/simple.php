@@ -59,13 +59,9 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                 do_action('woocommerce_after_add_to_cart_quantity');
 
                                 //выводим ссылку на чтение книги
-                                $bookPageId = getBookPageIdByBookId($product->get_id());
-                                if ($bookPageId) {
-                                    $link = get_permalink($bookPageId); ?>
 
-                                    <a class="product-read" href="<?php echo $link ?>">Читать</a>
-                                    <?php
-                                }
+                                readButton(get_permalink(getBookPageIdByBookId($product->get_id())), $product->get_id(), 'product-read');
+                                $bookPageId = getBookPageIdByBookId($product->get_id());
                                 // выводим сылки на скачивание книги
                                 $downloads = array();
                                 $user_id = get_current_user_id();

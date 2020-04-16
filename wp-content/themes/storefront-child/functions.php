@@ -868,16 +868,34 @@ add_filter('comment_post_redirect', function ($url) {
 
 /**
  * Добавляет кнопку со ссылкой на первую главу книги
+ * @param $baseUrl
+ * @param $id
  */
-function readButton()
+function readButton($baseUrl = false, $id = false, $class = false)
 {
     global $post;
-    $bookId = get_post_meta($post->ID, 'book_id', true);
 
-    $baseUrl = get_permalink();
+    if ($id) {
+        $bookId = strval($id);
+    } else {
+        $bookId = get_post_meta($post->ID, 'book_id', true);
+    }
+
+    if (!$baseUrl) {
+        $baseUrl = get_permalink();
+    }
+
+    if (!$class) {
+        $classRead = 'load-more';
+        $classContinue = 'club-header__btn';
+    } else {
+        $classRead = $class;
+        $classContinue = $class;
+    }
+
     $lastBookmark = getBookmarkMeta($bookId);
     if ($lastBookmark) {
-        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
+        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
         echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
@@ -897,7 +915,10 @@ function readButton()
         echo '<hr>';
         while ($query->have_posts()) {
             $query->the_post();
-            echo '<a class="load-more" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
+            echo '<a class="' . $classRead . '" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
+            if ($id) {
+                break;
+            }
         }
     }
     wp_reset_query();
