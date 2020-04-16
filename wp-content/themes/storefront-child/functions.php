@@ -3592,11 +3592,11 @@ function getNotificationCard($notification)
                     <div class="col-lg-1 col-2"><?= file_get_contents($icon) ?></div>
                     <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
                         <div class="row">
-                            <div class="col-lg-8 col-12">
+                            <div class="col-lg-9 col-12">
                                 <?= ($notification->view_status == 0) ? '<p class="notification-card__new">Новое уведомление</p>' : null; ?>
                                 <p class="notification-card__text"><?= $content ?></p>
                             </div>
-                            <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
+                            <div class="col-lg-3 col-12 notification-card__date m-auto text-left text-lg-right">
                                 <p><?= date('d.m.Y H:i', strtotime($notification->notification_date)); ?></p>
                             </div>
                         </div>

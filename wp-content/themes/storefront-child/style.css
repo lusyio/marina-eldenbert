@@ -2825,7 +2825,7 @@ ul > .page-item:last-of-type .page-link {
 
 .my-account-vip p {
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #000000;
     margin-bottom: 0;
@@ -2834,7 +2834,7 @@ ul > .page-item:last-of-type .page-link {
 .my-account-vip a {
     position: absolute;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #F8AC53;
     bottom: 50px;
@@ -2847,7 +2847,7 @@ ul > .page-item:last-of-type .page-link {
 
 .my-account-noty p, .my-account-library p {
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #000000;
     margin-bottom: 0;
@@ -2885,7 +2885,7 @@ ul > .page-item:last-of-type .page-link {
 
 .my-account-noty a, .my-account-library a {
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #000000;
     border-bottom: 1px dashed #000;
@@ -2897,7 +2897,7 @@ ul > .page-item:last-of-type .page-link {
 .my-account-subscription p {
     margin-bottom: 0;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 21px;
     color: #000000;
 }
@@ -2910,7 +2910,7 @@ ul > .page-item:last-of-type .page-link {
 
 .my-account-status .mycred-my-rank {
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 24px;
     color: #000000;
     text-align: left;
@@ -2931,7 +2931,7 @@ ul > .page-item:last-of-type .page-link {
 .my-account-status p {
     margin-bottom: 0;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 24px;
     color: #000000;
 }
@@ -2951,8 +2951,8 @@ ul > .page-item:last-of-type .page-link {
 
 .my-account-card .my-account-card__header {
     font-weight: 300;
-    font-size: 36px;
-    line-height: 32px;
+    font-size: 2.25rem;
+    line-height: 2rem;
     color: #000000;
     margin-bottom: 20px;
 }
@@ -2979,7 +2979,7 @@ ul > .page-item:last-of-type .page-link {
 
 .notification-card .notification-card__text {
     font-weight: 300;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 24px;
     color: #000000;
     margin-bottom: 0;
@@ -5510,6 +5510,10 @@ and (min-width: 768px) {
 @media screen
 and (max-width: 1199px) {
 
+    .my-account-vip, .my-account-noty, .my-account-library{
+        padding: 50px 40px;
+    }
+
     .outer-menu .menu li > a {
         margin-left: 0 !important;
         margin-right: 0 !important;
@@ -5531,6 +5535,14 @@ and (max-width: 1199px) {
 
 @media screen
 and (max-width: 991px) {
+
+    .notification-card{
+        margin-left: 0;
+    }
+
+    .notification-card .notification-card__text{
+        padding-left: 0;
+    }
 
     .library-card{
         margin-left: 0;
@@ -5600,10 +5612,31 @@ and (max-width: 991px) {
         margin-top: 0;
     }
 
+    .my-account-card{
+        padding-left: 0;
+    }
+
 }
 
 @media screen
 and (max-width: 768px) {
+
+    .my-account-vip br{
+        display: none;
+    }
+
+    .rank-status{
+        margin-bottom: 20px;
+    }
+
+
+    .notification-card svg{
+        width: 100%;
+    }
+
+    .notification-card .notification-card__text{
+        font-size: 16px;
+    }
 
     .library-card .library-card__img{
         display: block;
@@ -5797,10 +5830,30 @@ and (max-width: 768px) {
         text-align: center;
     }
 
+    .my-account-subscription{
+        padding: 32px 32px;
+    }
+
+    .my-account-vip{
+        height: 260px;
+    }
+
 }
 
 @media screen
 and (max-width: 576px) {
+
+    .my-account-status .mycred-my-rank, .my-account-noty p, .my-account-library p, .my-account-status p, .my-account-noty a, .my-account-library a, .my-account-vip p, .my-account-vip a{
+        font-size: 16px;
+    }
+
+    .my-account-card .my-account-card__header{
+        font-size: 32px;
+    }
+
+    .my-account-vip, .my-account-noty, .my-account-library{
+        padding: 50px 50px;
+    }
 
     .library-card-group{
         display: block;

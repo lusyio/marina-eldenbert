@@ -51,7 +51,7 @@ foreach ($allRanks as $rank) {
             ?>
             <div class="my-account-status">
                 <div class="row">
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-6 col-md-6 col-12 rank-status">
                         <div class="d-flex">
                             <?php echo getRankLogo($myRank, '70'); ?>
                             <div class="mt-auto mb-auto">
@@ -60,7 +60,7 @@ foreach ($allRanks as $rank) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12 m-auto">
+                    <div class="col-lg-6 col-md-6 col-12 m-auto">
                         <p class="my-account-status__discount progressbar">Ваша скидка:
                             <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
                         <div class="progress progress-status">
@@ -76,7 +76,7 @@ foreach ($allRanks as $rank) {
         <?php else: ?>
             <div class="my-account-status">
                 <div class="row">
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-6 col-md-6 col-12 rank-status">
                         <div class="d-flex">
                             <?php echo getRankLogo($myRank, '70'); ?>
                             <div class="mt-auto mb-auto">
@@ -85,7 +85,7 @@ foreach ($allRanks as $rank) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12 m-auto text-right">
+                    <div class="col-lg-6 col-md-6 col-12 m-auto text-lg-right text-left">
                         <p class="my-account-status__discount">Ваша скидка:
                             <span><?= getRankDiscount($myRank->post->post_name) ?>%</span></p>
                     </div>
@@ -95,8 +95,8 @@ foreach ($allRanks as $rank) {
                 <div class="col-12">
                     <div class="my-account-vip">
                         <p class="my-account-card__header">VIP-клуб</p>
-                        <p>Поздравляем! Теперь вам предоставлен</p>
-                        <p>доступ к закрытым разделам сайта</p>
+                        <p>Поздравляем! Теперь вам предоставлен <br>
+                        доступ к закрытым разделам сайта</p>
                         <a href="/club">Перейти в клуб</a>
                     </div>
                 </div>
@@ -113,7 +113,7 @@ foreach ($allRanks as $rank) {
             </div>
         <?php endif; ?>
         <div class="row">
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="my-account-noty">
                     <p class="my-account-card__header">Уведомления</p>
                     <?php if (sprintf(countNewNotifications()) != 0): ?>
@@ -132,7 +132,7 @@ foreach ($allRanks as $rank) {
                     <a href="/my-account/notifications">Посмотреть уведомления</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="my-account-library">
                     <p class="my-account-card__header">Библиотека</p>
                     <?php if (count($inLibraryIds) !== 0): ?>
