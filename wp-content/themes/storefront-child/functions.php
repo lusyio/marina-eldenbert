@@ -3517,7 +3517,7 @@ function getNotificationCard($notification)
         $link = get_permalink($notification->article_page_id);
         $post = get_post($notification->article_page_id);
         $content = 'Новая книга - ' . $post->post_title;
-        $icon = '';
+        $icon = 'wp-content/themes/storefront-child/svg/book-new.svg';
         $isValid = true;
     } elseif ($type == 'news' || $type == 'announcement') {
         $link = get_permalink($notification->article_page_id);
