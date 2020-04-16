@@ -37,7 +37,7 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
 ?>
 <div class="add-to-cart-block">
     <div class="row">
-        <div class="col-lg-8 pr-lg-0 pr-unset col-12 br m-auto">
+        <div class="col-lg-8 col-md-8 order-md-1 order-2 pr-lg-0 pr-unset col-12 br m-auto">
             <div class="add-to-cart-block__body">
                 <div id="ebookTarget" class="add-to-cart-block__target active">
                     <?php if ($product->is_in_stock()) : ?>
@@ -146,7 +146,8 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                 <?php endif; ?>
                             </form>
                         <?php else: ?>
-                            <a class="add-to-cart-block__login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
+                            <a class="add-to-cart-block__login"
+                               href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
                         <?php endif; ?>
 
                     <?php endif; ?>
@@ -165,7 +166,7 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                         <?php
                         foreach ($linksPaper as $link) {
                             $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">Купить бумажную книгу ' . $link_parts[0] . '</a>';
+                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
                         }
                         ?>
                     </p>
@@ -177,14 +178,14 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                         <?php
                         foreach ($linksAudio as $link) {
                             $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">Купить аудиокнигу ' . $link_parts[0] . '</a>';
+                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
                         }
                         ?>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-12 pl-lg-0 pl-unset">
+        <div class="col-lg-4 col-md-4 order-md-2 order-1 col-12 pl-lg-0 pl-unset">
             <div class="add-to-cart-block__info-body">
                 <div class="add-to-cart-block__type">
                     <div data-id="ebook" class="card-payment active">
@@ -245,4 +246,5 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
             </div>
         </div>
     </div>
+</div>
 </div>

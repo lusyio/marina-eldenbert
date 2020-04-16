@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.10
+Version:      	1.0.11
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -5511,7 +5511,7 @@ and (min-width: 768px) {
 @media screen
 and (max-width: 1199px) {
 
-    .my-account-vip, .my-account-noty, .my-account-library{
+    .my-account-vip, .my-account-noty, .my-account-library {
         padding: 50px 40px;
     }
 
@@ -5534,48 +5534,76 @@ and (max-width: 1199px) {
 
 }
 
+@media screen and (max-width: 1200px) {
+    .add-to-cart-block .add-to-cart-block__body {
+        padding: 30px 23px 30px 23px;
+    }
+
+    .add-to-cart-block .add-to-cart-block__info-body {
+        padding: 30px 20px 30px 0;
+    }
+
+    .add-to-cart-block .add-to-cart-block__type {
+        padding-left: 30px;
+    }
+
+    .add-to-cart-block .add-to-cart-block__type > div {
+        margin-bottom: 18px;
+    }
+}
+
 @media screen
 and (max-width: 991px) {
 
-    .menu-profile{
+    .woocommerce-product-gallery__image > a {
+        margin: auto;
+        display: table;
+        margin-top: 2.1rem;
+    }
+
+    .heateor_sss_sharing_container {
+        padding-left: 0;
+    }
+
+    .menu-profile {
         border: none;
         width: fit-content;
     }
 
-    .menu-profile__body{
+    .menu-profile__body {
         padding: 30px 15px 30px 13px;
     }
 
-    .outer-menu{
+    .outer-menu {
         margin-left: 10px;
         margin-right: 5px;
     }
 
-    .menu-profile-submenu{
+    .menu-profile-submenu {
         width: 170px;
     }
 
-    .menu-profile__body .menu-profile__avatar{
+    .menu-profile__body .menu-profile__avatar {
         margin-right: 0;
     }
 
-    .menu-profile__body img:not(.menu-profile__avatar), .menu-profile__body p{
+    .menu-profile__body img:not(.menu-profile__avatar), .menu-profile__body p {
         display: none;
     }
 
-    .notification-card{
+    .notification-card {
         margin-left: 0;
     }
 
-    .notification-card .notification-card__text{
+    .notification-card .notification-card__text {
         padding-left: 0;
     }
 
-    .library-card{
+    .library-card {
         margin-left: 0;
     }
 
-    .navigation-my-account-br{
+    .navigation-my-account-br {
         border-right: 0;
     }
 
@@ -5639,7 +5667,7 @@ and (max-width: 991px) {
         margin-top: 0;
     }
 
-    .my-account-card{
+    .my-account-card {
         padding-left: 0;
     }
 
@@ -5648,24 +5676,62 @@ and (max-width: 991px) {
 @media screen
 and (max-width: 768px) {
 
-    .my-account-vip br{
+    .add-to-cart-block .add-to-cart-block__type {
+        padding-left: 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #DFDDD7;
+        border-left: 0;
+    }
+
+    .add-to-cart-block .add-to-cart-block__info-body {
+        padding: 30px 23px;
+    }
+
+    .add-to-cart-block .add-to-cart-block__type > div {
+        position: relative;
+    }
+
+    .card-payment:before {
+        width: 100%;
+        left: 0;
+        bottom: -19px;
+    }
+
+    .add-to-cart-block .add-to-cart-block__body {
+        padding-top: 0;
+    }
+
+    .card-payment.active:before {
+        width: 100%;
+        left: 0;
+        bottom: -19px;
+        border-right: 0;
+        border-bottom: 1px solid #2E2E2E;
+    }
+
+    .add-to-cart-block .add-to-cart-block__type > div:last-of-type {
+        margin-bottom: 18px;
+    }
+
+    .my-account-vip br {
         display: none;
     }
 
-    .rank-status{
+    .rank-status {
         margin-bottom: 20px;
     }
 
 
-    .notification-card svg{
+    .notification-card svg {
         width: 100%;
     }
 
-    .notification-card .notification-card__text{
+    .notification-card .notification-card__text {
         font-size: 16px;
     }
 
-    .library-card .library-card__img{
+    .library-card .library-card__img {
         display: block;
         margin: auto auto 30px auto;
     }
@@ -5857,11 +5923,11 @@ and (max-width: 768px) {
         text-align: center;
     }
 
-    .my-account-subscription{
+    .my-account-subscription {
         padding: 32px 32px;
     }
 
-    .my-account-vip{
+    .my-account-vip {
         height: 260px;
     }
 
@@ -5870,35 +5936,86 @@ and (max-width: 768px) {
 @media screen
 and (max-width: 576px) {
 
-    .library-card-info div.library-card-info__status{
-        margin-right: 0;
+    .info-card {
+        position: relative;
+        flex-wrap: wrap;
     }
 
-    .library-card-info{
-        justify-content: space-between;
+    .info-card__status {
+        margin-bottom: 10px;
     }
 
-    .my-account-status .mycred-my-rank, .my-account-noty p, .my-account-library p, .my-account-status p, .my-account-noty a, .my-account-library a, .my-account-vip p, .my-account-vip a{
-        font-size: 16px;
+    .info-card > div:not(.info-card__status) {
+        width: 100%;
     }
 
-    .my-account-card .my-account-card__header{
-        font-size: 32px;
+    .info-card div:last-of-type {
+        position: absolute;
+        right: 0;
+        width: unset;
     }
 
-    .my-account-vip, .my-account-noty, .my-account-library{
-        padding: 50px 50px;
+    .info-card div:last-of-type span {
+        display: none;
     }
 
-    .library-card-group{
+    .woocommerce-product-gallery__image > a:before {
+        display: none;
+    }
+
+    .add-to-cart-block__body .cart {
         display: block;
     }
 
-    .library-card .library-card-group .btnNewBlue{
+    .add-to-cart-block .add-to-cart-block__type > div > p {
+        display: none;
+    }
+
+    .add-to-cart-block .add-to-cart-block__type > div > svg {
+        margin-right: 0;
+        width: 40px;
+        height: 40px;
+    }
+
+    .add-to-cart-block__body .product-read {
+        width: 100%;
+        margin-right: 0;
         margin-bottom: 15px;
     }
 
-    .library-card .library-card-group .btnNewBlue, .library-card .library-card-group button{
+    .add-to-cart-block .add-to-cart-block__body .single_add_to_cart_button {
+        width: 100%;
+    }
+
+    .library-card-info div.library-card-info__status {
+        margin-right: 0;
+    }
+
+    .library-card-info {
+        justify-content: space-between;
+    }
+
+    .my-account-status .mycred-my-rank, .my-account-noty p, .my-account-library p, .my-account-status p, .my-account-noty a, .my-account-library a, .my-account-vip p, .my-account-vip a {
+        font-size: 16px;
+    }
+
+    .my-account-card .my-account-card__header {
+        font-size: 32px;
+    }
+
+    .my-account-vip, .my-account-noty, .my-account-library {
+        padding: 50px 50px;
+    }
+
+    .library-card-group {
+        display: block;
+    }
+
+    .library-card .library-card-group .btnNewBlue {
+        margin-bottom: 15px;
+    }
+
+    .library-card .library-card-group .btnNewBlue, .library-card .library-card-group button {
         width: 100%;
         margin-right: 0;
     }
