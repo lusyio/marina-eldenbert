@@ -2,36 +2,49 @@
 $notifications = getNotifications();
 if (countNewNotifications() > 0):
     ?>
-    <div class="notification-card" style="">
-        <div class="row">
-            <div class="col-lg-1 col-2">
-            </div>
-            <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
+
+<?php endif; ?>
+<?php if (count($notifications) > 0): ?>
+    <?php usort($notifications, function ($a, $b) {
+        if ($a->view_status == $b->view_status) {
+            return strtotime($b->notification_date) - strtotime($a->notification_date);
+        }
+        else {
+            return $a->view_status - $b->view_status;
+        }
+    }); ?>
+    <?php
+    $isPrevNew = false;
+    foreach ($notifications as $notification):
+        if ($notification->view_status == 0) {
+            $isPrevNew = true;
+        } elseif ($isPrevNew) {
+            $isPrevNew = false;
+            ?>
+            <div class="notification-card" style="">
                 <div class="row">
-                    <div class="col-lg-8 col-12">
-                        <div class="notification-card__text">
-                            <form method="POST">
-                                <input type="hidden" name="readNotifications" value="1">
-                                <button type="submit" class="woocommerce-Button">Пометить все, как прочитанные
-                                </button>
-                            </form>
-                        </div>
+                    <div class="col-lg-1 col-2">
                     </div>
-                    <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
+                    <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
+                        <div class="row">
+                            <div class="col-lg-8 col-12">
+                                <div class="notification-card__text">
+                                    <form method="POST">
+                                        <input type="hidden" name="readNotifications" value="1">
+                                        <button type="submit" class="woocommerce-Button">Пометить все, как прочитанные
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-<?php endif; ?>
-<?php if (count($notifications) > 0): ?>
-    <?php uasort($notifications, function ($a, $b) {
-        if ($a->view_status == 0) {
-            return -1;
+        <?php
         }
-    }); ?>
-    <?php foreach ($notifications as $notification): ?>
-        <?php echo getNotificationCard($notification); ?>
+        echo getNotificationCard($notification); ?>
     <?php endforeach; ?>
 <?php else: ?>
     <p class="library-empty">Новый уведомлений нет</p>
