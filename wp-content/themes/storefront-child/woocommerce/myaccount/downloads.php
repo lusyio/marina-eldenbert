@@ -90,12 +90,12 @@ if (count($libraryBooks) !== 0):
         endif; ?>
         <div class="library-card">
             <div class="row">
-                <div class="col-3">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <a href="<?= $libraryBook->get_permalink() ?>">
                         <img class="library-card__img" src="<?= $imgsrc ?>" alt="<?= $libraryBook->name ?>">
                     </a>
                 </div>
-                <div class="col-9">
+                <div class="col-xl-9 col-lg-8 col-md-8 col-12">
                     <p class="library-card__header"><?= $libraryBook->name ?></p>
                     <div class="library-card-info">
                         <?php if (!$isDraft): ?>

@@ -1109,7 +1109,7 @@ ul.products li.product {
 
 .library-card .library-card__img {
     border-radius: 0;
-    max-width: 165px;
+    max-width: 178px;
 }
 
 .library-card-group {
@@ -2870,7 +2870,7 @@ ul > .page-item:last-of-type .page-link {
     transform: none;
 }
 
-.notification-card svg{
+.notification-card svg {
     max-width: 48px;
     max-height: 48px;
 }
@@ -5477,6 +5477,11 @@ and (min-width: 1200px) {
         display: none;
     }
 
+    .library-card .library-card__img {
+        max-width: 165px;
+        border-radius: 0;
+    }
+
     .big-image-about {
         margin-bottom: -380px;
         margin-top: 30px;
@@ -5526,6 +5531,15 @@ and (max-width: 1199px) {
 
 @media screen
 and (max-width: 991px) {
+
+    .library-card{
+        margin-left: 0;
+    }
+
+    .navigation-my-account-br{
+        border-right: 0;
+    }
+
     footer .custom-logo-link img {
         height: 90px !important;
         margin-bottom: 30px;
@@ -5590,6 +5604,11 @@ and (max-width: 991px) {
 
 @media screen
 and (max-width: 768px) {
+
+    .library-card .library-card__img{
+        display: block;
+        margin: auto auto 30px auto;
+    }
 
     .notification-card__text p {
         line-height: 24px;
@@ -5782,6 +5801,19 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .library-card-group{
+        display: block;
+    }
+
+    .library-card .library-card-group .btnNewBlue{
+        margin-bottom: 15px;
+    }
+
+    .library-card .library-card-group .btnNewBlue, .library-card .library-card-group button{
+        width: 100%;
+        margin-right: 0;
+    }
 
     ul > .page-item .page-link {
         padding: 8px 13px;
