@@ -156,55 +156,55 @@ if (count($libraryBooks) !== 0):
                             $eBookDownloads = $libraryBook->get_downloads();
                             $eBookPriceHtml = $libraryBook->get_price_html();
                         }
+                        if ($libraryBook->get_price() !== '0' && $libraryBook->get_price() !== 0):
+                            if (!isBookBought($libraryBook->get_id()) && !in_array('draft', $tagsArray)):?>
+                                <form class="cart"
+                                      action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+                                      method="post" enctype='multipart/form-data'>
+                                    <button type="submit" name="add-to-cart"
+                                            value="<?php echo esc_attr($libraryBook->get_id()); ?>"
+                                            class="btnNewOrange library-card-group__buy">Купить книгу
+                                        за <?php echo $libraryBook->get_price_html(); ?>
+                                        <?php if ($eBookDownloads): ?>
+                                            <p>(чтение на сайте +
+                                                <?php foreach ($eBookDownloads as $key => $eBookDownload) {
+                                                    echo $eBookDownload->get_name();
+                                                    if ($key === array_key_last($eBookDownloads)) {
+                                                        echo '';
+                                                    } else {
+                                                        echo ', ';
+                                                    }
+                                                } ?>)</p>
+                                        <?php else: ?>
+                                            <p>(только чтение на сайте)</p>
+                                        <?php endif; ?>
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <?php if ($downloads): ?>
+                                    <div class="library-card-group__download">
+                                        <span>Вам доступны файлы:</span>
+                                        <p>
+                                            <?php foreach ($downloads as $key => $eBookDownload): ?>
+                                                <a href="<?= $eBookDownload['download_url'] ?>"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
+                                            <?php endforeach; ?>
+                                        </p>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php else : ?>
+                            <?php if ($downloads): ?>
+                                <div class="library-card-group__download">
+                                    <span>Вам доступны файлы:</span>
+                                    <p>
+                                        <?php foreach ($downloads as $key => $eBookDownload): ?>
+                                            <a href="<?= $eBookDownload['download_url'] ?>"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
+                                        <?php endforeach; ?>
+                                    </p>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
 
-                        if (!isBookBought($libraryBook->get_id()) && !in_array('draft', $tagsArray)):?>
-                            <form class="cart"
-                                  action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
-                                  method="post" enctype='multipart/form-data'>
-                                <button type="submit" name="add-to-cart"
-                                        value="<?php echo esc_attr($libraryBook->get_id()); ?>"
-                                        class="btnNewOrange library-card-group__buy">Купить книгу
-                                    за <?php echo $libraryBook->get_price_html(); ?>
-                                    <?php if ($eBookDownloads): ?>
-                                        <p>(чтение на сайте +
-                                            <?php foreach ($eBookDownloads as $key => $eBookDownload) {
-                                                echo $eBookDownload->get_name();
-                                                if ($key === array_key_last($eBookDownloads)) {
-                                                    echo '';
-                                                } else {
-                                                    echo ', ';
-                                                }
-                                            } ?>)</p>
-                                    <?php else: ?>
-                                        <p>(только чтение на сайте)</p>
-                                    <?php endif; ?>
-                                </button>
-                            </form>
-                        <?php endif; ?>
-                        <?php if (!empty($downloads) && isBookBought($libraryBook->get_id())) : ?>
-                            <div class="library-card-group__download">
-                                <span>Вам доступны файлы:</span>
-                                <p>
-                                    <?php
-                                    foreach ($downloads as $key => $download) {
-                                        if ($download['product_id'] == $libraryBook->get_id()) { ?>
-                                            <a href="<?php echo $download['download_url'] ?>">
-                                                <?php echo $download['file']['name']; ?><?php
-                                                if ($key === array_key_last($downloads)) {
-                                                    echo '';
-                                                } else {
-                                                    echo ', ';
-                                                }
-                                                ?>
-                                            </a>
-                                            <?php
-                                            $hasDownloads = true;
-                                        }
-                                    }
-                                    ?>
-                                </p>
-                            </div>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>

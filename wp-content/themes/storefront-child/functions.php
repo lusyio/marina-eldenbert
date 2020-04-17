@@ -912,7 +912,9 @@ function readButton($baseUrl = false, $id = false, $class = false)
     ));
 
     if ($query->have_posts()) {
+        if (!$id) {
         echo '<hr>';
+        }
         while ($query->have_posts()) {
             $query->the_post();
             echo '<a class="' . $classRead . '" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
