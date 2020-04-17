@@ -3580,21 +3580,41 @@ function getNotificationCard($notification)
             $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
         }
         $isValid = true;
-    } elseif ($type == 'subscribe_open' || $type == 'sale_open' || $type == 'book_finish') {
+    } elseif ($type == 'subscribe_open' || $type == 'sale_open') {
         $post = get_post($notification->article_page_id);
         $link = get_permalink($notification->article_page_id);
         $bookName = $post->post_title;
         if ($type == 'subscribe_open') {
             $content = 'Открылась подписка на книгу "' . $bookName . '"';
             $icon = 'wp-content/themes/storefront-child/svg/book-sell.svg';
-        } elseif ($type == 'sale_open') {
+        } else {
             $content = 'Открылась продажа книги "' . $bookName . '"';
             $icon = 'wp-content/themes/storefront-child/svg/book-sell.svg';
-        } else {
-            $content = 'Книга "' . $bookName . '" завершена';
-            $icon = 'wp-content/themes/storefront-child/svg/book-finish.svg';
         }
         $isValid = true;
+    } elseif ($type == 'book_finish') {
+        $bookPageArgs = [
+            'numberposts' => 1,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'meta_key' => 'book_id',
+            'meta_value' => $notification->article_page_id,
+        ];
+        $post = get_post($notification->article_page_id);
+        $bookName = $post->post_title;
+        $content = 'Книга "' . $bookName . '" завершена';
+        $icon = 'wp-content/themes/storefront-child/svg/book-finish.svg';
+        $bookPage = get_posts($bookPageArgs);
+        if (!is_array($bookPage) || count($bookPage) == 0) {
+            $link = get_permalink($notification->article_page_id);
+        } else {
+            $link = get_permalink($bookPage[0]->ID);
+        }
+        $isValid = true;
+
+
     } elseif ($type == 'reply_comment' || $type == 'like_comment') {
         $comment = WP_Comment::get_instance($notification->comment_id);
         if ($type == 'reply_comment') {
@@ -3668,6 +3688,19 @@ function markCommentNotificationAsRead($pageId)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND page_id = %d AND view_status = 0;", $userId, $pageId));
+}
+
+function markBookNotificationAsRead($pageId)
+{
+    global $post;
+    $bookId = get_post_meta($post->ID, 'book_id', true);
+    if (!is_user_logged_in() || !$bookId) {
+        return;
+    }
+    $userId = get_current_user_id();
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND notification_type = 'book_finish' AND article_page_id = %d AND view_status = 0;", $userId, $bookId));
 }
 
 // Пометка всех уведомлений прочитанными
@@ -3842,6 +3875,7 @@ add_action('wp', function () {
     global $post;
     if (isset($post->ID)) {
         markCommentNotificationAsRead($post->ID);
+        markBookNotificationAsRead($post->ID);
     }
 });
 
@@ -4550,9 +4584,11 @@ function getArticlesList($bookId)
 
 function getNumeral($number, $_1, $_2, $_5)
 {
-    if ($number % 10 == 1) {
+    if ($number % 100 > 10 || $number % 100 < 15) {
+        return $_5;
+    } elseif ($number % 10 == 1 ) {
         return $_1;
-    } else if ($number % 10 > 1 && $number % 10 < 5) {
+    } elseif ($number % 10 > 1 && $number % 10 < 5) {
         return $_2;
     } else {
         return $_5;
