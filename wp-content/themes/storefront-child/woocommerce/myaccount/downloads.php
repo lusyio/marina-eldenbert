@@ -154,6 +154,17 @@ if (count($libraryBooks) !== 0):
 
                         <?php
                         if ($libraryBook->is_downloadable('yes') && $libraryBook->has_file()) {
+                            if ($libraryBook->get_price() == 0) {
+                                $allDownloads = wc_get_free_downloads();
+                            } else {
+                                $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
+                            }
+                            $downloads = [];
+                            foreach ($allDownloads as $oneDownload) {
+                                if ($oneDownload['product_id'] == $libraryBook->get_id()) {
+                                    $downloads[] = $oneDownload;
+                                }
+                            }
                             $eBookDownloads = $libraryBook->get_downloads();
                             $eBookPriceHtml = $libraryBook->get_price_html();
                         }
@@ -186,8 +197,8 @@ if (count($libraryBooks) !== 0):
                                     <div class="library-card-group__download">
                                         <span>Вам доступны файлы:</span>
                                         <p>
-                                            <?php foreach ($downloads as $key => $eBookDownload): ?>
-                                                <a href="<?= $eBookDownload['download_url'] ?>"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
+                                            <?php foreach ($downloads as $key => $download): ?>
+                                                <a href="<?= $download['download_url'] ?>"><?= $download['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
                                             <?php endforeach; ?>
                                         </p>
                                     </div>
@@ -198,8 +209,8 @@ if (count($libraryBooks) !== 0):
                                 <div class="library-card-group__download">
                                     <span>Вам доступны файлы:</span>
                                     <p>
-                                        <?php foreach ($downloads as $key => $eBookDownload): ?>
-                                            <a href="<?= $eBookDownload['download_url'] ?>"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
+                                        <?php foreach ($downloads as $key => $download): ?>
+                                            <a href="<?= $download['download_url'] ?>"><?= $download['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
                                         <?php endforeach; ?>
                                     </p>
                                 </div>
