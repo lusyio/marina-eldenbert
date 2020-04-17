@@ -3717,12 +3717,13 @@ function markAllNotificationsAsRead()
 }
 
 
-// Добавляем эндпоинт страницы уведомлений
+// Добавляем эндпоинт страницы уведомлений и библиотеки
 add_action('init', 'my_account_new_endpoints');
 
 function my_account_new_endpoints()
 {
     add_rewrite_endpoint('notifications', EP_ROOT | EP_PAGES);
+    add_rewrite_endpoint('library', EP_ROOT | EP_PAGES);
 }
 
 // Определяем шаблон страницы уведомлений для эндпоинта страницы уведомлений
@@ -3732,7 +3733,14 @@ function notifications_endpoint_content()
     get_template_part('notifications');
 }
 
-// Добавляем в меню личного кабинета пункт "Уведомления"
+// Определяем шаблон страницы библиотеки для эндпоинта страницы библиотеки
+add_action('woocommerce_account_library_endpoint', 'library_endpoint_content');
+function library_endpoint_content()
+{
+    get_template_part('library');
+}
+
+// Добавляем в меню личного кабинета пункт "Уведомления" и "Библиотека"
 add_filter('woocommerce_account_menu_items', 'addNotificationsPage', 10, 2);
 
 function wpb_woo_my_account_order()
@@ -3740,7 +3748,7 @@ function wpb_woo_my_account_order()
     $myorder = array(
         'dashboard' => 'Мой аккаунт',
         'notifications' => 'Мои уведомления',
-        'downloads' => 'Моя библиотека',
+        'library' => 'Моя библиотека',
         'orders' => 'Мои покупки',
         'edit-account' => 'Настройки',
         'customer-logout' => __('Logout', 'woocommerce'),
@@ -3753,10 +3761,11 @@ add_filter('woocommerce_account_menu_items', 'wpb_woo_my_account_order');
 function notificationPageAddQueryVar($vars)
 {
     $vars[] = 'notifications';
+    $vars[] = 'library';
     return $vars;
 }
 
-// Добавляем переменную запроса для страницы уведомлений
+// Добавляем переменную запроса для страницы уведомлений и библиотеки
 add_filter('query_vars', 'notificationPageAddQueryVar', 0);
 
 // Добавляем хлебную крошку для страницы уведомлений
@@ -3765,6 +3774,15 @@ add_filter('woocommerce_get_breadcrumb', function ($args) {
     $is_endpoint = isset($wp_query->query_vars['notifications']);
     if ($is_endpoint && !is_admin() && is_main_query() && is_account_page()) {
         $args[] = ['Уведомления', get_page_link() . 'notifications/'];
+    }
+    return $args;
+});
+// Добавляем хлебную крошку для страницы библиотеки
+add_filter('woocommerce_get_breadcrumb', function ($args) {
+    global $wp_query;
+    $is_endpoint = isset($wp_query->query_vars['library']);
+    if ($is_endpoint && !is_admin() && is_main_query() && is_account_page()) {
+        $args[] = ['Библиотека', get_page_link() . 'library/'];
     }
     return $args;
 });
@@ -3783,6 +3801,20 @@ function notificationsEndpointTitle($title)
     return $title;
 }
 
+// Изменяем заголовок для страницы библиотеки
+add_filter('the_title', 'libraryEndpointTitle');
+
+function libraryEndpointTitle($title)
+{
+    global $wp_query;
+    $is_endpoint = isset($wp_query->query_vars['library']);
+    if ($is_endpoint && !is_admin() && is_main_query() && in_the_loop() && is_account_page()) {                // New page title.				'
+        $title = "Уведомления";
+        remove_filter('the_title', 'libraryEndpointTitle');
+    }
+    return $title;
+}
+
 /**
  * Добавляем эндпоинт страницы уведомлений
  * @param $args
@@ -3791,9 +3823,10 @@ function notificationsEndpointTitle($title)
  */
 function addNotificationsPage($args, $endpoints)
 {
-    $notifications = ['notifications' => 'Уведомления'];
-    array_splice_assoc($args, 2, 0, $notifications);
+    $pages = ['notifications' => 'Уведомления', 'library' => 'Библиотека'];
+    array_splice_assoc($args, 2, 0, $pages);
     $endpoints['notifications'] = 'notifications';
+    $endpoints['library'] = 'library';
     return $args;
 }
 
@@ -4514,7 +4547,7 @@ add_action('template_redirect', function () {
             $order->calculate_totals();
             $order->payment_complete();
             $cart->empty_cart();
-            exit(wp_redirect(home_url('/my-account/downloads')));
+            exit(wp_redirect(home_url('/my-account/library')));
         }
     }
 });

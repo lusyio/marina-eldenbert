@@ -1,39 +1,26 @@
 <?php
-
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-$customer_orders = get_posts(
-    apply_filters(
-        'woocommerce_my_account_my_orders_query',
-        array(
-            'numberposts' => -1,
-            'meta_key'    => '_customer_user',
-            'meta_value'  => get_current_user_id(),
-            'post_type'   => wc_get_order_types( 'view-orders' ),
-            'post_status' => array_keys( wc_get_order_statuses() ),
-            'order_by' => 'post_date',
-            'order' => 'desc',
-         )
-    )
-);
-$bookIds = [];
-foreach ( $customer_orders as $customer_order ){
-    $order = wc_get_order( $customer_order );
-    $items = $order->get_items();
-    foreach ($items as $item) {
-        $bookIds[] = $item->get_product_id();
+if (is_user_logged_in()) {
+    if (isset($_GET['add'])) {
+        $inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
+        $product = wc_get_product(intval($_GET['add']));
+        if ($product && !in_array(intval($_GET['add']), $inLibraryIds)) {
+            add_user_meta(get_current_user_id(), 'library', intval($_GET['add']));
+        }
+    }
+    if (isset($_GET['remove'])) {
+        delete_user_meta(get_current_user_id(), 'library', intval($_GET['remove']));
     }
 }
 
 $inLibraryIds = get_user_meta(get_current_user_id(), 'library', false);
+$inLibraryIds = array_reverse($inLibraryIds);
+$libraryBooks = [];
 
-if (count($bookIds) > 0):
+if (count($inLibraryIds) > 0) {
     $args = array(
         'post_type' => 'product',
         'posts_per_page' => -1,
-        'post__in' => $bookIds,
+        'post__in' => $inLibraryIds,
         'orderby' => 'post__in',
         'order' => 'ASC'
     );
@@ -44,6 +31,12 @@ if (count($bookIds) > 0):
         $libraryBooks[] = $product;
     endwhile;
     wp_reset_query();
+}
+
+$downloads = WC()->customer->get_downloadable_products();
+$has_downloads = (bool)$downloads;
+
+if (count($libraryBooks) !== 0):
     $count = 0;
     foreach ($libraryBooks as $libraryBook):
         $articles = getArticlesList($libraryBook->get_id());
@@ -109,31 +102,19 @@ if (count($bookIds) > 0):
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <?php if (in_array($libraryId, $inLibraryIds)): ?>
-                            <a href="/my-account/library" class="library-card-info__status">
-                                <svg width="20" height="32" viewBox="0 0 20 32" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
-                                          stroke="#415996"/>
-                                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
-                                          fill="#FAFAFA" stroke="#415996"/>
-                                </svg>
-                                <div>
-                                    <p>В вашей библиотеке</p>
-                                </div>
-                            </a>
-                        <?php else: ?>
-                            <a class="add-to-library" href="/my-account/library?add=<?= $product->get_id() ?>">
-                                <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
-                                          stroke="#415996"/>
-                                    <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
-                                          fill="#FAFAFA" stroke="#415996"/>
-                                </svg>
-
-                                <span>Добавить в библиотеку</span>
-                            </a>
-                        <?php endif; ?>
+                        <a data-toggle="modal" data-target="#deleteModal" href="#" data-href="/my-account/library?remove=<?= $libraryId ?>" class="library-card-info__status deleteModalClick">
+                            <svg width="20" height="32" viewBox="0 0 20 32" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
+                                      stroke="#415996"/>
+                                <path d="M9.5134 6.39937L11.0006 9.4128L11.117 9.64852L11.3771 9.68632L14.7025 10.1695L12.2962 12.5151L12.108 12.6986L12.1524 12.9577L12.7205 16.2697L9.74606 14.706L9.51339 14.5836L9.28072 14.706L6.30637 16.2697L6.87441 12.9577L6.91885 12.6986L6.73061 12.5151L4.32425 10.1695L7.64974 9.68632L7.90988 9.64852L8.02622 9.41279L9.5134 6.39937Z"
+                                      fill="#FAFAFA" stroke="#415996"/>
+                            </svg>
+                            <div>
+                                <p>В вашей библиотеке</p>
+                                <p>удалить из библиотеки</p>
+                            </div>
+                        </a>
                     </div>
                     <p class="library-card__desc">
                         <?php $desc = strip_tags($libraryBook->get_short_description());
@@ -230,6 +211,6 @@ if (count($bookIds) > 0):
         </div>
     <?php endif;
 else: ?>
-    <p class="library-empty">Вы пока не купили ни одной книги</p>
+    <p class="library-empty">Вы пока не добавили ни одной книги</p>
 <?php endif;
 

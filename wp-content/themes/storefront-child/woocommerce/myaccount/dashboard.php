@@ -148,7 +148,7 @@ foreach ($allRanks as $rank) {
                         <p>Вы еще не добавили</p>
                         <p>книги в библиотеку</p>
                     <?php endif; ?>
-                    <a href="/my-account/downloads">Перейти в библиотеку</a>
+                    <a href="/my-account/library">Перейти в библиотеку</a>
                 </div>
             </div>
         </div>
