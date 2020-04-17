@@ -65,7 +65,12 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                 // выводим сылки на скачивание книги
                                 $downloads = array();
                                 $user_id = get_current_user_id();
-                                $downloads = wc_get_customer_available_downloads($user_id);
+                                // Если цена 0 то вывести разрешения пользователя 0
+                                if ($product->get_price() == 0) {
+                                    $downloads = wc_get_free_downloads();
+                                } else {
+                                    $downloads = wc_get_customer_available_downloads($user_id);
+                                }
                                 $hasDownloads = false;
                                 $tags = get_the_terms($product->get_id(), 'product_tag');
                                 $tagsArray = array();
@@ -128,12 +133,12 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                     do_action('woocommerce_after_add_to_cart_button');
                                     ?>
                                 <?php else: ?>
-                                    <?php if ($eBookDownloads): ?>
+                                    <?php if ($downloads): ?>
                                         <div class="add-to-cart-block__download">
                                             <span>Вам доступны файлы:</span>
                                             <p>
-                                                <?php foreach ($eBookDownloads as $key => $eBookDownload): ?>
-                                                    <a href="<?= $eBookDownload->get_file() ?>"><?= $eBookDownload->get_name() ?> <?= $key === array_key_last($eBookDownloads) ? '' : ', ' ?></a>
+                                                <?php foreach ($downloads as $key => $eBookDownload): ?>
+                                                    <a href="<?= $eBookDownload['download_url'] ?>"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
                                                 <?php endforeach; ?>
                                             </p>
                                         </div>
