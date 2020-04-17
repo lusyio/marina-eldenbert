@@ -67,9 +67,15 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                 $user_id = get_current_user_id();
                                 // Если цена 0 то вывести разрешения пользователя 0
                                 if ($product->get_price() == 0) {
-                                    $downloads = wc_get_free_downloads();
+                                    $allDownloads = wc_get_free_downloads();
                                 } else {
-                                    $downloads = wc_get_customer_available_downloads($user_id);
+                                    $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
+                                }
+                                $downloads = [];
+                                foreach ($allDownloads as $oneDownload) {
+                                    if ($oneDownload['product_id'] == $product->get_id()) {
+                                        $downloads[] = $oneDownload;
+                                    }
                                 }
                                 $hasDownloads = false;
                                 $tags = get_the_terms($product->get_id(), 'product_tag');
