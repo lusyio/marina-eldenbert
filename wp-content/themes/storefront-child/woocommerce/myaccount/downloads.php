@@ -124,7 +124,7 @@ if (count($libraryBooks) !== 0):
                                 </div>
                             </div>
                         <?php endif; ?>
-                        <a href="/my-account/downloads?remove=<?= $libraryId ?>" class="library-card-info__status">
+                        <a data-toggle="modal" data-target="#deleteModal" href="#" data-href="/my-account/downloads?remove=<?= $libraryId ?>" class="library-card-info__status deleteModalClick">
                             <svg width="20" height="32" viewBox="0 0 20 32" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
@@ -215,7 +215,6 @@ if (count($libraryBooks) !== 0):
                                 </div>
                             <?php endif; ?>
                         <?php endif; ?>
-
                     </div>
                 </div>
             </div>
