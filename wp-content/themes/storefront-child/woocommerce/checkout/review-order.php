@@ -16,9 +16,20 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
-
-<div class="row">
+$cartFees = WC()->cart->get_fees();
+if (is_array($cartFees) && count($cartFees) > 0):
+foreach ($cartFees as $cartFee): ?>
+<div class="row mt-5">
+    <div class="col">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex "><?php echo $cartFee->name ?></div>
+            <div class="d-flex "><?php wc_cart_totals_fee_html($cartFee); ?></div>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>
+</div><div class="row">
     <div class="col">
         <div class="order-total d-flex justify-content-between">
             <div class="d-flex order-total__text"><?php esc_html_e( 'Total', 'woocommerce' ); ?></div>
