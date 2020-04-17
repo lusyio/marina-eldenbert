@@ -12,7 +12,7 @@ $customer_orders = get_posts(
             'meta_key'    => '_customer_user',
             'meta_value'  => get_current_user_id(),
             'post_type'   => wc_get_order_types( 'view-orders' ),
-            'post_status' => array_keys( wc_get_order_statuses() ),
+            'post_status' => 'wc-completed',
             'order_by' => 'post_date',
             'order' => 'desc',
          )
