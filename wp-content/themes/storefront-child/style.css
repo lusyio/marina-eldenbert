@@ -1203,21 +1203,21 @@ ul.products li.product {
     position: relative;
 }
 
-.library-card-info .library-card-info__status p:first-of-type{
+.library-card-info .library-card-info__status.deleteModalClick p:first-of-type{
     position: relative;
     top: 7px;
     transition: 135ms ease-in-out;
 }
 
-.library-card-info .library-card-info__status:hover p:first-of-type{
+.library-card-info .library-card-info__status.deleteModalClick:hover p:first-of-type{
     top: 0;
 }
 
-.library-card-info .library-card-info__status:hover p:last-of-type{
+.library-card-info .library-card-info__status.deleteModalClick:hover p:last-of-type{
     opacity: 1;
 }
 
-.library-card-info .library-card-info__status p:last-of-type{
+.library-card-info .library-card-info__status.deleteModalClick p:last-of-type{
     opacity: 0;
     transition: 270ms ease-in-out;
 }
@@ -1230,7 +1230,7 @@ ul.products li.product {
     margin-bottom: 1px;
 }
 
-.library-card-info .library-card-info__status p:last-of-type {
+.library-card-info .library-card-info__status.deleteModalClick p:last-of-type {
     font-weight: 300;
     font-size: 12px;
     line-height: 14px;
@@ -3520,6 +3520,10 @@ span.page-title {
     color: #000000;
 }
 
+.add-to-cart-block__download p > a:hover, .library-card .library-card-group .library-card-group__download p > a:hover{
+    color: #415996;
+}
+
 .add-to-cart-block__download p, .library-card .library-card-group .library-card-group__download p {
     margin-bottom: 0;
     font-weight: normal;
@@ -4519,7 +4523,7 @@ span.page-title {
     position: absolute;
     color: #000000;
     align-items: center;
-    top: 22%;
+    top: 3px;
 }
 
 .comment .mycred-my-rank {
