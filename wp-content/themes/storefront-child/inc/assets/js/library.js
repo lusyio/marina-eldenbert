@@ -39,4 +39,11 @@ jQuery(function ($) {
             j++;
         }
     })
+
+    const deleteModal = $('#deleteModal')
+
+    $('.deleteModalClick').on('click', function () {
+        let dataHref = $(this).data('href')
+        deleteModal.find('.deleteModal__agree').prop('href', dataHref)
+    })
 })

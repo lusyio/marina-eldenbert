@@ -1081,7 +1081,7 @@ ul.products li.product {
     padding-bottom: 40px;
 }
 
-.library-card:not(.pag){
+.library-card:not(.pag) {
     display: none;
 }
 
@@ -1120,7 +1120,7 @@ ul.products li.product {
     display: flex;
 }
 
-.library-card-group form{
+.library-card-group form {
     margin-bottom: 0;
 }
 
@@ -3199,7 +3199,7 @@ h2.related-product {
     color: #000000 !important;
 }
 
-.header-login img{
+.header-login img {
     display: none;
 }
 
@@ -3827,7 +3827,7 @@ span.page-title {
     width: auto !important;
 }
 
-.disclaimerModal__header {
+.disclaimerModal__header, .deleteModal__header {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 28px;
@@ -3835,7 +3835,7 @@ span.page-title {
     margin-bottom: 30px;
 }
 
-.disclaimerModal__text {
+.disclaimerModal__text, .deleteModal__text {
     font-weight: 300;
     font-size: 1.125rem;
     line-height: 21px;
@@ -3858,16 +3858,16 @@ span.page-title {
     color: #A2A2A2;
 }
 
-#disclaimerModal .modal-body {
+#disclaimerModal .modal-body, #deleteModal .modal-body {
     padding: 60px 90px 30px 90px;
 }
 
-.disclaimerModal__agree {
+.disclaimerModal__agree, .deleteModal__agree {
     font-weight: normal;
     font-size: 18px;
     line-height: 24px;
     text-align: center;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     border-radius: 40px;
     background: #F8AC53;
     padding: 16px 40px;
@@ -3882,7 +3882,7 @@ span.page-title {
     transition: ease-in 200ms;
 }
 
-.disclaimerModal__agree:hover, .disclaimerModal__disagree:hover {
+.disclaimerModal__agree:hover, .disclaimerModal__disagree:hover, .deleteModal__agree:hover, .deleteModal__disagree:hover {
     -webkit-transform: translateY(-3px);
     -moz-transform: translateY(-3px);
     -ms-transform: translateY(-3px);
@@ -3891,7 +3891,7 @@ span.page-title {
     cursor: pointer;
 }
 
-.disclaimerModal__disagree {
+.disclaimerModal__disagree, .deleteModal__disagree {
     border: 2px solid #F8AC53;
     border-radius: 40px;
     font-size: 18px;
@@ -3909,7 +3909,7 @@ span.page-title {
     transition: ease-in 200ms;
 }
 
-#disclaimerModal .modal-content {
+#disclaimerModal .modal-content, #deleteModal .modal-content {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -5948,11 +5948,11 @@ and (max-width: 768px) {
 @media screen
 and (max-width: 576px) {
 
-    .header-login img{
+    .header-login img {
         display: block;
     }
 
-    .header-login{
+    .header-login {
         background: transparent;
         padding: 10px;
     }
