@@ -59,6 +59,7 @@ $downloads = WC()->customer->get_downloadable_products();
 $has_downloads = (bool)$downloads;
 
 if (count($libraryBooks) !== 0):
+    $count = 0;
     foreach ($libraryBooks as $libraryBook):
         $articles = getArticlesList($libraryBook->get_id());
         $bookMark = getBookmarkMeta($libraryBook->get_id());
@@ -88,7 +89,7 @@ if (count($libraryBooks) !== 0):
         if (empty($imgsrc)) :
             $imgsrc = '/wp-content/uploads/woocommerce-placeholder.png';
         endif; ?>
-        <div class="library-card">
+        <div class="library-card" data-num="<?= $count + 1 ?>">
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                     <a href="<?= $libraryBook->get_permalink() ?>">
@@ -105,7 +106,8 @@ if (count($libraryBooks) !== 0):
                                      alt="complete-book">
                                 <div>
                                     <p>Книга завершена</p>
-                                    <p><?php echo $totalText; ?> | <?php echo $currentArticle . ' ' . getNumeral($currentArticle, 'глава', 'главы', 'глав'); ?></p>
+                                    <p><?php echo $totalText; ?>
+                                        | <?php echo $currentArticle . ' ' . getNumeral($currentArticle, 'глава', 'главы', 'глав'); ?></p>
                                 </div>
                             </div>
                             <!-- книга завершена-->
@@ -118,7 +120,7 @@ if (count($libraryBooks) !== 0):
                                      alt="process-book">
                                 <div>
                                     <p>Книга в процессе: <?= $lastUpdate ?></p>
-                                    <p><?php echo $totalText; ?> <?php echo ($newCount > 0) ? '<span>+' . $newCount . ' ' . getNumeral($newCount, 'новая', 'новые', 'новых') . '</span>' : '' ?></p>
+                                    <p><?php echo $totalText; ?><?php echo ($newCount > 0) ? '<span>+' . $newCount . ' ' . getNumeral($newCount, 'новая', 'новые', 'новых') . '</span>' : '' ?></p>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -208,7 +210,18 @@ if (count($libraryBooks) !== 0):
             </div>
         </div>
 
-    <?php endforeach;
+        <?php
+        $count++;
+    endforeach;
+    if ($count > 10) :?>
+        <div class="library-card pag">
+            <nav id="libraryPagination" aria-label="library">
+                <ul class="pagination">
+
+                </ul>
+            </nav>
+        </div>
+    <?php endif;
 else: ?>
     <p class="library-empty">Вы пока не добавили ни одной книги</p>
 <?php endif;

@@ -1288,6 +1288,18 @@ function addIsotopeScript()
     }
 }
 
+
+add_action('wp_enqueue_scripts', 'addLibraryScript', 10);
+/**
+ * Добавляет скрипты изотопа и работы с изотопом
+ */
+function addLibraryScript()
+{
+    if (is_account_page()) {
+        wp_enqueue_script('library', get_bloginfo('stylesheet_directory') . '/inc/assets/js/library.js', array('jquery'), false, true);
+    }
+}
+
 /**
  * Выводит фильтр товаров
  */

@@ -1081,6 +1081,10 @@ ul.products li.product {
     padding-bottom: 40px;
 }
 
+.library-card:not(.pag){
+    display: none;
+}
+
 .library-card:last-of-type {
     padding-bottom: 0;
 }
@@ -1114,6 +1118,10 @@ ul.products li.product {
 
 .library-card-group {
     display: flex;
+}
+
+.library-card-group form{
+    margin-bottom: 0;
 }
 
 .library-card .library-card-group .btnNewBlue, .library-card .library-card-group button {
