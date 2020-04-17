@@ -1171,6 +1171,7 @@ ul.products li.product {
 
 .library-card-info .library-card-info__status {
     display: flex;
+    align-items: center;
 }
 
 .library-card-info .library-card-info__status svg, .library-card-info .library-card-info__status img {
@@ -1179,6 +1180,7 @@ ul.products li.product {
     height: 32px;
     max-width: 32px;
     max-height: 32px;
+    align-self: center;
 }
 
 .library-card-info .library-card-info__status svg path:first-of-type {
