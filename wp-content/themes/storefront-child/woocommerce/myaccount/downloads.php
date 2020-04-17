@@ -204,7 +204,6 @@ if (count($libraryBooks) !== 0):
                                 </div>
                             <?php endif; ?>
                         <?php endif; ?>
-
                     </div>
                 </div>
             </div>

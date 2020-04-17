@@ -124,8 +124,9 @@
                             </div>
                         <?php else: ?>
                             <div class="header-profile position-relative mr-3 mr-sm-4 mt-auto mb-auto">
-                                <a class="header-login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти
-                                    в аккаунт</a>
+                                <a class="header-login" href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">
+                                    <img src="/wp-content/themes/storefront-child/svg/login.svg" alt="login">
+                                    <span>Войти в аккаунт</span></a>
                             </div>
                         <?php endif; ?>
 
