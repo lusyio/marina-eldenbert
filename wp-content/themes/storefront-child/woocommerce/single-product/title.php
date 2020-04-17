@@ -105,7 +105,7 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
                           fill="#FAFAFA" stroke="#415996"/>
                 </svg>
 
-                <span>Добавить в библиотеку</span>
+                <span><?= is_user_logged_in() ? 'Добавить в библиотеку' : 'Необходимо авторизоваться' ?></span>
             </a>
         <?php endif; ?>
     </div>

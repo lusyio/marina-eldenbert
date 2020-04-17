@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.14
+Version:      	1.0.17
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -1230,7 +1230,7 @@ ul.products li.product {
     margin-bottom: 1px;
 }
 
-.library-card-info .library-card-info__status.deleteModalClick p:last-of-type {
+.library-card-info .library-card-info__status p:last-of-type {
     font-weight: 300;
     font-size: 12px;
     line-height: 14px;
@@ -3445,7 +3445,7 @@ span.page-title {
 .info-card {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px 3px;
     border-top: 1px solid #EEEEEE;
     border-bottom: 1px solid #EEEEEE;
     margin-bottom: 25px;
@@ -5990,24 +5990,6 @@ and (max-width: 768px) {
         height: 260px;
     }
 
-}
-
-@media screen
-and (max-width: 576px) {
-
-    .header-login img {
-        display: block;
-    }
-
-    .header-login {
-        background: transparent;
-        padding: 10px;
-    }
-
-    .header-login span {
-        display: none;
-    }
-
     .info-card {
         position: relative;
         flex-wrap: wrap;
@@ -6028,6 +6010,28 @@ and (max-width: 576px) {
     }
 
     .info-card div:last-of-type span {
+
+    }
+
+}
+
+@media screen
+and (max-width: 576px) {
+
+    .info-card div:last-of-type span {
+        display: none;
+    }
+
+    .header-login img {
+        display: block;
+    }
+
+    .header-login {
+        background: transparent;
+        padding: 10px;
+    }
+
+    .header-login span {
         display: none;
     }
 
