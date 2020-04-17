@@ -106,8 +106,7 @@ if (count($libraryBooks) !== 0):
                                      alt="complete-book">
                                 <div>
                                     <p>Книга завершена</p>
-                                    <p><?php echo $totalText; ?>
-                                        | <?php echo $currentArticle . ' ' . getNumeral($currentArticle, 'глава', 'главы', 'глав'); ?></p>
+                                    <p><?php echo getNumeral($currentArticle, 'Прочитана', 'Прочитано', 'Прочитано') . ' ' . $currentArticle . ' из ' . count($articles) . ' ' . getNumeral(count($articles), 'главы', 'глав', 'глав'); ?></p>
                                 </div>
                             </div>
                             <!-- книга завершена-->

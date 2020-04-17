@@ -4584,7 +4584,7 @@ function getArticlesList($bookId)
 
 function getNumeral($number, $_1, $_2, $_5)
 {
-    if ($number % 100 > 10 || $number % 100 < 15) {
+    if ($number % 100 > 10 && $number % 100 < 15) {
         return $_5;
     } elseif ($number % 10 == 1 ) {
         return $_1;
