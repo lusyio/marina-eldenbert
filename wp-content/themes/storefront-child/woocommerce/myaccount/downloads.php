@@ -119,7 +119,8 @@ if (count($libraryBooks) !== 0):
                                 <img src="/wp-content/themes/storefront-child/svg/svg-process-book.svg"
                                      alt="process-book">
                                 <div>
-                                    <p>Книга в процессе: <?= $lastUpdate ?></p>
+                                    <p>Книга в процессе</p>
+                                    <p><?= $lastUpdate ?></p>
                                     <p><?php echo $totalText; ?><?php echo ($newCount > 0) ? '<span>+' . $newCount . ' ' . getNumeral($newCount, 'новая', 'новые', 'новых') . '</span>' : '' ?></p>
                                 </div>
                             </div>

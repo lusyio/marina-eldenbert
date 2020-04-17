@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.11
+Version:      	1.0.12
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -1171,6 +1171,7 @@ ul.products li.product {
 
 .library-card-info .library-card-info__status {
     display: flex;
+    align-items: center;
 }
 
 .library-card-info .library-card-info__status svg, .library-card-info .library-card-info__status img {
@@ -1179,6 +1180,7 @@ ul.products li.product {
     height: 32px;
     max-width: 32px;
     max-height: 32px;
+    align-self: center;
 }
 
 .library-card-info .library-card-info__status svg path:first-of-type {
