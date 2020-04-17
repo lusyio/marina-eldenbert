@@ -68,7 +68,7 @@ foreach ($allRanks as $rank) {
                                  aria-valuenow="0" aria-valuemin="0"
                                  aria-valuemax="100"></div>
                             <p>До получения следующего
-                                статуса:<span><?php echo $balance; ?> из <?php echo $myRank->maximum + 1; ?></span></p>
+                                статуса:<span><?php echo $myRank->maximum + 1 - $balance; ?> из <?php echo $myRank->maximum + 1; ?></span></p>
                         </div>
                     </div>
                 </div>
