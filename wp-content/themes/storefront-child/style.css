@@ -1199,6 +1199,29 @@ ul.products li.product {
     stroke: #fafafa;
 }
 
+.library-card-info__status div{
+    position: relative;
+}
+
+.library-card-info .library-card-info__status p:first-of-type{
+    position: relative;
+    top: 7px;
+    transition: 135ms ease-in-out;
+}
+
+.library-card-info .library-card-info__status:hover p:first-of-type{
+    top: 0;
+}
+
+.library-card-info .library-card-info__status:hover p:last-of-type{
+    opacity: 1;
+}
+
+.library-card-info .library-card-info__status p:last-of-type{
+    opacity: 0;
+    transition: 270ms ease-in-out;
+}
+
 .library-card-info .library-card-info__status p {
     font-weight: 300;
     font-size: 14px;
