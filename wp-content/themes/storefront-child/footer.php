@@ -34,6 +34,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="loginForLink" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <p class="deleteModal__header">Необходимо авторизоваться</p>
+                            <p class="deleteModal__que">Вам необходимо авторизоваться, чтобы скачивать книги</p>
+                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>" class="deleteModal__agree">Войти</a>
+                            <div class="deleteModal__disagree" data-dismiss="modal">Закрыть</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="container pt-3 pb-3">
         <div class="row">

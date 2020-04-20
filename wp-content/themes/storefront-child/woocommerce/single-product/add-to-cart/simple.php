@@ -33,6 +33,32 @@ if ($product->is_downloadable('yes') && $product->has_file()) {
 $linksAudio = get_post_custom_values('buy_audio_book', $product->get_id());
 $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
 
+// выводим сылки на скачивание книги
+$downloads = array();
+$user_id = get_current_user_id();
+// Если цена 0 то вывести разрешения пользователя 0
+if ($product->get_price() == 0) {
+    $allDownloads = wc_get_free_downloads();
+} else {
+    $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
+}
+$downloads = [];
+foreach ($allDownloads as $oneDownload) {
+    if ($oneDownload['product_id'] == $product->get_id()) {
+        $downloads[] = $oneDownload;
+    }
+}
+$hasDownloads = false;
+
+$tags = get_the_terms($product->ID, 'product_tag');
+$tagsArray = array();
+if (!empty($tags) && !is_wp_error($tags)) {
+    foreach ($tags as $tag) {
+        $tagsArray[] = $tag->slug;
+    }
+}
+$isDraft = in_array('draft', $tagsArray);
+
 
 ?>
 <div class="add-to-cart-block">
@@ -42,10 +68,11 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                 <div id="ebookTarget" class="add-to-cart-block__target active">
                     <?php if ($product->is_in_stock()) : ?>
                         <?php do_action('woocommerce_before_add_to_cart_form'); ?>
-                        <?php if (is_user_logged_in()): ?>
-                            <form class="cart"
-                                  action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
-                                  method="post" enctype='multipart/form-data'>
+                        <form class="cart"
+                              action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+                              method="post" enctype='multipart/form-data'>
+                            <?php if (is_user_logged_in()): ?>
+
 
                                 <?php
                                 do_action('woocommerce_before_add_to_cart_quantity');
@@ -62,22 +89,6 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
 
                                 readButton(get_permalink(getBookPageIdByBookId($product->get_id())), $product->get_id(), 'product-read');
                                 $bookPageId = getBookPageIdByBookId($product->get_id());
-                                // выводим сылки на скачивание книги
-                                $downloads = array();
-                                $user_id = get_current_user_id();
-                                // Если цена 0 то вывести разрешения пользователя 0
-                                if ($product->get_price() == 0) {
-                                    $allDownloads = wc_get_free_downloads();
-                                } else {
-                                    $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
-                                }
-                                $downloads = [];
-                                foreach ($allDownloads as $oneDownload) {
-                                    if ($oneDownload['product_id'] == $product->get_id()) {
-                                        $downloads[] = $oneDownload;
-                                    }
-                                }
-                                $hasDownloads = false;
                                 $tags = get_the_terms($product->get_id(), 'product_tag');
                                 $tagsArray = array();
                                 if (!empty($tags) && !is_wp_error($tags)) {
@@ -119,8 +130,7 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
 
                                         <button type="submit" name="add-to-cart"
                                                 value="<?php echo esc_attr($product->get_id()); ?>"
-                                                class="single_add_to_cart_button button alt">Купить книгу
-                                            за <?php echo $product->get_price_html(); ?>
+                                                class="single_add_to_cart_button button alt"><?= $isDraft ? 'Подписка за ' : 'Купить книгу зa ' ?><?php echo $product->get_price_html(); ?>
                                             <?php if ($eBookDownloads): ?>
                                                 <p>(чтение на сайте +
                                                     <?php foreach ($eBookDownloads as $key => $eBookDownload) {
@@ -150,12 +160,40 @@ $linksPaper = get_post_custom_values('buy_paper_book', $product->get_id());
                                         </div>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                            </form>
-                        <?php else: ?>
-                            <a class="add-to-cart-block__login"
-                               href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>">Войти в аккаунт</a>
-                        <?php endif; ?>
-
+                            <?php else: ?>
+                                <?php readButton(get_permalink(getBookPageIdByBookId($product->get_id())), $product->get_id(), 'product-read'); ?>
+                                <?php if ($product->get_price() !== '0' && $product->get_price() !== 0): ?>
+                                    <button type="submit" name="add-to-cart"
+                                            value="<?php echo esc_attr($product->get_id()); ?>"
+                                            class="single_add_to_cart_button button alt"><?= $isDraft ? 'Подписка за ' : 'Купить книгу за ' ?> <?php echo $product->get_price_html(); ?>
+                                        <?php if ($eBookDownloads): ?>
+                                            <p>(чтение на сайте +
+                                                <?php foreach ($eBookDownloads as $key => $eBookDownload) {
+                                                    echo $eBookDownload->get_name();
+                                                    if ($key === array_key_last($eBookDownloads)) {
+                                                        echo '';
+                                                    } else {
+                                                        echo ', ';
+                                                    }
+                                                } ?>)</p>
+                                        <?php else: ?>
+                                            <p>(только чтение на сайте)</p>
+                                        <?php endif; ?>
+                                    </button>
+                                <?php else: ?>
+                                    <?php if ($downloads): ?>
+                                        <div class="add-to-cart-block__download">
+                                            <span>Вам доступны файлы:</span>
+                                            <p>
+                                                <?php foreach ($downloads as $key => $eBookDownload): ?>
+                                                    <a data-toggle="modal" data-target="#loginForLink" href="#"><?= $eBookDownload['download_name'] ?> <?= $key === array_key_last($downloads) ? '' : ', ' ?></a>
+                                                <?php endforeach; ?>
+                                            </p>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </form>
                     <?php endif; ?>
 
                     <p class="add-to-cart-block__support">Если у вас возникли какие-либо вопросы - напишите на почту</p>
