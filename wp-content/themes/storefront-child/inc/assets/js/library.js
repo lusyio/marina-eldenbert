@@ -22,10 +22,10 @@ jQuery(function ($) {
     let activePage = $('#page1');
     activePage.addClass('active')
 
+    const $page = $('html, body');
+
     $('.page-item').on('click', function () {
         const page = $(this).data('page')
-        $('.page-item').removeClass('active')
-        $(this).addClass('active')
 
         let j = 0;
         for (let i = 0; i < cards.length; i++) {
@@ -38,6 +38,13 @@ jQuery(function ($) {
             cards[i].style.display = "block";
             j++;
         }
+        if (page !== $('.page-item.active').data('page')) {
+            $page.animate({
+                scrollTop: $('#masthead').offset().top
+            }, 400);
+        }
+        $('.page-item').removeClass('active')
+        $(this).addClass('active')
     })
 
     const deleteModal = $('#deleteModal')
