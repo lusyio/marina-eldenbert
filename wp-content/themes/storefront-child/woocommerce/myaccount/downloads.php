@@ -168,14 +168,13 @@ if (count($libraryBooks) !== 0):
                             $eBookPriceHtml = $libraryBook->get_price_html();
                         }
                         if ($libraryBook->get_price() !== '0' && $libraryBook->get_price() !== 0):
-                            if (!isBookBought($libraryBook->get_id()) && !in_array('draft', $tagsArray)):?>
+                            if (!isBookBought($libraryBook->get_id())):?>
                                 <form class="cart"
                                       action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
                                       method="post" enctype='multipart/form-data'>
                                     <button type="submit" name="add-to-cart"
                                             value="<?php echo esc_attr($libraryBook->get_id()); ?>"
-                                            class="btnNewOrange library-card-group__buy">Купить книгу
-                                        за <?php echo $libraryBook->get_price_html(); ?>
+                                            class="btnNewOrange library-card-group__buy"><?= $isDraft ? 'Подписка за ' : 'Купить книгу зa ' ?><?php echo $libraryBook->get_price_html(); ?>
                                         <?php if ($eBookDownloads): ?>
                                             <p>(чтение на сайте +
                                                 <?php foreach ($eBookDownloads as $key => $eBookDownload) {
