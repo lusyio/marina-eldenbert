@@ -50,16 +50,6 @@ foreach ($allDownloads as $oneDownload) {
 }
 $hasDownloads = false;
 
-$tags = get_the_terms($product->ID, 'product_tag');
-$tagsArray = array();
-if (!empty($tags) && !is_wp_error($tags)) {
-    foreach ($tags as $tag) {
-        $tagsArray[] = $tag->slug;
-    }
-}
-$isDraft = in_array('draft', $tagsArray);
-
-
 ?>
 <div class="add-to-cart-block">
     <div class="row">
@@ -96,6 +86,8 @@ $isDraft = in_array('draft', $tagsArray);
                                         $tagsArray[] = $tag->slug;
                                     }
                                 }
+                                $isDraft = in_array('draft', $tagsArray);
+
                                 ?>
 
                                 <?php if ($product->get_price() !== '0' && $product->get_price() !== 0): ?>
@@ -125,7 +117,7 @@ $isDraft = in_array('draft', $tagsArray);
                                         </div>
                                     <?php endif; ?>
                                     <?php
-                                    if (!isBookBought($product->get_id()) && !in_array('draft', $tagsArray)):
+                                    if (!isBookBought($product->get_id())):
                                         ?>
 
                                         <button type="submit" name="add-to-cart"
