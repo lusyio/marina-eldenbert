@@ -3476,6 +3476,7 @@ span.page-title {
     font-size: 14px;
     line-height: 16px;
     color: #000000;
+    align-self: center;
 }
 
 .woocommerce-product-details__short-description {

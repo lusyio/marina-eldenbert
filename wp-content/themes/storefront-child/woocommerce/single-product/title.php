@@ -106,12 +106,14 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
                           fill="#FAFAFA" stroke="#415996"/>
                 </svg>
 
-                <p>
+                <?php if (is_user_logged_in()): ?>
                     <span>Добавить в библиотеку</span>
-                    <?php if (!is_user_logged_in()): ?>
+                <?php else: ?>
+                    <p class="mb-0">
+                        <span>Добавить в библиотеку</span>
                         <span>Необходимо авторизоваться</span>
-                    <?php endif; ?>
-                </p>
+                    </p>
+                <?php endif; ?>
             </a>
         <?php endif; ?>
     </div>
