@@ -898,7 +898,7 @@ function readButton($baseUrl = false, $id = false, $class = false)
         echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
-        echo '<a class="club-header__btn" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
+        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
         return;
     }
 
@@ -913,7 +913,7 @@ function readButton($baseUrl = false, $id = false, $class = false)
 
     if ($query->have_posts()) {
         if (!$id) {
-        echo '<hr>';
+            echo '<hr>';
         }
         while ($query->have_posts()) {
             $query->the_post();
@@ -4619,7 +4619,7 @@ function getNumeral($number, $_1, $_2, $_5)
 {
     if ($number % 100 > 10 && $number % 100 < 15) {
         return $_5;
-    } elseif ($number % 10 == 1 ) {
+    } elseif ($number % 10 == 1) {
         return $_1;
     } elseif ($number % 10 > 1 && $number % 10 < 5) {
         return $_2;
@@ -4629,15 +4629,15 @@ function getNumeral($number, $_1, $_2, $_5)
 }
 
 // При изменении товара
-    // если цена 0 то создать разрешение на все файлы для пользователя 0 с e-mail free@marina-eldenbert.ru
-    // если цена не 0, то отозвать разрешение на все файлы для пользователя 0 с e-mail free@marina-eldenbert.ru
+// если цена 0 то создать разрешение на все файлы для пользователя 0 с e-mail free@marina-eldenbert.ru
+// если цена не 0, то отозвать разрешение на все файлы для пользователя 0 с e-mail free@marina-eldenbert.ru
 
 add_action('save_post', 'updateFreeBookPermission', 99, 3);
 function updateFreeBookPermission($post_id, $post, $update)
 {
     if ($post->post_type == 'product') {
         $product = wc_get_product($post_id);
-        if ( $product && $product->exists() && $product->is_downloadable()) {
+        if ($product && $product->exists() && $product->is_downloadable()) {
             if ($product->get_price() == '0') {
                 $downloads = $product->get_downloads();
                 foreach (array_keys($downloads) as $download_id) {
@@ -4648,7 +4648,7 @@ function updateFreeBookPermission($post_id, $post, $update)
                 $table_name = $wpdb->get_blog_prefix() . 'woocommerce_downloadable_product_permissions';
                 $params = [
                     'user_id' => 0,
-                    'product_id'=> intval($product->get_id()),
+                    'product_id' => intval($product->get_id()),
                 ];
                 $wpdb->delete($table_name, $params);
             }
@@ -4656,76 +4656,78 @@ function updateFreeBookPermission($post_id, $post, $update)
     }
 }
 
-function free_file_permission( $download_id, $product) {
-    if ( is_numeric( $product ) ) {
-        $product = wc_get_product( $product );
+function free_file_permission($download_id, $product)
+{
+    if (is_numeric($product)) {
+        $product = wc_get_product($product);
     }
-    $data_store = WC_Data_Store::load( 'customer-download' );
+    $data_store = WC_Data_Store::load('customer-download');
     $download_ids = $data_store->get_downloads(
         array(
-            'user_email'  => sanitize_email('free@marina-eldenbert.ru'),
-            'order_key'   => wc_clean(1), // WPCS: input var ok, CSRF ok.
-            'product_id'  => $product->get_id(),
-            'download_id' => wc_clean( preg_replace( '/\s+/', ' ', wp_unslash( $download_id ) ) ), // WPCS: input var ok, CSRF ok, sanitization ok.
-            'orderby'     => 'downloads_remaining',
-            'order'       => 'DESC',
-            'limit'       => 1,
-            'return'      => 'ids',
+            'user_email' => sanitize_email('free@marina-eldenbert.ru'),
+            'order_key' => wc_clean(1), // WPCS: input var ok, CSRF ok.
+            'product_id' => $product->get_id(),
+            'download_id' => wc_clean(preg_replace('/\s+/', ' ', wp_unslash($download_id))), // WPCS: input var ok, CSRF ok, sanitization ok.
+            'orderby' => 'downloads_remaining',
+            'order' => 'DESC',
+            'limit' => 1,
+            'return' => 'ids',
         )
     );
     if (count($download_ids) == 0) {
         $download = new WC_Customer_Download(intval($download_ids[0]));
-        $download->set_download_id( $download_id );
+        $download->set_download_id($download_id);
     } else {
         $download = new WC_Customer_Download(intval($download_ids[0]));
     }
-    $download->set_product_id( $product->get_id() );
+    $download->set_product_id($product->get_id());
     $download->set_user_id(0);
     $download->set_order_id(1);
     $download->set_user_email('free@marina-eldenbert.ru');
     $download->set_order_key('1');
     $download->set_downloads_remaining('');
-    $download->set_access_granted( current_time( 'timestamp', true ) );
-    $download->set_download_count( 0 );
+    $download->set_access_granted(current_time('timestamp', true));
+    $download->set_download_count(0);
 
 //    $download = apply_filters( 'woocommerce_downloadable_file_permission', $download, $product, $order, $qty );
 
     return $download->save();
 }
 
-function wc_get_free_downloads( ) {
-    $downloads   = array();
-    $_product    = null;
-    $order       = null;
+function wc_get_free_downloads()
+{
+    $downloads = array();
+    $_product = null;
+    $order = null;
     $file_number = 0;
 
-    $data_store = WC_Data_Store::load( 'customer-download' );
+    $data_store = WC_Data_Store::load('customer-download');
     $results = $data_store->get_downloads_for_customer(0);
 
-    if ( $results ) {
-        foreach ( $results as $result ) {
-            $order_id = intval( $result->order_id );
+    if ($results) {
+        foreach ($results as $result) {
+            $order_id = intval($result->order_id);
 
-            if ( ! $order || $order->get_id() !== $order_id ) {
+            if (!$order || $order->get_id() !== $order_id) {
                 // New order.
-                $order    = wc_get_order( $order_id );
+                $order = wc_get_order($order_id);
                 $_product = null;
             }
 
-            $product_id = intval( $result->product_id );
+            $product_id = intval($result->product_id);
 
-            if ( ! $_product || $_product->get_id() !== $product_id ) {
+            if (!$_product || $_product->get_id() !== $product_id) {
                 // New product.
                 $file_number = 0;
-                $_product    = wc_get_product( $product_id );
+                $_product = wc_get_product($product_id);
             }
 
             // Check product exists and has the file.
-            if ( ! $_product || ! $_product->exists() || ! $_product->has_file( $result->download_id ) ) {
+            if (!$_product || !$_product->exists() || !$_product->has_file($result->download_id)) {
                 continue;
             }
 
-            $download_file = $_product->get_file( $result->download_id );
+            $download_file = $_product->get_file($result->download_id);
 
             // Download name will be 'Product Name' for products with a single downloadable file, and 'Product Name - File X' for products with multiple files.
             $download_name = apply_filters(
@@ -4737,25 +4739,25 @@ function wc_get_free_downloads( ) {
             );
 
             $downloads[] = array(
-                'download_url'        => add_query_arg(
+                'download_url' => add_query_arg(
                     array(
                         'download_file' => $product_id,
-                        'order'         => $result->order_key,
-                        'email'         => rawurlencode( $result->user_email ),
-                        'key'           => $result->download_id,
+                        'order' => $result->order_key,
+                        'email' => rawurlencode($result->user_email),
+                        'key' => $result->download_id,
                     ),
-                    home_url( '/' )
+                    home_url('/')
                 ),
-                'download_id'         => $result->download_id,
-                'product_id'          => $_product->get_id(),
-                'product_name'        => $_product->get_name(),
-                'product_url'         => $_product->is_visible() ? $_product->get_permalink() : '', // Since 3.3.0.
-                'download_name'       => $download_name,
-                'order_id'            => 1,
-                'order_key'           => 1,
+                'download_id' => $result->download_id,
+                'product_id' => $_product->get_id(),
+                'product_name' => $_product->get_name(),
+                'product_url' => $_product->is_visible() ? $_product->get_permalink() : '', // Since 3.3.0.
+                'download_name' => $download_name,
+                'order_id' => 1,
+                'order_key' => 1,
                 'downloads_remaining' => $result->downloads_remaining,
-                'access_expires'      => $result->access_expires,
-                'file'                => array(
+                'access_expires' => $result->access_expires,
+                'file' => array(
                     'name' => $download_file->get_name(),
                     'file' => $download_file->get_file(),
                 ),
@@ -4777,4 +4779,4 @@ add_filter(/**
     if ($msg_code == WC_Coupon::WC_COUPON_SUCCESS) {
         return 'Абонемент успешно применен';
     }
-}, 20, 3 );
+}, 20, 3);
