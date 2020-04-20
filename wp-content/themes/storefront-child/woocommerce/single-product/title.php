@@ -70,7 +70,7 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
         <div class="info-card__status">
             <img src="/wp-content/themes/storefront-child/svg/svg-complete-book.svg"
                  alt="complete-book">
-            <p>Книга завершена <span><?php echo $totalText?></span></p>
+            <p>Книга завершена <span><?php echo $totalText ?></span></p>
         </div>
         <!-- книга завершена-->
     <?php else: ?>
@@ -97,7 +97,8 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
                 <span>В вашей библиотеке</span>
             </a>
         <?php else: ?>
-            <a class="add-to-library" href="/my-account/library?add=<?= $product->get_id() ?>">
+            <a class="add-to-library <?= !is_user_logged_in() ? 'not-in-library' : '' ?>"
+               href="/my-account/library?add=<?= $product->get_id() ?>">
                 <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
                           stroke="#415996"/>
@@ -105,7 +106,12 @@ the_title('<h1 class="product_title entry-title">', '</h1>');
                           fill="#FAFAFA" stroke="#415996"/>
                 </svg>
 
-                <span><?= is_user_logged_in() ? 'Добавить в библиотеку' : 'Необходимо авторизоваться' ?></span>
+                <p>
+                    <span>Добавить в библиотеку</span>
+                    <?php if (!is_user_logged_in()): ?>
+                        <span>Необходимо авторизоваться</span>
+                    <?php endif; ?>
+                </p>
             </a>
         <?php endif; ?>
     </div>
