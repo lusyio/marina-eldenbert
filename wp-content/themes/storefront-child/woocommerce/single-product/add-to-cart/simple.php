@@ -191,7 +191,7 @@ $hasDownloads = false;
                     <p class="add-to-cart-block__support">Если у вас возникли какие-либо вопросы - напишите на почту</p>
                     <p class="add-to-cart-block__support-link"><a href="mailto:support@marina-eldebert.com">support@marina-eldebert.com</a>
                     </p>
-                    <p class="add-to-cart-block__ref">Так же ознакомьтесь с подробной справкой для пользователей</p>
+                    <p class="add-to-cart-block__ref">Так же ознакомьтесь с подробной <a href="/spravka">справкой для пользователей</a></p>
                 </div>
                 <div id="paperBookTarget" class="add-to-cart-block__target">
                     <p class="add-to-cart-block__partners">Бумажные издания книги можно приобрести только в
