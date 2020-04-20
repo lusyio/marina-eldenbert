@@ -152,13 +152,13 @@ if (count($libraryBooks) !== 0):
                         ?>
 
                         <?php
+                        $downloads = [];
                         if ($libraryBook->is_downloadable('yes') && $libraryBook->has_file()) {
                             if ($libraryBook->get_price() == 0) {
                                 $allDownloads = wc_get_free_downloads();
                             } else {
                                 $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
                             }
-                            $downloads = [];
                             foreach ($allDownloads as $oneDownload) {
                                 if ($oneDownload['product_id'] == $libraryBook->get_id()) {
                                     $downloads[] = $oneDownload;
