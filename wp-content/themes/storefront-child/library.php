@@ -152,8 +152,7 @@ if (count($libraryBooks) !== 0):
                                       method="post" enctype='multipart/form-data'>
                                     <button type="submit" name="add-to-cart"
                                             value="<?php echo esc_attr($libraryBook->get_id()); ?>"
-                                            class="btnNewOrange library-card-group__buy">Купить книгу
-                                        за <?php echo $libraryBook->get_price_html(); ?>
+                                            class="btnNewOrange library-card-group__buy"><?= $isDraft ? 'Подписка за ' : 'Купить книгу зa ' ?><?php echo $libraryBook->get_price_html(); ?>
                                         <?php if ($eBookDownloads): ?>
                                             <p>(чтение на сайте +
                                                 <?php foreach ($eBookDownloads as $key => $eBookDownload) {
