@@ -4767,3 +4767,14 @@ function wc_get_free_downloads( ) {
 
     return $downloads;
 }
+
+add_filter(/**
+ * @param $msg
+ * @param $msg_code
+ * @param $coupon WC_Coupon
+ */
+    'woocommerce_coupon_message', function ($msg, $msg_code, $coupon) {
+    if ($msg_code == WC_Coupon::WC_COUPON_SUCCESS) {
+        return 'Абонемент успешно применен';
+    }
+}, 20, 3 );
