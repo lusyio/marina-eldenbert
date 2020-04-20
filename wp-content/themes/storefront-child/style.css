@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.21
+Version:      	1.0.22
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -3549,6 +3549,12 @@ span.page-title {
     color: #000000;
 }
 
+.add-to-cart-block__support a {
+    font-weight: normal;
+    color: #000000;
+    display: none;
+}
+
 .add-to-cart-block__support-link {
     font-weight: normal;
     font-size: 12px;
@@ -5776,6 +5782,21 @@ and (max-width: 991px) {
         padding-left: 0;
     }
 
+    #disclaimerModal .modal-body, #deleteModal .modal-body, #loginForLink .modal-body {
+        padding: 40px 15px 30px 15px;
+    }
+
+    .disclaimerModal__disagree, .deleteModal__disagree {
+        padding: 16px 30px;
+        margin-bottom: 25px;
+    }
+
+    .disclaimerModal__agree, .deleteModal__agree {
+        padding: 16px 30px;
+        margin-bottom: 25px;
+        margin-right: 20px;
+    }
+
 }
 
 @media screen
@@ -6063,6 +6084,26 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    .library-card-info .library-card-info__status.deleteModalClick p:first-of-type{
+        top: unset;
+    }
+
+    .library-card-info .library-card-info__status.deleteModalClick p:last-of-type{
+        opacity: 1;
+    }
+
+    .add-to-cart-block__support {
+        margin-bottom: 25px;
+    }
+
+    .add-to-cart-block__support a {
+        display: inline-block;
+    }
+
+    .add-to-cart-block__support-link {
+        display: none;
+    }
 
     .add-to-library.not-in-library p {
         display: none;
