@@ -1735,6 +1735,10 @@ table.cart .product-thumbnail img {
     border: none;
 }
 
+#payment .place-order{
+    margin-top: 1.617924em;
+}
+
 #payment .place-order .button {
     background: #F8AC53;
     border-radius: 0px;
@@ -1770,12 +1774,12 @@ input[type='text']:focus, input[type='number']:focus, input[type='email']:focus,
 }
 
 .order-total {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-top: 1px solid #D8D8D8;
     border-bottom: 1px solid #D8D8D8;
-    margin-bottom: 2.5rem;
-    margin-top: 5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0rem;
 }
 
 .order-total__text {
@@ -1798,7 +1802,7 @@ input[type='text']:focus, input[type='number']:focus, input[type='email']:focus,
     line-height: 36px;
     text-align: center;
     color: #000000;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 /*--------------------------------------------------------------
@@ -4239,9 +4243,9 @@ span.page-title {
 .club-header__btn {
     background: #F8AC53;
     border-radius: 0px;
-    max-width: 200px;
+    max-width: 230px;
     width: 100%;
-    padding: 16px 70px;
+    padding: 16px 25px;
     display: table;
     margin: auto;
     font-weight: 300;
@@ -5684,6 +5688,10 @@ and (min-width: 768px) {
 
 @media screen
 and (max-width: 1199px) {
+
+    .woocommerce-message, .woocommerce-info, .woocommerce-error, .woocommerce-noreviews, p.no-comments{
+        display: block;
+    }
 
     .my-account-vip, .my-account-noty, .my-account-library {
         padding: 50px 40px;

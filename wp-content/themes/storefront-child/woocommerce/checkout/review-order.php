@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 $cartFees = WC()->cart->get_fees();
 if (is_array($cartFees) && count($cartFees) > 0):
 foreach ($cartFees as $cartFee): ?>
-<div class="row mt-5">
+<div class="row mb-3">
     <div class="col">
         <div class="d-flex justify-content-between">
             <div class="d-flex "><?php echo $cartFee->name ?></div>

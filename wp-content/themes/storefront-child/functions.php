@@ -405,7 +405,7 @@ function article_content($articleId)
             }
             $GLOBALS['page'] = $pageToLoad;
             ?>
-            <p class="h3 reader-h3"><?php the_title(); ?></p>
+            <p class="h3 d-flex justify-content-between reader-h3"><?php the_title(); ?> <img data-toggle="modal" id="settingsModalTrigger" data-target="#settingsModal" src="/wp-content/themes/storefront-child/svg/svg-settings.svg" alt="settings"></p>
             <?php
             echo '<ul class="article-btns pagination mb-3 mt-3 pb-0">';
             echo '</ul>';

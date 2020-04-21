@@ -19,15 +19,6 @@
 defined('ABSPATH') || exit;
 ?>
 <div class="woocommerce-billing-fields">
-    <?php if (wc_ship_to_billing_address_only() && WC()->cart->needs_shipping()) : ?>
-
-        <h3 class="woocommerce-billing-fields__header">Введите ваши данные</h3>
-
-    <?php else : ?>
-
-        <h3 class="woocommerce-billing-fields__header">Введите ваши данные</h3>
-
-    <?php endif; ?>
 
     <?php do_action('woocommerce_before_checkout_billing_form', $checkout); ?>
 

@@ -24,7 +24,7 @@ if (is_user_logged_in() || 'no' === get_option('woocommerce_enable_checkout_logi
 ?>
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 col-12 offset-0">
+            <div class="col-12">
                 <div class="woocommerce-form-login-toggle">
                     <?php wc_print_notice(apply_filters('woocommerce_checkout_login_message', esc_html__('Returning customer?', 'woocommerce')) . ' <a href="#" class="showlogin">' . esc_html__('Click here to login', 'woocommerce') . '</a>', 'notice'); ?>
                 </div>

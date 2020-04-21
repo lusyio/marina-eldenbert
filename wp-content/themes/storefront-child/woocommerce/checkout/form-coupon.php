@@ -22,7 +22,7 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
 }
 
 ?>
-<div class="col-lg-6 offset-lg-3 col-12 offset-0">
+<div class="col-12">
 
     <div class="woocommerce-form-coupon-toggle">
         <?php wc_print_notice('У вас есть абонемент? <a href="#" class="showcoupon">Нажмите здесь, чтобы его применить</a>', 'notice'); ?>
@@ -30,17 +30,17 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
 
     <form class="checkout_coupon woocommerce-form-coupon" method="post" style="display:none">
 
-        <p><?php esc_html_e('Введите код абонемента:', 'woocommerce'); ?></p>
 
         <div class="row">
-            <div class="col-lg-6 col-12 mb-lg-0 mb-3">
+            <div class="col-lg-7 col-12">
+                <label for="coupon_code"><?php esc_html_e('Введите код абонемента:', 'woocommerce'); ?></label>
                 <input type="text" name="coupon_code" class="input-text"
                        placeholder="Код абонемента" id="coupon_code" value=""/>
             </div>
-
-            <div class="col-lg-6 col-12 text-center">
-                <button class="apply-coupon" type="submit" class="button" name="apply_coupon"
-                        value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>">Применить</button>
+            <div class="col-lg-5 col-12 text-center mt-auto">
+                <button class="apply-coupon button w-100" type="submit" name="apply_coupon"
+                        value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>">Применить
+                </button>
             </div>
         </div>
 
