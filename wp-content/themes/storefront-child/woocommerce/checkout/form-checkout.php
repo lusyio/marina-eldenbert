@@ -57,7 +57,7 @@ if (!defined('ABSPATH')) {
 
         </form>
     </div>
-    <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-12 checkout-hide-social">
         <?php
 
         do_action('woocommerce_before_checkout_form', $checkout);
