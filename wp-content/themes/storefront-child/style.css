@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.24
+Version:      	1.0.25
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -5693,6 +5693,10 @@ and (min-width: 768px) {
 @media screen
 and (max-width: 1199px) {
 
+    .apply-coupon {
+        padding: 1.4rem 1.375rem;
+    }
+
     .woocommerce-message, .woocommerce-info, .woocommerce-error, .woocommerce-noreviews, p.no-comments {
         display: block;
     }
@@ -5740,6 +5744,10 @@ and (max-width: 1199px) {
 
 @media screen
 and (max-width: 991px) {
+
+    #coupon_code{
+        margin-bottom: 25px;
+    }
 
     #collapseMyaccount {
         position: unset;
