@@ -45,7 +45,7 @@ Template Post Type: post, page, product
             ?>
             <div class="col-lg-7 col-12 order-lg-1 order-2 position-relative">
                 <div class="reader-content h3 mb-5">Эта глава доступна только купившим книгу</div>
-                <div class="text-center"><a class="club-header__btn mb-3" href="<?php echo $book->get_permalink(); ?>">Купить</a></div>
+                <div class="text-center"><a class="club-header__btn mb-3" href="<?php echo get_site_url(); ?>/checkout/?add-to-cart=<?php echo $book->get_id(); ?>">Купить</a></div>
                 <div class="text-center"><a class="club-header__btn" href="<?php echo $link ?>">Назад</a></div>
             </div>
         <?php elseif (!$isArticle): ?>
