@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.22
+Version:      	1.0.23
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -1301,7 +1301,7 @@ input[type='text'], input[type='number'], input[type='email'], input[type='tel']
     width: 100%;
     border: 1px solid #D8D8D8;
     box-sizing: border-box;
-    border-radius: 40px;
+    border-radius: 0px;
     background: transparent;
     padding: 23px 39px;
     min-height: 60px;
@@ -1323,7 +1323,7 @@ input[type='text']::placeholder, input[type='number']::placeholder, input[type='
 
 button, input[type='button'], input[type='reset'], input[type='submit'], .button, .wc-block-grid__products .wc-block-grid__product .wp-block-button__link, .added_to_cart {
     border: 1px solid #000000;
-    border-radius: 40px !important;
+    border-radius: 0 !important;
     padding: 1rem 4.375rem;
     font-weight: normal;
     font-size: 1.125rem;
@@ -1521,7 +1521,7 @@ td.product-name a {
 
 .wc-proceed-to-checkout .button {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     font-weight: normal;
     font-size: 1.125rem;
     line-height: 24px;
@@ -1587,7 +1587,7 @@ td.product-name a:hover {
     font-size: 18px;
     line-height: 24px;
     color: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     position: relative;
 }
 
@@ -1628,7 +1628,7 @@ td.product-name a:hover {
     margin-right: auto;
     display: inline-block;
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     font-weight: normal;
     font-size: 1.125rem;;
     line-height: 24px;
@@ -1737,7 +1737,7 @@ table.cart .product-thumbnail img {
 
 #payment .place-order .button {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     font-weight: normal;
     font-size: 1.125rem;
     line-height: 24px;
@@ -1758,9 +1758,9 @@ table.cart .product-thumbnail img {
 
 .apply-coupon {
     padding: 1.4rem 2.375rem;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    border-radius: 40px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
     margin: auto;
 }
 
@@ -1854,7 +1854,7 @@ input[type='text']:focus, input[type='number']:focus, input[type='email']:focus,
     box-shadow: none;
     border-left-color: #000000 !important;
     border: 1px solid #000000;
-    border-radius: 40px;
+    border-radius: 0px;
     padding: 1rem 2.375rem;
     font-weight: normal;
     font-size: 1.125rem;
@@ -1898,7 +1898,7 @@ input[type='text']:focus, input[type='number']:focus, input[type='email']:focus,
 
 .reader-continue {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     padding: 16px 70px;
     display: table;
     margin: auto;
@@ -2055,7 +2055,9 @@ ul > .page-item:last-of-type .page-link {
 
 .reader-sidebar__image a {
     border: 1px solid #F8AC53;
-    border-radius: 40px;
+    border-radius: 0;
+    width: 100%;
+    max-width: 240px;
     display: inline-block;
     margin: auto;
     font-weight: 300;
@@ -2068,7 +2070,7 @@ ul > .page-item:last-of-type .page-link {
     -ms-transition: ease-in 200ms;
     -o-transition: ease-in 200ms;
     transition: ease-in 200ms;
-    padding: 10px 35px;
+    padding: 10px 25px;
 }
 
 .reader-sidebar__image .h3 {
@@ -2085,12 +2087,18 @@ ul > .page-item:last-of-type .page-link {
     margin-bottom: 50px;
 }
 
-#articleText p {
+#articleText p, #settingsModal .font-size {
     font-weight: 300;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 1.5;
     color: #000000;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
+}
+
+#settingsModal .font-size {
+    text-align: left;
+    padding: 15px 25px;
+    border: 1px solid #f4f4f4;
 }
 
 .comment-form-comment-subscribe {
@@ -2142,7 +2150,7 @@ ul > .page-item:last-of-type .page-link {
     display: block;
     width: 100%;
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0;
     font-weight: normal;
     font-size: 18px;
     line-height: 24px;
@@ -2160,7 +2168,7 @@ ul > .page-item:last-of-type .page-link {
     font-size: 1.125rem;
     line-height: 24px;
     color: #FFFFFF;
-    border-radius: 40px;
+    border-radius: 0px;
     background-color: #F8AC53 !important;
     text-align: center;
     border: none;
@@ -2550,6 +2558,27 @@ ul > .page-item:last-of-type .page-link {
     margin-bottom: 20px;
 }
 
+.reader-h3 img {
+    width: 30px;
+    height: 30px;
+    transition: 250ms ease-in-out;
+}
+
+.font-size-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.font-size-buttons button:last-of-type {
+    margin-right: 0 !important;
+}
+
+.reader-h3 img:hover {
+    cursor: pointer;
+    transform: rotate(180deg);
+}
+
 .announcement-hr-block__text:after {
     content: '';
     position: absolute;
@@ -2607,7 +2636,7 @@ ul > .page-item:last-of-type .page-link {
 
 .announcement-btn {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0;
     padding: 10px 25px;
     display: inline-block;
     font-weight: 300;
@@ -3886,7 +3915,7 @@ span.page-title {
 
 .load-more {
     border: 1px solid #000000;
-    border-radius: 40px;
+    border-radius: 0px;
     padding: 1rem 4.375rem;
     font-weight: normal;
     font-size: 1.125rem;
@@ -3953,13 +3982,44 @@ span.page-title {
     padding: 60px 90px 30px 90px;
 }
 
+#settingsModal .modal-body {
+    padding: 60px 60px 30px 60px;
+}
+
+
+#settingsModal .settingsModal__font-size button {
+    padding: 10px 16px;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 15px;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 19px;
+    color: #000000;
+    border-radius: 20px !important;
+    border: none;
+}
+
+#settingsModal .settingsModal__font-size button:hover {
+    transform: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: #F5F5F5;
+}
+
 .disclaimerModal__agree, .deleteModal__agree {
     font-weight: normal;
     font-size: 18px;
     line-height: 24px;
     text-align: center;
+    border: 1px solid #F8AC53;
     color: #FFFFFF !important;
-    border-radius: 40px;
+    border-radius: 0px;
     background: #F8AC53;
     padding: 16px 40px;
     margin-bottom: 55px;
@@ -3973,9 +4033,14 @@ span.page-title {
     transition: ease-in 200ms;
 }
 
+.deleteModal__agree:hover {
+    background: #F8AC53;
+}
+
 .disclaimerModal__agree:hover, .disclaimerModal__disagree:hover, .deleteModal__agree:hover, .deleteModal__disagree:hover {
     -webkit-transform: translateY(-3px);
     -moz-transform: translateY(-3px);
+    border-color: #F8AC53;
     -ms-transform: translateY(-3px);
     -o-transform: translateY(-3px);
     transform: translateY(-3px);
@@ -3984,7 +4049,7 @@ span.page-title {
 
 .disclaimerModal__disagree, .deleteModal__disagree {
     border: 2px solid #F8AC53;
-    border-radius: 40px;
+    border-radius: 0;
     font-size: 18px;
     line-height: 24px;
     text-align: center;
@@ -4000,7 +4065,7 @@ span.page-title {
     transition: ease-in 200ms;
 }
 
-#disclaimerModal .modal-content, #deleteModal .modal-content, #loginForLink .modal-content {
+#disclaimerModal .modal-content, #deleteModal .modal-content, #loginForLink .modal-content, #settingsModal .modal-content {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -4173,7 +4238,9 @@ span.page-title {
 
 .club-header__btn {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
+    max-width: 200px;
+    width: 100%;
     padding: 16px 70px;
     display: table;
     margin: auto;
@@ -4262,7 +4329,7 @@ span.page-title {
 
 .club-footer__btn {
     background: #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     padding: 30px 35px;
     display: table;
     margin-left: auto;
@@ -4343,7 +4410,7 @@ span.page-title {
 
 .sidebar-announcement__btn {
     border: 1px solid #F8AC53;
-    border-radius: 40px;
+    border-radius: 0px;
     display: table;
     margin: auto;
     font-weight: 300;
@@ -5782,7 +5849,7 @@ and (max-width: 991px) {
         padding-left: 0;
     }
 
-    #disclaimerModal .modal-body, #deleteModal .modal-body, #loginForLink .modal-body {
+    #disclaimerModal .modal-body, #deleteModal .modal-body, #loginForLink .modal-body, #settingsModal .modal-body {
         padding: 40px 15px 30px 15px;
     }
 
@@ -6085,11 +6152,11 @@ and (max-width: 768px) {
 @media screen
 and (max-width: 576px) {
 
-    .library-card-info .library-card-info__status.deleteModalClick p:first-of-type{
+    .library-card-info .library-card-info__status.deleteModalClick p:first-of-type {
         top: unset;
     }
 
-    .library-card-info .library-card-info__status.deleteModalClick p:last-of-type{
+    .library-card-info .library-card-info__status.deleteModalClick p:last-of-type {
         opacity: 1;
     }
 
