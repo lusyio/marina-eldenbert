@@ -817,12 +817,11 @@ function bookCardInReader()
         }
 
         if (!$hasDownloads && $product->get_status() == 'publish') {
-            $buyButtonText = 'Купить';
-            if ($product->get_price() == 0) {
-                $buyButtonText = 'Подробнее';
-            } ?>
-            <a href="<?php echo $product->get_permalink(); ?>"><?php echo $buyButtonText; ?></a>
-            <?php
+            if ($product->get_price() == 0): ?>
+                <a href="<?php echo $product->get_permalink(); ?>">Подробнее</a>
+            <?php else: ?>
+                <a href="<?php echo get_site_url(); ?>/checkout/?add-to-cart=<?php echo $product->get_id(); ?>">Купить</a>
+            <?php endif;
         } elseif (!$hasDownloads && $product->get_status() == 'pending') { ?>
             <p>Книга еще не вышла</p>
             <?php
