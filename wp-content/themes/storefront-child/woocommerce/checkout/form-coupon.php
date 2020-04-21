@@ -35,7 +35,7 @@ if (!wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
         <div class="row">
             <div class="col-lg-6 col-12 mb-lg-0 mb-3">
                 <input type="text" name="coupon_code" class="input-text"
-                       placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" id="coupon_code" value=""/>
+                       placeholder="Код абонемента" id="coupon_code" value=""/>
             </div>
 
             <div class="col-lg-6 col-12 text-center">
