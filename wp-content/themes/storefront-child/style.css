@@ -2036,6 +2036,31 @@ ul > .page-item:last-of-type .page-link {
     margin-right: 0;
 }
 
+#reader-display-option {
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 16px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 15px;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 19px;
+    color: #000000;
+    border: none;
+}
+
+#reader-display-option:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: #F5F5F5;
+}
+
 .reader-sidebar__menu > p > a {
     font-weight: 300;
     font-size: 14px;
@@ -5863,6 +5888,14 @@ and (max-width: 991px) {
 
     .read-notification {
         margin-top: 0;
+    }
+    #reader-display-option {
+        width: 100%;
+    }
+
+    .reader-pagination {
+        display: flex;
+        justify-content: center;
     }
 
     .my-account-card {
