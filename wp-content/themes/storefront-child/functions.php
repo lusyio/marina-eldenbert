@@ -3700,20 +3700,32 @@ function getNotificationCard($notification)
             $icon = 'wp-content/themes/storefront-child/svg/guide.svg';
         }
         $isValid = true;
-    } elseif ($type == 'new_article' || $type == 'update_article') {
+    } elseif ($type == 'new_article') {
+        $bookData = getBookInfoByArticleId($notification->article_page_id);
+        if (count($bookData) == 0) {
+            return '';
+        }
+        $lastBookmark = getBookmarkMeta($bookData['bookId']);
+        if ($lastBookmark) {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $lastBookmark;
+        } elseif (isset($_COOKIE['b_' . $bookData['bookId']])) {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $_COOKIE['b_' . $bookData['bookId']];
+        } else {
+            $link = $bookData['bookLink'];
+        }
+        $bookName = $bookData['product']->get_name();
+        $content = 'Новая глава в книге "' . $bookName . '"';
+        $icon = 'wp-content/themes/storefront-child/svg/svg-bookNewChapter.svg';
+        $isValid = true;
+    } elseif ($type == 'update_article') {
         $bookData = getBookInfoByArticleId($notification->article_page_id);
         if (count($bookData) == 0) {
             return '';
         }
         $link = $bookData['bookLink'];
         $bookName = $bookData['product']->get_name();
-        if ($type == 'new_article') {
-            $content = 'Новая глава в книге "' . $bookName . '"';
-            $icon = 'wp-content/themes/storefront-child/svg/svg-bookNewChapter.svg';
-        } else {
-            $content = 'Обновление главы в книге "' . $bookName . '"';
-            $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
-        }
+        $content = 'Обновление главы в книге "' . $bookName . '"';
+        $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
         $isValid = true;
     } elseif ($type == 'subscribe_open' || $type == 'sale_open') {
         $post = get_post($notification->article_page_id);
@@ -4015,6 +4027,7 @@ function getBookInfoByArticleId($post_ID)
         // Берем с товара название и ссылку на картинку
         $bookName = $product->get_name();
         $result['product'] = $product;
+        $result['bookPageId'] = $bookPageId;
 
     }
     return $result;
