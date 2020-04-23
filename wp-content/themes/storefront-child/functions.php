@@ -915,23 +915,35 @@ function bookCardInReader()
     $bookId = get_post_meta($post->ID, 'book_id', true);
 
     $product = wc_get_product($bookId);
+    // выводим сылки на скачивание книги
+    $downloads = array();
+    $user_id = get_current_user_id();
+// Если цена 0 то вывести разрешения пользователя 0
+    if ($product->get_price() == 0) {
+        $allDownloads = wc_get_free_downloads();
+    } else {
+        $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
+    }
+    $downloads = [];
+    foreach ($allDownloads as $oneDownload) {
+        if ($oneDownload['product_id'] == $product->get_id()) {
+            $downloads[] = $oneDownload;
+        }
+    }
     ?>
     <div class="text-center"><img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>"/></div>
     <div class="text-center"><p class="h3"><?php echo $product->get_name() ?></p>
         <?php
-        $user_id = get_current_user_id();
-        $downloads = wc_get_customer_available_downloads($user_id);
         $hasDownloads = false;
         if (!empty($downloads)) {
             foreach ($downloads as $download) {
-                if ($download['product_id'] == $bookId) { ?>
+                ?>
                     <div>
-                        <a class=" mb-3" href="<?php $download['download_url'] ?>">Скачать в
+                        <a class=" mb-3" href="<?php echo $download['download_url'] ?>">Скачать в
                             формате <?php echo $download['file']['name'] ?></a>
                     </div>
                     <?php
                     $hasDownloads = true;
-                }
             }
         }
 
