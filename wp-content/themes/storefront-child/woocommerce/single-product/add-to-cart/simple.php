@@ -188,8 +188,8 @@ $hasDownloads = false;
                         </form>
                     <?php endif; ?>
 
-                    <p class="add-to-cart-block__support">Если у вас возникли какие-либо вопросы - напишите на почту <a href="mailto:support@marina-eldebert.com">support@marina-eldebert.com</a></p>
-                    <p class="add-to-cart-block__support-link"><a href="mailto:support@marina-eldebert.com">support@marina-eldebert.com</a>
+                    <p class="add-to-cart-block__support">Если у вас возникли какие-либо вопросы - напишите на почту <a href="mailto:support@marina-eldenbert.ru">support@marina-eldenbert.ru</a></p>
+                    <p class="add-to-cart-block__support-link"><a href="mailto:support@marina-eldenbert.ru">support@marina-eldenbert.ru</a>
                     </p>
                     <p class="add-to-cart-block__ref">Так же ознакомьтесь с подробной <a href="/spravka">справкой для пользователей</a></p>
                 </div>
