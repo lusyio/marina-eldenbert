@@ -123,7 +123,7 @@ if (count($bookIds) > 0):
                                 </div>
                             </a>
                         <?php else: ?>
-                            <a class="add-to-library" href="/my-account/library?add=<?= $product->get_id() ?>">
+                            <a class="add-to-library" href="/my-account/library?add=<?= $libraryBook->get_id() ?>">
                                 <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.83899 23.4559L9.51336 23.1764L9.18773 23.4559L0.5 30.912V0.5H18.5267V30.912L9.83899 23.4559Z"
                                           stroke="#415996"/>
