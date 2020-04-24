@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.25
+Version:      	1.0.27
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -2120,14 +2120,6 @@ ul > .page-item:last-of-type .page-link {
     margin-bottom: 50px;
 }
 
-#articleText p, #settingsModal .font-size {
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #000000;
-    margin-bottom: 35px;
-}
-
 #settingsModal .font-size {
     text-align: left;
     padding: 15px 25px;
@@ -4020,6 +4012,125 @@ span.page-title {
 }
 
 
+#settingsModal .settingsModal__font-size button.active {
+    background: #F5F5F5;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 700;
+    color: #000000;
+}
+
+.theme-buttons__title {
+    display: none;
+}
+
+#settingsModal .theme-buttons button {
+    padding: 10px 16px;
+    -webkit-transition: ease-in 200ms;
+    -moz-transition: ease-in 200ms;
+    -ms-transition: ease-in 200ms;
+    -o-transition: ease-in 200ms;
+    transition: ease-in 200ms;
+    margin-right: 15px;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 19px;
+    background: #FFFFFF;
+    color: #000000;
+    border-radius: 20px !important;
+    border: none;
+}
+
+#settingsModal .theme-buttons #litnet1 {
+    background: #eee;
+    color: #424242;
+}
+
+#articleText.litnet1 {
+    background: #eee;
+}
+
+#articleText.litnet1 * {
+    color: #424242;
+}
+
+#settingsModal .font-size.litnet1 {
+    color: #424242;
+    background: #eee;
+}
+
+#articleText p, #settingsModal .font-size {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+#settingsModal .theme-buttons #litnet2 {
+    background: #eee8d1;
+    color: #3b2716;
+}
+
+#articleText.litnet2 {
+    background: #eee8d1;
+}
+
+#articleText.litnet2 * {
+    color: #3b2716;
+}
+
+#settingsModal .font-size.litnet2 {
+    color: #3b2716;
+    background: #eee8d1;
+}
+
+#settingsModal .theme-buttons #litnet3 {
+    background: #292424;
+    color: #bebebe;
+}
+
+#articleText.litnet3 {
+    background: #292424;
+}
+
+#settingsModal .font-size.litnet3 {
+    color: #bebebe;
+    background: #292424;
+}
+
+#articleText.litnet3 * {
+    color: #bebebe;
+}
+
+#settingsModal .theme-buttons #litnet4 {
+    background: url('/wp-content/themes/storefront-child/images/paper.jpg');
+    color: #000000;
+}
+
+#settingsModal .font-size.litnet4 {
+    color: #000000;
+    background: url('/wp-content/themes/storefront-child/images/paper.jpg');
+}
+
+#articleText.litnet4{
+    background: url('/wp-content/themes/storefront-child/images/paper.jpg');
+}
+
+#articleText.litnet4 * {
+    color: #000000;
+}
+
+
+#settingsModal .theme-buttons {
+    display: none;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+#settingsModal .theme-buttons button:last-of-type {
+    margin-right: 0 !important;
+}
+
 #settingsModal .settingsModal__font-size button {
     padding: 10px 16px;
     -webkit-transition: ease-in 200ms;
@@ -5770,7 +5881,7 @@ and (max-width: 1199px) {
 @media screen
 and (max-width: 991px) {
 
-    #coupon_code{
+    #coupon_code {
         margin-bottom: 25px;
     }
 
@@ -5889,6 +6000,7 @@ and (max-width: 991px) {
     .read-notification {
         margin-top: 0;
     }
+
     #reader-display-option {
         width: 100%;
     }
@@ -6204,6 +6316,37 @@ and (max-width: 768px) {
 
 @media screen
 and (max-width: 576px) {
+
+    #articleSpinner {
+        top: 17rem;
+    }
+
+    #settingsModal .theme-buttons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .font-size-buttons{
+        flex-wrap: wrap;
+    }
+
+    .theme-buttons__title {
+        display: block;
+    }
+
+    #articleText {
+        padding: 5px 15px;
+        margin: 0 -15px;
+    }
+
+    #settingsModal .font-size {
+        padding: 15px;
+    }
+
+    #settingsModal .settingsModal__font-size button {
+        margin-right: 10px;
+        padding: 10px 15px;
+    }
 
     .library-card-info .library-card-info__status.deleteModalClick p:first-of-type {
         top: unset;
@@ -6596,8 +6739,22 @@ and (max-width: 480px) {
     }
 }
 
+@media screen and (max-width: 370px) {
+    .disclaimerModal__agree, .deleteModal__agree{
+        margin-right: 0;
+    }
+
+    #settingsModal .theme-buttons button:last-of-type{
+        margin-top: 15px;
+    }
+}
+
 @media screen
-and (max-width: 320px) {
+and (max-width: 328px) {
+    .font-size-buttons button:last-of-type{
+        margin-top: 15px;
+    }
+
     .popular-img-container img {
         height: 27rem;
         width: 100%;
