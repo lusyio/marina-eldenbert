@@ -915,23 +915,35 @@ function bookCardInReader()
     $bookId = get_post_meta($post->ID, 'book_id', true);
 
     $product = wc_get_product($bookId);
+    // выводим сылки на скачивание книги
+    $downloads = array();
+    $user_id = get_current_user_id();
+// Если цена 0 то вывести разрешения пользователя 0
+    if ($product->get_price() == 0) {
+        $allDownloads = wc_get_free_downloads();
+    } else {
+        $allDownloads = wc_get_customer_available_downloads(get_current_user_id());
+    }
+    $downloads = [];
+    foreach ($allDownloads as $oneDownload) {
+        if ($oneDownload['product_id'] == $product->get_id()) {
+            $downloads[] = $oneDownload;
+        }
+    }
     ?>
     <div class="text-center"><img src="<?php echo wp_get_attachment_url($product->get_image_id()); ?>"/></div>
     <div class="text-center"><p class="h3"><?php echo $product->get_name() ?></p>
         <?php
-        $user_id = get_current_user_id();
-        $downloads = wc_get_customer_available_downloads($user_id);
         $hasDownloads = false;
         if (!empty($downloads)) {
             foreach ($downloads as $download) {
-                if ($download['product_id'] == $bookId) { ?>
+                ?>
                     <div>
-                        <a class=" mb-3" href="<?php $download['download_url'] ?>">Скачать в
+                        <a class=" mb-3" href="<?php echo $download['download_url'] ?>">Скачать в
                             формате <?php echo $download['file']['name'] ?></a>
                     </div>
                     <?php
                     $hasDownloads = true;
-                }
             }
         }
 
@@ -3688,20 +3700,32 @@ function getNotificationCard($notification)
             $icon = 'wp-content/themes/storefront-child/svg/guide.svg';
         }
         $isValid = true;
-    } elseif ($type == 'new_article' || $type == 'update_article') {
+    } elseif ($type == 'new_article') {
+        $bookData = getBookInfoByArticleId($notification->article_page_id);
+        if (count($bookData) == 0) {
+            return '';
+        }
+        $lastBookmark = getBookmarkMeta($bookData['bookId']);
+        if ($lastBookmark) {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $lastBookmark;
+        } elseif (isset($_COOKIE['b_' . $bookData['bookId']])) {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $_COOKIE['b_' . $bookData['bookId']];
+        } else {
+            $link = $bookData['bookLink'];
+        }
+        $bookName = $bookData['product']->get_name();
+        $content = 'Новая глава в книге "' . $bookName . '"';
+        $icon = 'wp-content/themes/storefront-child/svg/svg-bookNewChapter.svg';
+        $isValid = true;
+    } elseif ($type == 'update_article') {
         $bookData = getBookInfoByArticleId($notification->article_page_id);
         if (count($bookData) == 0) {
             return '';
         }
         $link = $bookData['bookLink'];
         $bookName = $bookData['product']->get_name();
-        if ($type == 'new_article') {
-            $content = 'Новая глава в книге "' . $bookName . '"';
-            $icon = 'wp-content/themes/storefront-child/svg/svg-bookNewChapter.svg';
-        } else {
-            $content = 'Обновление главы в книге "' . $bookName . '"';
-            $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
-        }
+        $content = 'Обновление главы в книге "' . $bookName . '"';
+        $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
         $isValid = true;
     } elseif ($type == 'subscribe_open' || $type == 'sale_open') {
         $post = get_post($notification->article_page_id);
@@ -4003,6 +4027,7 @@ function getBookInfoByArticleId($post_ID)
         // Берем с товара название и ссылку на картинку
         $bookName = $product->get_name();
         $result['product'] = $product;
+        $result['bookPageId'] = $bookPageId;
 
     }
     return $result;
