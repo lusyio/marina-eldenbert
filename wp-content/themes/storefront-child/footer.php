@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="loginForLink" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+<div class="modal fade" id="loginForLink" tabindex="-1" role="dialog" aria-labelledby="loginForLink"
      data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -44,8 +44,49 @@
                         <div class="col-12 text-center">
                             <p class="deleteModal__header">Необходимо авторизоваться</p>
                             <p class="deleteModal__que">Вам необходимо авторизоваться, чтобы скачивать книги</p>
-                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>" class="deleteModal__agree">Войти</a>
+                            <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) ?>"
+                               class="deleteModal__agree">Войти</a>
                             <div class="deleteModal__disagree" data-dismiss="modal">Закрыть</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModal"
+     data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 p-0 pl-lg-3 pr-lg-3 text-center">
+                            <p class="deleteModal__header">Тут вы можете настроить по своему вкусу читалку</p>
+
+                            <div class="settingsModal__font-size">
+                                <p class="theme-buttons__title">Настройки темы:</p>
+                                <div class="theme-buttons">
+                                    <button id="litnet1">Аа</button>
+                                    <button id="litnet2">Аа</button>
+                                    <button id="litnet3">Аа</button>
+                                    <button id="litnet4">Аа</button>
+                                    <button id="resetTheme">По умолчанию</button>
+                                </div>
+                                <p>Настройки шрифта:</p>
+                                <div class="font-size-buttons">
+                                    <button id="decreaseFont">Аа -</button>
+                                    <button id="increaseFont">аА +</button>
+                                    <button id="increaseWeight">Ж</button>
+                                    <button id="resetFont">По умолчанию</button>
+                                </div>
+                                <p class="font-size">
+                                    Пример текста
+                                </p>
+                            </div>
+                            <button class="deleteModal__agree" id="saveSettings" data-dismiss="modal">Сохранить</button>
+                            <div class="deleteModal__disagree" data-dismiss="modal">Отменить</div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,53 @@
 jQuery(function ($) {
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            let date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    let fontSize
+    let fontWeight
+
+    function setFont() {
+        if (!getCookie('settings_font_size')) {
+            setCookie('settings_font_size', 16, 30)
+            fontSize = 16;
+            return fontSize
+        } else {
+            fontSize = Number(getCookie('settings_font_size'));
+            return fontSize
+        }
+    }
+
+    function setWeight() {
+        if (!getCookie('settings_font_weight')) {
+            setCookie('settings_font_weight', 300, 30)
+            fontWeight = 300;
+            return fontWeight
+        } else {
+            fontWeight = Number(getCookie('settings_font_weight'))
+            if (fontWeight === 700) {
+                $('#increaseWeight').addClass('active')
+            }
+            return fontWeight
+        }
+    }
+
     $('.next-page-btn').on('click', function () {
         let totalPages = $(this).closest('.pagination').data('pages');
         let currentPage = $('.page-item.active').find('.post-page-numbers').data('page') || 1;
@@ -74,7 +123,7 @@ jQuery(function ($) {
             lastDots.addClass('d-none');
         }
 
-        let visiblePages = [pageToLoad - 1, pageToLoad , pageToLoad + 1];
+        let visiblePages = [pageToLoad - 1, pageToLoad, pageToLoad + 1];
 
         $(visiblePages).each(function (i, value) {
             $('.post-page-numbers[data-page=' + value + ']').parent('li').removeClass('d-none');
@@ -99,6 +148,8 @@ jQuery(function ($) {
             },
             success: function (data) {
                 $('#articleText').html(data);
+                $('#articleText p, #settingsModal .font-size').css('font-size', setFont)
+                $('#articleText p, #settingsModal .font-size').css('font-weight', setWeight)
                 $('#articleText').css('opacity', 1);
                 $('#articleSpinner').css('opacity', 0);
             }
