@@ -4954,7 +4954,7 @@ function upload_allow_types( $mimes ) {
     // разрешаем новые типы
     $mimes['azw3'] = 'application/octet-stream';
     $mimes['epub'] = 'application/epub+zip';
-    $mimes['fb2'] = 'text/xml';
+    $mimes['fb2'] = 'application/xml';
     $mimes['mobi'] = 'application/octet-stream';
     $mimes['pdf'] = 'application/pdf';
 
