@@ -4946,3 +4946,20 @@ function addOrUpdateUrlParam($name, $value)
     return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']
             . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . '?' . http_build_query($params);
 }
+
+
+// Разрешаем загружать файлы с перечисленными расширениями
+add_filter( 'upload_mimes', 'upload_allow_types' );
+function upload_allow_types( $mimes ) {
+    // разрешаем новые типы
+    $mimes['azw3'] = 'application/octet-stream';
+    $mimes['epub'] = 'application/epub+zip';
+    $mimes['fb2'] = 'text/xml';
+    $mimes['mobi'] = 'application/octet-stream';
+    $mimes['pdf'] = 'application/pdf';
+
+    // отключаем имеющиеся
+//    unset($mimes['mp4a']);
+
+    return $mimes;
+}
