@@ -35,74 +35,60 @@ jQuery(function ($) {
     let theme
 
     if (document.documentElement.clientWidth <= 576) {
-        $('#articleText , #settingsModal .font-size')
-            .removeClass('litnet1')
-            .removeClass('litnet2')
-            .removeClass('litnet3')
-            .removeClass('litnet4')
-            .removeClass('none')
-            .addClass(setTheme)
+        setThemeClass(setTheme)
+
+        function setThemeClass(theme) {
+            $('#settingsModal .font-size')
+                .attr('class', 'font-size')
+                .addClass(theme)
+            $('#articleText')
+                .removeClass()
+                .addClass(theme)
+        }
+
+        function clickLitnet(id) {
+            if ($(id).attr('id') === 'resetTheme') {
+                theme = 'none'
+            } else {
+                theme = $(id).attr('id')
+            }
+            setThemeClass(theme)
+        }
 
         function setTheme() {
             if (!getCookie('settings_theme')) {
                 setCookie('settings_theme', 'none', 30)
                 theme = 'none'
-                $('#articleText , #settingsModal .font-size')
-                    .removeClass('litnet1')
-                    .removeClass('litnet2')
-                    .removeClass('litnet3')
-                    .removeClass('litnet4')
-                    .removeClass('none')
-                    .addClass(theme)
+                setThemeClass(theme)
                 return theme
             } else {
                 theme = getCookie('settings_theme')
-                $('#articleText , #settingsModal .font-size')
-                    .removeClass('litnet1')
-                    .removeClass('litnet2')
-                    .removeClass('litnet3')
-                    .removeClass('litnet4')
-                    .removeClass('none')
-                    .addClass(theme)
+                setThemeClass(theme)
                 return theme
             }
         }
 
         $('#resetTheme').on('click', () => {
             theme = 'none'
-            $('#settingsModal .font-size')
-                .removeClass('litnet1')
-                .removeClass('litnet2')
-                .removeClass('litnet3')
-                .removeClass('litnet4')
-                .removeClass('none')
-                .addClass('none')
+            setThemeClass(theme)
         })
 
-        $('.theme-buttons button').on('click', () => {
-            if ($(this).context.activeElement.id === 'resetTheme') {
-                theme = 'none'
-            } else {
-                theme = $(this).context.activeElement.id
-            }
-            $('#articleText , #settingsModal .font-size')
-                .removeClass('litnet1')
-                .removeClass('litnet2')
-                .removeClass('litnet3')
-                .removeClass('litnet4')
-                .removeClass('none')
-                .addClass(theme)
+        $('#litnet1').on('click', () => {
+            clickLitnet('#litnet1')
+        })
+        $('#litnet2').on('click', () => {
+            clickLitnet('#litnet2')
+        })
+        $('#litnet3').on('click', () => {
+            clickLitnet('#litnet3')
+        })
+        $('#litnet4').on('click', () => {
+            clickLitnet('#litnet4')
         })
 
         $('#saveSettings').on('click', () => {
             setCookie('settings_theme', theme, 30)
-            $('#articleText , #settingsModal .font-size')
-                .removeClass('litnet1')
-                .removeClass('litnet2')
-                .removeClass('litnet3')
-                .removeClass('litnet4')
-                .removeClass('none')
-                .addClass(theme)
+            setThemeClass(theme)
         })
     }
 

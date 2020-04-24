@@ -68,11 +68,11 @@
                             <div class="settingsModal__font-size">
                                 <p class="theme-buttons__title">Настройки темы:</p>
                                 <div class="theme-buttons">
-                                    <button id="litnet1">Аа</button>
-                                    <button id="litnet2">Аа</button>
-                                    <button id="litnet3">Аа</button>
-                                    <button id="litnet4">Аа</button>
-                                    <button id="resetTheme">По умолчанию</button>
+                                    <button class="litnetBtn" id="litnet1">Аа</button>
+                                    <button class="litnetBtn" id="litnet2">Аа</button>
+                                    <button class="litnetBtn" id="litnet3">Аа</button>
+                                    <button class="litnetBtn" id="litnet4">Аа</button>
+                                    <button class="litnetBtn" id="resetTheme">По умолчанию</button>
                                 </div>
                                 <p>Настройки шрифта:</p>
                                 <div class="font-size-buttons">
