@@ -5520,6 +5520,18 @@ button.button.filter-btn:focus {
     margin-bottom: 40px;
 }
 
+.entry-content .images{
+    display: flex;
+}
+
+.entry-content .images img{
+    width: 49%;
+}
+
+.entry-content .images img:first-of-type{
+    margin-right: 2%;
+}
+
 .entry-content img {
     /*max-height: 400px;*/
     width: auto;
