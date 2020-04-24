@@ -420,7 +420,7 @@ function article_content($articleId)
             }
             $GLOBALS['page'] = $pageToLoad;
             ?>
-            <p class="h3 d-flex justify-content-between reader-h3"><?php the_title(); ?> <img class="d-none" data-toggle="modal" id="settingsModalTrigger" data-target="#settingsModal" src="/wp-content/themes/storefront-child/svg/svg-settings.svg" alt="settings"></p>
+            <p class="h3 d-flex justify-content-between reader-h3"><?php the_title(); ?> <img class="" data-toggle="modal" id="settingsModalTrigger" data-target="#settingsModal" src="/wp-content/themes/storefront-child/svg/svg-settings.svg" alt="settings"></p>
             <?php
             $paginationArgs = array(
                 'before' => '<nav><ul class="reader-pagination pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
@@ -723,7 +723,8 @@ function notificationAjax()
 /**
  * Добавляем скрипт пагинации
  */
-wp_enqueue_script('pagination-script', get_stylesheet_directory_uri() . '/inc/assets/js/pagination.js', array('jquery'));
+$pagination_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . '/inc/assets/js/pagination.js'));
+wp_enqueue_script('pagination-script', get_stylesheet_directory_uri() . '/inc/assets/js/pagination.js', array('jquery'), $pagination_js_ver);
 
 add_action('wp_enqueue_scripts', 'myajax_data', 99);
 function myajax_data()
@@ -2714,7 +2715,7 @@ add_action('wp_enqueue_scripts', 'add_custom_js');
 function add_custom_js()
 {
     $custom_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . '/inc/assets/js/custom.js'));
-    wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.min.js', array(), '', true);
+    wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.js', array(), '1', true);
     wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), $custom_js_ver, true);
 }
 
