@@ -396,13 +396,8 @@ function article_content($articleId)
             }
             global $numpages;
             $pageToLoad = 1;
-            $hasBookmarkPage = false;
-            if (isset($_GET['p']) && $_GET['p'] == 'bookmark') {
-                $lastPage = getBookmarkPageMeta($articleId);
-                $hasBookmarkPage = true;
-            } else {
-                $lastPage = 1;
-            }
+            $hasBookmarkPage = isset($_GET['p']) && $_GET['p'] == 'bookmark';
+            $lastPage = getBookmarkPageMeta($articleId);
             $lastArticle = getBookmarkMeta($bookId);
             if ($lastArticle && $lastPage) {
                 if ($lastArticle != $articleId) {
@@ -1035,7 +1030,7 @@ function readButton($baseUrl = false, $id = false, $class = false)
         echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $lastBookmark . '&p=bookmark">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
-        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . 'p=bookmark">Продолжить чтение</a>';
+        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '&p=bookmark">Продолжить чтение</a>';
         return;
     }
 
