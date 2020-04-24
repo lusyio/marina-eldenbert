@@ -396,7 +396,13 @@ function article_content($articleId)
             }
             global $numpages;
             $pageToLoad = 1;
-            $lastPage = getBookmarkPageMeta($articleId);
+            $hasBookmarkPage = false;
+            if (isset($_GET['p']) && $_GET['p'] == 'bookmark') {
+                $lastPage = getBookmarkPageMeta($articleId);
+                $hasBookmarkPage = true;
+            } else {
+                $lastPage = 1;
+            }
             $lastArticle = getBookmarkMeta($bookId);
             if ($lastArticle && $lastPage) {
                 if ($lastArticle != $articleId) {
@@ -405,7 +411,7 @@ function article_content($articleId)
                     $pageToLoad = intval($lastPage);
                 }
             }
-            if (!$lastPage && isset($_COOKIE['a_' . $articleId])) {
+            if (!$hasBookmarkPage && !$lastPage && isset($_COOKIE['a_' . $articleId]) && !$hasBookmarkPage) {
                 $pageToLoad = intval($_COOKIE['a_' . $articleId]);
             }
 
@@ -1025,10 +1031,10 @@ function readButton($baseUrl = false, $id = false, $class = false)
 
     $lastBookmark = getBookmarkMeta($bookId);
     if ($lastBookmark) {
-        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $lastBookmark . '">Продолжить чтение</a>';
+        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $lastBookmark . '&p=bookmark">Продолжить чтение</a>';
         return;
     } elseif (isset($_COOKIE['b_' . $bookId])) {
-        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . '">Продолжить чтение</a>';
+        echo '<a class="' . $classContinue . '" href="' . $baseUrl . '?a=' . $_COOKIE['b_' . $bookId] . 'p=bookmark">Продолжить чтение</a>';
         return;
     }
 
@@ -3707,9 +3713,9 @@ function getNotificationCard($notification)
         }
         $lastBookmark = getBookmarkMeta($bookData['bookId']);
         if ($lastBookmark) {
-            $link = get_permalink($bookData['bookPageId']) . '?a=' . $lastBookmark;
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $lastBookmark . '&p=bookmark';
         } elseif (isset($_COOKIE['b_' . $bookData['bookId']])) {
-            $link = get_permalink($bookData['bookPageId']) . '?a=' . $_COOKIE['b_' . $bookData['bookId']];
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $_COOKIE['b_' . $bookData['bookId']] . '&p=bookmark';
         } else {
             $link = $bookData['bookLink'];
         }
