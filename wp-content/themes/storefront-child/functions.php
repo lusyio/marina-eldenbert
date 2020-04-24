@@ -411,7 +411,7 @@ function article_content($articleId)
                     $pageToLoad = intval($lastPage);
                 }
             }
-            if (!$hasBookmarkPage && !$lastPage && isset($_COOKIE['a_' . $articleId]) && !$hasBookmarkPage) {
+            if ($hasBookmarkPage && !$lastPage && isset($_COOKIE['a_' . $articleId])) {
                 $pageToLoad = intval($_COOKIE['a_' . $articleId]);
             }
 
