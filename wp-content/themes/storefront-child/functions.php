@@ -2709,7 +2709,7 @@ add_action('wp_enqueue_scripts', 'add_custom_js');
 function add_custom_js()
 {
     $custom_js_ver = date("ymd-Gis", filemtime(plugin_dir_path(__FILE__) . '/inc/assets/js/custom.js'));
-    wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.js', array(), '', true);
+    wp_enqueue_script('swiper-js', '/wp-content/themes/storefront-child/inc/assets/js/swiper.js', array(), '1', true);
     wp_enqueue_script('custom-js', '/wp-content/themes/storefront-child/inc/assets/js/custom.js', array(), $custom_js_ver, true);
 }
 
