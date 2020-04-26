@@ -377,8 +377,9 @@ function article_content($articleId)
                     }
                 }
             }
-
-            if (!$isFree && !isBookBought($bookId) && !(is_user_logged_in() && hasAbonement(get_current_user_id())) && !isAdmin()) {
+            $book = wc_get_product($bookId);
+            $bookPrice = $book->get_price();
+            if ($bookPrice > 0 && !$isFree && !isBookBought($bookId) && !(is_user_logged_in() && hasAbonement(get_current_user_id())) && !isAdmin()) {
                 $GLOBALS['showBuyScreen'] = true;
                 wp_reset_query();
                 return;
@@ -857,6 +858,8 @@ function contentList($isArticle)
     global $post;
     $baseUrl = get_permalink();
     $bookId = get_post_meta($post->ID, 'book_id', true);
+    $book = wc_get_product($bookId);
+    $bookPrice = $book->get_price();
 
     $currentArticle = 0;
     if (isset($_GET['a']) && intval($_GET['a'] > 0)) {
@@ -882,8 +885,8 @@ function contentList($isArticle)
             $query->the_post();
 
             $tags = get_the_tags();
-            $isFree = false;
-            if (is_array($tags)) {
+            $isFree = $bookPrice == 0;
+            if (!$isFree && is_array($tags)) {
                 foreach ($tags as $tag) {
                     if ($tag->slug == 'free-article') {
                         $isFree = true;
