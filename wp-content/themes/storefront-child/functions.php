@@ -412,6 +412,7 @@ function article_content($articleId)
             }
 
             if ($pageToLoad > $numpages || $pageToLoad < 1 || !$hasBookmarkPage) {
+                setBookmarkPageMeta($articleId,1);
                 $pageToLoad = 1;
             }
             $GLOBALS['page'] = $pageToLoad;
