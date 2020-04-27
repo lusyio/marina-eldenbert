@@ -407,13 +407,11 @@ function article_content($articleId)
                     $pageToLoad = intval($lastPage);
                 }
             }
-            if ($hasBookmarkPage && !$lastPage && isset($_COOKIE['a_' . $articleId])) {
+            if (!$lastPage && isset($_COOKIE['a_' . $articleId])) {
                 $pageToLoad = intval($_COOKIE['a_' . $articleId]);
-            } else {
-                $pageToLoad = 1;
             }
 
-            if ($pageToLoad > $numpages || $pageToLoad < 1) {
+            if ($pageToLoad > $numpages || $pageToLoad < 1 || !$hasBookmarkPage) {
                 $pageToLoad = 1;
             }
             $GLOBALS['page'] = $pageToLoad;
@@ -3008,7 +3006,7 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                         <div class="col-sm-6 col-12">
                             <a href="<?php the_permalink() ?>">
                                 <div class="announcement-img">
-                                    <?= get_the_post_thumbnail('', 'large') ?>
+                                    <?= get_the_post_thumbnail(null, [300,300]) ?>
                                 </div>
                             </a>
                         </div>
