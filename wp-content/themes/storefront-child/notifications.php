@@ -14,38 +14,43 @@ if (countNewNotifications() > 0):
         }
     }); ?>
     <?php
-    $isPrevNew = false;
+    $hasNew = false;
     foreach ($notifications as $notification):
         if ($notification->view_status == 0) {
-            $isPrevNew = true;
-        } elseif ($isPrevNew) {
-            $isPrevNew = false;
-            ?>
-            <div class="notification-card" style="">
-                <div class="row">
-                    <div class="col-lg-1 col-2">
-                    </div>
-                    <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
-                        <div class="row">
-                            <div class="col-lg-8 col-12">
-                                <div class="notification-card__text">
-                                    <form method="POST">
-                                        <input type="hidden" name="readNotifications" value="1">
-                                        <button type="submit" class="woocommerce-Button">Пометить все, как прочитанные
-                                        </button>
-                                    </form>
-                                </div>
+            $hasNew = true;
+            echo getNotificationCard($notification);
+        }?>
+    <?php endforeach;
+    if ($hasNew): ?>
+        <div class="notification-card" style="">
+            <div class="row">
+                <div class="col-lg-1 col-2">
+                </div>
+                <div class="col-lg-11 col-10 pl-lg-3 m-auto pl-0">
+                    <div class="row">
+                        <div class="col-lg-8 col-12">
+                            <div class="notification-card__text">
+                                <form method="POST">
+                                    <input type="hidden" name="readNotifications" value="1">
+                                    <button type="submit" class="woocommerce-Button">Пометить все, как прочитанные
+                                    </button>
+                                </form>
                             </div>
-                            <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
-                            </div>
+                        </div>
+                        <div class="col-lg-4 col-12 notification-card__date m-auto text-left text-lg-right">
                         </div>
                     </div>
                 </div>
             </div>
-        <?php
+        </div>
+    <?php endif; ?>
+    <?php
+    foreach ($notifications as $notification){
+        if ($notification->view_status > 0) {
+            echo getNotificationCard($notification);
         }
-        echo getNotificationCard($notification); ?>
-    <?php endforeach; ?>
+    }
+    ?>
 <?php else: ?>
     <p class="library-empty">Новый уведомлений нет</p>
 <?php endif; ?>
