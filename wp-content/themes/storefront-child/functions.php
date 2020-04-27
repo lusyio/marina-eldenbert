@@ -409,6 +409,8 @@ function article_content($articleId)
             }
             if ($hasBookmarkPage && !$lastPage && isset($_COOKIE['a_' . $articleId])) {
                 $pageToLoad = intval($_COOKIE['a_' . $articleId]);
+            } else {
+                $pageToLoad = 1;
             }
 
             if ($pageToLoad > $numpages || $pageToLoad < 1) {
