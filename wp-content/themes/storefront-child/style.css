@@ -3599,6 +3599,10 @@ span.page-title {
     margin-bottom: 0;
 }
 
+.add-to-cart-block__ref a {
+    text-decoration: underline;
+}
+
 .add-to-cart-block__support a, .add-to-cart-block__ref a {
     color: #000000;
 }
@@ -4112,7 +4116,7 @@ span.page-title {
     background: url('/wp-content/themes/storefront-child/images/paper.jpg');
 }
 
-#articleText.litnet4{
+#articleText.litnet4 {
     background: url('/wp-content/themes/storefront-child/images/paper.jpg');
 }
 
@@ -5520,15 +5524,15 @@ button.button.filter-btn:focus {
     margin-bottom: 40px;
 }
 
-.entry-content .images{
+.entry-content .images {
     display: flex;
 }
 
-.entry-content .images img{
+.entry-content .images img {
     width: 49%;
 }
 
-.entry-content .images img:first-of-type{
+.entry-content .images img:first-of-type {
     margin-right: 2%;
 }
 
@@ -6338,7 +6342,7 @@ and (max-width: 576px) {
         flex-wrap: wrap;
     }
 
-    .font-size-buttons{
+    .font-size-buttons {
         flex-wrap: wrap;
     }
 
@@ -6752,18 +6756,18 @@ and (max-width: 480px) {
 }
 
 @media screen and (max-width: 370px) {
-    .disclaimerModal__agree, .deleteModal__agree{
+    .disclaimerModal__agree, .deleteModal__agree {
         margin-right: 0;
     }
 
-    #settingsModal .theme-buttons button:last-of-type{
+    #settingsModal .theme-buttons button:last-of-type {
         margin-top: 15px;
     }
 }
 
 @media screen
 and (max-width: 328px) {
-    .font-size-buttons button:last-of-type{
+    .font-size-buttons button:last-of-type {
         margin-top: 15px;
     }
 
