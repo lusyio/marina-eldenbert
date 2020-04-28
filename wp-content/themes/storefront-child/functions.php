@@ -391,7 +391,7 @@ function article_content($articleId)
                 setcookie('op', 0, strtotime('+1 year'), '/');
             } elseif (isset($_COOKIE['op']) && $_COOKIE['op'] == 1) {
                 $inOnePage = true;
-            }elseif (isset($_GET['op']) && $_GET['op'] == 1) {
+            } elseif (isset($_GET['op']) && $_GET['op'] == 1) {
                 $inOnePage = true;
                 setcookie('op', 1, strtotime('+1 year'), '/');
             }
@@ -412,12 +412,17 @@ function article_content($articleId)
             }
 
             if ($pageToLoad > $numpages || $pageToLoad < 1 || !$hasBookmarkPage) {
-                setBookmarkPageMeta($articleId,1);
+                setBookmarkPageMeta($articleId, 1);
                 $pageToLoad = 1;
             }
             $GLOBALS['page'] = $pageToLoad;
             ?>
-            <p class="h3 d-flex justify-content-between reader-h3"><?php the_title(); ?> <img class="" data-toggle="modal" id="settingsModalTrigger" data-target="#settingsModal" src="/wp-content/themes/storefront-child/svg/svg-settings.svg" alt="settings"></p>
+            <p class="h3 d-flex justify-content-between reader-h3"><?php the_title(); ?> <img class=""
+                                                                                              data-toggle="modal"
+                                                                                              id="settingsModalTrigger"
+                                                                                              data-target="#settingsModal"
+                                                                                              src="/wp-content/themes/storefront-child/svg/svg-settings.svg"
+                                                                                              alt="settings"></p>
             <?php
             $paginationArgs = array(
                 'before' => '<nav><ul class="reader-pagination pagination mb-4 mt-3 pb-0" data-pages="' . $numpages . '">',
@@ -650,10 +655,10 @@ function wp_custom_link_articles($args = '')
                 $prevArticleId = 0;
             }
             $prevPageClass = '';
-                $prevText = $prevArticleText;
-                if ($prevArticleId == 0) {
-                    $prevPageClass .= ' d-none';
-                }
+            $prevText = $prevArticleText;
+            if ($prevArticleId == 0) {
+                $prevPageClass .= ' d-none';
+            }
 
             $output .= '<li class="page-item' . $prevPageClass . '">
                     <a href="' . $params['base_url'] . '?a=' . $prevArticleId . '" data-article-id="' . $prevArticleId . '" data-for-page="' . $prevPageText . '" data-for-article="' . $prevArticleText . '" class="page-link prev-page-btn" aria-label="Previous">
@@ -667,10 +672,10 @@ function wp_custom_link_articles($args = '')
                 $nextArticleId = 0;
             }
             $nextPageClass = '';
-                $nextText = $nextArticleText;
-                if ($nextArticleId == 0) {
-                    $nextPageClass .= ' d-none';
-                }
+            $nextText = $nextArticleText;
+            if ($nextArticleId == 0) {
+                $nextPageClass .= ' d-none';
+            }
             $output .= '<li class="page-item' . $nextPageClass . '">
                 <a href="' . $params['base_url'] . '?a=' . $nextArticleId . '" data-article-id="' . $nextArticleId . '" data-for-page="' . $nextPageText . '" data-for-article="' . $nextArticleText . '" class="page-link next-page-btn" aria-label="Next">
                     <span aria-hidden="true">' . $nextText . '</span>
@@ -696,6 +701,7 @@ function wp_custom_link_articles($args = '')
     }
     return $html;
 }
+
 /**
  * Добавляем скрипт счетчика уведомлений
  */
@@ -944,12 +950,12 @@ function bookCardInReader()
         if (!empty($downloads)) {
             foreach ($downloads as $download) {
                 ?>
-                    <div>
-                        <a class=" mb-3" href="<?php echo $download['download_url'] ?>">Скачать в
-                            формате <?php echo $download['file']['name'] ?></a>
-                    </div>
-                    <?php
-                    $hasDownloads = true;
+                <div>
+                    <a class=" mb-3" href="<?php echo $download['download_url'] ?>">Скачать в
+                        формате <?php echo $download['file']['name'] ?></a>
+                </div>
+                <?php
+                $hasDownloads = true;
             }
         }
 
@@ -1004,8 +1010,9 @@ add_filter('comment_post_redirect', function ($url) {
 
 /**
  * Добавляет кнопку со ссылкой на первую главу книги
- * @param $baseUrl
- * @param $id
+ * @param bool $baseUrl
+ * @param bool $id
+ * @param bool $class
  */
 function readButton($baseUrl = false, $id = false, $class = false)
 {
@@ -1053,7 +1060,11 @@ function readButton($baseUrl = false, $id = false, $class = false)
         }
         while ($query->have_posts()) {
             $query->the_post();
-            echo '<a class="' . $classRead . '" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
+            if ($id) {
+                echo '<a class="' . $classRead . '" href="' . $baseUrl . '">Читать</a>';
+            } else {
+                echo '<a class="' . $classRead . '" href="' . $baseUrl . '?a=' . $post->ID . '">Читать</a>';
+            }
             if ($id) {
                 break;
             }
@@ -3007,7 +3018,7 @@ function getBlockPart($type, $postQue, $startDelay, $postNumberHideMobile, $cust
                         <div class="col-sm-6 col-12">
                             <a href="<?php the_permalink() ?>">
                                 <div class="announcement-img">
-                                    <?= get_the_post_thumbnail(null, [300,300]) ?>
+                                    <?= get_the_post_thumbnail(null, [300, 300]) ?>
                                 </div>
                             </a>
                         </div>
@@ -4936,9 +4947,10 @@ add_filter(/**
 }, 20, 3);
 
 
-add_filter( 'wp_insert_post_data' , 'filter_post_data' , '99', 2 );
+add_filter('wp_insert_post_data', 'filter_post_data', '99', 2);
 
-function filter_post_data( $data , $postarr ) {
+function filter_post_data($data, $postarr)
+{
     $oldPost = get_post($postarr['ID']);
     $GLOBALS['beforeEdit'] = $oldPost->post_content;
     return $data;
@@ -4950,13 +4962,14 @@ function addOrUpdateUrlParam($name, $value)
     unset($params[$name]);
     $params[$name] = $value;
     return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST']
-            . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . '?' . http_build_query($params);
+        . explode('?', $_SERVER['REQUEST_URI'], 2)[0] . '?' . http_build_query($params);
 }
 
 
 // Разрешаем загружать файлы с перечисленными расширениями
-add_filter( 'upload_mimes', 'upload_allow_types' );
-function upload_allow_types( $mimes ) {
+add_filter('upload_mimes', 'upload_allow_types');
+function upload_allow_types($mimes)
+{
     // разрешаем новые типы
     $mimes['azw3'] = 'application/octet-stream';
     $mimes['epub'] = 'application/epub+zip';
