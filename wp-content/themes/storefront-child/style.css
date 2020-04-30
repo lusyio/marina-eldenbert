@@ -556,6 +556,10 @@ article:last-of-type > hr.content-search__hr {
     display: none;
 }
 
+#InterkassaForm{
+    display: flex;
+}
+
 .overflow-hidden {
     overflow: hidden;
 }

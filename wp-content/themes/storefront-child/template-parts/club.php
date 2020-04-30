@@ -9,6 +9,12 @@ do_action('id_page_check');
 
 <?php get_header(); ?>
 
+<?php
+//Получаем контент страницы
+$allText = get_the_content();
+//Разбиваем на 3 части по (:)
+$text_parts = preg_split('~\(:\)~', $allText, 3);
+?>
 </div>
 </div>
 
@@ -32,10 +38,7 @@ do_action('id_page_check');
     <div class="row">
         <div class="col-lg-10 offset-lg-1 col-12 offset-0 p-lg-0 p-unset wow fadeInUp"
              data-wow-delay="0s">
-            <p class="club-content__text mb-5">VIP-клуб – это территория наших читателей, где
-                выкладываются бонусные рассказы к любимым историям
-                и проводятся закрытые розыгрыши: книги на бумаге с автографами, абонементы на бесплатное чтение,
-                сувениры от авторов (закладки, открытки, календари)
+            <p class="club-content__text mb-5"><?= $text_parts[0] ?>
             </p>
             <p class="club-content__text"><strong>Скидка постоянного читателя
                     составляет 20%</strong></p>
@@ -45,12 +48,9 @@ do_action('id_page_check');
         <div class="col-lg-8 offset-lg-1 col-12 offset-0 wow fadeInUp"
              data-wow-delay="0s">
             <h2 class="club-content__title text-left">Как стать участником?</h2>
-            <p class="club-content__text text-left mb-5">Чтобы получить VIP-карточку, нужно достичь уровня «Платина».
-                После
-                этого вам автоматически выдается VIP-карта, и вы можете посещать закрытый раздел на сайте.</p>
+            <p class="club-content__text text-left mb-5"><?= $text_parts[1] ?></p>
             <p class="club-content__text text-left mb-5">
-                На нашем сайте существует система рейтингов - комментируя книги и обсуждая с другими участниками сюжеты
-                и героев, вы получаете различные бонусы:
+               <?= $text_parts[2] ?>
             </p>
         </div>
         <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none wow fadeInUp"
