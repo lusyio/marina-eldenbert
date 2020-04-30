@@ -3590,7 +3590,7 @@ function newArticleNotificationAdd($articlePageId)
     if (!is_array($bookData) || count($bookData) == 0) {
         return;
     }
-    $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    $userIds = getUserIdsWithBookInLibrary($bookData['bookId']);
     if (is_user_logged_in()) {
         $userIds[] = get_current_user_id();
         $userIds = array_unique($userIds);
@@ -3609,7 +3609,7 @@ function updateArticleNotificationAdd($articlePageId)
     if (!is_array($bookData) || count($bookData) == 0) {
         return;
     }
-    $userIds = getCustomerIdsWhoBoughtBook($bookData['bookId']);
+    $userIds = getUserIdsWithBookInLibrary($bookData['bookId']);
     if (is_user_logged_in()) {
         $userIds[] = get_current_user_id();
         $userIds = array_unique($userIds);
