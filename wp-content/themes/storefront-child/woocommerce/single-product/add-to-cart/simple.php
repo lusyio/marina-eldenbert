@@ -200,9 +200,11 @@ $hasDownloads = false;
                     <?php do_action('woocommerce_after_add_to_cart_form'); ?>
                     <p class="add-to-cart-block__partners-links">
                         <?php
-                        foreach ($linksPaper as $link) {
-                            $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
+                        if (is_array($linksPaper)) {
+                            foreach ($linksPaper as $link) {
+                                $link_parts = preg_split('~\(:\)~', $link, 2);
+                                echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
+                            }
                         }
                         ?>
                     </p>
@@ -212,9 +214,11 @@ $hasDownloads = false;
                         Данную книгу вы можете найти в следующих интернет-магазинах:</p>
                     <p class="add-to-cart-block__partners-links">
                         <?php
-                        foreach ($linksAudio as $link) {
-                            $link_parts = preg_split('~\(:\)~', $link, 2);
-                            echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
+                        if (is_array($linksAudio)) {
+                            foreach ($linksAudio as $link) {
+                                $link_parts = preg_split('~\(:\)~', $link, 2);
+                                echo '<a href="' . $link_parts[1] . '" target="_blank">' . $link_parts[0] . '</a>';
+                            }
                         }
                         ?>
                     </p>
