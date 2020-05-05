@@ -3579,6 +3579,9 @@ function newPostNotificationAdd($postId, $type)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
+        if (in_array($type, ['news', 'announcement', 'new_book'])) {
+            $user = $user->ID;
+        }
         $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user, $type, $postId));
     }
 }
