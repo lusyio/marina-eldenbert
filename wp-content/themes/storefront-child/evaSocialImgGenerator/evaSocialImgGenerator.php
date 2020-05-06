@@ -431,7 +431,7 @@ class imgGenerator
 	}
 	function addText(imgTextGenerator $imgText)
 	{
-		if(!$this->opts["text"]) {
+		if(!isset($this->opts["text"])) {
 			$this->opts["text"]=array();
 		}
 		$this->opts["text"][]=$imgText;
