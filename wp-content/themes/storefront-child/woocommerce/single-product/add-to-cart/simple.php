@@ -124,7 +124,7 @@ $hasDownloads = false;
                                                 value="<?php echo esc_attr($product->get_id()); ?>"
                                                 class="single_add_to_cart_button button alt"><?= $isDraft ? 'Подписка за ' : 'Купить книгу зa ' ?><?php echo $product->get_price_html(); ?>
                                             <?php if ($eBookDownloads): ?>
-                                                <p>(чтение на сайте +
+                                                <p>(
                                                     <?php foreach ($eBookDownloads as $key => $eBookDownload) {
                                                         echo $eBookDownload->get_name();
                                                         if ($key === array_key_last($eBookDownloads)) {
@@ -159,7 +159,7 @@ $hasDownloads = false;
                                             value="<?php echo esc_attr($product->get_id()); ?>"
                                             class="single_add_to_cart_button button alt"><?= $isDraft ? 'Подписка за ' : 'Купить книгу за ' ?> <?php echo $product->get_price_html(); ?>
                                         <?php if ($eBookDownloads): ?>
-                                            <p>(чтение на сайте +
+                                            <p>(
                                                 <?php foreach ($eBookDownloads as $key => $eBookDownload) {
                                                     echo $eBookDownload->get_name();
                                                     if ($key === array_key_last($eBookDownloads)) {

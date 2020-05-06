@@ -154,7 +154,7 @@ if (count($libraryBooks) !== 0):
                                             value="<?php echo esc_attr($libraryBook->get_id()); ?>"
                                             class="btnNewOrange library-card-group__buy"><?= $isDraft ? 'Подписка за ' : 'Купить книгу зa ' ?><?php echo $libraryBook->get_price_html(); ?>
                                         <?php if ($eBookDownloads): ?>
-                                            <p>(чтение на сайте +
+                                            <p>(
                                                 <?php foreach ($eBookDownloads as $key => $eBookDownload) {
                                                     echo $eBookDownload->get_name();
                                                     if ($key === array_key_last($eBookDownloads)) {
