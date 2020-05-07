@@ -100,9 +100,11 @@
         <div class="row">
             <div class="col-12 text-center col-xl-3 col-lg-2 p-lg-0 p-xl-unset p-unset text-lg-left footer-logo m-auto">
                 <div class="site-info">
-                    <?php if (get_custom_logo()): ?>
+                    <?php $customLogo = get_custom_logo(); ?>
 
-                        <?php echo get_custom_logo(); ?>
+                    <?php if ($customLogo): ?>
+
+                        <?php echo $customLogo; ?>
                     <?php else: ?>
                         <a class="site-title"
                            href="<?php echo esc_url(home_url('/')); ?>"><?php esc_url(bloginfo('name')); ?>
@@ -181,9 +183,7 @@
                 </p>
             </div>
             <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
-                <p class="footer-name-p">
-                    &copy; <?php echo '<a class="footer-name" href="' . home_url() . '">' . get_bloginfo('name') . '</a>'; ?>
-                    , <?php echo date('Y'); ?></p>
+                <p class="footer-name-p">&copy; <a class="footer-name" href="https://marina-eldenbert.ru">Марина Эльденберт</a>, <?php echo date('Y'); ?></p>
                 <p class="mb-0 footer-credits d-block">
                     <a class="credits" href="https://richbee.ru/"
                        target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>

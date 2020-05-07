@@ -8,16 +8,16 @@
  */
 
 ?><!doctype html>
-<html <?php language_attributes(); ?>>
+<html lang="ru-RU">
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="yandex-verification" content="9e80d18053519ed4"/>
     <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b"/>
     <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc"/>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+    <link rel="pingback" href="https://marina-eldenbert.ru/xmlrpc.php">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
     <?php wp_head(); ?>
     <!-- Google Tag Manager -->
@@ -56,8 +56,9 @@
         <div class="container">
             <nav class="navbar navbar-light navbar-expand-xl p-0 justify-content-between">
                 <div class="navbar-brand">
-                    <?php if (get_custom_logo()): ?>
-                        <?php echo get_custom_logo(); ?>
+                    <?php $customLogo = get_custom_logo(); ?>
+                    <?php if ($customLogo): ?>
+                        <?php echo $customLogo; ?>
                     <?php else : ?>
                         <a class="site-title text-decoration-none"
                            href="<?php echo esc_url(home_url('/')); ?>">
@@ -69,7 +70,7 @@
 
                 <div class="d-flex">
                     <?php
-                    wp_nav_menu(array(
+                    $menu = wp_nav_menu(array(
                         'theme_location' => 'primary',
                         'container' => 'div',
                         'container_id' => '',
@@ -78,8 +79,10 @@
                         'menu_class' => 'navbar-nav',
                         'depth' => 3,
                         'fallback_cb' => 'wp_bootstrap_navwalker::fallback',
-                        'walker' => new wp_bootstrap_navwalker()
+                        'walker' => new wp_bootstrap_navwalker(),
+                        'echo' => false,
                     ));
+                    echo $menu;
                     ?>
                     <?php get_search_form() ?>
                     <?php if (class_exists('WooCommerce')): ?>
@@ -143,17 +146,7 @@
                             <div>
                                 <div class="border-header">
                                     <?php
-                                    wp_nav_menu(array(
-                                        'theme_location' => 'primary',
-                                        'container' => 'div',
-                                        'container_id' => 'main-nav',
-                                        'container_class' => 'collapse navbar-collapse justify-content-end',
-                                        'menu_id' => false,
-                                        'menu_class' => 'navbar-nav',
-                                        'depth' => 3,
-                                        'fallback_cb' => 'wp_bootstrap_navwalker::fallback',
-                                        'walker' => new wp_bootstrap_navwalker()
-                                    ));
+                                    echo $menu;
                                     ?>
                                 </div>
                             </div>
