@@ -4444,13 +4444,6 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         }
         return $img;
     }
-    if (!extension_loaded('imagick')) {
-        $ogUrl = WPSEO_Options::get('og_default_image');
-        if ($size == 'twitter' && $ogUrl != '') {
-            return $ogUrl;
-        }
-        return $img;
-    }
 
     if ($bookId) {
         $book = wc_get_product($bookId);
@@ -4501,20 +4494,28 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         ->fromImg($file_path)
         ->resizeFor($size)
         ->getPath();
-    $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
-    if ($secure) {
-        $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+    if ($path) {
+        $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
+        if ($secure) {
+            $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+        }
+        return $finalUrl;
+    } else {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
     }
-    return $finalUrl;
 }
 
 add_filter('wpseo_og_og_image_width', function ($width) {
     if (!is_product()) {
         return $width;
     }
-    if (!extension_loaded('imagick')) {
-        return $width;
-    }
+//    if (!extension_loaded('imagick')) {
+//        return $width;
+//    }
     require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
     return imgGenerator::getWidth();
 });
@@ -4523,9 +4524,9 @@ add_filter('wpseo_og_og_image_height', function ($height) {
     if (!is_product()) {
         return $height;
     }
-    if (!extension_loaded('imagick')) {
-        return $height;
-    }
+//    if (!extension_loaded('imagick')) {
+//        return $height;
+//    }
     require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
     return imgGenerator::getHeight();
 });

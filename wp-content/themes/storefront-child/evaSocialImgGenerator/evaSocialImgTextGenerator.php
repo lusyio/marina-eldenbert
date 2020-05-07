@@ -12,7 +12,7 @@ class imgTextGenerator
 			"position"=>imgGenerator::position_center_center,
 			"font_size"=>50,
 			"padding"=>20,
-			"style"=>\Imagick::STYLE_NORMAL,
+			"style"=>1, //\Imagick::STYLE_NORMAL
 			"weight"=>300,
             "lines_before_trim"=>0
 		);
@@ -88,7 +88,7 @@ class imgTextGenerator
 	 * @param int $weight
 	 * @return $this
 	 */
-	function setText($str, $color="#ffffff", $position=imgGenerator::position_center_center, $fontSize=50, $padding=20, $style=\Imagick::STYLE_NORMAL, $weight=300)
+	function setText($str, $color="#ffffff", $position=imgGenerator::position_center_center, $fontSize=50, $padding=20, $style=1, $weight=300)
 	{
 		$this->opts["big_text"]=array(
 			"text"=>$str,

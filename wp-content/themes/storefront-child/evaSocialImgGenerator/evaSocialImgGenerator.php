@@ -476,10 +476,13 @@ class imgGenerator
 			return str_replace($_SERVER["DOCUMENT_ROOT"],"",$file);
 		}
 
-		$this->parse();
-		$this->im->setimageformat("jpg");
-		$this->im->writeimage("{$this->opts["enable_cache"]}/{$fileName}.jpg");
+        if (extension_loaded('imagick')) {
+            $this->parse();
+            $this->im->setimageformat("jpg");
+            $this->im->writeimage("{$this->opts["enable_cache"]}/{$fileName}.jpg");
 
-		return str_replace($_SERVER["DOCUMENT_ROOT"],"",$file);
+            return str_replace($_SERVER["DOCUMENT_ROOT"], "", $file);
+        }
+        return false;
 	}
 }
