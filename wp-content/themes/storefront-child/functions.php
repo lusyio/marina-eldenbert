@@ -1274,19 +1274,20 @@ function changeBreadcrumbLinkAuthorBlog($crumbs)
     $cat = new WPSEO_Primary_Term('category', get_the_ID());
     $cat_id = $cat->get_primary_term();
     $category = get_category($cat_id);
-
-    if ($category->slug == 'author-blog') {
-        $link = get_permalink(get_page_by_path('blog'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'club') {
-        $link = get_permalink(get_page_by_path('club'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'announcement') {
-        $link = get_permalink(get_page_by_path('anonsy-knig'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'news-n-events') {
-        $link = get_permalink(get_page_by_path('novosti-i-sobytiya'));
-        $crumbs[1][1] = $link;
+    if (isset($category->slug)) {
+        if ($category->slug == 'author-blog') {
+            $link = get_permalink(get_page_by_path('blog'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'club') {
+            $link = get_permalink(get_page_by_path('club'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'announcement') {
+            $link = get_permalink(get_page_by_path('anonsy-knig'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'news-n-events') {
+            $link = get_permalink(get_page_by_path('novosti-i-sobytiya'));
+            $crumbs[1][1] = $link;
+        }
     }
     return $crumbs;
 }
