@@ -29,9 +29,10 @@ do_action('woocommerce_before_account_navigation');
         <ul class="navigation-my-account collapse d-lg-block" id="collapseMyaccount">
             <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                 <?php if ($endpoint === 'notifications'): ?>
+                    <?php $notificationsCount = countNewNotifications(); ?>
                     <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
                         <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
-                            <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                            <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
                         </a>
                     </li>
                 <?php else: ?>

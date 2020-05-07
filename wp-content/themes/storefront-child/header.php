@@ -87,6 +87,7 @@
                             $user = wp_get_current_user();
                             $userName = $user->user_firstname . ' ' . $user->user_lastname;
                             $size = 15;
+                            $notificationsCount = countNewNotifications();
                             ?>
                             <div class="menu-profile">
                                 <div class="menu-profile__body menu-profile-trigger" data-trigger="dropdown">
@@ -94,7 +95,7 @@
                                         <img class="menu-profile__avatar"
                                              src="<?= esc_url(get_avatar_url($user->ID)); ?>"
                                              alt="<?= $userName ?>">
-                                        <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                                        <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
                                     </div>
 
                                     <p>
@@ -114,7 +115,7 @@
                                     <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                                         <?php if ($endpoint === 'notifications'): ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
-                                                <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                                                <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
                                             </a>
                                         <?php else: ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
