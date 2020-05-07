@@ -34,6 +34,7 @@ Template Post Type: post, page, product
                     } else {
                         $hasVip = false;
                     }
+                    unset($myRank);
                     if (!$hasVip && !isAdmin()) {
                         $args['tax_query']['relation'] = 'AND';
                         $args['tax_query'][] = [
@@ -44,7 +45,7 @@ Template Post Type: post, page, product
                         ];
                     }
                     $query = new WC_Product_Query($args);
-                    $terms = get_the_terms(get_the_ID(), 'product_cat');
+//                    $terms = get_the_terms(get_the_ID(), 'product_cat');
                     $products = $query->get_products();
                     unset($query);
                     foreach ($products as $product): ?>
