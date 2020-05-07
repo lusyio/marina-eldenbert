@@ -3488,7 +3488,7 @@ add_action('init', 'changeArticleMailStatus', 10);
 // ФУНКЦИИ УВЕДОМЛЕНИЙ
 
 // Создание таблицы
-add_action('init', 'createNotificationTable');
+//add_action('init', 'createNotificationTable');
 add_action('init', 'getNotifications');
 
 function createNotificationTable()
