@@ -2203,7 +2203,7 @@ function custom_render_my_rank($atts, $content = '')
             $titles = explode(':', $rank_object->title);
             if (in_array($user_id, [9, 10])) {
                 $show[] = 'Автор';
-            }elseif ($userSex == 'male' && count($titles) > 1) {
+            } elseif ($userSex == 'male' && count($titles) > 1) {
                 $show[] = $titles[1];
             } else {
                 $show[] = $titles[0];
@@ -2215,7 +2215,11 @@ function custom_render_my_rank($atts, $content = '')
     }
 
     if (!empty($show))
-        $content = '<div class="mycred-my-rank">' . implode(' ', $show) . '</div>';
+        if (in_array($user_id, [9, 10])) {
+            $content = '<div class="mycred-my-rank rank-author">' . implode(' ', $show) . '</div>';
+        } else {
+            $content = '<div class="mycred-my-rank">' . implode(' ', $show) . '</div>';
+        }
 
     return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 

@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.30
+Version:      	1.0.31
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -4804,6 +4804,13 @@ span.page-title {
     font-size: 12px;
     line-height: 14px;
     color: #C5C5C5;
+}
+
+.comment .mycred-my-rank.rank-author {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    color: #F8AC53;
 }
 
 .mycred-my-rank {
