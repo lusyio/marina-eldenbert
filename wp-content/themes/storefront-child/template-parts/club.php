@@ -13,7 +13,7 @@ do_action('id_page_check');
 //Получаем контент страницы
 $allText = get_the_content();
 //Разбиваем на 3 части по (:)
-$text_parts = preg_split('~\(:\)~', $allText, 3);
+$text_parts = preg_split('~\(:\)~', $allText, 10);
 ?>
 </div>
 </div>
@@ -49,15 +49,23 @@ $text_parts = preg_split('~\(:\)~', $allText, 3);
              data-wow-delay="0s">
             <h2 class="club-content__title text-left">Как стать участником?</h2>
             <p class="club-content__text text-left mb-5"><?= $text_parts[1] ?></p>
-            <p class="club-content__text text-left mb-5">
-               <?= $text_parts[2] ?>
-            </p>
         </div>
         <div class="col-lg-2 col-12 mb-auto mt-5 p-lg-0 p-unset d-md-block d-none wow fadeInUp"
              data-wow-delay="0.2s">
             <img class="club-content__img" src="/wp-content/themes/storefront-child/images/club-coin.png" alt="">
         </div>
         <div class="col-1"></div>
+        <div class="col-lg-10 offset-lg-1 col-12 offset-0 wow fadeInUp">
+            <?php
+            $j = 2;
+            foreach ($text_parts as $key => $part):?>
+                <?php if ($key >= $j): ?>
+                    <p class="club-content__text text-left <?= array_key_last($text_parts) === $key ? 'mb-5' : 'mb-3' ?>">
+                        <?= $part ?>
+                    </p>
+                    <?php $j++; endif; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-10 offset-lg-1 col-12 offset-0">
@@ -87,7 +95,7 @@ $text_parts = preg_split('~\(:\)~', $allText, 3);
                         <div class="col-2 m-auto d-md-block d-none"><img src="<?php echo $rank->logo_url; ?>" alt="">
                         </div>
                         <div class="col-5 col-md m-auto"><?php echo $titles[0]; ?></div>
-                        <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' комментариев' ?>
+                        <div class="col col-md-3 m-auto text-left text-md-center"><?php echo ($rank->minimum == 0) ? 'Регистрация на сайте' : $rank->minimum . ' Баллов' ?>
                         </div>
                         <div class="col m-auto text-center d-md-block d-none"><?php echo ($rank->minimum == 500) ? '<strong>VIP</strong>' : ' Общий' ?></div>
                         <div class="col m-auto text-right text-md-center"><?php echo (getRankDiscount($rank->post->post_name) == 0) ? '-' : getRankDiscount($rank->post->post_name) . '%' ?></div>
