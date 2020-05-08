@@ -2201,7 +2201,9 @@ function custom_render_my_rank($atts, $content = '')
         if ($show_title == 1) {
             $userSex = get_user_meta($user_id, 'sex', true);
             $titles = explode(':', $rank_object->title);
-            if ($userSex == 'male' && count($titles) > 1) {
+            if (in_array($user_id, [9, 10])) {
+                $show[] = 'Автор';
+            } elseif ($userSex == 'male' && count($titles) > 1) {
                 $show[] = $titles[1];
             } else {
                 $show[] = $titles[0];
@@ -2213,7 +2215,11 @@ function custom_render_my_rank($atts, $content = '')
     }
 
     if (!empty($show))
-        $content = '<div class="mycred-my-rank">' . implode(' ', $show) . '</div>';
+        if (in_array($user_id, [9, 10])) {
+            $content = '<div class="mycred-my-rank rank-author">' . implode(' ', $show) . '</div>';
+        } else {
+            $content = '<div class="mycred-my-rank">' . implode(' ', $show) . '</div>';
+        }
 
     return apply_filters('mycred_my_rank', $content, $user_id, $rank_object);
 
@@ -4450,6 +4456,7 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         $book = wc_get_product($bookId);
         $ogTitle = $book->get_name();
         $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($book->get_id()));
+        unset($book);
 
     } else {
         global $product;
