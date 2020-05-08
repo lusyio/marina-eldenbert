@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.29
+Version:      	1.0.30
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -5079,13 +5079,14 @@ a#nep_call_panel.nep_right_bottom {
 }
 
 .wpulike .wp_ulike_btn {
-    vertical-align: unset;
     padding: 9px 9px;
     -webkit-transition: ease-in 200ms;
     -moz-transition: ease-in 200ms;
     -ms-transition: ease-in 200ms;
     -o-transition: ease-in 200ms;
     transition: ease-in 200ms;
+    vertical-align: baseline;
+    vertical-align: -webkit-baseline-middle;
 }
 
 .wpulike {
@@ -5115,7 +5116,8 @@ a#nep_call_panel.nep_right_bottom {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    vertical-align: unset;
+    vertical-align: baseline;
+    vertical-align: -webkit-baseline-middle;
 }
 
 .wpulike-default .count-box:before {
