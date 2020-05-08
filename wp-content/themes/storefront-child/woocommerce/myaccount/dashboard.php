@@ -112,15 +112,16 @@ foreach ($allRanks as $rank) {
                     любую понравившуюся книгу и нажмите кнопку "Читать"</p>
             </div>
         <?php endif; ?>
+        <?php $notificationsCount = countNewNotifications(); ?>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="my-account-noty">
                     <p class="my-account-card__header">Уведомления</p>
-                    <?php if (sprintf(countNewNotifications()) != 0): ?>
+                    <?php if (sprintf($notificationsCount) != 0): ?>
                         <p>
                             <?php
                             plural_form(
-                                sprintf(countNewNotifications()),
+                                sprintf($notificationsCount),
                                 /* варианты написания для количества 1, 2 и 5 */
                                 array('новое уведомление', 'новых уведомления', 'новых уведомлений')
                             );

@@ -8,16 +8,16 @@
  */
 
 ?><!doctype html>
-<html <?php language_attributes(); ?>>
+<html lang="ru-RU">
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="yandex-verification" content="9e80d18053519ed4"/>
     <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b"/>
     <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc"/>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+    <link rel="pingback" href="https://marina-eldenbert.ru/xmlrpc.php">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
     <?php wp_head(); ?>
     <!-- Google Tag Manager -->
@@ -56,8 +56,9 @@
         <div class="container">
             <nav class="navbar navbar-light navbar-expand-xl p-0 justify-content-between">
                 <div class="navbar-brand">
-                    <?php if (get_custom_logo()): ?>
-                        <?php echo get_custom_logo(); ?>
+                    <?php $customLogo = get_custom_logo(); ?>
+                    <?php if ($customLogo): ?>
+                        <?php echo $customLogo; ?>
                     <?php else : ?>
                         <a class="site-title text-decoration-none"
                            href="<?php echo esc_url(home_url('/')); ?>">
@@ -87,6 +88,7 @@
                             $user = wp_get_current_user();
                             $userName = $user->user_firstname . ' ' . $user->user_lastname;
                             $size = 15;
+                            $notificationsCount = countNewNotifications();
                             ?>
                             <div class="menu-profile">
                                 <div class="menu-profile__body menu-profile-trigger" data-trigger="dropdown">
@@ -94,7 +96,7 @@
                                         <img class="menu-profile__avatar"
                                              src="<?= esc_url(get_avatar_url($user->ID)); ?>"
                                              alt="<?= $userName ?>">
-                                        <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                                        <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
                                     </div>
 
                                     <p>
@@ -114,7 +116,7 @@
                                     <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                                         <?php if ($endpoint === 'notifications'): ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
-                                                <span class="menu-profile__counter"<?= (sprintf(countNewNotifications()) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf(countNewNotifications()); ?></span>
+                                                <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
                                             </a>
                                         <?php else: ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>

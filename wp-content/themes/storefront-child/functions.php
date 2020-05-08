@@ -712,7 +712,7 @@ if (is_user_logged_in()) {
  * Добавляем ajax-обработчик счетчика уведомлений
  */
 if (is_user_logged_in()) {
-    add_action('wp_ajax_update_notification', 'notificationAjax');
+    //add_action('wp_ajax_update_notification', 'notificationAjax');
 }
 /**
  * ajax-обработчик вывода страниц главы
@@ -1274,19 +1274,20 @@ function changeBreadcrumbLinkAuthorBlog($crumbs)
     $cat = new WPSEO_Primary_Term('category', get_the_ID());
     $cat_id = $cat->get_primary_term();
     $category = get_category($cat_id);
-
-    if ($category->slug == 'author-blog') {
-        $link = get_permalink(get_page_by_path('blog'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'club') {
-        $link = get_permalink(get_page_by_path('club'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'announcement') {
-        $link = get_permalink(get_page_by_path('anonsy-knig'));
-        $crumbs[1][1] = $link;
-    } elseif ($category->slug == 'news-n-events') {
-        $link = get_permalink(get_page_by_path('novosti-i-sobytiya'));
-        $crumbs[1][1] = $link;
+    if (isset($category->slug)) {
+        if ($category->slug == 'author-blog') {
+            $link = get_permalink(get_page_by_path('blog'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'club') {
+            $link = get_permalink(get_page_by_path('club'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'announcement') {
+            $link = get_permalink(get_page_by_path('anonsy-knig'));
+            $crumbs[1][1] = $link;
+        } elseif ($category->slug == 'news-n-events') {
+            $link = get_permalink(get_page_by_path('novosti-i-sobytiya'));
+            $crumbs[1][1] = $link;
+        }
     }
     return $crumbs;
 }
@@ -3487,7 +3488,7 @@ add_action('init', 'changeArticleMailStatus', 10);
 // ФУНКЦИИ УВЕДОМЛЕНИЙ
 
 // Создание таблицы
-add_action('init', 'createNotificationTable');
+//add_action('init', 'createNotificationTable');
 add_action('init', 'getNotifications');
 
 function createNotificationTable()
@@ -4444,13 +4445,6 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         }
         return $img;
     }
-    if (!extension_loaded('imagick')) {
-        $ogUrl = WPSEO_Options::get('og_default_image');
-        if ($size == 'twitter' && $ogUrl != '') {
-            return $ogUrl;
-        }
-        return $img;
-    }
 
     if ($bookId) {
         $book = wc_get_product($bookId);
@@ -4501,20 +4495,28 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         ->fromImg($file_path)
         ->resizeFor($size)
         ->getPath();
-    $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
-    if ($secure) {
-        $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+    if ($path) {
+        $finalUrl = preg_replace('~^(.){0,}/wp-content/uploads~', $uploads['baseurl'], $path);
+        if ($secure) {
+            $finalUrl = preg_replace('~http:~', 'https:', $finalUrl);
+        }
+        return $finalUrl;
+    } else {
+        $ogUrl = WPSEO_Options::get('og_default_image');
+        if ($size == 'twitter' && $ogUrl != '') {
+            return $ogUrl;
+        }
+        return $img;
     }
-    return $finalUrl;
 }
 
 add_filter('wpseo_og_og_image_width', function ($width) {
     if (!is_product()) {
         return $width;
     }
-    if (!extension_loaded('imagick')) {
-        return $width;
-    }
+//    if (!extension_loaded('imagick')) {
+//        return $width;
+//    }
     require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
     return imgGenerator::getWidth();
 });
@@ -4523,9 +4525,9 @@ add_filter('wpseo_og_og_image_height', function ($height) {
     if (!is_product()) {
         return $height;
     }
-    if (!extension_loaded('imagick')) {
-        return $height;
-    }
+//    if (!extension_loaded('imagick')) {
+//        return $height;
+//    }
     require_once __DIR__ . '/evaSocialImgGenerator/evaSocialImgGenerator.php';
     return imgGenerator::getHeight();
 });
