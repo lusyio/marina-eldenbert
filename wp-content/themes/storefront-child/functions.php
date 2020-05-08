@@ -2201,7 +2201,9 @@ function custom_render_my_rank($atts, $content = '')
         if ($show_title == 1) {
             $userSex = get_user_meta($user_id, 'sex', true);
             $titles = explode(':', $rank_object->title);
-            if ($userSex == 'male' && count($titles) > 1) {
+            if (in_array($user_id, [10, 35])) {
+                $show[] = 'Автор';
+            }elseif ($userSex == 'male' && count($titles) > 1) {
                 $show[] = $titles[1];
             } else {
                 $show[] = $titles[0];
