@@ -2201,7 +2201,7 @@ function custom_render_my_rank($atts, $content = '')
         if ($show_title == 1) {
             $userSex = get_user_meta($user_id, 'sex', true);
             $titles = explode(':', $rank_object->title);
-            if (in_array($user_id, [10, 35])) {
+            if (in_array($user_id, [9, 10])) {
                 $show[] = 'Автор';
             }elseif ($userSex == 'male' && count($titles) > 1) {
                 $show[] = $titles[1];
@@ -4452,6 +4452,7 @@ function changeOGImage($img, $size = 'autodetect', $secure = false)
         $book = wc_get_product($bookId);
         $ogTitle = $book->get_name();
         $originalImageUrl = wp_get_attachment_url(get_post_thumbnail_id($book->get_id()));
+        unset($book);
 
     } else {
         global $product;
