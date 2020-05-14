@@ -3750,6 +3750,14 @@ function getNotificationCard($notification)
             return '';
         }
         $link = $bookData['bookLink'];
+        $lastBookmark = getBookmarkMeta($bookData['bookId']);
+        $isMatchWithBookmark = $lastBookmark == $notification->article_page_id;
+        $isMatchWithCookieBookmark = isset($_COOKIE['b_' . $bookData['bookId']]) && $_COOKIE['b_' . $bookData['bookId']] == $notification->article_page_id;
+        if ($isMatchWithBookmark || $isMatchWithCookieBookmark) {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $notification->article_page_id . '&p=bookmark';
+        } else {
+            $link = get_permalink($bookData['bookPageId']) . '?a=' . $notification->article_page_id;
+        }
         $bookName = $bookData['product']->get_name();
         $content = 'Обновление главы в книге "' . $bookName . '"';
         $icon = 'wp-content/themes/storefront-child/svg/book-update.svg';
