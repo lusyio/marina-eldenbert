@@ -5002,3 +5002,8 @@ function upload_allow_types($mimes)
 
     return $mimes;
 }
+
+// Делаем запоминание авторизации на 30 дней
+add_filter('auth_cookie_expiration', function () {
+    return 30 * DAY_IN_SECONDS;
+});
