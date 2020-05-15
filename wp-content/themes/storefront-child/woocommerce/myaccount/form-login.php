@@ -68,7 +68,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                 <label class="m-auto woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme pure-material-radio">
                                     <input class="woocommerce-form__input woocommerce-form__input-checkbox"
                                            name="rememberme"
-                                           type="checkbox" id="rememberme" value="forever"/>
+                                           type="checkbox" id="rememberme" value="forever" checked/>
                                     <span><?php esc_html_e('Remember me', 'woocommerce'); ?></span>
                                 </label>
                                 <div class="m-auto">
