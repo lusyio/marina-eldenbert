@@ -186,7 +186,7 @@
                 <p class="footer-name-p">&copy; <a class="footer-name" href="https://marina-eldenbert.ru">Марина Эльденберт</a>, <?php echo date('Y'); ?></p>
                 <p class="mb-0 footer-credits d-block">
                     <a class="credits" href="https://richbee.ru/"
-                       target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg" alt=""></a>
+                       target="_blank"><img src="/wp-content/themes/storefront-child/svg/Richbee-black.svg?ver=1.0.1" alt=""></a>
                 </p>
             </div>
         </div>
