@@ -32,7 +32,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
             <div class="col-12 offset-0 col-lg-6 offset-lg-3">
                 <h2 class="text-center mb-5"><?php esc_html_e('Login', 'woocommerce'); ?></h2>
 
-                <form class="woocommerce-form woocommerce-form-login login" method="post">
+                <form class="woocommerce-form woocommerce-form-login login mb-0" method="post">
 
                     <?php do_action('woocommerce_login_form_start'); ?>
 
@@ -92,7 +92,6 @@ do_action('woocommerce_before_customer_login_form'); ?>
                         </div>
                     </div>
 
-                    <?php do_action('woocommerce_login_form_end'); ?>
 
                 </form>
                 <?php if ('yes' === get_option('woocommerce_enable_myaccount_registration')) : ?>
@@ -108,7 +107,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                 <h2 class="text-center mb-5"><?php esc_html_e('Register', 'woocommerce'); ?></h2>
 
                 <form method="post"
-                      class="woocommerce-form woocommerce-form-register register" <?php do_action('woocommerce_register_form_tag'); ?> >
+                      class="woocommerce-form woocommerce-form-register register mb-0" <?php do_action('woocommerce_register_form_tag'); ?> >
 
                     <?php do_action('woocommerce_register_form_start'); ?>
 
@@ -181,5 +180,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
         </div>
     </div>
     <?php endif; ?>
-
+    <div class="w-100 text-center">
+    <?php do_action('woocommerce_login_form_end'); ?>
+    </div>
     <?php do_action('woocommerce_after_customer_login_form'); ?>
