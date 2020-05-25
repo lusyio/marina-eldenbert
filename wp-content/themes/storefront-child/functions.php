@@ -47,7 +47,7 @@ function enqueue_child_theme_styles()
 // load bootstrap js
     wp_enqueue_script('wp-bootstrap-starter-popper', get_stylesheet_directory_uri() . '/inc/assets/js/popper.min.js', array(), '', true);
     wp_enqueue_script('wp-bootstrap-starter-bootstrapjs', get_stylesheet_directory_uri() . '/inc/assets/js/bootstrap.min.js', array(), '', true);
-    wp_enqueue_script('wp-bootstrap-starter-themejs', get_stylesheet_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '', true);
+    wp_enqueue_script('wp-bootstrap-starter-themejs', get_stylesheet_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '1', true);
     wp_enqueue_script('wp-bootstrap-starter-skip-link-focus-fix', get_stylesheet_directory_uri() . '/inc/assets/js/skip-link-focus-fix.min.js', array(), '', true);
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -960,7 +960,7 @@ function bookCardInReader()
         }
 
         if (!$hasDownloads && $product->get_status() == 'publish') {
-            if ($product->get_price() == 0): ?>
+            if ($product->get_price() == 0 || isBookBought($product->get_id())): ?>
                 <a href="<?php echo $product->get_permalink(); ?>">Подробнее</a>
             <?php else: ?>
                 <a href="<?php echo get_site_url(); ?>/checkout/?add-to-cart=<?php echo $product->get_id(); ?>">Купить</a>
