@@ -960,7 +960,7 @@ function bookCardInReader()
         }
 
         if (!$hasDownloads && $product->get_status() == 'publish') {
-            if ($product->get_price() == 0): ?>
+            if ($product->get_price() == 0 || isBookBought($product->get_id())): ?>
                 <a href="<?php echo $product->get_permalink(); ?>">Подробнее</a>
             <?php else: ?>
                 <a href="<?php echo get_site_url(); ?>/checkout/?add-to-cart=<?php echo $product->get_id(); ?>">Купить</a>
