@@ -712,7 +712,7 @@ if (is_user_logged_in()) {
  * Добавляем ajax-обработчик счетчика уведомлений
  */
 if (is_user_logged_in()) {
-    //add_action('wp_ajax_update_notification', 'notificationAjax');
+    add_action('wp_ajax_update_notification', 'notificationAjax');
 }
 /**
  * ajax-обработчик вывода страниц главы
