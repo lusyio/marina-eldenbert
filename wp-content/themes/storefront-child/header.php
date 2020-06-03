@@ -96,7 +96,7 @@
                                         <img class="menu-profile__avatar"
                                              src="<?= esc_url(get_avatar_url($user->ID)); ?>"
                                              alt="<?= $userName ?>">
-                                        <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
+                                        <span class="menu-profile__counter" style="display: none"><?php echo sprintf($notificationsCount); ?></span>
                                     </div>
 
                                     <p>
@@ -116,7 +116,7 @@
                                     <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                                         <?php if ($endpoint === 'notifications'): ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?>
-                                                <span class="menu-profile__counter"<?= (sprintf($notificationsCount) != 0) ? '' : ' style="display: none"' ?>><?php echo sprintf($notificationsCount); ?></span>
+                                                <span class="menu-profile__counter" style="display: none"><?php echo sprintf($notificationsCount); ?></span>
                                             </a>
                                         <?php else: ?>
                                             <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
