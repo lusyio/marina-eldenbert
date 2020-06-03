@@ -1,5 +1,5 @@
 jQuery(function ($) {
-
+    update();
     let updater = setInterval(() => update(), 60000);
     function update() {
         $.ajax({
@@ -22,4 +22,4 @@ jQuery(function ($) {
         });
         return false;
     }
-})
+});
