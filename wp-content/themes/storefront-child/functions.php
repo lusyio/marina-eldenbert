@@ -705,7 +705,7 @@ function wp_custom_link_articles($args = '')
 /**
  * Добавляем скрипт счетчика уведомлений
  */
-if (is_user_logged_in()) {
+if (is_user_logged_in() && !is_admin()) {
     wp_enqueue_script('notification-script', get_stylesheet_directory_uri() . '/inc/assets/js/notifications.js', array('jquery'), '1');
 }
 /**
