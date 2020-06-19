@@ -5007,3 +5007,10 @@ function upload_allow_types($mimes)
 add_filter('auth_cookie_expiration', function () {
     return 30 * DAY_IN_SECONDS;
 });
+
+function prevent_deleting_pTags($init){
+    $init['wpautop'] = false;
+    return $init;
+}
+// Отключает удаление пустых тегов <p> - нужно для сохраненния переносов после форматирования текста
+add_filter('tiny_mce_before_init', 'prevent_deleting_pTags');
