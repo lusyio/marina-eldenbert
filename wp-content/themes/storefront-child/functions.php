@@ -3546,6 +3546,10 @@ function article_send_notification($new_status, $old_status, WP_Post $post)
                     // Анонсы
                     newPostNotificationAdd($post->ID, 'announcement');
                     break;
+                } elseif ($category->slug == 'author-blog') {
+                    // Авторский блог
+                    newPostNotificationAdd($post->ID, 'new_blog');
+                    break;
                 }
             }
             newArticleNotificationAdd($post->ID);
@@ -3568,11 +3572,11 @@ add_action('transition_post_status', 'article_send_notification', 10, 3);
 
 function newPostNotificationAdd($postId, $type)
 {
-    $possibleTypes = ['news', 'announcement', 'new_book', 'subscribe_open', 'book_finish', 'sale_open'];
+    $possibleTypes = ['news', 'announcement', 'new_book', 'subscribe_open', 'book_finish', 'sale_open', 'new_blog'];
     if (!in_array($type, $possibleTypes)) {
         return;
     }
-    if (in_array($type, ['news', 'announcement', 'new_book'])) {
+    if (in_array($type, ['news', 'announcement', 'new_book', 'new_blog'])) {
         $users = get_users(['fields' => ['ID']]); // Отправляем всем
     } elseif ($type == 'subscribe_open') {
         $users = getUserIdsWithBookInLibrary($postId); // Отправляем тем у кого в библиотеке
@@ -3586,7 +3590,7 @@ function newPostNotificationAdd($postId, $type)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
-        if (in_array($type, ['news', 'announcement', 'new_book'])) {
+        if (in_array($type, ['news', 'announcement', 'new_book', 'new_blog'])) {
             $user = $user->ID;
         }
         $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user, $type, $postId));
@@ -3716,15 +3720,18 @@ function getNotificationCard($notification)
         $content = 'Новая книга - ' . $post->post_title;
         $icon = 'wp-content/themes/storefront-child/svg/book-new.svg';
         $isValid = true;
-    } elseif ($type == 'news' || $type == 'announcement') {
+    } elseif ($type == 'news' || $type == 'announcement' || $type == 'new_blog') {
         $link = get_permalink($notification->article_page_id);
         $post = get_post($notification->article_page_id);
         if ($type == 'news') {
             $content = 'Добавлена новость - ' . $post->post_title;
             $icon = 'wp-content/themes/storefront-child/svg/newspaper.svg';
-        } else {
+        } elseif ($type == 'announcement') {
             $content = 'Новый анонс - ' . $post->post_title;
             $icon = 'wp-content/themes/storefront-child/svg/guide.svg';
+        } else {
+            $content = 'Новая запись в блоге - ' . $post->post_title;
+            $icon = 'wp-content/themes/storefront-child/svg/newspaper.svg';
         }
         $isValid = true;
     } elseif ($type == 'new_article') {
