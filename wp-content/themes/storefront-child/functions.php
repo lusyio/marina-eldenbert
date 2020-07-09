@@ -5021,3 +5021,11 @@ function prevent_deleting_pTags($init){
 }
 // Отключает удаление пустых тегов <p> - нужно для сохраненния переносов после форматирования текста
 add_filter('tiny_mce_before_init', 'prevent_deleting_pTags');
+
+// отключает ajax-php
+add_action( 'init', 'my_deregister_heartbeat', 1 );
+function my_deregister_heartbeat() {
+ global $pagenow;
+if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
+ wp_deregister_script('heartbeat');
+ }
