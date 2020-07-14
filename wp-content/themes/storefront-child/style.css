@@ -3348,6 +3348,7 @@ h2.related-product {
     padding: 4px 5px;
     border-radius: 50%;
     background: #F8AC53;
+    min-width: 16px;
     height: 16px;
     text-align: center;
 }
