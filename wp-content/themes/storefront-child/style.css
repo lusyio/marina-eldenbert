@@ -6083,6 +6083,10 @@ and (max-width: 991px) {
 @media screen
 and (max-width: 768px) {
 
+    .menu-profile-trigger .menu-profile__counter{
+        right: -3px;
+    }
+
     .menu-profile-submenu .menu-profile__counter {
         margin-left: 6px;
     }
