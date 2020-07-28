@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.35
+Version:      	1.0.36
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -556,7 +556,7 @@ article:last-of-type > hr.content-search__hr {
     display: none;
 }
 
-#InterkassaForm{
+#InterkassaForm {
     display: flex;
 }
 
@@ -903,13 +903,13 @@ footer.site-footer {
     margin-top: 3rem;
 }
 
-.sce-comment-edit-buttons{
+.sce-comment-edit-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
 }
 
-.sce-timer, .sce-seperator{
+.sce-timer, .sce-seperator {
     display: none;
 }
 
@@ -5069,7 +5069,7 @@ img.emoji {
     max-height: unset;
 }
 
-body .woocommerce-Reviews #nep_fake_textarea{
+body .woocommerce-Reviews #nep_fake_textarea {
     max-height: unset;
     height: auto !important;
     min-height: 240px;
@@ -6082,6 +6082,10 @@ and (max-width: 991px) {
 
 @media screen
 and (max-width: 768px) {
+
+    .menu-profile-submenu .menu-profile__counter {
+        margin-left: 6px;
+    }
 
     .add-to-cart-block .add-to-cart-block__type {
         padding-left: 0;
