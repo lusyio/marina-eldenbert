@@ -3495,7 +3495,7 @@ add_action('init', 'changeArticleMailStatus', 10);
 
 // Создание таблицы
 //add_action('init', 'createNotificationTable');
-add_action('init', 'getNotifications');
+//add_action('init', 'getNotifications');
 
 function createNotificationTable()
 {
@@ -3864,7 +3864,14 @@ function markArticleNotificationAsRead($articleId)
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND article_page_id = %d AND view_status = 0;", $userId, $articleId));
+    $notificationIds = $wpdb->get_results($wpdb->prepare("SELECT id FROM {$table_name} WHERE user_id = %d AND article_page_id = %d AND view_status = 0;", $userId, $articleId));
+    if (count($notificationIds) > 0) {
+        $notificationIdsArray = [];
+        foreach ($notificationIds as $notificationId) {
+            $notificationIdsArray[] = $notificationId->id;
+        }
+        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+    }
 }
 
 // Пометка уведомления прочитанным для ответов и лайков к комментариям
@@ -3876,7 +3883,14 @@ function markCommentNotificationAsRead($pageId)
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND page_id = %d AND view_status = 0;", $userId, $pageId));
+    $notificationIds = $wpdb->get_results($wpdb->prepare("SELECT id FROM {$table_name} WHERE user_id = %d AND page_id = %d AND view_status = 0;", $userId, $pageId));
+    if (count($notificationIds) > 0) {
+        $notificationIdsArray = [];
+        foreach ($notificationIds as $notificationId) {
+            $notificationIdsArray[] = $notificationId->id;
+        }
+        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+    }
 }
 
 function markBookNotificationAsRead($pageId)
@@ -3889,7 +3903,14 @@ function markBookNotificationAsRead($pageId)
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND notification_type = 'book_finish' AND article_page_id = %d AND view_status = 0;", $userId, $bookId));
+    $notificationIds = $wpdb->get_results($wpdb->prepare("SELECT id FROM {$table_name} WHERE user_id = %d AND notification_type = 'book_finish' AND article_page_id = %d AND view_status = 0;", $userId, $bookId));
+    if (count($notificationIds) > 0) {
+        $notificationIdsArray = [];
+        foreach ($notificationIds as $notificationId) {
+            $notificationIdsArray[] = $notificationId->id;
+        }
+        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+    }
 }
 
 // Пометка всех уведомлений прочитанными
@@ -3902,7 +3923,14 @@ function markAllNotificationsAsRead()
 
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE user_id = %d AND view_status = 0;", $userId));
+    $notificationIds = $wpdb->get_results($wpdb->prepare("SELECT id FROM {$table_name} WHERE user_id = %d AND view_status = 0;", $userId));
+    if (count($notificationIds) > 0) {
+        $notificationIdsArray = [];
+        foreach ($notificationIds as $notificationId) {
+            $notificationIdsArray[] = $notificationId->id;
+        }
+        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+    }
 }
 
 
