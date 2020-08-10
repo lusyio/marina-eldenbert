@@ -70,19 +70,7 @@ Template Post Type: post, page, product
     </div>
     <div class="row">
         <div class="col-12">
-            <?php if (isset($_GET['comments']) && $_GET['comments'] == 'yes'): ?>
             <?php storefront_display_comments(); ?>
-            <?php else: ?>
-            <div class="text-center">
-                <form method="get">
-                    <?php  if (isset($_GET['a'])): ?>
-                    <input type="hidden" name="a" value="<?= $_GET['a'] ?>">
-                    <?php endif; ?>
-                    <input type="hidden" name="comments" value="yes">
-                <button type="submit" class="load-more">Показать комментарии</button>
-                </form>
-            </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
