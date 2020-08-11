@@ -3593,6 +3593,9 @@ function newPostNotificationAdd($postId, $type)
         if (in_array($type, ['news', 'announcement', 'new_book', 'new_blog'])) {
             $user = $user->ID;
         }
+        if ($user == 0) {
+            continue;
+        }
         $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $user, $type, $postId));
     }
 }
@@ -3612,6 +3615,9 @@ function newArticleNotificationAdd($articlePageId)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($userIds as $userId) {
+        if ($userId == 0) {
+            continue;
+        }
         $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $userId, "new_article", $articlePageId));
     }
 }
@@ -3631,6 +3637,9 @@ function updateArticleNotificationAdd($articlePageId)
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($userIds as $userId) {
+        if ($userId == 0) {
+            continue;
+        }
         $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, article_page_id, notification_date) VALUES (%d, %s, %d, NOW());", $userId, "update_article", $articlePageId));
     }
 }
@@ -3684,7 +3693,7 @@ function getNotifications()
 
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC;", $userId));
+    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC LIMIT 2;", $userId));
     return $notifications;
 }
 
@@ -3861,6 +3870,11 @@ function markArticleNotificationAsRead($articleId)
     if (!is_user_logged_in()) {
         return;
     }
+
+    if (isset($GLOBALS['articleNotificationsMarked']) && $GLOBALS['articleNotificationsMarked']) {
+        return;
+    }
+
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
@@ -3870,8 +3884,9 @@ function markArticleNotificationAsRead($articleId)
         foreach ($notificationIds as $notificationId) {
             $notificationIdsArray[] = $notificationId->id;
         }
-        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+        setNotificationsAsRead($notificationIdsArray);
     }
+    $GLOBALS['articleNotificationsMarked'] = true;
 }
 
 // Пометка уведомления прочитанным для ответов и лайков к комментариям
@@ -3880,6 +3895,11 @@ function markCommentNotificationAsRead($pageId)
     if (!is_user_logged_in()) {
         return;
     }
+
+    if (isset($GLOBALS['commentNotificationsMarked']) && $GLOBALS['commentNotificationsMarked']) {
+        return;
+    }
+
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
@@ -3889,8 +3909,10 @@ function markCommentNotificationAsRead($pageId)
         foreach ($notificationIds as $notificationId) {
             $notificationIdsArray[] = $notificationId->id;
         }
-        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+        setNotificationsAsRead($notificationIdsArray);
     }
+    $GLOBALS['commentNotificationsMarked'] = true;
+
 }
 
 function markBookNotificationAsRead($pageId)
@@ -3900,6 +3922,11 @@ function markBookNotificationAsRead($pageId)
     if (!is_user_logged_in() || !$bookId) {
         return;
     }
+
+    if (isset($GLOBALS['bookNotificationsMarked']) && $GLOBALS['bookNotificationsMarked']) {
+        return;
+    }
+
     $userId = get_current_user_id();
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
@@ -3909,8 +3936,9 @@ function markBookNotificationAsRead($pageId)
         foreach ($notificationIds as $notificationId) {
             $notificationIdsArray[] = $notificationId->id;
         }
-        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+        setNotificationsAsRead($notificationIdsArray);
     }
+    $GLOBALS['bookNotificationsMarked'] = true;
 }
 
 // Пометка всех уведомлений прочитанными
@@ -3919,18 +3947,30 @@ function markAllNotificationsAsRead()
     if (!is_user_logged_in()) {
         return;
     }
+
+    if (isset($GLOBALS['allNotificationsMarked']) && $GLOBALS['allNotificationsMarked']) {
+        return;
+    }
     $userId = get_current_user_id();
 
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     $notificationIds = $wpdb->get_results($wpdb->prepare("SELECT id FROM {$table_name} WHERE user_id = %d AND view_status = 0;", $userId));
+
     if (count($notificationIds) > 0) {
         $notificationIdsArray = [];
         foreach ($notificationIds as $notificationId) {
             $notificationIdsArray[] = $notificationId->id;
         }
-        $wpdb->get_results($wpdb->prepare("UPDATE {$table_name} SET view_status = 1 WHERE id in (%s);", implode(', ', $notificationIdsArray)));
+        setNotificationsAsRead($notificationIdsArray);
     }
+    $GLOBALS['allNotificationsMarked'] = true;
+}
+
+function setNotificationsAsRead($notifications) {
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+    $wpdb->query("UPDATE " . $table_name . " SET view_status = 1 WHERE id IN ( " . implode(', ', $notifications) . ");");
 }
 
 
