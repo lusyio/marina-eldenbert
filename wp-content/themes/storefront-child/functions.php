@@ -3871,7 +3871,7 @@ function markArticleNotificationAsRead($articleId)
         return;
     }
 
-    if (isset($GLOBALS['articleNotificationsMarked']) && $GLOBALS['articleNotificationsMarked']) {
+    if (isset($GLOBALS['articleNotificationsMarked'.$articleId]) && $GLOBALS['articleNotificationsMarked'.$articleId]) {
         return;
     }
 
@@ -3886,7 +3886,7 @@ function markArticleNotificationAsRead($articleId)
         }
         setNotificationsAsRead($notificationIdsArray);
     }
-    $GLOBALS['articleNotificationsMarked'] = true;
+    $GLOBALS['articleNotificationsMarked'.$articleId] = true;
 }
 
 // Пометка уведомления прочитанным для ответов и лайков к комментариям
@@ -3896,7 +3896,7 @@ function markCommentNotificationAsRead($pageId)
         return;
     }
 
-    if (isset($GLOBALS['commentNotificationsMarked']) && $GLOBALS['commentNotificationsMarked']) {
+    if (isset($GLOBALS['commentNotificationsMarked'.$pageId]) && $GLOBALS['commentNotificationsMarked'.$pageId]) {
         return;
     }
 
@@ -3911,7 +3911,7 @@ function markCommentNotificationAsRead($pageId)
         }
         setNotificationsAsRead($notificationIdsArray);
     }
-    $GLOBALS['commentNotificationsMarked'] = true;
+    $GLOBALS['commentNotificationsMarked'.$pageId] = true;
 
 }
 
@@ -3923,7 +3923,7 @@ function markBookNotificationAsRead($pageId)
         return;
     }
 
-    if (isset($GLOBALS['bookNotificationsMarked']) && $GLOBALS['bookNotificationsMarked']) {
+    if (isset($GLOBALS['bookNotificationsMarked'.$bookId]) && $GLOBALS['bookNotificationsMarked'.$bookId]) {
         return;
     }
 
@@ -3938,7 +3938,7 @@ function markBookNotificationAsRead($pageId)
         }
         setNotificationsAsRead($notificationIdsArray);
     }
-    $GLOBALS['bookNotificationsMarked'] = true;
+    $GLOBALS['bookNotificationsMarked'.$bookId] = true;
 }
 
 // Пометка всех уведомлений прочитанными
