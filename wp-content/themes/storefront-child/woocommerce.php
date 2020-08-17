@@ -39,7 +39,6 @@ get_header(); ?>
                 global $post;
                 $currentPost = $post;
                 $bookPageId = getBookPageIdByBookId($product->get_id());
-                var_dump($bookPageId);
                 $GLOBALS['post'] = get_post($bookPageId);
                 comments_template();
                 $GLOBALS['post'] = $currentPost;
