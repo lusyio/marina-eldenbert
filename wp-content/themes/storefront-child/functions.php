@@ -5097,3 +5097,22 @@ function my_deregister_heartbeat() {
 if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
  wp_deregister_script('heartbeat');
  }
+
+add_action('comment_post', function ($commentId) {
+    setCommentDateMeta($commentId);
+});
+function setCommentDateMeta($commentId, $date = false)
+{
+    $comment = get_comment($commentId);
+    if($date) {
+        $newDate = $date;
+    } else {
+        $newDate = $comment->comment_date_gmt;
+    }
+    if (strtotime($newDate) >= strtotime($comment->comment_date_gmt)) {
+        update_comment_meta($commentId, 'last_child_comment', $newDate);
+    }
+    if ($comment->comment_parent) {
+        setCommentDateMeta($comment->comment_parent, $newDate);
+    }
+}
