@@ -5098,21 +5098,58 @@ if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
  wp_deregister_script('heartbeat');
  }
 
+add_filter( 'comments_template_query_args', function( $comment_args )
+{
+    $comment_args['orderby'] = ['meta_value' => 'DESC'];
+    $comment_args['meta_key'] = 'last_child_comment';
+
+    return $comment_args;
+} );
+
 add_action('comment_post', function ($commentId) {
     setCommentDateMeta($commentId);
 });
 function setCommentDateMeta($commentId, $date = false)
 {
     $comment = get_comment($commentId);
+    if (!$comment->comment_approved) return;
     if($date) {
         $newDate = $date;
     } else {
         $newDate = $comment->comment_date_gmt;
     }
-    if (strtotime($newDate) >= strtotime($comment->comment_date_gmt)) {
+    $currentMeta = get_comment_meta($commentId, 'last_child_comment', true);
+    if (!$currentMeta || strtotime($newDate) > strtotime($currentMeta)) {
         update_comment_meta($commentId, 'last_child_comment', $newDate);
     }
     if ($comment->comment_parent) {
         setCommentDateMeta($comment->comment_parent, $newDate);
+    }
+}
+
+add_action( 'deleted_comment', function( $commentId ) {
+    recountCommentMeta($commentId);
+} );
+
+add_action('transition_comment_status', 'my_approve_comment_callback', 10, 3);
+function my_approve_comment_callback($new_status, $old_status, $comment) {
+    if($old_status != $new_status) {
+        if($new_status == 'unapproved' || $new_status == 'trash') {
+            recountCommentMeta($comment->comment_ID);
+        }
+    }
+}
+
+function recountCommentMeta($commentId)
+{
+    $commentToDelete = get_comment($commentId);
+
+    $comments = get_comments(['post_id' => $commentToDelete->comment_post_ID]);
+    foreach ($comments as $comment) {
+        delete_comment_meta($comment->comment_ID, 'last_child_comment');
+    }
+    foreach ($comments as $comment) {
+        if ($comment->comment_ID == $commentId) continue;
+        setCommentDateMeta($comment->comment_ID);
     }
 }
