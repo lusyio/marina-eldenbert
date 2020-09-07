@@ -1606,7 +1606,7 @@ function woocommerce_comments($comment, $args, $depth)
             <br/>
         <?php endif; ?>
 
-        <a href="<?php echo esc_url(htmlspecialchars(get_comment_link($comment->comment_ID))); ?>"
+        <a href="<?php echo esc_url(htmlspecialchars(me_custom_get_comment_link($comment->comment_ID))); ?>"
            class="comment-date">
 
         </a>
@@ -3693,7 +3693,7 @@ function getNotifications()
 
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC LIMIT 2;", $userId));
+    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC;", $userId));
     return $notifications;
 }
 
@@ -3823,7 +3823,7 @@ function getNotificationCard($notification)
         $user = get_userdata($replyUserId);
         $replyUser = $user->display_name;
         $userSex = get_user_meta($replyUserId, 'sex', true);
-        $link = get_comment_link($comment);
+        $link = me_custom_get_comment_link($comment);
         if ($type == 'reply_comment') {
             $feminitive = ($userSex === '1' || $userSex === '') ? 'а' : '';
             $content = $replyUser . ' ответил' . $feminitive . ' на ваш комментарий';
@@ -4233,37 +4233,40 @@ add_filter('comments_array', function ($comments_flat) {
 /*
  *  Исправляем номер страницы на которой отображен комментарий
  */
-add_filter('get_page_of_comment', function ($page, $args, $original_args, $comment_ID) {
-    global $wpdb;
-    $comment = get_comment($comment_ID);
-    $comment_args = array(
-        'type' => $args['type'],
-        'post_id' => $comment->comment_post_ID,
-        'fields' => 'ids',
-        'count' => true,
-        'status' => 'approve',
-        'parent' => 0,
-        'date_query' => array(
-            array(
-                'column' => "$wpdb->comments.comment_date_gmt",
-                'after' => $comment->comment_date_gmt,
-            ),
-        ),
-    );
-
-    $comment_query = new WP_Comment_Query();
-    $newer_comment_count = $comment_query->query($comment_args);
-
-    // No newer comments? Then it's page #1.
-    if (0 == $newer_comment_count) {
-        $page = 1;
-
-        // Divide comments newer than this one by comments per page to get this comment's page number
-    } else {
-        $page = ceil(($newer_comment_count + 1) / $args['per_page']);
-    }
-    return $page;
-}, 20, 4);
+//add_filter('get_page_of_comment', function ($page, $args, $original_args, $comment_ID) {
+//    global $wpdb;
+//    $comment = get_comment($comment_ID);
+//    $comment_args = array(
+//        'type' => $args['type'],
+//        'post_id' => $comment->comment_post_ID,
+//        'fields' => 'ids',
+//        'count' => true,
+//        'status' => 'approve',
+//        'parent' => 0,
+//        'meta_key' => 'last_child_comment',
+//        'meta_query' => array(
+//            array(
+//                'key' => 'last_child_comment',
+//                'value' => $comment->comment_date_gmt,
+//                'compare' => '>',
+//                'type' => 'DATE',
+//            )
+//        ),
+//    );
+//
+//    $comment_query = new WP_Comment_Query();
+//    $newer_comment_count = $comment_query->query($comment_args);
+//
+//    // No newer comments? Then it's page #1.
+//    if (0 == $newer_comment_count) {
+//        $page = 1;
+//
+//        // Divide comments newer than this one by comments per page to get this comment's page number
+//    } else {
+//        $page = ceil(($newer_comment_count + 1) / $args['per_page']);
+//    }
+//    return $page;
+//}, 20, 4);
 
 
 // Добавляем в комментариях <br> после </div> и </p>, удаляем все теги кроме <br>
@@ -5093,10 +5096,10 @@ add_filter('tiny_mce_before_init', 'prevent_deleting_pTags');
 // отключает ajax-php
 add_action( 'init', 'my_deregister_heartbeat', 1 );
 function my_deregister_heartbeat() {
- global $pagenow;
-if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
- wp_deregister_script('heartbeat');
- }
+    global $pagenow;
+    if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
+        wp_deregister_script('heartbeat');
+}
 
 add_filter( 'comments_template_query_args', function( $comment_args )
 {
@@ -5152,4 +5155,212 @@ function recountCommentMeta($commentId)
         if ($comment->comment_ID == $commentId) continue;
         setCommentDateMeta($comment->comment_ID);
     }
+}
+
+function me_custom_get_page_of_comment( $comment_ID, $args = array() ) {
+    global $wpdb;
+
+    $page = null;
+
+    $comment = get_comment( $comment_ID );
+    if ( ! $comment ) {
+        return;
+    }
+
+
+    $lastChildMeta = get_comment_meta($comment->comment_ID, 'last_child_comment', true);
+    if (!$lastChildMeta) {
+        $lastChildMeta = $comment->comment_date_gmt;
+    }
+    $defaults      = array(
+        'type'      => 'all',
+        'page'      => '',
+        'per_page'  => '',
+        'max_depth' => '',
+    );
+    $args          = wp_parse_args( $args, $defaults );
+    $original_args = $args;
+
+    // Order of precedence: 1. `$args['per_page']`, 2. 'comments_per_page' query_var, 3. 'comments_per_page' option.
+    if ( get_option( 'page_comments' ) ) {
+        if ( '' === $args['per_page'] ) {
+            $args['per_page'] = get_query_var( 'comments_per_page' );
+        }
+
+        if ( '' === $args['per_page'] ) {
+            $args['per_page'] = get_option( 'comments_per_page' );
+        }
+    }
+
+    if ( empty( $args['per_page'] ) ) {
+        $args['per_page'] = 0;
+        $args['page']     = 0;
+    }
+
+    if ( $args['per_page'] < 1 ) {
+        $page = 1;
+    }
+
+    if ( null === $page ) {
+        if ( '' === $args['max_depth'] ) {
+            if ( get_option( 'thread_comments' ) ) {
+                $args['max_depth'] = get_option( 'thread_comments_depth' );
+            } else {
+                $args['max_depth'] = -1;
+            }
+        }
+
+        // Find this comment's top level parent if threading is enabled
+        if ( $args['max_depth'] > 1 && 0 != $comment->comment_parent ) {
+            return me_custom_get_page_of_comment( $comment->comment_parent, $args );
+        }
+
+        $comment_args = array(
+            'type'       => $args['type'],
+            'post_id'    => $comment->comment_post_ID,
+            'fields'     => 'ids',
+            'count'      => true,
+            'status'     => 'approve',
+            'parent'     => 0,
+            'meta_key' => 'last_child_comment',
+            'meta_query' => array(
+                array(
+                    'key' => 'last_child_comment',
+                    'value' => $lastChildMeta,
+                    'compare' => '>=',
+                    'type' => 'DATETIME',
+                )
+            ),
+        );
+        $comment_query       = new WP_Comment_Query();
+        $newer_comment_count = $comment_query->query( $comment_args );
+
+        // No older comments? Then it's page #1.
+        if ( 0 == $newer_comment_count ) {
+            $page = 1;
+
+            // Divide comments newer than this one by comments per page to get this comment's page number
+        } else {
+            $page = ceil( ( $newer_comment_count + 1 ) / $args['per_page'] );
+        }
+    }
+
+    /**
+     * Filters the calculated page on which a comment appears.
+     *
+     * @since 4.4.0
+     * @since 4.7.0 Introduced the `$comment_ID` parameter.
+     *
+     * @param int   $page          Comment page.
+     * @param array $args {
+     *     Arguments used to calculate pagination. These include arguments auto-detected by the function,
+     *     based on query vars, system settings, etc. For pristine arguments passed to the function,
+     *     see `$original_args`.
+     *
+     *     @type string $type      Type of comments to count.
+     *     @type int    $page      Calculated current page.
+     *     @type int    $per_page  Calculated number of comments per page.
+     *     @type int    $max_depth Maximum comment threading depth allowed.
+     * }
+     * @param array $original_args {
+     *     Array of arguments passed to the function. Some or all of these may not be set.
+     *
+     *     @type string $type      Type of comments to count.
+     *     @type int    $page      Current comment page.
+     *     @type int    $per_page  Number of comments per page.
+     *     @type int    $max_depth Maximum comment threading depth allowed.
+     * }
+     * @param int $comment_ID ID of the comment.
+     */
+    return apply_filters( 'get_page_of_comment', (int) $page, $args, $original_args, $comment_ID );
+}
+
+function me_custom_get_comment_link( $comment = null, $args = array() ) {
+    global $wp_rewrite, $in_comment_loop;
+
+    $comment = get_comment( $comment );
+
+    // Back-compat.
+    if ( ! is_array( $args ) ) {
+        $args = array( 'page' => $args );
+    }
+
+    $defaults = array(
+        'type'      => 'all',
+        'page'      => '',
+        'per_page'  => '',
+        'max_depth' => '',
+        'cpage'     => null,
+    );
+    $args     = wp_parse_args( $args, $defaults );
+
+    $link = get_permalink( $comment->comment_post_ID );
+
+    // The 'cpage' param takes precedence.
+    if ( ! is_null( $args['cpage'] ) ) {
+        $cpage = $args['cpage'];
+
+        // No 'cpage' is provided, so we calculate one.
+    } else {
+        if ( '' === $args['per_page'] && get_option( 'page_comments' ) ) {
+            $args['per_page'] = get_option( 'comments_per_page' );
+        }
+
+        if ( empty( $args['per_page'] ) ) {
+            $args['per_page'] = 0;
+            $args['page']     = 0;
+        }
+
+        $cpage = $args['page'];
+
+        if ( '' == $cpage ) {
+            if ( ! empty( $in_comment_loop ) ) {
+                $cpage = get_query_var( 'cpage' );
+            } else {
+                // Requires a database hit, so we only do it when we can't figure out from context.
+                $cpage = me_custom_get_page_of_comment( $comment->comment_ID, $args );
+            }
+        }
+
+        /*
+         * If the default page displays the oldest comments, the permalinks for comments on the default page
+         * do not need a 'cpage' query var.
+         */
+        if ( 'oldest' === get_option( 'default_comments_page' ) && 1 === $cpage ) {
+            $cpage = '';
+        }
+    }
+
+    if ( $cpage && get_option( 'page_comments' ) ) {
+        if ( $wp_rewrite->using_permalinks() ) {
+            if ( $cpage ) {
+                $link = trailingslashit( $link ) . $wp_rewrite->comments_pagination_base . '-' . $cpage;
+            }
+
+            $link = user_trailingslashit( $link, 'comment' );
+        } elseif ( $cpage ) {
+            $link = add_query_arg( 'cpage', $cpage, $link );
+        }
+    }
+
+    if ( $wp_rewrite->using_permalinks() ) {
+        $link = user_trailingslashit( $link, 'comment' );
+    }
+
+    $link = $link . '#comment-' . $comment->comment_ID;
+
+    /**
+     * Filters the returned single comment permalink.
+     *
+     * @since 2.8.0
+     * @since 4.4.0 Added the `$cpage` parameter.
+     *
+     * @see get_page_of_comment()
+     *
+     * @param string     $link    The comment permalink with '#comment-$id' appended.
+     * @param WP_Comment $comment The current comment object.
+     * @param array      $args    An array of arguments to override the defaults.
+     * @param int        $cpage   The calculated 'cpage' value.
+     */
+    return apply_filters( 'get_comment_link', $link, $comment, $args, $cpage );
 }
