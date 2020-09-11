@@ -5137,7 +5137,7 @@ add_action( 'deleted_comment', function( $commentId ) {
 add_action('transition_comment_status', 'my_approve_comment_callback', 10, 3);
 function my_approve_comment_callback($new_status, $old_status, $comment) {
     if($old_status != $new_status) {
-        if($new_status == 'unapproved' || $new_status == 'trash') {
+        if($new_status == 'trash') {
             recountCommentMeta($comment->comment_ID);
         }
     }
@@ -5363,4 +5363,16 @@ function me_custom_get_comment_link( $comment = null, $args = array() ) {
      * @param int        $cpage   The calculated 'cpage' value.
      */
     return apply_filters( 'get_comment_link', $link, $comment, $args, $cpage );
+}
+
+if (isset($_GET['updatecommentsmeta'])) {
+    $args = [
+        'post_id' => (int) $_GET['updatecommentsmeta'],
+    ];
+    $comments = get_comments( $args );
+    if ($comments) {
+        foreach ($comments as $comment) {
+            setCommentDateMeta($comment->comment_ID);
+        }
+    }
 }
