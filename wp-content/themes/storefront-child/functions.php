@@ -5115,7 +5115,11 @@ add_action('comment_post', function ($commentId) {
 function setCommentDateMeta($commentId, $date = false)
 {
     $comment = get_comment($commentId);
-    if (!$comment->comment_approved) return;
+    if ($comment->comment_approved == 'trash') {
+        if ($comment->comment_parent && $date) {
+            setCommentDateMeta($comment->comment_parent, $date);
+        }
+    }
     if($date) {
         $newDate = $date;
     } else {
@@ -5147,13 +5151,8 @@ function recountCommentMeta($commentId)
 {
     $commentToDelete = get_comment($commentId);
 
-    $comments = get_comments(['post_id' => $commentToDelete->comment_post_ID]);
-    foreach ($comments as $comment) {
-        delete_comment_meta($comment->comment_ID, 'last_child_comment');
-    }
-    foreach ($comments as $comment) {
-        if ($comment->comment_ID == $commentId) continue;
-        setCommentDateMeta($comment->comment_ID);
+    if ($commentToDelete->comment_parent) {
+        setCommentDateMeta($commentToDelete->comment_parent);
     }
 }
 
