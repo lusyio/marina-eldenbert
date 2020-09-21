@@ -1620,7 +1620,7 @@ function woocommerce_comments($comment, $args, $depth)
         </div>
         <div class="d-flex justify-content-between">
             <div class="d-sm-block d-flex">
-                <?php wp_ulike_comments(); ?>
+                <?php if(function_exists('wp_ulike_comments')) wp_ulike_comments(); ?>
                 <?php
                 comment_reply_link(
                     array_merge(
