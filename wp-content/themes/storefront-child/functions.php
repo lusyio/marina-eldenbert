@@ -5346,7 +5346,7 @@ function me_custom_get_comment_link( $comment = null, $args = array() ) {
         $link = user_trailingslashit( $link, 'comment' );
     }
 
-    $link = $link . '?showComments=1#comment-' . $comment->comment_ID;
+    $link = $link . '#comment-' . $comment->comment_ID;
 
     /**
      * Filters the returned single comment permalink.
