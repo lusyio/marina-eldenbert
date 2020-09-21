@@ -19,6 +19,7 @@ Template Post Type: post, page, product
         $bookCategoryId = get_post_meta($post->ID, 'cat_id', true);
         $bookId = get_post_meta($post->ID, 'book_id', true);
         $book = wc_get_product($bookId);
+        $pageLink = get_page_link();
         if (isset($_GET['a'])) {
             $articleId = intval($_GET['a']);//This is page id or post id
             $content_post = get_post($articleId);
@@ -69,10 +70,23 @@ Template Post Type: post, page, product
         </div>
     </div>
     <div class="row">
+            <?php if(isset($_GET['showComments']) && $_GET['showComments'] == 1): ?>
         <div class="col-12">
-            <?php storefront_display_comments(); ?>
+        <?php storefront_display_comments(); ?>
         </div>
-    </div>
+            <?php else: ?>
+                <div class="col-lg-4 offset-lg-4 col-8 offset-2">
+                        <form method="get" action="">
+                            <input type="hidden" name="showComments" value="1">
+                            <?php foreach ($_GET as $key => $value):?>
+                            <?php if ($key == 'showComments') continue; ?>
+                                <input type="hidden" name="<?= $key ?>" value="<?= $value ?>">
+                            <?php endforeach;?>
+                            <button type="submit" class="mb-3 w-100">Показать комментарии</button>
+                        </form>
+                </div>
+            <?php endif; ?>
+</div>
 </div>
 
 <?php get_footer(); ?>
