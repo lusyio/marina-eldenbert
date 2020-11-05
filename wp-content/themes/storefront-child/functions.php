@@ -1559,6 +1559,10 @@ function my_theme_wrapper_start()
         echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__subscription">Подписка</span>';
         echo '</div>';
+    } elseif (in_array('exclusive', $tagSlugList)) {
+        echo '<div class="product-label-container">';
+        echo '<span class="product-label product-label__exclusive">Эксклюзив</span>';
+        echo '</div>';
     }
 }
 
