@@ -1546,22 +1546,21 @@ function my_theme_wrapper_start()
     foreach ($tags as $tag) {
         $tagSlugList[] = $tag->slug;
     }
-
-    if (in_array('bestseller', $tagSlugList)) {
+    if (in_array('exclusive', $tagSlugList)) {
         echo '<div class="product-label-container">';
-        echo '<span class="product-label product-label__bestseller">Бестселлер</span>';
+        echo '<span class="product-label product-label__exclusive">Эксклюзив</span>';
         echo '</div>';
     } elseif (in_array('new', $tagSlugList)) {
         echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__new">Новинка</span>';
         echo '</div>';
+    } elseif (in_array('bestseller', $tagSlugList)) {
+        echo '<div class="product-label-container">';
+        echo '<span class="product-label product-label__bestseller">Бестселлер</span>';
+        echo '</div>';
     } elseif (in_array('subscription', $tagSlugList)) {
         echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__subscription">Подписка</span>';
-        echo '</div>';
-    } elseif (in_array('exclusive', $tagSlugList)) {
-        echo '<div class="product-label-container">';
-        echo '<span class="product-label product-label__exclusive">Эксклюзив</span>';
         echo '</div>';
     }
 }
