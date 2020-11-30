@@ -3553,6 +3553,9 @@ function article_send_notification($new_status, $old_status, WP_Post $post)
                     // Авторский блог
                     newPostNotificationAdd($post->ID, 'new_blog');
                     break;
+                } elseif ($category->slug == 'club') {
+                    // Клуб
+                    newPostNotificationAdd($post->ID, 'vip_announcement');
                 }
             }
             newArticleNotificationAdd($post->ID);
@@ -3575,11 +3578,11 @@ add_action('transition_post_status', 'article_send_notification', 10, 3);
 
 function newPostNotificationAdd($postId, $type)
 {
-    $possibleTypes = ['news', 'announcement', 'new_book', 'subscribe_open', 'book_finish', 'sale_open', 'new_blog'];
+    $possibleTypes = ['news', 'announcement', 'new_book', 'subscribe_open', 'book_finish', 'sale_open', 'new_blog', 'vip_announcement'];
     if (!in_array($type, $possibleTypes)) {
         return;
     }
-    if (in_array($type, ['news', 'announcement', 'new_book', 'new_blog'])) {
+    if (in_array($type, ['news', 'announcement', 'vip_announcement', 'new_book', 'new_blog'])) {
         $users = get_users(['fields' => ['ID']]); // Отправляем всем
     } elseif ($type == 'subscribe_open') {
         $users = getUserIdsWithBookInLibrary($postId); // Отправляем тем у кого в библиотеке
@@ -3589,11 +3592,24 @@ function newPostNotificationAdd($postId, $type)
     } elseif ($type == 'sale_open') {
         $users = array_diff(getUserIdsWithBookInLibrary($postId), getCustomerIdsWhoBoughtBook($postId)); // у кого в библиотеке, кроме тех у кого куплена
         $users = array_unique($users);
+    } elseif ($type == 'vip_announcement') {
+        $ranks = mycred_get_ranks();
+        $platinumUsers = [];
+        foreach ($ranks as $rank) {
+            if ($rank->post->post_name == 'platinum-dragon') {
+                $rankId = $rank->post_id;
+                $platinumUsers = mycred_get_users_of_rank( $rankId, -1);
+                break;
+            }
+        }
+        $users = array_map(function ($user) {
+            return $user->ID;
+        }, $platinumUsers);
     }
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     foreach ($users as $user) {
-        if (in_array($type, ['news', 'announcement', 'new_book', 'new_blog'])) {
+        if (in_array($type, ['news', 'announcement', 'vip_announcement', 'new_book', 'new_blog'])) {
             $user = $user->ID;
         }
         if ($user == 0) {
@@ -3732,7 +3748,7 @@ function getNotificationCard($notification)
         $content = 'Новая книга - ' . $post->post_title;
         $icon = 'wp-content/themes/storefront-child/svg/book-new.svg';
         $isValid = true;
-    } elseif ($type == 'news' || $type == 'announcement' || $type == 'new_blog') {
+    } elseif ($type == 'news' || $type == 'announcement' || $type == 'new_blog' || $type == 'vip_announcement') {
         $link = get_permalink($notification->article_page_id);
         $post = get_post($notification->article_page_id);
         if ($type == 'news') {
@@ -3741,7 +3757,10 @@ function getNotificationCard($notification)
         } elseif ($type == 'announcement') {
             $content = 'Новый анонс - ' . $post->post_title;
             $icon = 'wp-content/themes/storefront-child/svg/guide.svg';
-        } else {
+        } elseif ($type == 'vip_announcement') {
+            $content = 'Новая запись в VIP-клубе - ' . $post->post_title;
+            $icon = 'wp-content/themes/storefront-child/svg/guide.svg';
+        }else {
             $content = 'Новая запись в блоге - ' . $post->post_title;
             $icon = 'wp-content/themes/storefront-child/svg/newspaper.svg';
         }
