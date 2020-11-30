@@ -1869,7 +1869,7 @@ add_filter('login_url', function ($link) {
  */
 function search_product($query)
 {
-    if ($query->is_search) {
+    if ($query->is_search && !is_admin()) {
         $query->set('post_type', 'product');
     }
     return $query;
