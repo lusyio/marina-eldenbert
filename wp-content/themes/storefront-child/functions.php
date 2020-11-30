@@ -3701,6 +3701,16 @@ function commentLikeNotificationAdd($commentId)
     $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, page_id, reply_user_id, comment_id, notification_date) VALUES (%d, %s, %d, %d, %d, NOW());", $userId, "like_comment", $pageId, $replyUserId, $commentId));
 }
 
+function changeBalanceNotificationAdd($userId, $amount)
+{
+    global $wpdb;
+    $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
+
+    $wpdb->get_row($wpdb->prepare("INSERT INTO {$table_name} (user_id, notification_type, page_id, notification_date) VALUES (%d, %s, %d, NOW());",
+        $userId, "change_balance", $amount));
+
+}
+
 
 // Возвращает все уведомления
 function getNotifications()
@@ -3857,6 +3867,15 @@ function getNotificationCard($notification)
             $icon = 'wp-content/themes/storefront-child/svg/like-notification.svg';
             $isValid = true;
         }
+    } elseif ($type == 'change_balance') {
+        $link = '#';
+        if ($notification->page_id > 0) {
+            $content = 'Вам начислено ' . $notification->page_id . ' баллов';
+        } else {
+            $content = 'У вас списано ' . abs($notification->page_id) . ' баллов';
+        }
+        $icon = 'wp-content/themes/storefront-child/svg/bell.svg';
+        $isValid = true;
     }
     if ($isValid):
         ob_start(); ?>
@@ -5398,9 +5417,10 @@ if (isset($_GET['updatecommentsmeta'])) {
     }
 }
 
-add_action('mycred_update_user_balance', function () {
+add_action('mycred_update_user_balance', function ($userId, $currentBalance, $amount, $type) {
     mycred_assign_ranks();
-});
+    changeBalanceNotificationAdd($userId, $amount);
+}, 20 , 4);
 
 add_action('personal_options', function ($user) {
     $args = array(
