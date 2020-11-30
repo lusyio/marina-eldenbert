@@ -5401,3 +5401,16 @@ if (isset($_GET['updatecommentsmeta'])) {
 add_action('mycred_update_user_balance', function () {
     mycred_assign_ranks();
 });
+
+add_action('personal_options', function ($user) {
+    $args = array(
+        'post_status'    => 'all',
+        'post_type'      => 'shop_order',
+        '_customer_user' => $user->ID,
+    );
+    printf(
+        '<a href="%s">%s</a>',
+        esc_url( add_query_arg( $args, admin_url( 'edit.php' ) ) ),
+        'Посмотреть заказы пользователя'
+    );
+});
