@@ -22,7 +22,7 @@ if (countNewNotifications() > 0):
         }?>
     <?php endforeach;
     if ($hasNew): ?>
-        <div class="notification-card" style="">
+        <div class="" style="">
             <div class="row">
                 <div class="col-lg-1 col-2">
                 </div>

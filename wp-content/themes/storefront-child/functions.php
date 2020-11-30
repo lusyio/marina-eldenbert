@@ -3696,7 +3696,7 @@ function getNotifications()
 
     global $wpdb;
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
-    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC;", $userId));
+    $notifications = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY notification_date DESC LIMIT 100;", $userId));
     return $notifications;
 }
 
@@ -3716,7 +3716,7 @@ function countNewNotifications()
     $userId = get_current_user_id();
     $table_name = $wpdb->get_blog_prefix() . 'me_notifications';
     $notifications = $wpdb->get_results($wpdb->prepare("SELECT COUNT(*) as `count` FROM {$table_name} WHERE user_id = %d AND view_status = 0;", $userId));
-    return $notifications[0]->count;
+    return ($notifications[0]->count > 100) ? 100 : $notifications[0]->count;
 }
 
 //Возвращает html-код карточки уведомления
@@ -5378,3 +5378,7 @@ if (isset($_GET['updatecommentsmeta'])) {
         }
     }
 }
+
+add_action('mycred_update_user_balance', function () {
+    mycred_assign_ranks();
+});
