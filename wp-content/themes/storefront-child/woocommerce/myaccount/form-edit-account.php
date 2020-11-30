@@ -24,7 +24,13 @@ do_action('woocommerce_before_edit_account_form'); ?>
 <div class="row">
     <div class="col">
         <fieldset class="bg-white">
-            <?php echo do_shortcode('[avatar_upload]'); ?>
+            <?php
+            ob_start();
+            echo do_shortcode('[avatar_upload]');
+            $output = ob_get_clean();
+            echo preg_replace('~>Upload<~', '>Загрузить аватар<', $output);
+            $output = null;
+            ?>
         </fieldset>
         <form class="woocommerce-EditAccountForm edit-account" action=""
               method="post" <?php do_action('woocommerce_edit_account_form_tag'); ?> >

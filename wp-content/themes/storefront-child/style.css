@@ -3,7 +3,7 @@ Theme Name:   	Richbee
 Author:       	Richbee
 Template:     	storefront
 Description:  	Дочерняя тема для storefront
-Version:      	1.0.41
+Version:      	1.0.42
 Theme URI:    https://richbee.ru/
 Author URI:   https://richbee.ru/
 
@@ -5750,12 +5750,9 @@ button.filter-btn.filter-btn-images {
 }
 
 button#wpua-upload-existing {
-    border: none;
-    padding: 0;
-    margin: 0;
+    margin: 10px 0;
     position: relative;
-    font-size: 0;
-    display: none !important;
+    font-size: 1.15rem;
 }
 
 button#wpua-upload-existing:hover {
