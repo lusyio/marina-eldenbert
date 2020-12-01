@@ -5418,8 +5418,10 @@ if (isset($_GET['updatecommentsmeta'])) {
 }
 
 add_action('mycred_update_user_balance', function ($userId, $currentBalance, $amount, $type) {
+    // пересчитываем ранги при изменении количества баллов
     mycred_assign_ranks();
-    changeBalanceNotificationAdd($userId, $amount);
+    // Добавляем уведомление о начислении или списании баллов
+    //changeBalanceNotificationAdd($userId, $amount);
 }, 20 , 4);
 
 add_action('personal_options', function ($user) {
