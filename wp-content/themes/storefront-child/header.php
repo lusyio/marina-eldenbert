@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="yandex-verification" content="9e80d18053519ed4"/>
     <meta name="interkassa-verification" content="041b99c37a6b4837f3fe5e5559864f9b"/>
+    <meta name="interkassa-verification" content="927d7e64104caf33dd13de20f242a6d0"/>
     <meta name="google-site-verification" content="dVQCJ0p00oGk_GZkiUkJ_KQYySviBlD6l7Nl3Ed4vvc"/>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="https://marina-eldenbert.ru/xmlrpc.php">
@@ -22,18 +23,18 @@
     <?php wp_head(); ?>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || [];
+            w[l] = w[l] || []
             w[l].push({
                 'gtm.start':
                     new Date().getTime(), event: 'gtm.js'
-            });
+            })
             var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''
+            j.async = true
             j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-N4TVJG5');</script>
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl
+            f.parentNode.insertBefore(j, f)
+        })(window, document, 'script', 'dataLayer', 'GTM-N4TVJG5')</script>
     <!-- End Google Tag Manager -->
 
 </head>
