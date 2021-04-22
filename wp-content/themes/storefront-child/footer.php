@@ -182,7 +182,13 @@
                     не достигшими 18 лет!
                 </p>
             </div>
-            <div class="col-12 offset-lg-2 offset-0 col-lg-6 text-center text-lg-right ">
+            <div class="col-12 col-lg-2">
+                <div class="footer-logos">
+                    <img src="/wp-content/themes/storefront-child/svg/visa.svg" alt="">
+                    <img src="/wp-content/themes/storefront-child/svg/ms.svg" alt="">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 text-center text-lg-right ">
                 <p class="footer-name-p">&copy; <a class="footer-name" href="https://marina-eldenbert.ru">Марина Эльденберт</a>, <?php echo date('Y'); ?></p>
                 <p class="mb-0 footer-credits d-block">
                     <a class="credits" href="https://richbee.ru/"
