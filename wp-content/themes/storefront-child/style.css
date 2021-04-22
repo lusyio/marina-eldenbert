@@ -722,6 +722,16 @@ article:last-of-type > hr.content-search__hr {
 # FOOTER
 --------------------------------------------------------------*/
 
+
+.footer-logos {
+    display: flex;
+}
+
+.footer-logos img {
+    max-height: 40px;
+    margin-right: 10px;
+}
+
 .socials img {
     -webkit-transition: 200ms;
     -moz-transition: 200ms;
