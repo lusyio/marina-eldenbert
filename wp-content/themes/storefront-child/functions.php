@@ -339,7 +339,7 @@ function storefront_page_content()
 add_filter('woocommerce_sale_flash', 'my_custom_sale_flash', 10, 3);
 function my_custom_sale_flash($text, $post, $_product)
 {
-    return '<span class="onsale">SALE!</span>';
+    return '';
 }
 
 // Колонки related
@@ -1561,6 +1561,10 @@ function my_theme_wrapper_start()
     } elseif (in_array('subscription', $tagSlugList)) {
         echo '<div class="product-label-container">';
         echo '<span class="product-label product-label__subscription">Подписка</span>';
+        echo '</div>';
+    } elseif (in_array('libnight', $tagSlugList)) {
+        echo '<div class="product-label-container">';
+        echo '<span class="product-label product-label__libnight">Библионочь</span>';
         echo '</div>';
     }
 }
