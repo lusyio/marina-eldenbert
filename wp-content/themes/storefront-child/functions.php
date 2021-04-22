@@ -1564,7 +1564,7 @@ function my_theme_wrapper_start()
         echo '</div>';
     } elseif (in_array('libnight', $tagSlugList)) {
         echo '<div class="product-label-container">';
-        echo '<span class="product-label product-label__libnight">Библионочь!</span>';
+        echo '<span class="product-label product-label__libnight">Библионочь</span>';
         echo '</div>';
     }
 }

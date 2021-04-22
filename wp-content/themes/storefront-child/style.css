@@ -860,6 +860,10 @@ footer.site-footer {
 # PRODUCT
 --------------------------------------------------------------*/
 
+.woocommerce-Price-amount {
+    white-space: nowrap;
+}
+
 .before-block .product-label {
     background: #FFFFFF;
     display: block;
@@ -874,6 +878,11 @@ footer.site-footer {
     left: -23%;
     top: 10%;
     z-index: 4;
+}
+
+.before-block .product-label.product-label__libnight {
+    background: #d22a2a;
+    color: #FFFFFF;
 }
 
 .before-block .product-label.product-label__subscription {
