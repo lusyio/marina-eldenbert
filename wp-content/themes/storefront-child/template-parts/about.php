@@ -13,9 +13,8 @@ Template Post Type: post, page, product
         <div class="col-lg-6 col-12 offset-lg-3 offset-0 wow fadeInUp"
              data-wow-delay="0s">
             <h1 class="page-title-about mt-0">Нас двое</h1>
-            <p class="after-title-about">С 2013 и до 2021 года мы писали только под одним псевдонимом — Марина Эльденберт
-С 2021 года мы взяли отдельные псевдонимы:
-Марина Индиви и Ксения Лита </p>
+            <p class="after-title-about">С 2013 и до 2021 года мы писали только под одним псевдонимом — Марина Эльденберт </p>
+            <p class="after-title-about">С 2021 года мы взяли отдельные псевдонимы: Марина Индиви и Ксения Лита </p>
         </div>
     </div>
     <div class="row">
@@ -37,8 +36,8 @@ Template Post Type: post, page, product
     <div class="row">
         <div class="col-lg-4 offset-lg-4 col-12-offset-0 wow fadeInUp"
              data-wow-delay="0s">
-            <p class="about-image-after">За эти восемь лет мы прошли действительно огромный путь
-Написали более 30 романов и открыли собственный сайт </p>
+            <p class="about-image-after">За эти восемь лет мы прошли действительно огромный путь </p>
+            <p class="about-image-after">Написали более 30 романов и открыли собственный сайт </p>
         </div>
     </div>
     <div class="row wow fadeInUp"
@@ -135,7 +134,7 @@ Template Post Type: post, page, product
                         <div class="about-card-body__text">
                             <p>
                               Сейчас в нашем творчестве открывается новая эпоха
-Если вы влюблены в наших героев и истории так же, как в них влюблены мы, или еще только хотите с ними познакомиться... 
+Если вы влюблены в наших героев и истории так же, как в них влюблены мы, или еще только хотите с ними познакомиться...
                             </p>
                             <p>
                                 Если вы хотите узнать нашу историю успеха...
