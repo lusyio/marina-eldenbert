@@ -13,7 +13,7 @@ Template Post Type: post, page, product
         <div class="col-lg-6 col-12 offset-lg-3 offset-0 wow fadeInUp"
              data-wow-delay="0s">
             <h1 class="page-title-about mt-0">Нас двое</h1>
-            <p class="after-title-about">С 2013 и до 2021 года мы писали только под одним псевдонимом — Марина Эльденберт </p>
+            <p class="after-title-about mb-3">С 2013 и до 2021 года мы писали только под одним псевдонимом — Марина Эльденберт </p>
             <p class="after-title-about">С 2021 года мы взяли отдельные псевдонимы: Марина Индиви и Ксения Лита </p>
         </div>
     </div>
@@ -36,7 +36,7 @@ Template Post Type: post, page, product
     <div class="row">
         <div class="col-lg-4 offset-lg-4 col-12-offset-0 wow fadeInUp"
              data-wow-delay="0s">
-            <p class="about-image-after">За эти восемь лет мы прошли действительно огромный путь </p>
+            <p class="about-image-after mb-3">За эти восемь лет мы прошли действительно огромный путь </p>
             <p class="about-image-after">Написали более 30 романов и открыли собственный сайт </p>
         </div>
     </div>
