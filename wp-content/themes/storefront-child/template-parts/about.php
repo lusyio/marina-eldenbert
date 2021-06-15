@@ -22,7 +22,7 @@ Template Post Type: post, page, product
              data-wow-delay="0s">
             <div class="about-image">
                 <img src="/wp-content/themes/storefront-child/images/marina-about.jpg" alt="">
-                <p class="about-image__text">Марина Кузина</p>
+                <p class="about-image__text">Марина Кузина.</p>
             </div>
         </div>
         <div class="col-lg-5 col-12 wow fadeInUp"
