@@ -43,8 +43,8 @@ Template Post Type: post, page, product
     <div class="row wow fadeInUp"
          data-wow-delay="0s">
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-            <p class="about-content">Написали <strong>26 романов</strong> <br>
-                ( + 2 в процессе написания)</p>
+            <p class="about-content">Написали <strong>книгу, взорвавшую Инстаграм</strong> («Бабочка», издательство
+                Clever, 2019 год)</p>
         </div>
         <div class="col-lg-5 col-12">
           <p class="about-content">Опубликовали <strong>26 книг</strong> в крупнейших издательствах России
@@ -52,16 +52,17 @@ Template Post Type: post, page, product
               ЭКСМО, Рипол)</p>
         </div>
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-          <p class="about-content">Стали <strong>победителем конкурса «Руны любви. Весна-лето 2016»</strong>
-              издательства АСТ («Заклятые
-              супруги. Золотая
-              мгла», июнь 2016 г.)</p>
+          <p class="about-content">Были номинированы на премию <strong>«Лучшая книга года»</strong> в жанре «Русское
+          фэнтези» («Бабочка»,
+          издательство Clever,
+          2019 г.)</p>
         </div>
         <div class="col-lg-5 col-12">
-            <p class="about-content">Были номинированы на премию <strong>«Лучшая книга года»</strong> в жанре «Русское
-                фэнтези» («Бабочка»,
-                издательство Clever,
-                2019 г.)</p>
+            <p class="about-content">Стали <strong>победителем конкурса «Руны любви. Весна-лето 2016»</strong>
+                издательства АСТ («Заклятые
+                супруги. Золотая
+                мгла», июнь 2016 г.)
+              </p>
         </div>
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
           <p class="about-content">Стали <strong>рекордсменом сайта Литнет</strong> по количеству проданных за сутки
