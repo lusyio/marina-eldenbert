@@ -47,14 +47,15 @@ Template Post Type: post, page, product
                 ( + 2 в процессе написания)</p>
         </div>
         <div class="col-lg-5 col-12">
-            <p class="about-content">Написали <strong>книгу, взорвавшую Инстаграм</strong> («Бабочка», издательство
-                Clever, 2019 год)
-            </p>
+          <p class="about-content">Опубликовали <strong>26 книг</strong> в крупнейших издательствах России
+              (Альфа-книга, Clever, АСТ,
+              ЭКСМО, Рипол)</p>
         </div>
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-            <p class="about-content">Опубликовали <strong>более 15 книг</strong> в крупнейших издательствах России
-                (Альфа-книга, Clever, АСТ,
-                ЭКСМО, Рипол)</p>
+          <p class="about-content">Стали <strong>победителем конкурса «Руны любви. Весна-лето 2016»</strong>
+              издательства АСТ («Заклятые
+              супруги. Золотая
+              мгла», июнь 2016 г.)</p>
         </div>
         <div class="col-lg-5 col-12">
             <p class="about-content">Были номинированы на премию <strong>«Лучшая книга года»</strong> в жанре «Русское
@@ -63,16 +64,10 @@ Template Post Type: post, page, product
                 2019 г.)</p>
         </div>
         <div class="col-lg-5 offset-lg-1 col-12 offset-0">
-            <p class="about-content">Стали <strong>победителем конкурса «Руны любви. Весна-лето 2016»</strong>
-                издательства АСТ («Заклятые
-                супруги. Золотая
-                мгла», июнь 2016 г.)</p>
-        </div>
-        <div class="col-lg-5 col-12">
-            <p class="about-content">Стали <strong>рекордсменом сайта Литнет</strong> по количеству проданных за сутки
-                книг («Поющая для
-                дракона. Между двух
-                огней», август 2017 г)</p>
+          <p class="about-content">Стали <strong>рекордсменом сайта Литнет</strong> по количеству проданных за сутки
+              книг («Поющая для
+              дракона. Между двух
+              огней», август 2017 г)</p>
         </div>
     </div>
     <div class="row">
@@ -133,7 +128,7 @@ Template Post Type: post, page, product
                     <div class="about-card-body">
                         <div class="about-card-body__text">
                             <p>
-                              Сейчас в нашем творчестве открывается новая эпоха
+                              Сейчас в нашем творчестве открывается новая эпоха.
 Если вы влюблены в наших героев и истории так же, как в них влюблены мы, или еще только хотите с ними познакомиться...
                             </p>
                             <p>
